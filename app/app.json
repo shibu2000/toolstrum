@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "Toolstrum",
+    "slug": "toolstrum",
+    "version": "1.0.0",
+    "scheme": "toolstrum",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.toolstrum.app",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Toolstrum saves edited videos to your photo library when you choose to."
+      }
+    },
+    "android": {
+      "package": "com.toolstrum.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0F172A",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "name": "Toolstrum",
+      "shortName": "Toolstrum"
+    },
+    "plugins": [
+      "expo-sharing",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "enableSceneSupport": true
+          }
+        }
+      ],
+      "expo-audio"
+    ]
+  }
+}

@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-calculator": "#FFF7E2", "outline": "#777587", "surface-audio": "#EAF2FF", "surface-image": "#E7F9F1", "surface-scanner": "#E6FAFD", "primary-fixed": "#e2dfff", "secondary-fixed": "#f0dbff", "primary-fixed-dim": "#c3c0ff", "on-primary-fixed-variant": "#311ed2", "inverse-surface": "#2c2f44", "surface-office": "#EEEDFF", "status-warning": "#F59E0B", "on-secondary-fixed": "#2c0051", "on-tertiary-fixed": "#001f26", "on-primary-container": "#fefaff", "background": "#fbf8ff", "surface-bright": "#fbf8ff", "surface-container-low": "#f4f2ff", "on-secondary": "#ffffff", "accent-coral": "#FF6B6B", "on-tertiary-container": "#f5fcff", "surface-developer": "#E8F7FF", "primary-container": "#625bff", "text-muted": "#64748B", "accent-orange": "#F97316", "status-error": "#DC2626", "accent-rose": "#EC4899", "on-primary-fixed": "#0e006a", "surface-productivity": "#FDEBF5", "tertiary-fixed-dim": "#4cd7f6", "status-success": "#16A34A", "on-error": "#ffffff", "on-background": "#171a2e", "surface-ai": "#F4EAFE", "on-tertiary-fixed-variant": "#004e5c", "error": "#ba1a1a", "on-secondary-fixed-variant": "#6900b3", "on-surface-variant": "#464555", "tertiary": "#006476", "on-tertiary": "#ffffff", "accent-blue": "#3B82F6", "surface-container-lowest": "#ffffff", "surface-container": "#edecff", "surface-container-high": "#e6e6ff", "surface": "#fbf8ff", "surface-container-highest": "#dfe0fc", "secondary": "#8127cf", "tertiary-fixed": "#acedff", "secondary-container": "#9c48ea", "surface-dim": "#d7d8f4", "surface-archive": "#EEF2F6", "surface-tint": "#4c42e9", "border-subtle": "#E2E8F0", "on-primary": "#ffffff", "accent-sky": "#0EA5E9", "error-container": "#ffdad6", "surface-white": "#FFFFFF", "accent-amber": "#F59E0B", "accent-emerald": "#10B981", "background-cloud": "#F7F8FC", "accent-teal": "#14B8A6", "tertiary-container": "#007f95", "on-error-container": "#93000a", "surface-variant": "#dfe0fc", "secondary-fixed-dim": "#ddb7ff", "surface-pdf": "#FFF0EF", "inverse-on-surface": "#f0efff", "surface-text": "#FFF1E7", "inverse-primary": "#c3c0ff", "outline-variant": "#c7c4d8", "on-secondary-container": "#fffbff", "surface-video": "#F5EAFF", "surface-web": "#E5FAF6", "on-surface": "#171a2e", "primary": "#483ee5" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "margin-sm": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem", "space-lg": "1.5rem", "gutter": "1rem", "space-md": "1rem", "space-xl": "2rem", "space-xs": "0.25rem" }, "fontFamily": { "title-sm": ["Inter"], "body-md": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-sm": ["Inter"], "caption": ["Inter"], "label-md": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "title-md": ["Inter"], "headline-md": ["Inter"] }, "fontSize": { "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-margin-sm flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Navigate back" class="w-11 h-11 flex items-center justify-center text-on-surface rounded-full hover:bg-surface-container-high transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pr-space-xs"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-office text-primary-container font-label-sm text-label-sm leading-none">Office Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate">Word Document Viewer &amp; Editor</h1></div></div><div class="flex items-center gap-0.5 shrink-0"><button aria-label="Add to favorites" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-accent-amber hover:bg-surface-container-high rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-background-cloud"><div class="flex flex-col w-full pb-8">
+<!-- Subtitle & Tool Context Banner -->
+<div class="px-margin pt-space-md pb-space-sm flex flex-col gap-1">
+<div class="flex items-center gap-space-xs text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-primary">description</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">Tool #155 · Office Studio</span>
+<span class="text-outline text-label-sm">•</span>
+<span class="font-label-sm text-label-sm text-text-muted">Plain Text Extractor</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">
+      Extract clean, readable plain text from Word documents with configurable paragraph breaks and bullet encodings.
+    </p>
+</div>
+<div class="px-margin flex flex-col gap-space-md">
+<!-- 1. Loaded File Card -->
+<div class="bg-surface-white rounded-xl p-margin-sm shadow-sm flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-office flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">article</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Legal_Service_Agreement_v2.docx</span>
+</div>
+<span class="font-caption text-caption text-text-muted mt-0.5">18 pages · 1.8 MB · Microsoft Word OOXML</span>
+</div>
+</div>
+<button class="shrink-0 h-9 px-3 bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md rounded-full flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">cached</span>
+<span>Replace</span>
+</button>
+</div>
+<div class="flex flex-wrap items-center gap-2 pt-1">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-office text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">analytics</span>
+          14,820 words detected
+        </span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-image text-status-success font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+          Healthy OOXML structure
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-archive text-text-muted font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+          Zero telemetry
+        </span>
+</div>
+</div>
+<!-- 2. Extraction Parameters Card -->
+<div class="bg-surface-white rounded-xl p-margin-sm shadow-sm flex flex-col gap-4">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-lg bg-surface-office flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[18px]">tune</span>
+</div>
+<h2 class="font-title-sm text-title-sm text-on-surface">Extraction Settings</h2>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Preset: Clean Standard</span>
+</div>
+<!-- Parameter 1: Paragraph Separators -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">format_paragraph</span>
+          Paragraph Separators
+        </label>
+<div class="grid grid-cols-1 gap-2">
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-primary accent-primary" name="para_sep" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Single Line Break</span>
+<span class="font-caption text-caption text-text-muted">Dense text; standard newline \n</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-office cursor-pointer">
+<input checked="" class="w-4 h-4 text-primary accent-primary" name="para_sep" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-medium">Double Line Break (Standard Paragraphs)</span>
+<span class="font-caption text-caption text-text-muted">Distinct spacing between blocks \n\n</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-primary accent-primary" name="para_sep" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Preserve Tab Indents</span>
+<span class="font-caption text-caption text-text-muted">Maintains first-line spacing &amp; indentation</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Parameter 2: List & Bullet Handling -->
+<div class="flex flex-col gap-2 pt-1">
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">format_list_bulleted</span>
+          List &amp; Bullet Handling
+        </label>
+<div class="grid grid-cols-1 gap-2">
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-office cursor-pointer">
+<input checked="" class="w-4 h-4 text-primary accent-primary" name="bullet_format" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-medium">ASCII Bullets (* and -)</span>
+<span class="font-caption text-caption text-text-muted">Universal Markdown-compatible bullet markers</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-primary accent-primary" name="bullet_format" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Numbered Plain Text (1., 2.)</span>
+<span class="font-caption text-caption text-text-muted">Sequential integer index representation</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-primary accent-primary" name="bullet_format" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Strip All Bullets</span>
+<span class="font-caption text-caption text-text-muted">Inline raw strings without prefix characters</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Parameter 3: Table Conversion Format -->
+<div class="flex flex-col gap-2 pt-1">
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">table_chart</span>
+          Table Conversion Format
+        </label>
+<div class="grid grid-cols-1 gap-2">
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-primary accent-primary" name="table_format" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Linearized Text with Delimiters</span>
+<span class="font-caption text-caption text-text-muted">Pipe separated inline cell representation</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-office cursor-pointer">
+<input checked="" class="w-4 h-4 text-primary accent-primary" name="table_format" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-primary font-medium">Aligned Tabular Plaintext</span>
+<span class="font-caption text-caption text-text-muted">Space-padded column layout for monospace reading</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors">
+<input class="w-4 h-4 text-primary accent-primary" name="table_format" type="radio">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface">Omit Table Data</span>
+<span class="font-caption text-caption text-text-muted">Bypass tables entirely from final stream</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Parameter 4: Character Encoding Selector -->
+<div class="flex flex-col gap-1.5 pt-1">
+<label class="font-label-md text-label-md text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-text-muted">code</span>
+          Character Encoding
+        </label>
+<div class="relative">
+<select class="w-full h-11 px-3 pr-9 rounded-lg bg-surface-container-low text-on-surface font-body-sm text-body-sm appearance-none focus:outline-none focus:bg-surface-container">
+<option selected="">UTF-8 Universal (Default)</option>
+<option>ASCII (Standard 7-bit)</option>
+<option>ISO-8859-1 (Latin-1)</option>
+<option>UTF-16 Little Endian</option>
+<option>Windows-1252 (ANSI)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 text-text-muted pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Parameter 5: Footnotes Checkbox -->
+<div class="pt-1">
+<label class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-4 h-4 rounded text-primary accent-primary" type="checkbox">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-medium">Include footnotes at bottom of document</span>
+<span class="font-caption text-caption text-text-muted">Appends 14 reference notes in order</span>
+</div>
+</label>
+</div>
+</div>
+<!-- 3. Live Extracted Plain Text Preview Box -->
+<div class="bg-surface-white rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-margin-sm py-3 bg-surface-container flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">preview</span>
+<span class="font-title-sm text-title-sm text-on-surface">Extracted Output Preview</span>
+</div>
+<!-- Wrap toggle -->
+<label class="flex items-center gap-2 cursor-pointer select-none">
+<span class="font-caption text-caption text-text-muted">Word wrap</span>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="wrapToggle" type="checkbox">
+<div class="w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:border-gray-300 after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+</div>
+<div class="p-3 bg-surface-container-low">
+<pre class="w-full h-44 p-3 bg-surface-white rounded-lg text-on-surface font-caption text-caption overflow-y-auto whitespace-pre-wrap select-all leading-relaxed" id="previewText">AGREEMENT OF SERVICES
+
+1. PARTIES
+This agreement is made between NovaCorp Inc. ("Client") and Quantum Logistics Solutions LLC ("Provider") on October 24, 2024.
+
+2. SCOPE OF SERVICES
+The Provider shall deliver enterprise cloud migration architecture and data governance advisory as set forth in Schedule A:
+* Assessment of legacy multi-region clusters
+* Real-time indexing of unstructured documentation
+* Automated failover replication policies
+- Performance benchmark SLA validation
+
+3. COMPENSATION &amp; TERMS
+* Total fixed fee: $148,000 USD payable across milestones.
+* Net 30 terms upon delivery acceptance.
+
+[Footnotes]
+[1] Schedule A reflects ISO/IEC 27001 regulatory compliance requirements.</pre>
+</div>
+<div class="px-margin-sm py-2 bg-surface-container-low flex items-center justify-between text-text-muted font-caption text-caption">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-success inline-block"></span>
+<span>Buffer updated 2s ago</span>
+</div>
+<button class="text-primary hover:underline font-label-sm text-label-sm flex items-center gap-1" onclick="navigator.clipboard.writeText(document.getElementById('previewText').innerText)" type="button">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+          Copy Snippet
+        </button>
+</div>
+</div>
+<!-- 4. Primary Action Button -->
+<button class="w-full h-12 bg-primary hover:bg-primary-container text-on-primary font-title-sm text-title-sm rounded-xl shadow-md flex items-center justify-center gap-2 transition-all active:scale-[0.99]" type="button">
+<span class="material-symbols-outlined text-[20px]">file_download</span>
+<span>Convert to TXT (UTF-8)</span>
+</button>
+<!-- 5. Conversion Completed State Card -->
+<div class="bg-surface-white rounded-xl p-margin-sm shadow-sm flex flex-col gap-3.5">
+<!-- Success Badge -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-image text-status-success">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md font-semibold">Extraction Completed in 0.18s</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-white text-status-success font-medium">100% On-Device</span>
+</div>
+<!-- Output File Details -->
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-office flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[22px]">text_snippet</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">Legal_Service_Agreement_v2.txt</span>
+<div class="flex items-center gap-1.5 text-text-muted font-caption text-caption mt-0.5">
+<span>68.4 KB</span>
+<span>•</span>
+<span>14,820 words</span>
+<span>•</span>
+<span>86,410 chars</span>
+</div>
+</div>
+</div>
+<span class="shrink-0 px-2 py-0.5 rounded bg-surface-white text-primary font-label-sm text-label-sm font-semibold uppercase">TXT</span>
+</div>
+<!-- Multi-action Buttons -->
+<div class="grid grid-cols-1 gap-2 pt-1">
+<button class="w-full h-11 bg-primary text-on-primary font-label-md text-label-md rounded-lg flex items-center justify-center gap-2 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Save TXT to Device</span>
+</button>
+<div class="grid grid-cols-2 gap-2">
+<button class="h-10 bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md rounded-lg flex items-center justify-center gap-1.5 transition-colors" onclick="navigator.clipboard.writeText(document.getElementById('previewText').innerText)" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">content_copy</span>
+<span>Copy All Text</span>
+</button>
+<button class="h-10 bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md rounded-lg flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">share</span>
+<span>Share TXT</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for word wrap toggling
+  const wrapToggle = document.getElementById('wrapToggle');
+  const previewText = document.getElementById('previewText');
+  if (wrapToggle && previewText) {
+    wrapToggle.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        previewText.classList.remove('whitespace-pre');
+        previewText.classList.add('whitespace-pre-wrap');
+      } else {
+        previewText.classList.remove('whitespace-pre-wrap');
+        previewText.classList.add('whitespace-pre');
+      }
+    });
+  }
+</script></main></body></html>

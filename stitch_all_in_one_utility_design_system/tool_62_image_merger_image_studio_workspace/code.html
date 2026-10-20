@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fbf8ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-productivity": "#FDEBF5", "surface-container-highest": "#dfe0fc", "surface-audio": "#EAF2FF", "on-surface": "#171a2e", "surface-dim": "#d7d8f4", "inverse-on-surface": "#f0efff", "accent-rose": "#EC4899", "surface-video": "#F5EAFF", "error": "#ba1a1a", "accent-coral": "#FF6B6B", "status-success": "#16A34A", "on-primary": "#ffffff", "surface-white": "#FFFFFF", "secondary": "#8127cf", "surface-pdf": "#FFF0EF", "status-error": "#DC2626", "surface-ai": "#F4EAFE", "primary-container": "#625bff", "text-muted": "#64748B", "surface-archive": "#EEF2F6", "surface-container-high": "#e6e6ff", "tertiary-fixed-dim": "#4cd7f6", "surface-web": "#E5FAF6", "tertiary": "#006476", "background": "#fbf8ff", "on-primary-fixed-variant": "#311ed2", "accent-orange": "#F97316", "on-surface-variant": "#464555", "surface-container-lowest": "#ffffff", "surface-office": "#EEEDFF", "surface-scanner": "#E6FAFD", "on-error-container": "#93000a", "on-background": "#171a2e", "surface-bright": "#fbf8ff", "on-error": "#ffffff", "primary": "#483ee5", "on-tertiary": "#ffffff", "primary-fixed": "#e2dfff", "secondary-fixed-dim": "#ddb7ff", "status-warning": "#F59E0B", "accent-amber": "#F59E0B", "on-tertiary-container": "#f5fcff", "on-primary-container": "#fefaff", "on-tertiary-fixed-variant": "#004e5c", "tertiary-container": "#007f95", "on-secondary-container": "#fffbff", "border-subtle": "#E2E8F0", "on-secondary-fixed": "#2c0051", "on-tertiary-fixed": "#001f26", "secondary-fixed": "#f0dbff", "tertiary-fixed": "#acedff", "surface-calculator": "#FFF7E2", "error-container": "#ffdad6", "surface-developer": "#E8F7FF", "background-cloud": "#F7F8FC", "outline-variant": "#c7c4d8", "accent-sky": "#0EA5E9", "primary-fixed-dim": "#c3c0ff", "accent-emerald": "#10B981", "accent-teal": "#14B8A6", "on-primary-fixed": "#0e006a", "surface-tint": "#4c42e9", "surface-container": "#edecff", "on-secondary-fixed-variant": "#6900b3", "surface-container-low": "#f4f2ff", "surface-text": "#FFF1E7", "surface": "#fbf8ff", "inverse-primary": "#c3c0ff", "surface-image": "#E7F9F1", "secondary-container": "#9c48ea", "accent-blue": "#3B82F6", "outline": "#777587", "on-secondary": "#ffffff", "surface-variant": "#dfe0fc", "inverse-surface": "#2c2f44" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-sm": "1rem", "space-lg": "1.5rem", "gutter-sm": "0.75rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-sm": "0.5rem" }, fontFamily: { "headline-sm": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "title-sm": ["Inter"], "caption": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"] }, fontSize: { "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Navigate Back" class="w-12 h-12 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold tracking-wide"><span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span>Image Studio</span></div><h1 class="font-title-sm text-title-sm font-semibold text-on-surface truncate">Image Converter</h1></div></div><div class="flex items-center gap-0.5 shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-accent-amber hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="ml-1"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-8">
+<div class="flex flex-col gap-space-sm pt-2 mb-space-md">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-image text-accent-emerald font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px]">join_inner</span>
+        Tool #62 · Image Studio
+      </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-accent-emerald">view_column</span>
+        Seamless Canvas Joiner
+      </span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Image Merger</h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-1 leading-snug">
+        Stitch multiple images into a continuous vertical scroll, horizontal panorama, or side-by-side comparison without template borders.
+      </p>
+</div>
+</div>
+<div class="flex flex-col gap-space-sm mb-space-lg">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface">Images in Sequence</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">3 files</span>
+</div>
+<div class="flex items-center gap-1 text-accent-emerald font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">swap_vert</span>
+        Reorder Sequence
+      </div>
+</div>
+<div class="flex flex-col gap-2.5" id="merge-sequence-queue">
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-3 flex items-center justify-between gap-3 transition-transform active:scale-[0.99]">
+<div class="flex items-center gap-3 min-w-0 flex-1">
+<div class="relative shrink-0">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="High-resolution architectural photography of a modern east wing gallery interior with polished concrete floors, natural skylights, and sweeping white minimalist curved walls under clean morning daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-JlMIxEaucPQ-NIBnaXMO0NH_IIhtv1vkB-HamYtSg-mlQJlIGMD6lFExjRpB3xOMvd_wDpcst2YpiVLAFHG-7F9xVqX9kBl-1lWAlLiQ6ac8AqA0AxdUoDZ0Gpq6qkqpFvV2hMAQ9fC2YL0zoLilEfDVOUByagkTPxerxurvy4pEjxg5pECoX7sUKyUhDMPpGL3M_R4UKgGE8MYeAfoIGbEBAxYwSTUOTSITrfYkCKh6_e4_gp-NqA"/>
+</div>
+<span class="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-accent-emerald text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">1</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Panorama_East_Wing.jpg</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-caption text-caption text-text-muted">2048 × 1536 px</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-caption text-caption text-text-muted">2.1 MB</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-0.5 shrink-0">
+<button aria-label="Move item down" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span>
+</button>
+<button aria-label="Remove item" class="w-10 h-10 rounded-full flex items-center justify-center text-status-error/80 hover:bg-surface-pdf active:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-3 flex items-center justify-between gap-3 transition-transform active:scale-[0.99]">
+<div class="flex items-center gap-3 min-w-0 flex-1">
+<div class="relative shrink-0">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Center atrium interior photography with massive open glass ceiling, symmetrical architectural walkways, visitors silhouettes, and seamless horizontal perspective matching adjacent wing view." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdM9bWR2skNCWcolfJ2lN12XERxHhAk_YP0o70lbj7gA_dpekNY-jyW9pAAA_KPCRKRqrXps1eGpvgS6tSwe_dyH-Y3ljeMMqC3KRoFJHub48R7OmmqKAsBlPV6Kf8G24JMJu3UqTld7St7JW1811QzO730Fd4mV7PU7e_0gmm7YR6JpePupkNt_n6gEzpQdOalpJyZwyXg5IHhk4hZiuWcBbSsE2NVHoMIL9YD8DOED-qzWOcYRZsfg"/>
+</div>
+<span class="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-accent-emerald text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">2</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Panorama_Center_Atrium.jpg</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-caption text-caption text-text-muted">2048 × 1536 px</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-caption text-caption text-text-muted">2.4 MB</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-0.5 shrink-0">
+<button aria-label="Move item up" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">keyboard_arrow_up</span>
+</button>
+<button aria-label="Move item down" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">keyboard_arrow_down</span>
+</button>
+<button aria-label="Remove item" class="w-10 h-10 rounded-full flex items-center justify-center text-status-error/80 hover:bg-surface-pdf active:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-3 flex items-center justify-between gap-3 transition-transform active:scale-[0.99]">
+<div class="flex items-center gap-3 min-w-0 flex-1">
+<div class="relative shrink-0">
+<div class="w-12 h-12 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="West wing architectural gallery wing matching elevation view, floor-to-ceiling glass panoramic facade displaying landscaped exterior trees and soft ambient gallery spotlighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaf5br-JAPUlyfadTRp-EGRXI5chhUyR7MXsWYn2Is1vjeLKIDybozVOSICfoVWm-dqStYbu-SzgyVxLtajIU6RtGeYz-FFP5fKJ1-AzeJ-pu0KEEOuDNYlkjTYuv2v_LOUKr5PPYsvKBcCFUPTPsWSBoZYjfrc5UzxVyx5KdTTUe3bxE7df3DiUnDOrRKl5Mgiqyf8oFpzwbA1DfFcKl6hUou6tQY2Dy_sT2MbCbTRBI1ZWKKYrhusg"/>
+</div>
+<span class="absolute -top-1.5 -left-1.5 w-5 h-5 rounded-full bg-accent-emerald text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center shadow-sm">3</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Panorama_West_Wing.jpg</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="font-caption text-caption text-text-muted">2048 × 1536 px</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="font-caption text-caption text-text-muted">1.9 MB</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-0.5 shrink-0">
+<button aria-label="Move item up" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]">keyboard_arrow_up</span>
+</button>
+<button aria-label="Remove item" class="w-10 h-10 rounded-full flex items-center justify-center text-status-error/80 hover:bg-surface-pdf active:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<button class="w-full min-h-[50px] rounded-xl bg-surface-container-low hover:bg-surface-container active:bg-surface-container-high flex items-center justify-center gap-2 text-primary font-title-sm text-title-sm transition-colors py-3 px-4">
+<span class="material-symbols-outlined text-[20px]">add_photo_alternate</span>
+<span>Add Another Image to Seam</span>
+</button>
+</div>
+<div class="bg-surface-white rounded-xl shadow-sm p-4 flex flex-col gap-4 mb-space-lg">
+<div class="flex items-center justify-between pb-1">
+<h3 class="font-title-sm text-title-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+        Merge Canvas Parameters
+      </h3>
+<span class="font-label-sm text-label-sm text-text-muted">Lossless Stitch</span>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Stitch Direction & Orientation</label>
+<div class="grid grid-cols-2 gap-2 p-1 bg-surface-container-low rounded-xl">
+<button class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-surface-white shadow-sm text-primary font-title-sm text-title-sm transition-all" id="btn-stitch-h">
+<span class="material-symbols-outlined text-[18px]">panorama_horizontal</span>
+<span>Horizontal Panorama</span>
+</button>
+<button class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-on-surface-variant font-title-sm text-title-sm hover:text-on-surface transition-all" id="btn-stitch-v">
+<span class="material-symbols-outlined text-[18px]">panorama_vertical</span>
+<span>Vertical Scroll</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Dimension Alignment Strategy</label>
+<span class="font-label-sm text-label-sm text-accent-emerald font-medium">Height Synced</span>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2 p-2.5 rounded-xl bg-surface-container text-on-surface">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">check_circle</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold">Match Heights (Scale Proportionally)</span>
+<span class="font-caption text-caption text-text-muted">Standardizes cross-section at 1536 px while keeping natural aspect ratios</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-0.5">
+<button class="text-left p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-caption text-caption transition-colors">
+            Preserve Native Pixels
+          </button>
+<button class="text-left p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant font-caption text-caption transition-colors">
+            Stretch Outer Boundaries
+          </button>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md font-semibold text-on-surface">Seam Gap Spacing</label>
+<span class="font-label-sm text-label-sm text-accent-emerald font-semibold bg-surface-image px-2 py-0.5 rounded-full">0 px (Seamless Continuous)</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[18px] text-text-muted">compress</span>
+<input class="w-full accent-primary h-1.5 bg-surface-container rounded-lg cursor-pointer" max="24" min="0" type="range" value="0"/>
+<span class="font-caption text-caption text-text-muted shrink-0 w-8 text-right">0 px</span>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<button class="px-2.5 py-1 rounded-md bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold">0 px (Joined)</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container">1 px Hairline</button>
+<button class="px-2.5 py-1 rounded-md bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container">2 px Boundary</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Canvas Edge Background</span>
+<span class="font-caption text-caption text-text-muted">Fill tone for irregular edges</span>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Transparent checkered" class="w-8 h-8 rounded-full bg-surface-container-high shadow-sm ring-2 ring-primary flex items-center justify-center overflow-hidden">
+<svg class="w-full h-full opacity-60" viewbox="0 0 16 16">
+<rect fill="#e2e8f0" height="8" width="8"></rect>
+<rect fill="#e2e8f0" height="8" width="8" x="8" y="8"></rect>
+<rect fill="#ffffff" height="8" width="8" x="8"></rect>
+<rect fill="#ffffff" height="8" width="8" y="8"></rect>
+</svg>
+</button>
+<button aria-label="Solid White" class="w-8 h-8 rounded-full bg-surface-white shadow-sm flex items-center justify-center">
+<span class="w-3 h-3 rounded-full bg-surface-container"></span>
+</button>
+<button aria-label="Solid Black" class="w-8 h-8 rounded-full bg-on-surface shadow-sm"></button>
+</div>
+</div>
+</div>
+<div class="bg-surface-white rounded-xl shadow-sm p-4 flex flex-col gap-3 mb-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-emerald text-[20px]">panorama</span>
+<span class="font-title-sm text-title-sm text-on-surface">Live Stitch Preview</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-web text-tertiary font-label-sm text-label-sm font-semibold">1:1 Seam Realtime</span>
+</div>
+<div class="relative w-full rounded-xl overflow-hidden bg-surface-container-low">
+<div class="w-full overflow-x-auto pb-1">
+<div class="flex items-stretch min-w-[560px] h-36 relative">
+<div class="relative flex-1 group">
+<img class="w-full h-full object-cover" data-alt="West segment of wide continuous architecture vista interior with panoramic wide-angle capture of sleek glass facade." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTACQ6hSvC-S2cduBGHRnKNrfaAhLVF7Z4EGYBJw5yDl7E2b9rdjxcFXzTlM7UPNP-NoU6KIpkj648DZnwVkxH56aTsPQ8V9fs_t6TgF5NxyixK84QhWG7Y2Cnjb4Rw7HY8koVHLJKRafyp_7IsZ0uR8xL9C4IR_QvwtozuvKTHYDqcwzHbvndy6QEerxX3pvIuPWQzSMQs7NjN4Q_WUm_eb8n8DhUnY0uucSeVqDv7bnYELZp9icIUw"/>
+<span class="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-on-surface/80 text-surface-white font-label-sm text-label-sm backdrop-blur-sm">Segment 1</span>
+</div>
+<div class="w-[2px] bg-accent-emerald/80 relative z-10 flex flex-col items-center justify-center">
+<div class="w-3.5 h-3.5 -mx-1.5 rounded-full bg-accent-emerald text-on-primary flex items-center justify-center text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[10px]">drag_indicator</span>
+</div>
+</div>
+<div class="relative flex-1 group">
+<img class="w-full h-full object-cover" data-alt="Central atrium perspective continuation matching gallery horizon lines and matching concrete flooring seamlessly." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABgJhzgNwGwYBvqrShgzaNfoVHXJrtu0OHnhqLSOBq-9070-2kFxGeeBDpIxHnz44xYAn0aQoVAwzxusGak3uK4eTf2_gyIrtwYMT9aOaDMA1IYMuF4gkiX-zasSF90f8JBsid1w2FfoIi6yTm6CthO4R5J4-GnfUlVl3tcA3UlACN5QR-s_Ijhxrvldr6FYGmqKMPFOrN7tSV_6VYUYR-f9hvqmunUufgArq0AGWxGwT8r-QcAUjP1w"/>
+<span class="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-on-surface/80 text-surface-white font-label-sm text-label-sm backdrop-blur-sm">Segment 2</span>
+</div>
+<div class="w-[2px] bg-accent-emerald/80 relative z-10 flex flex-col items-center justify-center">
+<div class="w-3.5 h-3.5 -mx-1.5 rounded-full bg-accent-emerald text-on-primary flex items-center justify-center text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[10px]">drag_indicator</span>
+</div>
+</div>
+<div class="relative flex-1 group">
+<img class="w-full h-full object-cover" data-alt="East wing architectural culmination showing complementary horizontal skyline through high windows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNvUp2L0WtdnN_EwXXm8jekMV5q5mG2uG-5gYGZbfoyPzRiKRCik7h2DDL1CABlE6YmvkLZ0jX2cjlEFV_JiuchGId-Qim4cjnDFaasS7_Caf2k95IcTAIyATprwlsTfjJqqRyEIl7S-iCCA3UKXxXNVDcqmnMG1NO_5xtXcVDm526dGYnll8TD4qIWTK_fuWS-NDEP_tcPJzxxoiSw6wZAKQmzIZUvcm-xBbJd_a2KNxNnPbv9DmdfA"/>
+<span class="absolute bottom-2 left-2 px-1.5 py-0.5 rounded bg-on-surface/80 text-surface-white font-label-sm text-label-sm backdrop-blur-sm">Segment 3</span>
+</div>
+</div>
+</div>
+<div class="p-2.5 bg-surface-container flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">aspect_ratio</span>
+<span class="font-label-md text-label-md font-semibold">6144 × 1536 px</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Ultra-Wide 4:1 Strip</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mb-space-lg">
+<button class="w-full h-14 rounded-xl bg-primary-container hover:bg-primary active:scale-[0.99] text-on-primary font-title-md text-title-md font-semibold shadow-md flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined text-[22px]">auto_awesome</span>
+<span>Merge 3 Images (6144 × 1536 px)</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-text-muted font-caption text-caption text-center">
+<span class="material-symbols-outlined text-[14px] text-accent-emerald">security</span>
+<span>Lossless pixel-array buffer joining on-device · No compression artifacts</span>
+</div>
+</div>
+<div class="bg-surface-white rounded-xl shadow-sm p-4 flex flex-col gap-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-image flex items-center justify-center text-accent-emerald">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Merged Panorama Ready</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold">100% Quality</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low">
+<div class="w-16 h-12 rounded-lg overflow-hidden bg-surface-container shrink-0">
+<img class="w-full h-full object-cover" data-alt="Unified composite panoramic image showing seamless uninterrupted architectural interior gallery vista." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAk6b5skMw9dWecOmiryXGU5gMJtxWJt23htw6rI4F1OHi0xMu7FGfurmFFbFm9nG__ZiqBktHPtRDX2QCC9HjkP2vNCMYVeD8h5M_bolxioWR4DHShKBCMEKS2vw8k61_l8kNav-OKM1DvKp3Hm_70_kqvwAF04XCDmcu1QeAaKknFUoyh-cNP5cxBUZ3z8vBJCwRKFa8hFJhRWkU-WSTMDDtlWLk988bcfc711Y8p5PoOEfsZocUv4w"/>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Panorama_Joined_EastToWest.png</span>
+<div class="flex items-center gap-2 mt-0.5 text-text-muted font-caption text-caption">
+<span>6144 × 1536 px</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>7.8 MB Lossless PNG</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="h-12 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm font-medium flex items-center justify-center gap-2 active:bg-on-primary-fixed-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span>Save to Photos</span>
+</button>
+<button class="h-12 rounded-xl bg-surface-container-high text-on-surface font-title-sm text-title-sm font-medium flex items-center justify-center gap-2 hover:bg-surface-container active:scale-[0.99] transition-all">
+<span class="material-symbols-outlined text-[18px]">share</span>
+<span>Share Panorama</span>
+</button>
+</div>
+<button class="w-full h-11 rounded-xl bg-surface-container-low text-primary font-title-sm text-title-sm font-medium flex items-center justify-center gap-1.5 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span>Merge More Images</span>
+</button>
+</div>
+</div>
+<script>
+  (function() {
+    const btnH = document.getElementById('btn-stitch-h');
+    const btnV = document.getElementById('btn-stitch-v');
+    if (!btnH || !btnV) return;
+
+    btnH.addEventListener('click', () => {
+      btnH.className = 'flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-surface-white shadow-sm text-primary font-title-sm text-title-sm transition-all';
+      btnV.className = 'flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-on-surface-variant font-title-sm text-title-sm hover:text-on-surface transition-all';
+    });
+
+    btnV.addEventListener('click', () => {
+      btnV.className = 'flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg bg-surface-white shadow-sm text-primary font-title-sm text-title-sm transition-all';
+      btnH.className = 'flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-on-surface-variant font-title-sm text-title-sm hover:text-on-surface transition-all';
+    });
+  })();
+</script></main></body></html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary-container": "#f5fcff", "tertiary-container": "#007f95", "on-surface": "#171a2e", "accent-emerald": "#10B981", "on-surface-variant": "#464555", "surface-container": "#edecff", "secondary-fixed": "#f0dbff", "surface-text": "#FFF1E7", "on-primary-fixed-variant": "#311ed2", "surface-bright": "#fbf8ff", "surface-tint": "#4c42e9", "surface-variant": "#dfe0fc", "on-secondary-fixed-variant": "#6900b3", "background-cloud": "#F7F8FC", "on-secondary-container": "#fffbff", "inverse-primary": "#c3c0ff", "surface-container-highest": "#dfe0fc", "surface-container-high": "#e6e6ff", "on-primary-fixed": "#0e006a", "surface-pdf": "#FFF0EF", "surface-developer": "#E8F7FF", "on-secondary-fixed": "#2c0051", "surface-video": "#F5EAFF", "on-tertiary-fixed": "#001f26", "surface-container-lowest": "#ffffff", "accent-teal": "#14B8A6", "surface-container-low": "#f4f2ff", "outline": "#777587", "outline-variant": "#c7c4d8", "error-container": "#ffdad6", "surface": "#fbf8ff", "on-error-container": "#93000a", "surface-calculator": "#FFF7E2", "status-success": "#16A34A", "surface-audio": "#EAF2FF", "accent-amber": "#F59E0B", "primary": "#483ee5", "status-error": "#DC2626", "surface-ai": "#F4EAFE", "on-background": "#171a2e", "surface-white": "#FFFFFF", "surface-web": "#E5FAF6", "accent-rose": "#EC4899", "surface-archive": "#EEF2F6", "surface-office": "#EEEDFF", "primary-fixed-dim": "#c3c0ff", "tertiary-fixed": "#acedff", "accent-sky": "#0EA5E9", "secondary-container": "#9c48ea", "inverse-surface": "#2c2f44", "tertiary": "#006476", "primary-container": "#625bff", "secondary-fixed-dim": "#ddb7ff", "on-tertiary": "#ffffff", "on-error": "#ffffff", "surface-scanner": "#E6FAFD", "error": "ba1a1a", "on-primary": "#ffffff", "surface-dim": "#d7d8f4", "on-tertiary-fixed-variant": "#004e5c", "secondary": "#8127cf", "accent-orange": "#F97316", "accent-coral": "#FF6B6B", "background": "#fbf8ff", "primary-fixed": "#e2dfff", "status-warning": "#F59E0B", "surface-image": "#E7F9F1", "text-muted": "#64748B", "border-subtle": "#E2E8F0", "on-primary-container": "#fefaff", "on-secondary": "#ffffff", "surface-productivity": "#FDEBF5", "accent-blue": "#3B82F6", "tertiary-fixed-dim": "#4cd7f6", "inverse-on-surface": "#f0efff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-md": "1rem", "margin": "1.25rem", "space-sm": "0.5rem", "gutter-sm": "0.75rem", "gutter": "1rem", "space-xs": "0.25rem", "margin-sm": "1rem", "space-xl": "2rem", "space-lg": "1.5rem" }, fontFamily: { "body-md": ["Inter"], "headline-md": ["Inter"], "caption": ["Inter"], "headline-lg-mobile": ["Inter"], "title-md": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"], "title-sm": ["Inter"], "label-sm": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"] }, fontSize: { "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "caption": ["12px", { lineHeight: "16px", fontWeight: "400" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-background-cloud/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Go back" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pr-space-xs"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-video text-secondary font-label-sm text-label-sm font-semibold tracking-wide uppercase">Video Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate tracking-tight">Video Compressor</h1></div></div><div class="flex items-center gap-1 flex-shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-amber hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 ml-space-xs rounded-full bg-primary flex items-center justify-center shadow-sm flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-background-cloud min-h-screen"><div class="flex flex-col w-full pb-safe">
+<div class="px-margin pt-space-md flex flex-col gap-space-lg">
+<!-- Tool Meta & Badge Row -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-video text-secondary font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[14px]">subtitles</span>
+          Tool #116 · Video Studio
+        </span>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+          SRT / VTT Synced Engine
+        </span>
+</div>
+<div class="mt-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold tracking-tight">Subtitle Editor</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Create, time-align, and synchronize multi-language subtitle tracks with live preview.</p>
+</div>
+</div>
+<!-- Source Video Card -->
+<div class="bg-surface-white rounded-2xl p-space-md shadow-[0_2px_12px_rgba(23,26,46,0.04)] flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-video text-secondary flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[24px]">movie</span>
+</div>
+<div class="min-w-0 flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface truncate font-semibold">Interview_Product_Demo_4K.mp4</span>
+<span class="font-caption text-caption text-text-muted flex items-center gap-1.5 mt-0.5">
+<span>03:24 duration</span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>1080p 60fps</span>
+<span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>412 MB</span>
+</span>
+</div>
+</div>
+<button class="h-9 px-3 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md font-medium hover:bg-surface-container active:bg-surface-variant transition-colors flex items-center gap-1 flex-shrink-0" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+          Replace
+        </button>
+</div>
+<div class="flex items-center gap-space-xs pt-1">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-web text-tertiary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">graphic_eq</span>
+          Audio Waveform Detected
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">translate</span>
+          English (Original)
+        </span>
+</div>
+</div>
+<!-- Video Preview Player with Subtitle Overlay -->
+<div class="bg-surface-white rounded-2xl overflow-hidden shadow-[0_4px_16px_rgba(23,26,46,0.06)] flex flex-col">
+<!-- 16:9 Video Box -->
+<div class="relative w-full aspect-video bg-inverse-surface overflow-hidden group">
+<img class="w-full h-full object-cover opacity-90" data-alt="A modern product designer tech presenter standing on an aesthetic minimalist studio stage speaking into a wireless mic with soft ambient violet key lighting and crisp cinematic 4k depth of field" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBB6zXpyW6nUhazvS2EgySG8xKrDBlHA4wLtBtKRJ5e1FVEqg46aUnSB9KngRAxC-BbYunvJywPl3_NO01yoEVkVqhHNi4meBW0OWTTjruzt0K_-dy4q0nXEDJ6yBZO9lIcldZy54Klqf-_md3aEtb_anKAfT2UXjJwbpCgK2gn5Vmx-vmY8TopKWkedA73oEVrVubIiSNYhSUP_AAQ_DSqk4QbcHU3Te94kTBYbHw5hE2Cjg2AVfc3Yg"/>
+<!-- Burning Live Subtitle Overlay -->
+<div class="absolute bottom-5 inset-x-4 flex justify-center pointer-events-none z-10">
+<div class="bg-on-surface/85 backdrop-blur-sm text-surface-white px-4 py-1.5 rounded-lg text-center max-w-[92%] shadow-md">
+<p class="font-title-sm text-title-sm font-medium tracking-wide" id="liveSubtitleDisplay">
+              Welcome everyone, today we unveil our revolutionary engine.
+            </p>
+</div>
+</div>
+<!-- Player Top Overlay Info -->
+<div class="absolute top-2.5 left-3 right-3 flex items-center justify-between text-surface-white text-caption font-caption z-10">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-inverse-surface/60 backdrop-blur-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success animate-pulse"></span>
+            Preview Ready
+          </span>
+<button aria-label="Fullscreen" class="w-8 h-8 rounded-full bg-inverse-surface/60 backdrop-blur-xs flex items-center justify-center text-surface-white hover:bg-inverse-surface/80 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+</div>
+</div>
+<!-- Player Controls Bar -->
+<div class="p-space-sm bg-surface-white flex flex-col gap-2">
+<!-- Seek Bar -->
+<div class="flex items-center gap-space-sm">
+<span class="font-caption text-caption text-text-muted font-mono w-14 text-right">00:14.20</span>
+<div class="relative flex-1 h-3 flex items-center group cursor-pointer">
+<div class="w-full h-1.5 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 28%"></div>
+</div>
+<div class="absolute left-[28%] -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-primary shadow-[0_1px_4px_rgba(72,62,229,0.4)]"></div>
+</div>
+<span class="font-caption text-caption text-text-muted font-mono w-14">03:24.00</span>
+</div>
+<!-- Playback Actions -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1">
+<button aria-label="Skip backwards 5 seconds" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">replay_5</span>
+</button>
+<button aria-label="Play or pause video" class="w-10 h-10 rounded-full bg-primary text-on-primary flex items-center justify-center hover:bg-primary-container active:scale-90 transition-transform shadow-sm" type="button">
+<span class="material-symbols-outlined text-[24px]">play_arrow</span>
+</button>
+<button aria-label="Skip forwards 5 seconds" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">forward_5</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-2 py-1 rounded bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container" type="button">
+              1.0x
+            </button>
+<button aria-label="Mute toggle" class="w-9 h-9 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Timeline Scrubber & Cue Blocks -->
+<div class="bg-surface-white rounded-2xl p-space-md shadow-[0_2px_12px_rgba(23,26,46,0.04)] flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[20px]">timelapse</span>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Timeline Cue Tracks</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Scale: 1s ticks</span>
+</div>
+<!-- Scrubber Track Visual -->
+<div class="w-full bg-surface-container-low rounded-xl p-2.5 flex flex-col gap-1.5 relative select-none">
+<!-- Ruler markings -->
+<div class="flex justify-between items-center text-[10px] text-text-muted font-mono px-1">
+<span>00:00</span>
+<span>00:05</span>
+<span>00:10</span>
+<span>00:15</span>
+<span>00:20</span>
+<span>00:25</span>
+</div>
+<!-- Waveform Simulation SVG -->
+<div class="h-6 w-full opacity-30 flex items-center">
+<svg class="w-full h-full text-outline" preserveaspectratio="none" viewbox="0 0 100 24">
+<path d="M0 12 Q 2 2, 4 12 T 8 12 T 12 4 T 16 12 T 20 18 T 24 12 T 28 6 T 32 12 T 36 20 T 40 12 T 44 2 T 48 12 T 52 14 T 56 12 T 60 4 T 64 12 T 68 22 T 72 12 T 76 8 T 80 12 T 84 16 T 88 12 T 92 6 T 96 12 T 100 12" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+<!-- Visual Subtitle Blocks -->
+<div class="relative w-full h-7 bg-surface-variant/40 rounded-lg overflow-hidden flex items-center">
+<!-- Cue 1 Block -->
+<div class="absolute left-[8%] w-[16%] h-5 bg-secondary/80 rounded text-[9px] text-on-secondary font-medium flex items-center justify-center truncate px-1 shadow-xs">
+            Cue 1
+          </div>
+<!-- Cue 2 Block (Active) -->
+<div class="absolute left-[26%] w-[28%] h-6 bg-secondary text-on-secondary rounded-md text-[10px] font-semibold flex items-center justify-between px-2 shadow-sm ring-2 ring-primary ring-offset-1">
+<span class="truncate">Cue 2 (Active)</span>
+<span class="material-symbols-outlined text-[12px]">check</span>
+</div>
+<!-- Cue 3 Block -->
+<div class="absolute left-[58%] w-[26%] h-5 bg-secondary/80 rounded text-[9px] text-on-secondary font-medium flex items-center justify-center truncate px-1 shadow-xs">
+            Cue 3
+          </div>
+<!-- Current Scrubber Playhead -->
+<div class="absolute left-[34%] top-0 bottom-0 w-0.5 bg-status-error flex flex-col items-center">
+<div class="w-2 h-2 -top-1 bg-status-error rounded-full absolute"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Subtitle Cue List -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-title-sm text-title-sm text-on-surface font-semibold flex items-center gap-1.5">
+<span>Active Cue Blocks</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-video text-secondary font-label-sm text-label-sm font-semibold">3 cues</span>
+</h3>
+<button class="text-primary font-label-md text-label-md font-semibold flex items-center gap-1 hover:underline" type="button">
+<span class="material-symbols-outlined text-[16px]">auto_fix_high</span>
+          Auto-Align Audio
+        </button>
+</div>
+<!-- Cue 1 -->
+<div class="bg-surface-white rounded-2xl p-space-md shadow-[0_1px_6px_rgba(23,26,46,0.03)] flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 font-mono font-caption text-caption text-text-muted">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-medium">#01</span>
+<span>00:02.10</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+<span>00:06.40</span>
+<span class="text-caption font-sans text-outline font-normal">(4.3s)</span>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="Edit cue" class="w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-container flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button aria-label="Split cue" class="w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-container flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">call_split</span>
+</button>
+<button aria-label="Delete cue" class="w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-status-error flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium">Welcome to the future of utility tools.</p>
+</div>
+<!-- Cue 2 (Selected/Active) -->
+<div class="bg-surface-white rounded-2xl p-space-md shadow-[0_4px_14px_rgba(129,39,207,0.12)] bg-surface-video/20 flex flex-col gap-2.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 font-mono font-caption text-caption text-secondary font-semibold">
+<span class="px-2 py-0.5 rounded bg-secondary text-on-secondary font-bold">#02</span>
+<span>00:07.00</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+<span>00:14.20</span>
+<span class="text-caption font-sans text-secondary font-normal">(7.2s)</span>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="Edit active cue" class="w-8 h-8 rounded-lg text-secondary hover:bg-surface-video flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button aria-label="Split cue" class="w-8 h-8 rounded-lg text-secondary hover:bg-surface-video flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">call_split</span>
+</button>
+<button aria-label="Delete cue" class="w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-video hover:text-status-error flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<div class="relative">
+<textarea class="w-full p-2.5 bg-surface-white rounded-xl text-on-surface font-body-md text-body-md font-medium focus:outline-hidden resize-none shadow-xs" rows="2">Welcome everyone, today we unveil our revolutionary engine.</textarea>
+</div>
+<!-- Micro Time Nudge Controls -->
+<div class="flex items-center justify-between pt-1">
+<span class="font-caption text-caption text-text-muted">Fine Micro-Adjust:</span>
+<div class="flex items-center gap-1.5">
+<button class="px-2.5 py-1 rounded-lg bg-surface-white shadow-xs text-on-surface font-caption text-caption font-mono font-semibold flex items-center gap-0.5 hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span>-0.1s</span>
+</button>
+<button class="px-2.5 py-1 rounded-lg bg-surface-white shadow-xs text-on-surface font-caption text-caption font-mono font-semibold flex items-center gap-0.5 hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span>+0.1s</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Cue 3 -->
+<div class="bg-surface-white rounded-2xl p-space-md shadow-[0_1px_6px_rgba(23,26,46,0.03)] flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 font-mono font-caption text-caption text-text-muted">
+<span class="px-2 py-0.5 rounded bg-surface-container-low text-on-surface-variant font-medium">#03</span>
+<span>00:15.00</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+<span>00:22.50</span>
+<span class="text-caption font-sans text-outline font-normal">(7.5s)</span>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="Edit cue" class="w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-container flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button aria-label="Split cue" class="w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-container flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">call_split</span>
+</button>
+<button aria-label="Delete cue" class="w-8 h-8 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-status-error flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface font-medium">Designed natively for on-device performance.</p>
+</div>
+<!-- Add Subtitle Cue Button -->
+<button class="w-full py-3.5 rounded-2xl bg-surface-container text-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 hover:bg-surface-container-high active:scale-[0.99] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+        Add Subtitle Cue
+      </button>
+</div>
+<!-- Subtitle Styling Controls (Collapsible Sheet/Card) -->
+<details class="group bg-surface-white rounded-2xl shadow-[0_2px_12px_rgba(23,26,46,0.04)] overflow-hidden" open="">
+<summary class="p-space-md flex items-center justify-between cursor-pointer list-none select-none">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">format_paint</span>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Subtitle Styling &amp; Typography</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant transition-transform duration-200 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="px-space-md pb-space-md flex flex-col gap-space-md">
+<!-- Font Size Selector -->
+<div class="flex flex-col gap-1.5">
+<label class="font-caption text-caption text-text-muted font-medium">Font Size</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 rounded-xl bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-medium text-center hover:bg-surface-container" type="button">
+              14pt
+            </button>
+<button class="py-2 rounded-xl bg-primary text-on-primary font-label-md text-label-md font-semibold text-center shadow-xs" type="button">
+              18pt (Active)
+            </button>
+<button class="py-2 rounded-xl bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-medium text-center hover:bg-surface-container" type="button">
+              22pt
+            </button>
+</div>
+</div>
+<!-- Color Swatch & Background Box -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Text Color -->
+<div class="flex flex-col gap-1.5">
+<label class="font-caption text-caption text-text-muted font-medium">Text Color</label>
+<div class="flex items-center gap-2 pt-0.5">
+<button aria-label="White color" class="w-8 h-8 rounded-full bg-surface-white shadow-[0_0_0_2px_#625bff] flex items-center justify-center text-on-surface" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</button>
+<button aria-label="Yellow color" class="w-8 h-8 rounded-full bg-accent-amber hover:scale-105 active:scale-95 transition-transform" type="button"></button>
+<button aria-label="Cyan color" class="w-8 h-8 rounded-full bg-accent-teal hover:scale-105 active:scale-95 transition-transform" type="button"></button>
+</div>
+</div>
+<!-- Screen Position -->
+<div class="flex flex-col gap-1.5">
+<label class="font-caption text-caption text-text-muted font-medium">Position</label>
+<div class="flex items-center gap-1.5">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-xs" type="button">
+                Bottom
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container" type="button">
+                Center
+              </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm hover:bg-surface-container" type="button">
+                Top
+              </button>
+</div>
+</div>
+</div>
+<!-- Background Container Style -->
+<div class="flex flex-col gap-1.5">
+<label class="font-caption text-caption text-text-muted font-medium">Background Container</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2 px-1 rounded-xl bg-primary text-on-primary font-label-sm text-label-sm font-semibold text-center truncate shadow-xs" type="button">
+              Semi-Black (80%)
+            </button>
+<button class="py-2 px-1 rounded-xl bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm font-medium text-center truncate hover:bg-surface-container" type="button">
+              Solid Black
+            </button>
+<button class="py-2 px-1 rounded-xl bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm font-medium text-center truncate hover:bg-surface-container" type="button">
+              None
+            </button>
+</div>
+</div>
+</div>
+</details>
+<!-- Output Mode & Export Format -->
+<div class="bg-surface-white rounded-2xl p-space-md shadow-[0_2px_12px_rgba(23,26,46,0.04)] flex flex-col gap-space-sm">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">tune</span>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Output Mode &amp; Encoding</span>
+</div>
+<div class="flex flex-col gap-2 pt-1">
+<!-- Separate Subtitle File Option (Active) -->
+<div class="p-3 rounded-xl bg-surface-container flex items-center justify-between cursor-pointer">
+<div class="flex items-center gap-2.5">
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-on-primary"></div>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Separate Subtitle File</span>
+<span class="font-caption text-caption text-on-surface-variant">Standard .srt / .vtt companion track</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">Active</span>
+</div>
+<!-- Hardcode / Burn Subtitles Option -->
+<div class="p-3 rounded-xl bg-surface-container-low flex items-center justify-between cursor-pointer hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-2.5">
+<div class="w-5 h-5 rounded-full bg-outline-variant flex items-center justify-center"></div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface-variant font-medium">Hardcode / Burn into Video</span>
+<span class="font-caption text-caption text-text-muted">Re-render as MP4 with permanent text</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">lock_reset</span>
+</div>
+</div>
+<!-- Character Encoding Selection -->
+<div class="flex items-center justify-between pt-2">
+<span class="font-caption text-caption text-text-muted">Character Encoding:</span>
+<div class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-surface-container-low text-on-surface font-caption text-caption font-semibold">
+<span class="material-symbols-outlined text-[14px] text-accent-emerald">verified</span>
+          UTF-8 Universal
+        </div>
+</div>
+</div>
+<!-- Primary Execution Action Button -->
+<div class="flex flex-col gap-1.5 pt-1">
+<button class="w-full h-14 rounded-2xl bg-primary-container text-on-primary-container font-title-md text-title-md font-semibold flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(98,91,255,0.25)] hover:opacity-95 active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-[24px]">file_download</span>
+        Export Subtitle Track (.srt)
+      </button>
+<div class="flex items-center justify-center gap-1.5 text-center">
+<span class="material-symbols-outlined text-[14px] text-accent-emerald">bolt</span>
+<span class="font-caption text-caption text-text-muted">Frame-accurate timecodes · Zero desync guarantee</span>
+</div>
+</div>
+<!-- Export Success Summary Card -->
+<div class="bg-surface-white rounded-2xl p-space-md shadow-[0_4px_16px_rgba(23,26,46,0.06)] flex flex-col gap-space-md mb-space-lg">
+<div class="flex items-start gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-surface-image text-status-success flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">check_circle</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Subtitles Compiled Successfully</span>
+<span class="font-caption text-caption text-text-muted mt-0.5">Ready for video player ingestion or online upload</span>
+</div>
+</div>
+<!-- File Details Box -->
+<div class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-1">
+<span class="font-mono font-title-sm text-title-sm text-on-surface truncate font-semibold">Interview_Product_Demo_4K.en.srt</span>
+<div class="flex items-center gap-2 font-caption text-caption text-text-muted">
+<span>48 cues</span>
+<span>·</span>
+<span>14.2 KB</span>
+<span>·</span>
+<span class="text-secondary font-medium">UTF-8 SubRip format</span>
+</div>
+</div>
+<!-- Secondary Action Buttons -->
+<div class="grid grid-cols-3 gap-2">
+<button class="py-2.5 px-2 rounded-xl bg-surface-container text-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 hover:bg-surface-container-high active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+          Download
+        </button>
+<button class="py-2.5 px-2 rounded-xl bg-surface-container text-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 hover:bg-surface-container-high active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+          Share
+        </button>
+<button class="py-2.5 px-2 rounded-xl bg-surface-container text-secondary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 hover:bg-surface-video active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">video_settings</span>
+          Burn MP4
+        </button>
+</div>
+</div>
+</div>
+</div></main></body></html>

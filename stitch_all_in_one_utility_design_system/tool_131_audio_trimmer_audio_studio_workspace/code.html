@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-container": "#fffbff", "status-error": "#DC2626", "inverse-primary": "#c3c0ff", "primary-container": "#625bff", "surface-ai": "#F4EAFE", "on-primary-container": "#fefaff", "surface-video": "#F5EAFF", "on-tertiary-container": "#f5fcff", "status-success": "#16A34A", "on-surface-variant": "#464555", "on-tertiary-fixed": "#001f26", "error-container": "#ffdad6", "surface-bright": "#fbf8ff", "surface-white": "#FFFFFF", "surface-scanner": "#E6FAFD", "surface-container-lowest": "#ffffff", "surface-container-highest": "#dfe0fc", "accent-coral": "#FF6B6B", "outline": "#777587", "background-cloud": "#F7F8FC", "surface": "#fbf8ff", "on-primary-fixed-variant": "#311ed2", "accent-blue": "#3B82F6", "on-background": "#171a2e", "surface-developer": "#E8F7FF", "primary-fixed-dim": "#c3c0ff", "outline-variant": "#c7c4d8", "inverse-on-surface": "#f0efff", "accent-emerald": "#10B981", "surface-dim": "#d7d8f4", "status-warning": "#F59E0B", "tertiary-fixed-dim": "#4cd7f6", "on-tertiary": "#ffffff", "accent-teal": "#14B8A6", "on-primary": "#ffffff", "surface-calculator": "#FFF7E2", "secondary-fixed-dim": "#ddb7ff", "border-subtle": "#E2E8F0", "on-primary-fixed": "#0e006a", "secondary-fixed": "#f0dbff", "surface-image": "#E7F9F1", "surface-container": "#edecff", "on-secondary-fixed": "#2c0051", "surface-variant": "#dfe0fc", "primary": "#483ee5", "text-muted": "#64748B", "primary-fixed": "#e2dfff", "on-surface": "#171a2e", "on-error-container": "#93000a", "surface-office": "#EEEDFF", "inverse-surface": "#2c2f44", "tertiary": "#006476", "error": "#ba1a1a", "surface-archive": "#EEF2F6", "surface-web": "#E5FAF6", "accent-rose": "#EC4899", "on-tertiary-fixed-variant": "#004e5c", "surface-pdf": "#FFF0EF", "surface-text": "#FFF1E7", "secondary-container": "#9c48ea", "surface-container-low": "#f4f2ff", "secondary": "#8127cf", "accent-sky": "#0EA5E9", "tertiary-container": "#007f95", "on-secondary": "#ffffff", "surface-container-high": "#e6e6ff", "accent-amber": "#F59E0B", "surface-audio": "#EAF2FF", "on-error": "#ffffff", "background": "#fbf8ff", "on-secondary-fixed-variant": "#6900b3", "tertiary-fixed": "#acedff", "accent-orange": "#F97316", "surface-productivity": "#FDEBF5", "surface-tint": "#4c42e9" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "space-sm": "0.5rem", margin: "1.25rem", "margin-sm": "1rem", "space-lg": "1.5rem", "space-xl": "2rem", "space-md": "1rem", "space-xs": "0.25rem", gutter: "1rem", "gutter-sm": "0.75rem" }, fontFamily: { "body-md": ["Inter"], "label-md": ["Inter"], "body-sm": ["Inter"], "label-sm": ["Inter"], "headline-lg-mobile": ["Inter"], caption: ["Inter"], "title-md": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Inter"], "headline-md": ["Inter"], "title-sm": ["Inter"] }, fontSize: { "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], caption: ["12px", { lineHeight: "16px", fontWeight: "400" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-background-cloud/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center min-w-0 flex-1 gap-space-xs"><button aria-label="Go back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-audio/60 active:scale-95 transition-transform" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pr-space-xs"><span class="text-accent-blue font-label-sm text-label-sm uppercase tracking-wider font-semibold truncate">AUDIO STUDIO</span><h1 class="text-on-surface font-title-md text-title-md truncate leading-tight">Audio Trimmer &amp; Cutter</h1></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-text-muted hover:text-accent-amber hover:bg-surface-audio/60 active:scale-95 transition-transform" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-audio/60 active:scale-95 transition-transform" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs shadow-sm"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-background-cloud min-h-screen"><div class="flex flex-col w-full px-margin pb-space-xl gap-space-lg">
+<!-- Tool Identity & Header Banner -->
+<section class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-audio text-accent-blue font-label-sm text-label-sm shadow-sm font-semibold tracking-wide">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">content_cut</span>
+        Tool #131 · Audio Studio
+      </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-caption text-caption">
+<span class="material-symbols-outlined text-[13px] text-accent-emerald">verified</span>
+        Millisecond Waveform Splicer
+      </span>
+</div>
+<h2 class="text-on-surface font-headline-sm text-headline-sm font-bold tracking-tight mt-1">Audio Trimmer &amp; Cutter</h2>
+<p class="text-text-muted font-body-sm text-body-sm leading-relaxed">Extract, slice, or trim audio segments with zoomable waveform and millisecond boundary markers.</p>
+</section>
+<!-- Loaded Input Audio Card -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-12 h-12 rounded-lg bg-surface-audio text-accent-blue flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">graphic_eq</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="text-on-surface font-title-sm text-title-sm truncate font-medium">Voice_Memo_Conference_Keynote.m4a</span>
+<span class="bg-surface-container text-accent-blue font-label-sm text-label-sm px-1.5 py-0.5 rounded uppercase font-semibold">M4A</span>
+</div>
+<p class="text-text-muted font-caption text-caption truncate mt-0.5">18:40 duration · 18.2 MB · 44.1 kHz AAC Stereo</p>
+</div>
+</div>
+<button class="flex-shrink-0 px-3 py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-audio hover:text-accent-blue transition-colors flex items-center gap-1 font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[18px]">cached</span>
+<span class="hidden sm:inline">Replace</span>
+</button>
+</section>
+<!-- Main Waveform & Scrubbing Console -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Top Meta Row -->
+<div class="flex items-center justify-between text-caption font-caption">
+<div class="flex items-center gap-1.5 text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-accent-blue">tune</span>
+<span>Waveform Canvas</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="text-on-surface font-semibold">Zoom: 100% · 1s ticks</span>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Zoom in waveform" class="w-7 h-7 rounded-md bg-surface-container hover:bg-surface-audio text-on-surface flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">zoom_in</span>
+</button>
+<button aria-label="Zoom out waveform" class="w-7 h-7 rounded-md bg-surface-container hover:bg-surface-audio text-on-surface flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">zoom_out</span>
+</button>
+</div>
+</div>
+<!-- Waveform Viewport with Brackets -->
+<div class="relative w-full h-36 bg-background-cloud rounded-lg overflow-hidden select-none flex flex-col justify-between py-1">
+<!-- Time ticks top scale -->
+<div class="w-full flex justify-between px-2 text-text-muted font-caption text-caption opacity-70">
+<span>00:00</span>
+<span>03:00</span>
+<span>06:00</span>
+<span>09:00</span>
+<span>12:00</span>
+<span>15:00</span>
+<span>18:40</span>
+</div>
+<!-- Stylized Multi-bar Waveform Visualizer -->
+<div class="relative w-full h-20 flex items-center justify-between px-1 gap-[2px]">
+<!-- Active Selection Overlay Tint -->
+<div class="absolute inset-y-0 left-[18%] right-[42%] bg-accent-blue/15 rounded pointer-events-none"></div>
+<!-- Waveform bars simulated stream -->
+<div class="flex-1 h-full flex items-center justify-between gap-[2px] opacity-40">
+<div class="w-[3px] h-3 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-6 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-9 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-5 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-12 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-8 bg-text-muted rounded-full"></div>
+</div>
+<!-- Selected Region Bars (Brighter, Indigo/Blue) -->
+<div class="flex-[3] h-full flex items-center justify-between gap-[2px] px-1">
+<div class="w-[3px] h-10 bg-accent-blue rounded-full"></div>
+<div class="w-[3px] h-16 bg-accent-blue rounded-full"></div>
+<div class="w-[3px] h-12 bg-primary rounded-full"></div>
+<div class="w-[3px] h-18 bg-accent-blue rounded-full"></div>
+<div class="w-[3px] h-14 bg-accent-blue rounded-full"></div>
+<div class="w-[3px] h-8 bg-primary rounded-full"></div>
+<div class="w-[3px] h-16 bg-accent-blue rounded-full"></div>
+<div class="w-[3px] h-12 bg-accent-blue rounded-full"></div>
+<div class="w-[3px] h-14 bg-primary rounded-full"></div>
+<div class="w-[3px] h-10 bg-accent-blue rounded-full"></div>
+<div class="w-[3px] h-16 bg-accent-blue rounded-full"></div>
+<div class="w-[3px] h-14 bg-primary rounded-full"></div>
+<div class="w-[3px] h-7 bg-accent-blue rounded-full"></div>
+</div>
+<!-- Tail Outside Region Bars -->
+<div class="flex-[2] h-full flex items-center justify-between gap-[2px] opacity-40">
+<div class="w-[3px] h-6 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-10 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-14 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-5 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-9 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-4 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-11 bg-text-muted rounded-full"></div>
+<div class="w-[3px] h-6 bg-text-muted rounded-full"></div>
+</div>
+<!-- Draggable Handle: Start (Left) -->
+<div class="absolute top-0 bottom-0 left-[18%] -translate-x-1/2 flex flex-col items-center cursor-ew-resize group">
+<div class="h-5 px-1.5 rounded-md bg-accent-blue text-on-primary font-caption text-caption font-bold shadow-md flex items-center justify-center">
+            [ 02:15.5
+          </div>
+<div class="w-1 flex-1 bg-accent-blue shadow-sm"></div>
+<div class="w-4 h-4 rounded-full bg-accent-blue text-on-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[12px]">drag_indicator</span>
+</div>
+</div>
+<!-- Draggable Handle: End (Right) -->
+<div class="absolute top-0 bottom-0 left-[58%] -translate-x-1/2 flex flex-col items-center cursor-ew-resize group">
+<div class="h-5 px-1.5 rounded-md bg-accent-blue text-on-primary font-caption text-caption font-bold shadow-md flex items-center justify-center">
+            07:45.2 ]
+          </div>
+<div class="w-1 flex-1 bg-accent-blue shadow-sm"></div>
+<div class="w-4 h-4 rounded-full bg-accent-blue text-on-primary flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined text-[12px]">drag_indicator</span>
+</div>
+</div>
+<!-- Current Playhead Scrubber Line -->
+<div class="absolute top-0 bottom-0 left-[34%] -translate-x-1/2 flex flex-col items-center pointer-events-none">
+<div class="w-2.5 h-2.5 rotate-45 bg-accent-coral shadow-sm -mt-1"></div>
+<div class="w-[1.5px] flex-1 bg-accent-coral shadow-sm"></div>
+<div class="px-1.5 py-0.5 rounded bg-inverse-surface text-inverse-on-surface font-caption text-caption shadow-md -mb-1">
+            04:30.100
+          </div>
+</div>
+</div>
+<!-- Bottom Audio Level Indicator -->
+<div class="w-full flex items-center justify-between px-2 pt-1 font-caption text-caption text-text-muted">
+<span>-24 dB</span>
+<span class="text-accent-blue font-semibold">Active Selection: 05:29.700</span>
+<span>0 dB Peak</span>
+</div>
+</div>
+<!-- Transport Control Deck -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-space-xs">
+<button aria-label="Skip backwards 5 seconds" class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-audio text-on-surface flex items-center justify-center active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">replay_5</span>
+</button>
+<button aria-label="Play or pause selection" class="h-10 px-4 rounded-full bg-accent-blue text-on-primary flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-transform font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span>Play Cut</span>
+</button>
+<button aria-label="Skip forward 5 seconds" class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-audio text-on-surface flex items-center justify-center active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">forward_5</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="h-10 px-3 rounded-full bg-surface-audio text-accent-blue flex items-center gap-1 font-label-md text-label-md transition-colors" id="loop-toggle-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">repeat</span>
+<span class="font-medium">Loop</span>
+</button>
+<button aria-label="Stop audio" class="w-10 h-10 rounded-full bg-surface-container hover:bg-surface-audio text-on-surface-variant flex items-center justify-center active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">stop</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Surgical Millisecond Boundary Markers -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-accent-blue">pin</span>
+<h3 class="text-on-surface font-title-sm text-title-sm font-semibold">Boundary Calibration</h3>
+</div>
+<button class="text-text-muted hover:text-accent-coral font-label-sm text-label-sm flex items-center gap-0.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">restart_alt</span>
+        Reset
+      </button>
+</div>
+<!-- Start & End Boxes in Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Start Boundary Box -->
+<div class="bg-background-cloud p-space-sm rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="text-accent-blue font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">first_page</span>
+            Start Boundary
+          </span>
+<span class="text-text-muted font-caption text-caption">Marker A</span>
+</div>
+<div class="bg-surface-white px-3 py-2 rounded-md flex items-center justify-between shadow-sm">
+<span class="text-on-surface font-headline-sm text-headline-sm font-bold tracking-wider font-mono">02:15.500</span>
+<div class="flex items-center gap-1">
+<button aria-label="Nudge start back 100 milliseconds" class="w-7 h-7 rounded bg-surface-container text-on-surface hover:bg-surface-audio font-label-sm text-label-sm font-bold flex items-center justify-center" type="button">-100</button>
+<button aria-label="Nudge start forward 100 milliseconds" class="w-7 h-7 rounded bg-surface-container text-on-surface hover:bg-surface-audio font-label-sm text-label-sm font-bold flex items-center justify-center" type="button">+100</button>
+</div>
+</div>
+<button class="w-full py-1.5 rounded-md bg-surface-container hover:bg-surface-audio text-accent-blue font-label-sm text-label-sm flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+          Set to Current Playhead (04:30.1)
+        </button>
+</div>
+<!-- End Boundary Box -->
+<div class="bg-background-cloud p-space-sm rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="text-accent-blue font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">last_page</span>
+            End Boundary
+          </span>
+<span class="text-text-muted font-caption text-caption">Marker B</span>
+</div>
+<div class="bg-surface-white px-3 py-2 rounded-md flex items-center justify-between shadow-sm">
+<span class="text-on-surface font-headline-sm text-headline-sm font-bold tracking-wider font-mono">07:45.200</span>
+<div class="flex items-center gap-1">
+<button aria-label="Nudge end back 100 milliseconds" class="w-7 h-7 rounded bg-surface-container text-on-surface hover:bg-surface-audio font-label-sm text-label-sm font-bold flex items-center justify-center" type="button">-100</button>
+<button aria-label="Nudge end forward 100 milliseconds" class="w-7 h-7 rounded bg-surface-container text-on-surface hover:bg-surface-audio font-label-sm text-label-sm font-bold flex items-center justify-center" type="button">+100</button>
+</div>
+</div>
+<button class="w-full py-1.5 rounded-md bg-surface-container hover:bg-surface-audio text-accent-blue font-label-sm text-label-sm flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+          Set to Current Playhead (04:30.1)
+        </button>
+</div>
+</div>
+<!-- Duration Pill Bar -->
+<div class="flex items-center justify-between bg-surface-audio/60 p-space-sm rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-blue text-[20px]">timelapse</span>
+<div class="flex flex-col">
+<span class="text-on-surface font-title-sm text-title-sm font-bold font-mono">05:29.700</span>
+<span class="text-text-muted font-caption text-caption leading-none">Net Output Duration</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-status-success/15 text-status-success font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+        Valid Range (&gt;1.0s)
+      </span>
+</div>
+</section>
+<!-- Fade Curve & Processing Engine -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-accent-blue">equalizer</span>
+<h3 class="text-on-surface font-title-sm text-title-sm font-semibold">Fades &amp; Processing Engine</h3>
+</div>
+<!-- Fade Chips Container -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<!-- Fade-In Selector -->
+<div class="flex flex-col gap-1.5">
+<label class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-accent-blue">trending_up</span>
+          Fade-In (Head Ramp)
+        </label>
+<div class="flex items-center gap-1.5 flex-wrap">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-audio transition-colors" type="button">None</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-sm" type="button">0.5s</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-audio transition-colors" type="button">1.0s</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-audio transition-colors" type="button">2.0s</button>
+</div>
+</div>
+<!-- Fade-Out Selector -->
+<div class="flex flex-col gap-1.5">
+<label class="text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-accent-blue">trending_down</span>
+          Fade-Out (Tail Damp)
+        </label>
+<div class="flex items-center gap-1.5 flex-wrap">
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-audio transition-colors" type="button">None</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-sm" type="button">1.0s</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-audio transition-colors" type="button">2.0s</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm hover:bg-surface-audio transition-colors" type="button">3.0s</button>
+</div>
+</div>
+</div>
+<!-- Processing Modes / Radio Options -->
+<div class="flex flex-col gap-space-xs mt-1">
+<span class="text-on-surface-variant font-label-sm text-label-sm">Splicing Engine Mode</span>
+<!-- Lossless Radio -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-audio/70 cursor-pointer select-none">
+<input checked="" class="mt-1 accent-primary" name="engine" type="radio" value="lossless"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="text-on-surface font-title-sm text-title-sm font-semibold">Lossless Cut (Direct Stream Copy)</span>
+<span class="bg-primary text-on-primary font-label-sm text-label-sm px-1.5 py-0.2 rounded text-[10px] font-bold uppercase">Instant</span>
+</div>
+<span class="text-text-muted font-body-sm text-body-sm">Zero quality compression, micro-second keyframe align, preserves raw audio bits.</span>
+</div>
+</label>
+<!-- Accurate Re-encode Radio -->
+<label class="flex items-start gap-space-sm p-space-sm rounded-lg bg-surface-container hover:bg-surface-audio/40 cursor-pointer select-none transition-colors">
+<input class="mt-1 accent-primary" name="engine" type="radio" value="precise"/>
+<div class="flex flex-col min-w-0">
+<span class="text-on-surface font-title-sm text-title-sm font-semibold">Precise Re-encode</span>
+<span class="text-text-muted font-body-sm text-body-sm">Sample-exact fade-in/fade-out transitions with customizable dynamic bitrate.</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Output Filename Configuration -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-xs">
+<label class="text-on-surface-variant font-label-sm text-label-sm flex items-center justify-between" for="out-filename">
+<span>Export Filename</span>
+<span class="text-accent-blue font-semibold">Destination: Local Storage</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined text-text-muted absolute left-3 text-[18px]">drive_file_rename_outline</span>
+<input class="w-full bg-background-cloud text-on-surface font-body-md text-body-md rounded-lg pl-10 pr-4 py-2.5 outline-none font-medium" id="out-filename" type="text" value="Keynote_Highlight_02-15_07-45.m4a"/>
+</div>
+</section>
+<!-- Primary Execution Trigger -->
+<button class="w-full h-14 rounded-xl bg-primary hover:bg-primary-container text-on-primary flex items-center justify-center gap-2 font-title-md text-title-md font-semibold shadow-md active:scale-[0.98] transition-all" id="trim-btn" type="button">
+<span class="material-symbols-outlined text-[24px]">content_cut</span>
+<span>Trim &amp; Export Audio (05:29.700)</span>
+</button>
+<!-- Dynamic Export Complete Preview Card -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md" id="result-card">
+<!-- Success Banner -->
+<div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-image text-accent-emerald font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Audio Segment Trimmed Successfully (0.8s)</span>
+</div>
+<!-- Trimmed Track Tile -->
+<div class="p-space-sm bg-background-cloud rounded-lg flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-sm min-w-0">
+<button aria-label="Play trimmed audio result" class="w-10 h-10 rounded-full bg-accent-blue text-on-primary flex items-center justify-center flex-shrink-0 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div class="flex flex-col min-w-0">
+<span class="text-on-surface font-title-sm text-title-sm truncate font-semibold">Keynote_Highlight_02-15_07-45.m4a</span>
+<span class="text-text-muted font-caption text-caption">5.4 MB · 05:29 duration · Lossless AAC</span>
+</div>
+</div>
+<div class="flex items-center gap-1 flex-shrink-0">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container text-on-surface font-caption text-caption font-medium">Ready</span>
+</div>
+</div>
+<!-- Export Action Button Stack -->
+<div class="flex flex-col sm:flex-row gap-space-xs">
+<button class="flex-1 h-11 rounded-lg bg-surface-audio hover:bg-accent-blue hover:text-on-primary text-accent-blue font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">save_alt</span>
+<span>Save to Ringtones / Audio</span>
+</button>
+<button class="flex-1 h-11 rounded-lg bg-surface-container hover:bg-surface-audio text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+<span>Share Clip</span>
+</button>
+<button class="px-3 h-11 rounded-lg bg-surface-container text-on-surface-variant hover:text-accent-blue font-label-md text-label-md flex items-center justify-center gap-1 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="hidden sm:inline">Trim Another</span>
+</button>
+</div>
+</section>
+</div>
+<script>
+  // Interactive micro-interactions
+  const loopBtn = document.getElementById('loop-toggle-btn');
+  if (loopBtn) {
+    let looping = true;
+    loopBtn.addEventListener('click', () => {
+      looping = !looping;
+      if (looping) {
+        loopBtn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+        loopBtn.classList.add('bg-surface-audio', 'text-accent-blue');
+      } else {
+        loopBtn.classList.remove('bg-surface-audio', 'text-accent-blue');
+        loopBtn.classList.add('bg-surface-container', 'text-on-surface-variant');
+      }
+    });
+  }
+
+  const trimBtn = document.getElementById('trim-btn');
+  const resultCard = document.getElementById('result-card');
+  if (trimBtn && resultCard) {
+    trimBtn.addEventListener('click', () => {
+      trimBtn.classList.add('opacity-90', 'scale-[0.99]');
+      resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      setTimeout(() => {
+        trimBtn.classList.remove('opacity-90', 'scale-[0.99]');
+      }, 200);
+    });
+  }
+</script></main></body></html>

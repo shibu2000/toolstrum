@@ -1,0 +1,411 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-lowest": "#ffffff", "surface-audio": "#EAF2FF", "on-tertiary-fixed": "#001f26", "surface-web": "#E5FAF6", "on-primary": "#ffffff", "primary": "#483ee5", "accent-amber": "#F59E0B", "tertiary": "#006476", "tertiary-fixed-dim": "#4cd7f6", "status-error": "#DC2626", "accent-blue": "#3B82F6", "surface-calculator": "#FFF7E2", "on-error-container": "#93000a", "background-cloud": "#F7F8FC", "tertiary-container": "#007f95", "outline": "#777587", "accent-emerald": "#10B981", "surface-pdf": "#FFF0EF", "accent-rose": "#EC4899", "surface-container-highest": "#dfe0fc", "status-success": "#16A34A", "surface-ai": "#F4EAFE", "surface-bright": "#fbf8ff", "secondary-container": "#9c48ea", "secondary-fixed": "#f0dbff", "surface-tint": "#4c42e9", "surface-container": "#edecff", "surface-image": "#E7F9F1", "secondary-fixed-dim": "#ddb7ff", "secondary": "#8127cf", "surface-container-high": "#e6e6ff", "accent-sky": "#0EA5E9", "surface-scanner": "#E6FAFD", "on-background": "#171a2e", "surface-archive": "#EEF2F6", "surface-video": "#F5EAFF", "surface-dim": "#d7d8f4", "on-surface": "#171a2e", "surface-productivity": "#FDEBF5", "surface-text": "#FFF1E7", "error-container": "#ffdad6", "on-tertiary-container": "#f5fcff", "on-tertiary-fixed-variant": "#004e5c", "error": "#ba1a1a", "accent-teal": "#14B8A6", "on-primary-fixed": "#0e006a", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary": "#ffffff", "primary-container": "#625bff", "surface-container-low": "#f4f2ff", "surface-white": "#FFFFFF", "on-surface-variant": "#464555", "tertiary-fixed": "#acedff", "primary-fixed": "#e2dfff", "text-muted": "#64748B", "surface-variant": "#dfe0fc", "primary-fixed-dim": "#c3c0ff", "background": "#fbf8ff", "border-subtle": "#E2E8F0", "accent-coral": "#FF6B6B", "on-secondary-container": "#fffbff", "inverse-primary": "#c3c0ff", "surface-developer": "#E8F7FF", "inverse-on-surface": "#f0efff", "inverse-surface": "#2c2f44", "outline-variant": "#c7c4d8", "surface": "#fbf8ff", "status-warning": "#F59E0B", "on-secondary-fixed": "#2c0051", "on-primary-fixed-variant": "#311ed2", "accent-orange": "#F97316", "on-primary-container": "#fefaff", "on-secondary-fixed-variant": "#6900b3", "surface-office": "#EEEDFF" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "gutter-sm": "0.75rem", "margin": "1.25rem", "space-xs": "0.25rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xl": "2rem", "space-sm": "0.5rem", "margin-sm": "1rem", "gutter": "1rem" }, fontFamily: { "body-sm": ["Inter"], "headline-lg": ["Inter"], "caption": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Inter"], "title-sm": ["Inter"], "headline-sm": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "headline-lg-mobile": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"] }, fontSize: { "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }], "caption": ["12px", { lineHeight: "16px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center min-w-0 gap-space-xs"><button aria-label="Navigate back" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-office transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-1"><span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">Office Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate leading-tight">Spreadsheet Inspector</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-amber hover:bg-surface-office transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-office transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-background-cloud flex-1"><div class="flex flex-col w-full pb-12">
+<!-- Interactive Celebration Confetti Canvas (Hidden initially) -->
+<canvas class="fixed inset-0 pointer-events-none z-50 w-full h-full hidden" id="dedupe-confetti"></canvas>
+<!-- Section 1: Tool Context & Header Card -->
+<div class="px-margin pt-4 pb-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold tracking-wide">
+        Tool #166 · Office Studio
+      </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]">auto_fix_high</span>
+        Exact &amp; Fuzzy Matcher
+      </span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">
+        CSV Deduplicator
+      </h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-1 leading-relaxed">
+        Detect, isolate, and eliminate duplicate records across single columns or entire rows with full undo safety.
+      </p>
+</div>
+</div>
+<!-- Section 2: Source Data Card -->
+<div class="px-margin mt-3">
+<div class="bg-surface-white rounded-xl p-4 shadow-[0_2px_12px_rgba(23,26,46,0.04)] flex flex-col gap-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-office flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[28px]">description</span>
+</div>
+<div class="min-w-0 flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface truncate font-semibold" title="Customer_Leads_Q3_Sync.csv">
+              Customer_Leads_Q3_Sync.csv
+            </span>
+<span class="font-label-sm text-label-sm text-text-muted truncate mt-0.5">
+              14,850 rows · 12 columns · 2.4 MB · UTF-8
+            </span>
+</div>
+</div>
+<button class="shrink-0 h-9 px-3 rounded-full bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+<span>Replace</span>
+</button>
+</div>
+<!-- Quick Quality Scan Badge Pill -->
+<div class="flex items-center justify-between bg-surface-pdf/70 rounded-lg px-3 py-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-coral text-[18px]">rule</span>
+<span class="font-label-md text-label-md text-on-surface font-medium">
+            642 suspected duplicate rows found <span class="font-semibold text-accent-coral">(4.3%)</span>
+</span>
+</div>
+<span class="font-caption text-caption text-text-muted">High Confidence</span>
+</div>
+</div>
+</div>
+<!-- Section 3: Engine Matching Controls -->
+<div class="px-margin mt-5 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<h3 class="font-title-sm text-title-sm text-on-surface flex items-center gap-1.5 font-semibold">
+<span class="material-symbols-outlined text-primary text-[19px]">tune</span>
+        Matching Scope &amp; Rules
+      </h3>
+<span class="font-caption text-caption text-text-muted">Strict deterministic</span>
+</div>
+<!-- Matching Scope Selection -->
+<div class="grid grid-cols-1 gap-2.5">
+<!-- Option A: Entire Row (Unselected) -->
+<label class="relative flex items-center p-3.5 rounded-xl bg-surface-white cursor-pointer shadow-[0_1px_6px_rgba(23,26,46,0.03)] transition-all">
+<input class="sr-only" name="matching_scope" type="radio" value="entire_row">
+<div class="w-5 h-5 rounded-full bg-surface-container flex items-center justify-center mr-3 shrink-0">
+<div class="w-2 h-2 rounded-full bg-transparent"></div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Entire Row Duplicate</span>
+<span class="font-caption text-caption text-text-muted">Identical values across all 12 dataset columns</span>
+</div>
+</label>
+<!-- Option B: Selected Key Columns (Selected State) -->
+<label class="relative flex flex-col p-3.5 rounded-xl bg-surface-white shadow-[0_2px_10px_rgba(98,91,255,0.08)] cursor-pointer">
+<input checked="" class="sr-only" name="matching_scope" type="radio" value="key_columns">
+<div class="flex items-center">
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center mr-3 shrink-0">
+<div class="w-2 h-2 rounded-full bg-on-primary"></div>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-primary font-semibold">Selected Key Columns</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-fixed text-primary font-label-sm text-label-sm text-[10px]">Active</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Matches based on entity identifier columns</span>
+</div>
+</div>
+<!-- Multi-select Column Chips -->
+<div class="mt-3.5 pt-3 pl-8 flex flex-wrap gap-2">
+<!-- email (Checked) -->
+<button class="group h-8 px-2.5 rounded-lg bg-primary text-on-primary flex items-center gap-1.5 shadow-sm transition-all active:scale-95" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span class="font-label-md text-label-md font-medium">email [Primary Key]</span>
+</button>
+<!-- phone_number (Checked) -->
+<button class="group h-8 px-2.5 rounded-lg bg-primary text-on-primary flex items-center gap-1.5 shadow-sm transition-all active:scale-95" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+<span class="font-label-md text-label-md font-medium">phone_number</span>
+</button>
+<!-- full_name (Unchecked) -->
+<button class="group h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface-variant flex items-center gap-1.5 transition-all active:scale-95" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+<span class="font-label-md text-label-md">full_name</span>
+</button>
+<!-- company_domain (Unchecked) -->
+<button class="group h-8 px-2.5 rounded-lg bg-surface-container-low text-on-surface-variant flex items-center gap-1.5 transition-all active:scale-95" type="button">
+<span class="material-symbols-outlined text-[16px] text-outline">add</span>
+<span class="font-label-md text-label-md">company_domain</span>
+</button>
+</div>
+</label>
+</div>
+<!-- Modifiers & Deduplication Strategy Card -->
+<div class="bg-surface-white rounded-xl p-4 shadow-[0_2px_12px_rgba(23,26,46,0.03)] flex flex-col gap-4 mt-1">
+<!-- Toggle 1: Normalization (Active) -->
+<div class="flex items-center justify-between gap-3">
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md text-on-surface font-medium">Trim whitespace &amp; normalize casing</span>
+<span class="font-caption text-caption text-text-muted mt-0.5">e.g. John@test.com == john@test.com</span>
+</div>
+<button aria-checked="true" class="w-12 h-6 rounded-full bg-primary relative p-0.5 shrink-0 transition-colors" role="switch" type="button">
+<div class="w-5 h-5 rounded-full bg-on-primary shadow-sm transform translate-x-6 transition-transform"></div>
+</button>
+</div>
+<!-- Toggle 2: Case Sensitive (Inactive) -->
+<div class="flex items-center justify-between gap-3">
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md text-on-surface font-medium">Case-sensitive comparison</span>
+<span class="font-caption text-caption text-text-muted mt-0.5">Strict ASCII codepoint evaluation</span>
+</div>
+<button aria-checked="false" class="w-12 h-6 rounded-full bg-surface-container relative p-0.5 shrink-0 transition-colors" role="switch" type="button">
+<div class="w-5 h-5 rounded-full bg-surface-white shadow-sm transform translate-x-0 transition-transform"></div>
+</button>
+</div>
+<!-- Strategy Segment -->
+<div class="pt-2 flex flex-col gap-2">
+<span class="font-label-sm text-label-sm text-text-muted font-semibold uppercase tracking-wider">
+          Deduplication Strategy
+        </span>
+<div class="grid grid-cols-1 gap-2">
+<!-- Keep First -->
+<label class="flex items-center justify-between p-2.5 rounded-lg bg-surface-office cursor-pointer">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary text-[20px]">first_page</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Keep First Occurrence</span>
+<span class="font-caption text-caption text-text-muted">Preserve master record (original)</span>
+</div>
+</div>
+<div class="w-4 h-4 rounded-full bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-primary font-bold">check</span>
+</div>
+</label>
+<!-- Keep Last -->
+<label class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-lowest hover:bg-surface-container-low cursor-pointer transition-colors">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-outline text-[20px]">last_page</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface-variant font-medium">Keep Last Occurrence</span>
+<span class="font-caption text-caption text-text-muted">Preserve newest imported update</span>
+</div>
+</div>
+<div class="w-4 h-4 rounded-full bg-surface-container"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 4: Interactive Duplicate Audit Preview -->
+<div class="px-margin mt-6 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h3 class="font-title-sm text-title-sm text-on-surface font-semibold">
+          Duplicate Audit Preview
+        </h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-pdf text-status-error font-label-sm text-label-sm font-semibold">
+          Showing 3 of 642
+        </span>
+</div>
+<button class="font-label-md text-label-md text-primary font-medium flex items-center gap-0.5" type="button">
+        Expand All <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<!-- Cluster Card 1 -->
+<div class="bg-surface-white rounded-xl p-3.5 shadow-[0_2px_10px_rgba(23,26,46,0.03)] flex flex-col gap-2.5">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-accent-coral animate-ping"></span>
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider font-semibold">Match Group #01</span>
+</div>
+<span class="font-caption text-caption text-text-muted font-mono">Key: email</span>
+</div>
+<!-- Retained Row Item -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-image/60">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-sm text-label-sm text-accent-emerald font-mono shrink-0">Row #142</span>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm text-on-surface truncate font-semibold">sarah.jenkins@acme.org</span>
+<span class="font-caption text-caption text-text-muted truncate">Sarah Jenkins · +1 (415) 890-1201</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-white text-accent-emerald font-label-sm text-label-sm shrink-0 shadow-sm font-medium">
+          Retained (Master)
+        </span>
+</div>
+<!-- Flagged Removal Item -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-pdf/70">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-sm text-label-sm text-accent-coral font-mono shrink-0">Row #891</span>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm text-on-surface line-through decoration-status-error truncate font-medium">sarah.jenkins@acme.org</span>
+<span class="font-caption text-caption text-status-error truncate">S. Jenkins · Duplicate #2</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm shrink-0 font-medium">
+          Will be removed
+        </span>
+</div>
+</div>
+<!-- Cluster Card 2 -->
+<div class="bg-surface-white rounded-xl p-3.5 shadow-[0_2px_10px_rgba(23,26,46,0.03)] flex flex-col gap-2.5">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-accent-coral"></span>
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider font-semibold">Match Group #02</span>
+</div>
+<span class="font-caption text-caption text-text-muted font-mono">Key: email</span>
+</div>
+<!-- Retained Row Item -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-image/60">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-sm text-label-sm text-accent-emerald font-mono shrink-0">Row #405</span>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm text-on-surface truncate font-semibold">alex.m@cloudnexus.io</span>
+<span class="font-caption text-caption text-text-muted truncate">Alex Miller · +1 (206) 431-7788</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-white text-accent-emerald font-label-sm text-label-sm shrink-0 shadow-sm font-medium">
+          Retained (Master)
+        </span>
+</div>
+<!-- Flagged Removal Item -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-pdf/70">
+<div class="flex items-center gap-2.5 min-w-0">
+<span class="font-label-sm text-label-sm text-accent-coral font-mono shrink-0">Row #1,120</span>
+<div class="flex flex-col min-w-0">
+<span class="font-body-sm text-body-sm text-on-surface line-through decoration-status-error truncate font-medium">alex.m@cloudnexus.io</span>
+<span class="font-caption text-caption text-status-error truncate">Alex M · Duplicate #2</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded bg-error-container text-on-error-container font-label-sm text-label-sm shrink-0 font-medium">
+          Will be removed
+        </span>
+</div>
+</div>
+<!-- Projected Impact Stats Summary -->
+<div class="bg-surface-container-high rounded-xl p-3.5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-white flex items-center justify-center shrink-0 text-primary">
+<span class="material-symbols-outlined text-[22px]">compress</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-semibold">14,850 → 14,208 rows</span>
+<span class="font-caption text-caption text-accent-emerald font-medium">-642 duplicate lines (-4.3%)</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-text-muted block">Reclaimed</span>
+<span class="font-title-sm text-title-sm text-primary font-bold">-108 KB</span>
+</div>
+</div>
+</div>
+<!-- Section 5: Primary Action Area -->
+<div class="px-margin mt-6 flex flex-col gap-2.5">
+<button class="w-full h-[52px] rounded-xl bg-primary hover:bg-primary-container text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(72,62,229,0.28)] active:scale-[0.98] transition-all" id="btn-process-dedupe" type="button">
+<span class="material-symbols-outlined text-[20px]">cleaning_services</span>
+<span>Remove 642 Duplicates &amp; Clean CSV</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-center text-text-muted">
+<span class="material-symbols-outlined text-[15px] text-accent-emerald">verified_user</span>
+<span class="font-caption text-caption">100% on-device processing · Original file remains untouched</span>
+</div>
+</div>
+<!-- Section 6: Results State Card (Populated after trigger / previewed state) -->
+<div class="px-margin mt-6 flex flex-col gap-3" id="results-card">
+<div class="bg-surface-white rounded-xl p-4 shadow-[0_4px_20px_rgba(23,26,46,0.06)] flex flex-col gap-4">
+<!-- Status pill -->
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-image text-accent-emerald font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px]">task_alt</span>
+<span>Deduplication Completed in 0.14s</span>
+</div>
+<span class="font-caption text-caption text-text-muted font-mono">Lossless UTF-8</span>
+</div>
+<!-- File output info -->
+<div class="flex items-center gap-3 p-3 rounded-lg bg-surface-office">
+<div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">table_chart</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate font-semibold" title="Customer_Leads_Q3_Sync_Deduplicated.csv">
+            Customer_Leads_Q3_Sync_Deduplicated.csv
+          </span>
+<span class="font-label-sm text-label-sm text-text-muted truncate mt-0.5">
+            14,208 rows remaining · 642 duplicates purged · 2.29 MB
+          </span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col gap-2">
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 shadow-[0_2px_8px_rgba(72,62,229,0.2)] active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Save Cleaned CSV</span>
+</button>
+<div class="flex items-center gap-2">
+<button class="flex-1 h-11 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">receipt_long</span>
+<span>Export Duplicate Log (.csv)</span>
+</button>
+<button aria-label="Share Clean File" class="w-11 h-11 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface-variant flex items-center justify-center shrink-0 transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">share</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for processing state and confetti burst
+  document.getElementById('btn-process-dedupe').addEventListener('click', function() {
+    const btn = this;
+    const originalText = btn.innerHTML;
+    
+    // Animate Button into Loading
+    btn.disabled = true;
+    btn.innerHTML = `
+      <span class="material-symbols-outlined animate-spin text-[20px]">progress_activity</span>
+      <span>Purging 642 rows in memory...</span>
+    `;
+
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+      
+      // Trigger canvas confetti celebration
+      const canvas = document.getElementById('dedupe-confetti');
+      canvas.classList.remove('hidden');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#483EE5', '#10B981', '#3B82F6', '#F59E0B', '#EC4899'];
+      for (let i = 0; i < 45; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height * 0.7,
+          vx: (Math.random() - 0.5) * 12,
+          vy: (Math.random() - 0.8) * 14,
+          size: Math.random() * 6 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 10
+        });
+      }
+
+      let frame = 0;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.4;
+          p.rotation += p.vRot;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
+        });
+        frame++;
+        if (frame < 55) {
+          requestAnimationFrame(animate);
+        } else {
+          canvas.classList.add('hidden');
+        }
+      }
+      animate();
+
+      // Scroll smoothly to output verification card
+      const resultCard = document.getElementById('results-card');
+      if (resultCard) {
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }, 600);
+  });
+</script></main></body></html>

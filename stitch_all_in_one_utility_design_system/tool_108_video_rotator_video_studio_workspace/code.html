@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#F7F8FC;}body{overscroll-behavior:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "accent-teal": "#14B8A6", "on-error": "#ffffff", "surface-calculator": "#FFF7E2", "surface-container-high": "#e6e6ff", "surface-developer": "#E8F7FF", "surface-container-low": "#f4f2ff", "accent-amber": "#F59E0B", "secondary-fixed": "#f0dbff", "accent-sky": "#0EA5E9", "on-surface": "#171a2e", "accent-orange": "#F97316", "inverse-surface": "#2c2f44", "on-primary": "#ffffff", "tertiary": "#006476", "on-tertiary-fixed-variant": "#004e5c", "border-subtle": "#E2E8F0", "surface-pdf": "#FFF0EF", "outline": "#777587", "surface-dim": "#d7d8f4", "on-primary-fixed-variant": "#311ed2", "surface-video": "#F5EAFF", "text-muted": "#64748B", "surface-bright": "#fbf8ff", "surface": "#fbf8ff", "status-success": "#16A34A", "surface-web": "#E5FAF6", "background-cloud": "#F7F8FC", "accent-emerald": "#10B981", "surface-office": "EEEDFF", "on-tertiary": "#ffffff", "surface-white": "#FFFFFF", "on-error-container": "#93000a", "on-background": "#171a2e", "surface-variant": "#dfe0fc", "status-error": "#DC2626", "accent-rose": "#EC4899", "tertiary-fixed": "#acedff", "on-secondary-fixed": "#2c0051", "surface-audio": "#EAF2FF", "inverse-primary": "#c3c0ff", "accent-blue": "#3B82F6", "on-surface-variant": "#464555", "status-warning": "#F59E0B", "secondary": "#8127cf", "surface-archive": "#EEF2F6", "on-tertiary-container": "#f5fcff", "primary": "#483ee5", "surface-tint": "#4c42e9", "on-primary-container": "#fefaff", "surface-ai": "#F4EAFE", "surface-productivity": "#FDEBF5", "secondary-container": "#9c48ea", "surface-container-highest": "#dfe0fc", "on-secondary-container": "#fffbff", "error-container": "#ffdad6", "tertiary-fixed-dim": "#4cd7f6", "accent-coral": "#FF6B6B", "surface-scanner": "#E6FAFD", "surface-container-lowest": "#ffffff", "surface-text": "#FFF1E7", "background": "#fbf8ff", "primary-fixed": "#e2dfff", "surface-image": "#E7F9F1", "primary-fixed-dim": "#c3c0ff", "tertiary-container": "#007f95", "inverse-on-surface": "#f0efff", "primary-container": "#625bff", "secondary-fixed-dim": "#ddb7ff", "outline-variant": "#c7c4d8", "on-secondary": "#ffffff", "on-tertiary-fixed": "#001f26", "on-secondary-fixed-variant": "#6900b3", "surface-container": "#edecff", "error": "#ba1a1a", "on-primary-fixed": "#0e006a" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "space-xs": "0.25rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "margin": "1.25rem", "gutter-sm": "0.75rem", "space-md": "1rem", "margin-sm": "1rem", "gutter": "1rem", "space-xl": "2rem" }, fontFamily: { "body-md": ["Inter"], "caption": ["Inter"], "headline-md": ["Inter"], "headline-lg-mobile": ["Inter"], "title-md": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "title-sm": ["Inter"], "label-sm": ["Inter"], "body-sm": ["Inter"], "headline-sm": ["Inter"] }, fontSize: { "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "caption": ["12px", { lineHeight: "16px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-background-cloud/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-6 px-margin flex items-center justify-between text-on-surface"><span class="font-label-md text-label-md font-semibold tracking-tight">9:41</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[15px]">signal_cellular_alt</span><span class="material-symbols-outlined text-[15px]">wifi</span><span class="material-symbols-outlined text-[16px]">battery_full</span></div></div><div class="h-14 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-video/60 transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex items-center gap-space-sm min-w-0 truncate"><span class="inline-flex items-center px-space-sm py-0.5 rounded-full bg-surface-video text-secondary font-label-sm text-label-sm shrink-0 font-medium">Video Studio</span><h1 class="font-title-md text-title-md text-on-surface truncate font-semibold">Video Rotator</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Favorite" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-amber hover:bg-surface-video/60 transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-video/60 transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 ml-space-xs rounded-full bg-primary flex items-center justify-center shadow-[0_1px_4px_rgba(72,62,229,0.2)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-20 pb-safe bg-background-cloud min-h-screen"><div class="flex flex-col w-full pb-10">
+<!-- Header Context Badge & Intro -->
+<div class="px-margin pt-2 pb-4">
+<div class="flex flex-wrap items-center gap-space-xs mb-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-video text-secondary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">movie_edit</span>
+        Tool #108 · Video Studio
+      </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">bolt</span>
+        Lossless Metadata &amp; Re-encode Engine
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold tracking-tight">Video Rotator</h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-1 leading-relaxed">
+      Rotate orientation, fix upside-down recordings, and flip videos while keeping audio in sync.
+    </p>
+</div>
+<!-- Video Source Card -->
+<div class="px-margin mb-4">
+<div class="bg-surface-white rounded-xl p-3.5 shadow-sm flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-lg bg-surface-video flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[24px]">videocam</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate font-semibold">Smartphone_Concert_Sideways.mp4</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate flex items-center gap-1.5 mt-0.5">
+<span>00:54</span>
+<span>•</span>
+<span>1920×1080</span>
+<span>•</span>
+<span class="text-accent-amber font-medium inline-flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">screen_rotation_alt</span>
+              90° Clockwise skew detected
+            </span>
+</p>
+</div>
+</div>
+<button class="h-10 px-3.5 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary font-label-md text-label-md font-semibold shrink-0 transition-colors flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">swap_horiz</span>
+        Replace
+      </button>
+</div>
+</div>
+<!-- Interactive Video Viewport Canvas -->
+<div class="px-margin mb-5">
+<div class="relative bg-inverse-surface rounded-2xl overflow-hidden shadow-md flex flex-col items-center">
+<!-- Status Overlay Bars -->
+<div class="w-full px-3.5 pt-3 pb-2 flex items-center justify-between z-10 bg-gradient-to-b from-inverse-surface/80 to-transparent">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-inverse-surface/80 backdrop-blur-md text-surface-bright font-label-sm text-label-sm">
+<span class="w-2 h-2 rounded-full bg-status-success animate-pulse"></span>
+          Live Skew Corrected: +90°
+        </span>
+<button aria-label="Toggle Grid Guidelines" class="w-8 h-8 rounded-full bg-inverse-surface/80 backdrop-blur-md text-surface-bright flex items-center justify-center hover:bg-surface-variant/30 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">grid_4x4</span>
+</button>
+</div>
+<!-- Preview Stage Container with Dynamic Transformation -->
+<div class="relative w-full h-72 flex items-center justify-center p-4 overflow-hidden">
+<!-- Rotated Frame Container -->
+<div class="relative w-44 h-64 rounded-xl overflow-hidden shadow-2xl transition-all duration-500 ease-out flex items-center justify-center bg-inverse-surface" id="videoTransformFrame">
+<img class="w-full h-full object-cover select-none" data-alt="Vibrant live music concert stage viewed vertically, with warm purple and neon blue spotlight beams cutting through atmospheric haze, silhouetted crowd raising smartphones, electric energy, cinematic lighting captured in high detail crisp framing" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHJ1nTbyTNvv8vE_kNN5Rjy9cvka4Av6NMYNLLWbAWphCsLegY4_-GHoeekF14InbOqhVG85r_3QpT3ZVpsyHleQxH9GT9R43bUZczyy8VjBH8_Lv0x-cVVfbC0xUI_mpr9t5pjBbafMn4PYyTveE6AcmGj1OVq8poVqxPpIsnzGfJU2Que_VpodA-xrIMDJ-JXLOSn7zzHi6GN4rD3GBLVg4CAOWrg-74-bnbwKXkoABpQSdCVaYZ7w"/>
+<!-- Orientation Grid Guideline Overlay -->
+<div class="absolute inset-0 pointer-events-none grid grid-cols-3 grid-rows-3 opacity-30">
+<div class="bg-surface-white/10"></div>
+<div class="bg-surface-white/20"></div>
+<div class="bg-surface-white/10"></div>
+<div class="bg-surface-white/20"></div>
+<div class="bg-surface-white/10"></div>
+<div class="bg-surface-white/20"></div>
+<div class="bg-surface-white/10"></div>
+<div class="bg-surface-white/20"></div>
+<div class="bg-surface-white/10"></div>
+</div>
+<!-- Axis Watermark Indicator -->
+<div class="absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-inverse-surface/80 backdrop-blur text-surface-bright font-label-sm text-[10px] tracking-wider font-mono">
+            UPRIGHT [9:16]
+          </div>
+</div>
+</div>
+<!-- Video Player Control Scrub Bar -->
+<div class="w-full px-4 py-3 bg-inverse-surface/90 backdrop-blur-md flex flex-col gap-2 z-10">
+<!-- Progress slider bar -->
+<div class="w-full flex items-center gap-3">
+<span class="font-caption text-caption text-surface-dim font-mono">00:22</span>
+<div class="relative flex-1 h-1.5 bg-on-surface-variant/40 rounded-full overflow-hidden cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-[41%] bg-primary-container rounded-full"></div>
+</div>
+<span class="font-caption text-caption text-surface-dim font-mono">00:54</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1">
+<button aria-label="Skip backward 5s" class="w-9 h-9 rounded-full text-surface-bright hover:bg-surface-variant/20 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[20px]">replay_5</span>
+</button>
+<button aria-label="Play/Pause" class="w-10 h-10 rounded-full bg-primary-container text-on-primary flex items-center justify-center shadow-md" type="button">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<button aria-label="Skip forward 5s" class="w-9 h-9 rounded-full text-surface-bright hover:bg-surface-variant/20 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[20px]">forward_5</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-surface-dim font-caption text-caption">Audio Track Synced (Stereo AAC)</span>
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">volume_up</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Fast Rotation Controls (4 Touch Cards) -->
+<div class="px-margin mb-5">
+<div class="flex items-center justify-between mb-2.5">
+<h3 class="font-title-sm text-title-sm text-on-surface font-semibold">Transform Direction</h3>
+<span class="font-label-sm text-label-sm text-text-muted">Touch to preview</span>
+</div>
+<div class="grid grid-cols-2 gap-2.5">
+<!-- 90 Left -->
+<button class="rot-card min-h-[58px] p-3 rounded-xl bg-surface-white hover:bg-surface-container-low transition-all text-left flex items-center gap-3 shadow-sm" onclick="selectRotation('left', -90)" type="button">
+<div class="w-11 h-11 rounded-lg bg-surface-video text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">rotate_left</span>
+</div>
+<div class="min-w-0">
+<div class="font-title-sm text-title-sm text-on-surface font-semibold truncate">90° Left</div>
+<div class="font-caption text-caption text-text-muted truncate">Counter-Clockwise</div>
+</div>
+</button>
+<!-- 90 Right (SELECTED by default) -->
+<button class="rot-card active-rot min-h-[58px] p-3 rounded-xl bg-surface-video shadow-sm transition-all text-left flex items-center justify-between gap-2" onclick="selectRotation('right', 90)" type="button">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-lg bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">rotate_right</span>
+</div>
+<div class="min-w-0">
+<div class="font-title-sm text-title-sm text-secondary font-bold truncate">90° Right</div>
+<div class="font-caption text-caption text-secondary/80 truncate">Clockwise (Skews)</div>
+</div>
+</div>
+<div class="w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</button>
+<!-- 180 Flip -->
+<button class="rot-card min-h-[58px] p-3 rounded-xl bg-surface-white hover:bg-surface-container-low transition-all text-left flex items-center gap-3 shadow-sm" onclick="selectRotation('180', 180)" type="button">
+<div class="w-11 h-11 rounded-lg bg-surface-video text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">screen_rotation</span>
+</div>
+<div class="min-w-0">
+<div class="font-title-sm text-title-sm text-on-surface font-semibold truncate">Rotate 180°</div>
+<div class="font-caption text-caption text-text-muted truncate">Invert Upside-Down</div>
+</div>
+</button>
+<!-- Flip Horizontal -->
+<button class="rot-card min-h-[58px] p-3 rounded-xl bg-surface-white hover:bg-surface-container-low transition-all text-left flex items-center gap-3 shadow-sm" onclick="selectRotation('mirror', 'flip')" type="button">
+<div class="w-11 h-11 rounded-lg bg-surface-video text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">flip</span>
+</div>
+<div class="min-w-0">
+<div class="font-title-sm text-title-sm text-on-surface font-semibold truncate">Horizontal Mirror</div>
+<div class="font-caption text-caption text-text-muted truncate">Selfie / Lens Invert</div>
+</div>
+</button>
+</div>
+</div>
+<!-- Dimension Shift Indicator Box -->
+<div class="px-margin mb-5">
+<div class="bg-surface-white rounded-xl p-3.5 shadow-sm flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">aspect_ratio</span>
+</div>
+<div class="flex-1 min-w-0">
+<span class="font-label-sm text-label-sm text-text-muted block font-medium">Output Canvas Projection</span>
+<div class="flex items-center gap-2 mt-0.5 font-body-sm text-body-sm text-on-surface font-semibold">
+<span class="text-text-muted font-normal">1920 × 1080 (Landscape)</span>
+<span class="material-symbols-outlined text-[16px] text-primary">arrow_forward</span>
+<span class="text-secondary font-bold">1080 × 1920 (Portrait 9:16)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Technical Mode Toggle (Lossless vs Transcode) -->
+<div class="px-margin mb-6">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-title-sm text-title-sm text-on-surface font-semibold">Processing Pipeline</h3>
+<span class="font-label-sm text-label-sm text-accent-emerald font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">speed</span> Zero Quality Loss
+      </span>
+</div>
+<div class="space-y-2.5">
+<!-- Option A: Instant Metadata Flag -->
+<label class="relative flex items-start gap-3 p-3.5 rounded-xl bg-surface-white shadow-sm cursor-pointer hover:bg-surface-container-low transition-colors">
+<input checked="" class="mt-1 w-4 h-4 text-primary accent-primary" name="tech_mode" onchange="updateExecutionMode('instant')" type="radio" value="meta"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Instant Metadata Flag (Lossless)</span>
+<span class="px-2 py-0.5 rounded-full bg-accent-emerald/15 text-status-success font-label-sm text-[10px] font-bold">RECOMMENDED</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5 leading-relaxed">
+            Rewrites container display matrix in &lt; 0.5s. Retains exact pristine video bitstream and full zero-latency audio parity.
+          </p>
+</div>
+</label>
+<!-- Option B: Transcode Hard-Burn -->
+<label class="relative flex items-start gap-3 p-3.5 rounded-xl bg-surface-white shadow-sm cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="mt-1 w-4 h-4 text-primary accent-primary" name="tech_mode" onchange="updateExecutionMode('transcode')" type="radio" value="burn"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Transcode Filter (Universal Hard-Burn)</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-[10px] font-medium">LEGACY COMPAT</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5 leading-relaxed">
+            Physically re-encodes raw pixel raster. Useful for older in-car players, legacy TV receivers, or vintage media software.
+          </p>
+</div>
+</label>
+</div>
+</div>
+<!-- Execution Bar Primary CTA -->
+<div class="px-margin mb-6">
+<button class="w-full h-14 rounded-xl bg-primary hover:bg-primary-container active:scale-[0.99] text-on-primary font-title-md text-title-md font-semibold shadow-md flex items-center justify-center gap-2 transition-all" id="executeBtn" onclick="triggerProcess()" type="button">
+<span class="material-symbols-outlined text-[22px]">rotate_right</span>
+<span id="btnLabel">Apply 90° Rotation (Instant Flag)</span>
+</button>
+</div>
+<!-- Results Completed State Card -->
+<div class="px-margin">
+<div class="bg-surface-white rounded-2xl p-4 shadow-sm flex flex-col gap-4">
+<!-- Success Banner -->
+<div class="flex items-center gap-2.5 p-3 rounded-xl bg-surface-web text-tertiary">
+<div class="w-7 h-7 rounded-full bg-status-success text-surface-white flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+</div>
+<div class="min-w-0 flex-1">
+<h4 class="font-title-sm text-title-sm text-on-surface font-semibold">Video Rotated Successfully</h4>
+<p class="font-caption text-caption text-tertiary font-medium">Audio synchronized • Lossless display matrix applied in 312ms</p>
+</div>
+</div>
+<!-- Output File Details Card -->
+<div class="flex items-center gap-3.5 p-3 rounded-xl bg-surface-container-low">
+<div class="relative w-14 h-20 rounded-lg overflow-hidden shrink-0 shadow-sm bg-inverse-surface">
+<img class="w-full h-full object-cover" data-alt="Vertical orientation smartphone concert video thumbnail showing upright lead singer with violet spotlight reflections, neon stage background, perfectly framed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbo2Ydm4sQsmtjmaV88nUY2ruXxp9w9l1HWBsxi0xk4FKbSm7ZLlxAR5dj6AUDKTZLyi4Dbe-x7XKVt0TyA3rlQR9Zksu4gpPXAgWhnvZIjXjNSA-CcNIBE8jaIHpygyPG8kprXSOO1kjpvC_zmf3Z20tZk5mawY-RfC07OxxgO5vkYYIJtnkmBmVCBqApwK0-W4j0SjBQSB79FgR4WFahlspM4J_6pn0BxKNiUPfe7HXVBHivQYL7Wg"/>
+<div class="absolute bottom-1 right-1 bg-inverse-surface/80 rounded px-1 text-[9px] text-surface-bright font-mono">
+            9:16
+          </div>
+</div>
+<div class="min-w-0 flex-1">
+<h5 class="font-title-sm text-title-sm text-on-surface font-bold truncate">Concert_Upright_Rotated_90deg.mp4</h5>
+<div class="flex flex-wrap items-center gap-y-1 gap-x-2 mt-1 font-caption text-caption text-text-muted">
+<span class="px-1.5 py-0.5 rounded bg-surface-video text-secondary font-medium">1080×1920 Portrait</span>
+<span>34.1 MB</span>
+<span>00:54 Duration</span>
+</div>
+<span class="inline-flex items-center gap-1 mt-1 font-label-sm text-label-sm text-status-success font-medium">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Ready for TikTok, Reels &amp; YouTube Shorts
+          </span>
+</div>
+</div>
+<!-- Result Action Buttons -->
+<div class="flex flex-col gap-2 pt-1">
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 hover:bg-primary-container transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+          Save to Gallery (.mp4)
+        </button>
+<div class="grid grid-cols-2 gap-2">
+<button class="h-11 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+            Share Video
+          </button>
+<button class="h-11 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" type="button">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+            Rotate Another
+          </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let currentRotationDeg = 90;
+  let isFlipped = false;
+  let currentMode = 'instant';
+
+  function selectRotation(type, val) {
+    const frame = document.getElementById('videoTransformFrame');
+    const cards = document.querySelectorAll('.rot-card');
+    
+    cards.forEach(card => {
+      card.classList.remove('bg-surface-video', 'active-rot');
+      card.classList.add('bg-surface-white');
+      const badge = card.querySelector('.rounded-full.bg-secondary');
+      if (badge) badge.remove();
+    });
+
+    const clickedCard = event.currentTarget;
+    clickedCard.classList.remove('bg-surface-white');
+    clickedCard.classList.add('bg-surface-video', 'active-rot');
+
+    // Add checkmark badge
+    const badge = document.createElement('div');
+    badge.className = 'w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center shrink-0 ml-auto';
+    badge.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span>';
+    clickedCard.appendChild(badge);
+
+    if (val === 'flip') {
+      isFlipped = !isFlipped;
+    } else {
+      currentRotationDeg = val;
+    }
+
+    if (frame) {
+      const transformRules = [];
+      if (currentRotationDeg !== 0) transformRules.push('rotate(' + currentRotationDeg + 'deg)');
+      if (isFlipped) transformRules.push('scaleX(-1)');
+      frame.style.transform = transformRules.join(' ');
+    }
+
+    updateBtnCopy();
+  }
+
+  function updateExecutionMode(mode) {
+    currentMode = mode;
+    updateBtnCopy();
+  }
+
+  function updateBtnCopy() {
+    const label = document.getElementById('btnLabel');
+    if (!label) return;
+    const modeName = currentMode === 'instant' ? 'Instant Flag' : 'Transcode Hard-Burn';
+    const rotName = isFlipped ? 'Horizontal Mirror' : currentRotationDeg + '° Rotation';
+    label.textContent = 'Apply ' + rotName + ' (' + modeName + ')';
+  }
+
+  function triggerProcess() {
+    const btn = document.getElementById('executeBtn');
+    if (!btn) return;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin text-[22px]">progress_activity</span> Processing Stream...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.innerHTML = '<span class="material-symbols-outlined text-[22px]">check_circle</span> Transformed Successfully!';
+      setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }, 1500);
+    }, 800);
+  }
+</script></main></body></html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "status-success": "#16A34A", "on-secondary-fixed-variant": "#6900b3", "surface": "#fbf8ff", "on-surface-variant": "#464555", "on-secondary": "#ffffff", "on-secondary-container": "#fffbff", "on-primary-fixed-variant": "#311ed2", "surface-pdf": "#FFF0EF", "surface-ai": "#F4EAFE", "outline-variant": "#c7c4d8", "surface-archive": "#EEF2F6", "surface-text": "#FFF1E7", "on-tertiary-fixed": "#001f26", "text-muted": "#64748B", "primary-container": "#625bff", "on-primary": "#ffffff", "on-background": "#171a2e", "surface-office": "#EEEDFF", "status-error": "#DC2626", "tertiary-fixed-dim": "#4cd7f6", "on-surface": "#171a2e", "surface-image": "#E7F9F1", "inverse-on-surface": "#f0efff", "secondary": "#8127cf", "accent-emerald": "#10B981", "tertiary": "#006476", "outline": "#777587", "primary-fixed": "#e2dfff", "secondary-fixed": "#f0dbff", "surface-container": "#edecff", "surface-productivity": "#FDEBF5", "error": "#ba1a1a", "on-error-container": "#93000a", "surface-variant": "#dfe0fc", "inverse-primary": "#c3c0ff", "surface-container-highest": "#dfe0fc", "surface-scanner": "#E6FAFD", "accent-rose": "#EC4899", "on-tertiary-fixed-variant": "#004e5c", "border-subtle": "#E2E8F0", "error-container": "#ffdad6", "accent-coral": "#FF6B6B", "accent-teal": "#14B8A6", "surface-bright": "#fbf8ff", "surface-container-high": "#e6e6ff", "surface-video": "#F5EAFF", "on-error": "#ffffff", "secondary-container": "#9c48ea", "tertiary-fixed": "#acedff", "background-cloud": "#F7F8FC", "background": "#fbf8ff", "secondary-fixed-dim": "#ddb7ff", "surface-tint": "#4c42e9", "primary": "#483ee5", "accent-blue": "#3B82F6", "on-secondary-fixed": "#2c0051", "on-primary-fixed": "#0e006a", "surface-audio": "#EAF2FF", "surface-container-low": "#f4f2ff", "accent-orange": "#F97316", "surface-calculator": "#FFF7E2", "surface-container-lowest": "#ffffff", "surface-web": "#E5FAF6", "status-warning": "#F59E0B", "on-tertiary": "#ffffff", "on-tertiary-container": "#f5fcff", "accent-amber": "#F59E0B", "accent-sky": "#0EA5E9", "surface-developer": "#E8F7FF", "on-primary-container": "#fefaff", "inverse-surface": "#2c2f44", "primary-fixed-dim": "#c3c0ff", "surface-white": "#FFFFFF", "surface-dim": "#d7d8f4", "tertiary-container": "#007f95" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "margin-sm": "1rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "margin": "1.25rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem", "gutter-sm": "0.75rem" }, fontFamily: { "label-sm": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Inter"], "caption": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "title-sm": ["Inter"], "headline-md": ["Inter"] }, fontSize: { "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }], "caption": ["12px", { lineHeight: "16px", fontWeight: "400" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }] } } } }</script><style>@layer base { html, body { min-height: 100%; margin: 0; padding: 0; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-background-cloud text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface-white/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="flex items-center justify-between px-margin h-20"><div class="flex items-center gap-space-sm min-w-0"><img alt="All-in-One Utility Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1WocWdlXLhaPo9EMBQ3ItlSUqbLTJF6ap1FoleJmSdeedp3cjw3gyn_9RFMoVCmlZIzJ5cl4ArPOgjTIAJ_Xe7KtPZp8TeKGOANq2t_TexHCoqo32x3hBNSwfyTvxFz8jxDN8K8dAb6HO92rlefOBnQTGU0ATUs7x-N62RM-o57zeNWia5gee4l9MOAwNnDsrJw4LKPF4U7Q7Igpx_KDej0ax8t1hYPTmV9oygRKaEhALytj2x_K1lyNPo"><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><h1 class="font-title-md text-title-md text-on-surface truncate">All-in-One Utility</h1><span class="hidden">Home Dashboard</span></div><p class="font-caption text-caption text-text-muted truncate">Everything you need, in one place</p></div></div><div class="flex items-center gap-space-xs shrink-0"><a class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[22px]">settings</span></a><a class="w-11 h-11 flex items-center justify-center" data-path="user-profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHwxPwQ5AOCzAa_HyCghnhgKLo9oSHp5lgEy3Nv3xoHkiJqySXT7g0h6hFyhIZuux7H7ovZIgU72O82XqF8tWnffJ-kfwBn0P_VyjrfPBWc0sQ4MfEodDWvrm2ZJHMvZi8J54MJTu8K0AgVV_aGBmDiRAC7B8Ko_IJvD2IApTaYwvH_iIsC0i4NBF1f_PrUBW8w8t7wLkuatSzOBwUeslmpzKIJPVtGUvEJfqdRFx9GWrztBFPqCPJOQ"></a></div></div></header><main class="flex-1 w-full bg-background-cloud pt-20 pb-28"><div class="flex flex-col w-full px-margin pb-10">
+<!-- Top Action & Search Bar Container -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">All Tools</h2>
+<p class="font-caption text-caption text-text-muted">500 tools, ready for whatever you need.</p>
+</div>
+<div class="bg-primary-fixed text-on-primary-fixed px-space-sm py-1 rounded-full font-label-md text-label-md flex items-center gap-1 shadow-sm" id="resultsBadge">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+<span id="badgeCountText">500 tools</span>
+</div>
+</div>
+<!-- Search Input Row -->
+<div class="flex items-center gap-space-xs">
+<div class="relative flex-1 bg-surface-white rounded-xl shadow-[0_1px_8px_rgba(23,26,46,0.05)] flex items-center px-3 py-2.5 transition-all">
+<span class="material-symbols-outlined text-text-muted text-[20px] mr-2">search</span>
+<input class="w-full bg-transparent text-on-surface font-body-sm text-body-sm placeholder:text-text-muted focus:outline-none" id="toolSearchInput" placeholder="Search tools by name or capability..." type="text">
+<button class="hidden text-text-muted hover:text-on-surface p-1 rounded-full transition-colors" id="clearSearchBtn">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+<button aria-label="Open filter settings" class="bg-surface-white text-on-surface hover:text-primary-container p-3 rounded-xl shadow-[0_1px_8px_rgba(23,26,46,0.05)] transition-all flex items-center justify-center shrink-0 active:scale-95" id="openFilterBtn">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+<!-- Studio Horizontal Pill Tabs -->
+<div class="-mx-margin px-margin overflow-x-auto no-scrollbar py-1">
+<div class="flex items-center gap-space-xs min-w-max" id="studioPillsWrapper">
+<!-- Rendered dynamically for instant selection -->
+</div>
+</div>
+<!-- Secondary Meta / Sort / View Controls -->
+<div class="flex items-center justify-between text-text-muted font-label-sm text-label-sm py-1">
+<div class="flex items-center gap-2">
+<button class="bg-surface-white px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow-sm text-on-surface hover:bg-surface-container-low transition-colors" id="sortToggleBtn">
+<span class="material-symbols-outlined text-[15px] text-primary">swap_vert</span>
+<span id="activeSortLabel">Recommended</span>
+</button>
+<button class="bg-surface-white px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow-sm text-on-surface hover:bg-surface-container-low transition-colors" id="availabilityToggleBtn">
+<span class="material-symbols-outlined text-[15px] text-accent-emerald">verified</span>
+<span id="activeAvailabilityLabel">All</span>
+</button>
+</div>
+<div class="flex items-center gap-1 bg-surface-white p-1 rounded-lg shadow-sm">
+<button aria-label="Grid view" class="p-1 rounded bg-primary text-on-primary" id="viewGridBtn">
+<span class="material-symbols-outlined text-[18px]">grid_view</span>
+</button>
+<button aria-label="List view" class="p-1 rounded text-text-muted hover:text-on-surface" id="viewListBtn">
+<span class="material-symbols-outlined text-[18px]">view_list</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Dynamic Content Area -->
+<div class="mt-space-sm">
+<!-- Active Grid / List Container -->
+<div class="grid grid-cols-2 gap-space-sm" id="toolsCatalogContainer">
+<!-- Generated via client JavaScript -->
+</div>
+<!-- Empty State Container -->
+<div class="hidden flex-col items-center justify-center py-16 px-space-md text-center bg-surface-white rounded-2xl shadow-sm mt-space-md" id="emptyCatalogState">
+<div class="w-16 h-16 rounded-full bg-surface-container-low flex items-center justify-center text-primary mb-3">
+<span class="material-symbols-outlined text-[32px]">manage_search</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">No tools discovered</h3>
+<p class="font-body-sm text-body-sm text-text-muted max-w-xs mb-4">We couldn't find any tool matching your filters or search keywords. Try adjusting your query.</p>
+<button class="bg-primary text-on-primary px-space-lg py-2.5 rounded-xl font-label-md text-label-md shadow-sm active:scale-95 transition-all" id="resetAllFiltersBtn">
+        Clear All Filters
+      </button>
+</div>
+</div>
+<!-- Bottom Sheet: Filter Modal -->
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 hidden transition-opacity opacity-0 flex items-end" id="filterModalOverlay">
+<div class="w-full bg-surface-white rounded-t-3xl max-h-[85vh] overflow-y-auto p-margin flex flex-col gap-space-md transform translate-y-full transition-transform duration-300 shadow-2xl" id="filterModalSheet">
+<div class="flex items-center justify-between pb-2 border-b border-border-subtle">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">tune</span>
+<h3 class="font-title-md text-title-md text-on-surface">Filter Catalog</h3>
+</div>
+<button class="p-1 rounded-full text-text-muted hover:text-on-surface" id="closeFilterModalBtn">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+</div>
+<!-- Filter Section: Sort Order -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-text-muted uppercase tracking-wider">Sort Tools</label>
+<div class="grid grid-cols-2 gap-2" id="filterSortOptions">
+<button class="filter-opt-btn active p-2.5 rounded-xl bg-primary-fixed text-on-primary-fixed font-label-md text-label-md text-left flex items-center justify-between" data-sort="recommended">
+<span>Recommended</span>
+<span class="material-symbols-outlined text-[18px]">check</span>
+</button>
+<button class="filter-opt-btn p-2.5 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left flex items-center justify-between" data-sort="az">
+<span>Name (A - Z)</span>
+<span class="material-symbols-outlined text-[18px] opacity-0">check</span>
+</button>
+<button class="filter-opt-btn p-2.5 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left flex items-center justify-between" data-sort="id">
+<span>Tool ID (1 - 500)</span>
+<span class="material-symbols-outlined text-[18px] opacity-0">check</span>
+</button>
+<button class="filter-opt-btn p-2.5 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left flex items-center justify-between" data-sort="popular">
+<span>Most Utilized</span>
+<span class="material-symbols-outlined text-[18px] opacity-0">check</span>
+</button>
+</div>
+</div>
+<!-- Filter Section: Availability -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-text-muted uppercase tracking-wider">Availability</label>
+<div class="grid grid-cols-2 gap-2" id="filterAvailabilityOptions">
+<button class="avail-opt-btn active p-2.5 rounded-xl bg-primary-fixed text-on-primary-fixed font-label-md text-label-md text-left" data-avail="all">All (500)</button>
+<button class="avail-opt-btn p-2.5 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left" data-avail="Offline">Instant Offline</button>
+<button class="avail-opt-btn p-2.5 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left" data-avail="Downloadable">Downloadable Pack</button>
+<button class="avail-opt-btn p-2.5 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md text-left" data-avail="Coming Soon">Coming Soon (AI)</button>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="flex items-center gap-space-sm pt-2">
+<button class="flex-1 py-3 rounded-xl bg-surface-container-high text-on-surface font-title-sm text-title-sm active:scale-95 transition-all" id="resetModalFiltersBtn">
+          Reset
+        </button>
+<button class="flex-1 py-3 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm active:scale-95 transition-all shadow-md" id="applyModalFiltersBtn">
+          Apply Filters
+        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Sheet: AI Studio Coming Soon Notice -->
+<div class="fixed inset-0 bg-on-surface/40 backdrop-blur-sm z-50 hidden transition-opacity opacity-0 flex items-end" id="aiModalOverlay">
+<div class="w-full bg-surface-white rounded-t-3xl p-margin flex flex-col gap-space-md transform translate-y-full transition-transform duration-300 shadow-2xl" id="aiModalSheet">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-surface-ai flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[24px]">auto_awesome</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">AI Studio Preview</h3>
+<p class="font-caption text-caption text-text-muted">Display &amp; Prototype Mode</p>
+</div>
+</div>
+<button class="p-1 rounded-full text-text-muted hover:text-on-surface" id="closeAiModalBtn">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-2xl flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">info</span>
+<span class="font-title-sm text-title-sm text-on-surface" id="aiToolTitle">AI Background Remover</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+          This intelligent machine-learning tool is cataloged and pre-configured for future on-device deployment. External cloud AI invocation is currently simulated to preserve strict offline privacy.
+        </p>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-text-muted bg-surface-white p-3 rounded-xl">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+          Scheduled Release: v2.4 Studio Pack
+        </span>
+<span class="font-semibold text-secondary">16 Modules Prepped</span>
+</div>
+<button class="w-full py-3.5 rounded-xl bg-secondary text-on-secondary font-title-sm text-title-sm active:scale-95 transition-all" id="dismissAiModalBtn">
+        Got It, Thanks
+      </button>
+</div>
+</div>
+</div>
+<script>
+(function() {
+  // Update shell navigation active state to "All Tools"
+  try {
+    const bottomNav = document.querySelector('nav');
+    if (bottomNav) {
+      const allLinks = bottomNav.querySelectorAll('a[data-path]');
+      allLinks.forEach(link => {
+        const path = link.getAttribute('data-path');
+        if (path === 'all-tools') {
+          link.classList.remove('text-text-muted');
+          link.classList.add('text-primary-container', 'font-semibold');
+        } else {
+          link.classList.remove('text-primary-container', 'font-semibold');
+          link.classList.add('text-text-muted');
+        }
+      });
+    }
+  } catch(e) {}
+
+  // Canonical Studios Definition
+  const STUDIOS = [
+    { id: 'all', name: 'All', count: 500, icon: 'apps', colorClass: 'bg-primary-container text-on-primary' },
+    { id: 'pdf', name: 'PDF Studio', count: 48, icon: 'picture_as_pdf', bg: 'bg-surface-pdf', text: 'text-accent-coral' },
+    { id: 'image', name: 'Image Studio', count: 37, icon: 'image', bg: 'bg-surface-image', text: 'text-accent-emerald' },
+    { id: 'scanner', name: 'Document Scanner', count: 18, icon: 'document_scanner', bg: 'bg-surface-scanner', text: 'text-accent-teal' },
+    { id: 'video', name: 'Video Studio', count: 25, icon: 'videocam', bg: 'bg-surface-video', text: 'text-secondary' },
+    { id: 'audio', name: 'Audio Studio', count: 25, icon: 'graphic_eq', bg: 'bg-surface-audio', text: 'text-accent-blue' },
+    { id: 'office', name: 'Office & Docs', count: 27, icon: 'description', bg: 'bg-surface-office', text: 'text-primary' },
+    { id: 'archive', name: 'Archive & Files', count: 24, icon: 'folder_zip', bg: 'bg-surface-archive', text: 'text-on-surface-variant' },
+    { id: 'text', name: 'Text & Writing', count: 39, icon: 'edit_note', bg: 'bg-surface-text', text: 'text-accent-orange' },
+    { id: 'dev', name: 'Developer Tools', count: 57, icon: 'terminal', bg: 'bg-surface-developer', text: 'text-accent-sky' },
+    { id: 'calculator', name: 'Calculators', count: 50, icon: 'calculate', bg: 'bg-surface-calculator', text: 'text-accent-amber' },
+    { id: 'qr', name: 'QR & Security', count: 25, icon: 'qr_code_scanner', bg: 'bg-surface-web', text: 'text-accent-teal' },
+    { id: 'web', name: 'Web & Internet', count: 25, icon: 'language', bg: 'bg-surface-audio', text: 'text-accent-blue' },
+    { id: 'ai', name: 'AI Studio', count: 16, icon: 'auto_awesome', bg: 'bg-surface-ai', text: 'text-secondary' },
+    { id: 'productivity', name: 'Productivity & Education', count: 34, icon: 'school', bg: 'bg-surface-productivity', text: 'text-accent-rose' },
+    { id: 'accessibility', name: 'Accessibility & Device', count: 20, icon: 'accessibility_new', bg: 'bg-surface-image', text: 'text-status-success' },
+    { id: 'advanced', name: 'Advanced & Experimental', count: 30, icon: 'biotech', bg: 'bg-surface-container', text: 'text-surface-tint' }
+  ];
+
+  // Studio Theme Palette Lookup
+  const STUDIO_THEMES = {
+    'PDF Studio': { bg: 'bg-surface-pdf', text: 'text-accent-coral', icon: 'picture_as_pdf' },
+    'Image Studio': { bg: 'bg-surface-image', text: 'text-accent-emerald', icon: 'image' },
+    'Document Scanner': { bg: 'bg-surface-scanner', text: 'text-accent-teal', icon: 'document_scanner' },
+    'Video Studio': { bg: 'bg-surface-video', text: 'text-secondary', icon: 'videocam' },
+    'Audio Studio': { bg: 'bg-surface-audio', text: 'text-accent-blue', icon: 'graphic_eq' },
+    'Office & Docs': { bg: 'bg-surface-office', text: 'text-primary', icon: 'description' },
+    'Archive & Files': { bg: 'bg-surface-archive', text: 'text-on-surface-variant', icon: 'folder_zip' },
+    'Text & Writing': { bg: 'bg-surface-text', text: 'text-accent-orange', icon: 'edit_note' },
+    'Developer Tools': { bg: 'bg-surface-developer', text: 'text-accent-sky', icon: 'terminal' },
+    'Calculators': { bg: 'bg-surface-calculator', text: 'text-accent-amber', icon: 'calculate' },
+    'QR & Security': { bg: 'bg-surface-web', text: 'text-accent-teal', icon: 'qr_code_scanner' },
+    'Web & Internet': { bg: 'bg-surface-audio', text: 'text-accent-blue', icon: 'language' },
+    'AI Studio': { bg: 'bg-surface-ai', text: 'text-secondary', icon: 'auto_awesome' },
+    'Productivity & Education': { bg: 'bg-surface-productivity', text: 'text-accent-rose', icon: 'school' },
+    'Accessibility & Device': { bg: 'bg-surface-image', text: 'text-status-success', icon: 'accessibility_new' },
+    'Advanced & Experimental': { bg: 'bg-surface-container', text: 'text-surface-tint', icon: 'biotech' }
+  };
+
+  // Generate All 500 Canonical Canonical Tools
+  const CANONICAL_TOOLS = [];
+
+  // 1-48: PDF Studio
+  const pdfNames = [
+    "PDF Merger", "PDF Splitter", "PDF Compressor", "PDF to Word Converter", "Word to PDF", 
+    "PDF to JPG", "JPG to PDF", "PDF to PNG", "PNG to PDF", "PDF Page Rotator", 
+    "PDF Page Deleter", "PDF Page Reorder", "PDF Password Protect", "PDF Password Unlock", 
+    "PDF Watermark Inserter", "PDF Page Numbering", "PDF Text Extractor", "PDF Signature Tool", 
+    "PDF Form Filler", "PDF Flatten Tool", "PDF Grayscale Converter", "PDF OCR Reader", 
+    "PDF Redactor", "PDF Metadata Editor", "PDF Margin Adjuster", "PDF Bookmarker", 
+    "PDF Header & Footer", "PDF Booklet Maker", "PDF Page Resizer", "PDF to EPUB", 
+    "EPUB to PDF", "PDF to HTML", "HTML to PDF", "PDF to Excel", "Excel to PDF", 
+    "PDF to PowerPoint", "PowerPoint to PDF", "PDF Color Inverter", "PDF Repair Tool", 
+    "PDF Annotator", "PDF Linearizer", "PDF Batch Printer", "PDF Comparison Tool", 
+    "PDF Stamp Maker", "PDF Security Inspector", "PDF Font Embedder", "PDF X/1-a Validator", "PDF Table Extractor"
+  ];
+  pdfNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 1 + i, name, studio: 'PDF Studio', status: 'Offline', icon: 'picture_as_pdf', usageRank: 400 - i });
+  });
+
+  // 49-85: Image Studio
+  const imageNames = [
+    "Image Resizer", "Image Cropper", "Image Format Converter", "PNG to WEBP", "JPG to PNG",
+    "Image Compressor", "Background Remover", "Color Palette Extractor", "EXIF Data Viewer", "EXIF Stripper",
+    "Image Watermarker", "Photo Filter Engine", "Image Blur Tool", "Image Sharpener", "Dither Effect Tool",
+    "Image Inverter", "Grayscale Converter", "Duotone Creator", "Vignette Generator", "Image Border Maker",
+    "Round Image Maker", "Collage Studio", "ASCII Art Converter", "Pixelate Tool", "Image Noise Reducer",
+    "Image Histogram", "Color Inverter", "SVG Optimizer", "Vector Trace Engine", "Sprite Sheet Slicer",
+    "Favicon Generator", "Meme Maker Studio", "Polaroid Effect Maker", "Image Rotator & Flip", "Color Picker Loupe",
+    "Contrast Enhancer", "Image Splitter Grid"
+  ];
+  imageNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 49 + i, name, studio: 'Image Studio', status: 'Offline', icon: 'image', usageRank: 450 - i });
+  });
+
+  // 86-103: Document Scanner
+  const scannerNames = [
+    "Camera Doc Scanner", "Edge Detection Deskew", "Receipt Scanner", "Business Card Scanner", "ID Card Duplex Scan",
+    "Passport Scanner", "Multi-page Book Scanner", "Handwriting Digitizer", "Black & White High-Pass", "Document Contrast Balancer",
+    "Shadow Remover", "Scanner Page Stitcher", "Document Auto-Crop", "Barcode Scan Archiver", "Perspective Corrector",
+    "Scan to Multi-PDF", "Whiteboard Glow Remover", "Thermal Receipt Enhancer"
+  ];
+  scannerNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 86 + i, name, studio: 'Document Scanner', status: 'Offline', icon: 'document_scanner', usageRank: 380 - i });
+  });
+
+  // 104-128: Video Studio
+  const videoNames = [
+    "Video Trimmer", "Video Compressor", "Video to GIF", "GIF to MP4", "Video Audio Stripper",
+    "Video Speed Controller", "Video Resizer", "Video Watermark Adder", "Video Subtitle Burner", "Video Aspect Ratio Changer",
+    "Video Reverser", "Video Frame Grabber", "Video Looper", "Audio to Video Visualizer", "Video Stabilizer Preview",
+    "MP4 to WEBM", "MOV to MP4", "MKV to MP4", "Video Volume Booster", "Video Rotator",
+    "Color Grading LUT Applier", "Video Thumbnail Generator", "Video Splitter", "Video Merger Clips", "Green Screen Chroma Key"
+  ];
+  videoNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 104 + i, name, studio: 'Video Studio', status: 'Downloadable', icon: 'videocam', usageRank: 350 - i });
+  });
+
+  // 129-153: Audio Studio
+  const audioNames = [
+    "Audio Cutter & Trim", "Audio Compressor", "MP3 to WAV", "WAV to MP3", "Audio Merger",
+    "Audio Speed Changer", "Audio Pitch Shifter", "Vocal Remover Preview", "Volume Normalizer", "BPM Tapper & Analyzer",
+    "Audio Reverse", "Audio Loop Maker", "Podcast Noise Gate", "Ring Tone Builder", "Stereo Panner",
+    "Bass Booster", "Equalizer 10-Band", "Audio Bitrate Downsampler", "OGG to MP3", "M4A to MP3",
+    "FLAC Lossless Transcoder", "Voice Recorder & FX", "Silence Trimmer", "Audio Tag ID3 Editor", "Metronome Studio"
+  ];
+  audioNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 129 + i, name, studio: 'Audio Studio', status: 'Offline', icon: 'graphic_eq', usageRank: 320 - i });
+  });
+
+  // 154-180: Office & Documents
+  const officeNames = [
+    "Markdown to HTML", "HTML to Markdown", "Docx Viewer & Dump", "XLSX CSV Converter", "CSV to XLSX",
+    "CSV Table Formatter", "JSON to CSV", "CSV to JSON", "Spreadsheet Formula Helper", "Word Counter Pro",
+    "Typing Speed Test", "Invoice Generator", "Resume Builder Plain", "Timesheet Calculator", "Meeting Minutes Formatter",
+    "Cover Letter Formatter", "Presentation Slides Outline", "ODT Document Viewer", "RTF to TXT", "XML to CSV",
+    "Budget Planner Template", "Kanban Exporter", "VCard Maker", "CalDAV ICS Event Maker", "Document Redline Diff",
+    "Table to Markdown", "Bibliography BibTeX Formatter"
+  ];
+  officeNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 154 + i, name, studio: 'Office & Docs', status: 'Offline', icon: 'description', usageRank: 300 - i });
+  });
+
+  // 181-204: Archive & Files
+  const archiveNames = [
+    "ZIP Extractor", "ZIP Creator", "TAR Reader", "GZ Decompressor", "7Z Archive Viewer",
+    "File Hash Checker (MD5)", "SHA-256 Checksum", "File Checksum Compare", "Batch File Renamer", "Duplicate File Finder",
+    "Large File Splitter", "File Joiner Part", "MIME Type Detector", "Base64 File Encoder", "Base64 File Decoder",
+    "Folder Tree Visualizer", "File Permissions Octal", "Disk Space Visualizer", "Zero-Byte File Cleaner", "Secure File Shredder",
+    "File Extension Fixer", "Hidden File Detector", "Data URI Generator", "Temp File Wiper"
+  ];
+  archiveNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 181 + i, name, studio: 'Archive & Files', status: 'Offline', icon: 'folder_zip', usageRank: 310 - i });
+  });
+
+  // 205-243: Text & Writing
+  const textNames = [
+    "Case Converter", "Slug Generator", "Lorem Ipsum Generator", "Text Diff Checker", "Duplicate Line Remover",
+    "Sort Lines Alphabetically", "Whitespace Cleaner", "Emoji Remover / Picker", "Word Frequency Counter", "Character Counter",
+    "Morse Code Converter", "Binary Text Translator", "NATO Phonetic Alphabet", "Rot13 Cipher Tool", "Zalgo Glitch Text",
+    "Upside Down Text", "Palindrome Detector", "Anagram Finder", "Rhyme Finder Plain", "Reading Time Calculator",
+    "Syllable Counter", "Text Capitalizer Title", "Find & Replace Regex", "Line Number Adder", "Prefix / Suffix Inserter",
+    "HTML Entity Encoder", "URL Encoder / Decoder", "Punycode Converter", "Roman Numeral Converter", "Number to Words Speller",
+    "Pig Latin Translator", "Reverse Text Tool", "Obfuscated Text Decoder", "Markdown Preview Live", "Text Justifier",
+    "JSON String Escaper", "SQL String Escaper", "Clean Copy Paste Tool", "Font Preview Plain"
+  ];
+  textNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 205 + i, name, studio: 'Text & Writing', status: 'Offline', icon: 'edit_note', usageRank: 360 - i });
+  });
+
+  // 244-300: Developer Tools
+  const devNames = [
+    "JSON Formatter & Validator", "JSON Minifier", "JSON to YAML", "YAML to JSON", "XML Formatter",
+    "XML to JSON", "CSS Minifier", "CSS Beautifier", "JavaScript Minifier", "JS Beautifier",
+    "SQL Query Formatter", "HTML Formatter", "Regex Tester Live", "JWT Token Decoder", "UUID / GUID Generator",
+    "ULID Generator", "Crontab Expression Parser", "Chmod Calculator", "HTTP Status Codes Guide", "User Agent Parser",
+    "Color Hex to RGB / HSL", "RGB to Hex Converter", "CSS Box Shadow Generator", "CSS Gradient Generator", "CSS Flexbox Playground",
+    "CSS Grid Layout Builder", "Git Cheat Sheet & Command Helper", "Curl to Fetch Converter", "Bcrypt Hash Generator", "MD5 Hash Engine",
+    "SHA-512 Generator", "HMAC Signer", "Base58 Encoder", "Base32 Encoder", "Hex Dump Viewer",
+    "IP Subnet Calculator", "CIDR Range Finder", "Port Reference Database", "DNS Records Lookup Helper", "WebSocket Client Tester",
+    "GraphQL Query Formatter", "Docker Run to Compose", "Env Var Formatter", "Semver Version Compare", "Keycode Event Tester",
+    "Timestamp to Date (Epoch)", "Date to Unix Timestamp", "Nanoid Generator", "Random String Secret Key", "CSS Glassmorphism Generator",
+    "SVGO Code Optimizer", "HTML to JSX Converter", "TypeScript Type Inspector", "Markdown Table Maker", "Query String Parser",
+    "Cookie String Parser", "Robots.txt Validator"
+  ];
+  devNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 244 + i, name, studio: 'Developer Tools', status: 'Offline', icon: 'terminal', usageRank: 420 - i });
+  });
+
+  // 301-350: Calculators
+  const calcNames = [
+    "Scientific Calculator", "Unit Converter Length", "Unit Converter Weight", "Temperature Converter", "Currency Converter Offline",
+    "Loan & Mortgage Calculator", "Tip & Split Bill Calculator", "Discount & Sales Tax", "Compound Interest Engine", "BMI Health Calculator",
+    "Body Fat Percentage", "Calorie TDEE Calculator", "Age & Birthday Exact", "Days Between Dates", "Work Day Counter",
+    "Time Zone Difference", "Fuel Cost Trip Calculator", "Electricity Bill Estimator", "Percentage Change Tool", "Fraction to Decimal",
+    "Aspect Ratio Dimension Calc", "PPI / DPI Screen Calculator", "Download Time Estimator", "Data Storage Units (GB/TB)", "Ohm's Law Calculator",
+    "Resistor Color Code Reader", "Binary / Hex Math Calc", "Probability Odds Calculator", "Sales Margin / Markup", "Depreciation Calculator",
+    "Net Present Value (NPV)", "Break-Even Point Calc", "Pace & Running Split", "Water Intake Daily Calc", "Sleep Cycle Alarm Calc",
+    "Overtime Pay Calculator", "Retirement Nest Egg Calc", "Simple Rule of Three", "Bake Scaling Ingredient", "Golden Ratio Calculator",
+    "Volume & 3D Shapes", "Area & Perimeter 2D", "Speed / Distance / Time", "Wind Chill & Heat Index", "Standard Deviation Calc",
+    "Permutation & Combination", "Roman Numeral Math", "BMR Metabolic Rate", "Wheel / Tire Size Difference", "Ring Size Diameter Calc"
+  ];
+  calcNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 301 + i, name, studio: 'Calculators', status: 'Offline', icon: 'calculate', usageRank: 390 - i });
+  });
+
+  // 351-375: QR, Barcode & Security
+  const qrNames = [
+    "QR Code Generator (URL)", "QR Code Generator (WiFi)", "QR Code Generator (vCard)", "QR Code Generator (Email)", "QR Code Generator (SMS)",
+    "Barcode Generator (EAN-13)", "Barcode Generator (Code 128)", "Barcode Generator (UPC-A)", "QR Code Scanner Camera", "Barcode Scanner Camera",
+    "Password Generator Strong", "Passphrase Diceware Maker", "Password Strength Meter", "Two-Factor TOTP Authenticator", "Steganography Image Hide",
+    "Steganography Image Reveal", "Hash Salt Verifier", "PGP Key Pair Preview", "File Integrity Verifier", "Secret Message Splitter (Shamir)",
+    "PIN Code Permutator", "Pattern Lock Visualizer", "WPA2 Key Generator", "Credit Card Luhn Validator", "IBAN Bank Validator"
+  ];
+  qrNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 351 + i, name, studio: 'QR & Security', status: 'Offline', icon: 'qr_code_scanner', usageRank: 340 - i });
+  });
+
+  // 376-400: Web & Internet
+  const webNames = [
+    "Speed Test Latency Ping", "What Is My Local IP", "User-Agent Header Check", "Website HTTP Status Probe", "SSL Certificate Details",
+    "WHOIS Domain Plain Viewer", "DNS Propagation Lookup", "Meta Tags SEO Analyzer", "Open Graph Social Previewer", "Robots.txt Generator",
+    "Sitemap XML Builder", "Responsive Screen Tester", "Color Contrast WCAG Check", "HTML Link Checker Dump", "Redirect Path Tracer",
+    "Browser Feature Detector", "Canvas Fingerprint Check", "WebRTC Leak Tester", "UTM Link Campaign Builder", "Favicon Fetcher",
+    "HTTP Request Header Viewer", "HAR File Viewer", "Gzip / Brotli Test", "CSP Header Generator", "Security Headers Scanner"
+  ];
+  webNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 376 + i, name, studio: 'Web & Internet', status: 'Downloadable', icon: 'language', usageRank: 280 - i });
+  });
+
+  // 401-416: AI Studio (Coming Soon)
+  const aiNames = [
+    "AI Background Remover", "AI Image Upscaler 4X", "AI Magic Object Eraser", "AI Text Summarizer", "AI Audio Transcriber",
+    "AI Voice Enhancer & Denoise", "AI Face Restoration", "AI Colorize Old Photo", "AI Code Explainer & Fix", "AI Translation Multi-Lang",
+    "AI Grammar Stylist", "AI Vectorizer Tracing", "AI Document Chatbot OCR", "AI Video Stabilization", "AI Depth Map Generator", "AI Prompt Polisher"
+  ];
+  aiNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 401 + i, name, studio: 'AI Studio', status: 'Coming Soon', icon: 'auto_awesome', usageRank: 500 - i });
+  });
+
+  // 417-450: Productivity & Education
+  const prodNames = [
+    "Pomodoro Focus Timer", "Eisenhower Priority Matrix", "Habit Tracker Checklist", "Simple Flashcards Study", "Periodic Table Interactive",
+    "World Clock 24H Cities", "Mind Map Outline Node", "Flash Card Quiz Maker", "Random Decision Wheel", "Coin Flipper & Dice Roller",
+    "Daily Water Habit Counter", "Interval Workout Timer", "Morse Code Audio Trainer", "Country Capital Quiz", "Multiplication Table Chart",
+    "Spelling Bee Word Assistant", "Citation APA / MLA Formatter", "Cornell Notes Template", "Goal SMART Framework", "Meditation Breath Pacer",
+    "Weekly Planner Schedule", "Chore Rotation Board", "Conference Call Planner", "Sticky Notes Quick Board", "Reading Speed Trainer",
+    "Spaced Repetition Schedule", "Grammar Rule Refresher", "Constellation Star Finder", "Typing Drill Challenge", "Daily Affirmation Deck",
+    "Random Number Picker", "Event Countdown Clock", "Stopwatch with Lap Times", "Chrono Score Keeper"
+  ];
+  prodNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 417 + i, name, studio: 'Productivity & Education', status: 'Offline', icon: 'school', usageRank: 330 - i });
+  });
+
+  // 451-470: Accessibility & Device
+  const accessNames = [
+    "Screen Magnifier Loupe", "High-Contrast Screen Helper", "Screen Ruler in Pixels/mm", "Flashlight Torch Pro", "Sound Meter Decibel Reader",
+    "Compass & Heading Sensor", "Bubble Level Inclinometer", "Metal Detector EMF Tester", "Screen Color Blindness Filter", "Vibration Haptic Tester",
+    "Multi-Touch Finger Counter", "Battery Health & Stats", "Display Dead Pixel Finder", "Microphone Sensitivity Test", "Speaker Stereo Balance Test",
+    "Accelerometer Live Graph", "Light Sensor Lux Meter", "Device Info Benchmark", "Network Bandwidth Meter", "Hearing Frequency Tone Gen"
+  ];
+  accessNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 451 + i, name, studio: 'Accessibility & Device', status: 'Offline', icon: 'accessibility_new', usageRank: 310 - i });
+  });
+
+  // 471-500: Advanced & Experimental
+  const advNames = [
+    "Audio Tone Pitch Synthesizer", "Binaural Beats 432Hz Tool", "White Noise Soundboard", "Sine / Square Wave Synth", "Fourier FFT Audio Visualizer",
+    "Conway's Game of Life", "Cellular Automata Lab", "Fractal Mandelbrot Zoom", "Matrix Rain Animation", "L-System Plant Generator",
+    "Bezier Curve Interactive Editor", "Perlin Noise Texture Maker", "Particle Physics Sandbox", "Sorting Algorithm Visualizer", "Pathfinding A* Visualizer",
+    "Markov Text Generator", "Steganography Sound Player", "UUID v7 Microsecond Generator", "WebAudio Oscilloscope", "WebGL Shader Playground",
+    "Ray Marching 3D Demo", "Base91 Binary Encoder", "Huffman Tree Visualizer", "Graph Node Diagram Studio", "Regex Railroad Diagram",
+    "Diffie-Hellman Key Exchange Sim", "Solar System Planetary Clock", "Tesseract 4D Projection", "Subliminal Flash Trainer", "Quantum Random Bit Generator"
+  ];
+  advNames.forEach((name, i) => {
+    CANONICAL_TOOLS.push({ id: 471 + i, name, studio: 'Advanced & Experimental', status: 'Offline', icon: 'biotech', usageRank: 260 - i });
+  });
+
+  // State Management
+  let activeStudio = 'all';
+  let searchQuery = '';
+  let activeSort = 'recommended';
+  let activeAvailability = 'all';
+  let isGridView = true;
+  const favorites = new Set([1, 2, 49, 104, 244, 401]);
+
+  // DOM Elements
+  const container = document.getElementById('toolsCatalogContainer');
+  const emptyState = document.getElementById('emptyCatalogState');
+  const searchInput = document.getElementById('toolSearchInput');
+  const clearSearchBtn = document.getElementById('clearSearchBtn');
+  const resultsBadge = document.getElementById('resultsBadge');
+  const badgeCountText = document.getElementById('badgeCountText');
+  const studioPillsWrapper = document.getElementById('studioPillsWrapper');
+  const filterModalOverlay = document.getElementById('filterModalOverlay');
+  const filterModalSheet = document.getElementById('filterModalSheet');
+  const openFilterBtn = document.getElementById('openFilterBtn');
+  const closeFilterModalBtn = document.getElementById('closeFilterModalBtn');
+  const applyModalFiltersBtn = document.getElementById('applyModalFiltersBtn');
+  const resetModalFiltersBtn = document.getElementById('resetModalFiltersBtn');
+  const resetAllFiltersBtn = document.getElementById('resetAllFiltersBtn');
+  const aiModalOverlay = document.getElementById('aiModalOverlay');
+  const aiModalSheet = document.getElementById('aiModalSheet');
+  const closeAiModalBtn = document.getElementById('closeAiModalBtn');
+  const dismissAiModalBtn = document.getElementById('dismissAiModalBtn');
+  const aiToolTitle = document.getElementById('aiToolTitle');
+  const viewGridBtn = document.getElementById('viewGridBtn');
+  const viewListBtn = document.getElementById('viewListBtn');
+  const sortToggleBtn = document.getElementById('sortToggleBtn');
+  const activeSortLabel = document.getElementById('activeSortLabel');
+  const availabilityToggleBtn = document.getElementById('availabilityToggleBtn');
+  const activeAvailabilityLabel = document.getElementById('activeAvailabilityLabel');
+
+  // Render Horizontal Studio Pills
+  function renderStudioPills() {
+    studioPillsWrapper.innerHTML = '';
+    STUDIOS.forEach(s => {
+      const btn = document.createElement('button');
+      const isSelected = activeStudio === s.id;
+      btn.className = `flex items-center gap-1.5 px-3 py-1.5 rounded-full text-label-md font-label-md transition-all shrink-0 active:scale-95 ${
+        isSelected 
+          ? 'bg-primary text-on-primary shadow-sm font-semibold' 
+          : 'bg-surface-white text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low'
+      }`;
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-[16px]">${s.icon}</span>
+        <span>${s.name} (${s.count})</span>
+      `;
+      btn.addEventListener('click', () => {
+        activeStudio = s.id;
+        renderStudioPills();
+        filterAndRenderTools();
+      });
+      studioPillsWrapper.appendChild(btn);
+    });
+  }
+
+  // Filter & Sort Logic
+  function getFilteredTools() {
+    return CANONICAL_TOOLS.filter(tool => {
+      // Studio matching
+      if (activeStudio !== 'all') {
+        const targetStudio = STUDIOS.find(s => s.id === activeStudio);
+        if (targetStudio && tool.studio !== targetStudio.name) return false;
+      }
+      // Availability matching
+      if (activeAvailability !== 'all') {
+        if (tool.status !== activeAvailability) return false;
+      }
+      // Search matching
+      if (searchQuery.trim().length > 0) {
+        const q = searchQuery.toLowerCase();
+        const matchesName = tool.name.toLowerCase().includes(q);
+        const matchesStudio = tool.studio.toLowerCase().includes(q);
+        const matchesId = tool.id.toString() === q;
+        if (!matchesName && !matchesStudio && !matchesId) return false;
+      }
+      return true;
+    }).sort((a, b) => {
+      if (activeSort === 'az') return a.name.localeCompare(b.name);
+      if (activeSort === 'id') return a.id - b.id;
+      if (activeSort === 'popular') return b.usageRank - a.usageRank;
+      return (favorites.has(b.id) ? 1 : 0) - (favorites.has(a.id) ? 1 : 0) || b.usageRank - a.usageRank;
+    });
+  }
+
+  // Render Tool Cards
+  function filterAndRenderTools() {
+    const list = getFilteredTools();
+    badgeCountText.textContent = `${list.length} ${list.length === 1 ? 'tool' : 'tools'}`;
+
+    if (list.length === 0) {
+      container.classList.add('hidden');
+      emptyState.classList.remove('hidden');
+      emptyState.classList.add('flex');
+      return;
+    }
+
+    container.classList.remove('hidden');
+    emptyState.classList.add('hidden');
+    emptyState.classList.remove('flex');
+
+    if (isGridView) {
+      container.className = 'grid grid-cols-2 gap-space-sm';
+    } else {
+      container.className = 'flex flex-col gap-space-xs';
+    }
+
+    container.innerHTML = '';
+
+    // Render limited slice first for hyper-fast responsive mobile paint, append dynamically
+    const displayList = list.slice(0, 120);
+
+    displayList.forEach(tool => {
+      const theme = STUDIO_THEMES[tool.studio] || { bg: 'bg-surface-office', text: 'text-primary', icon: 'handyman' };
+      const isFav = favorites.has(tool.id);
+      const isAi = tool.studio === 'AI Studio';
+
+      const card = document.createElement('div');
+      
+      if (isGridView) {
+        card.className = 'bg-surface-white rounded-2xl p-space-sm shadow-[0_1px_8px_rgba(23,26,46,0.04)] flex flex-col justify-between h-40 transition-all active:scale-[0.98] cursor-pointer hover:shadow-md';
+        card.innerHTML = `
+          <div class="flex items-start justify-between">
+            <div class="w-10 h-10 rounded-xl ${theme.bg} ${theme.text} flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[20px]">${theme.icon}</span>
+            </div>
+            <button class="fav-btn p-1 text-text-muted hover:text-accent-coral transition-colors" data-id="${tool.id}" aria-label="Toggle favorite">
+              <span class="material-symbols-outlined text-[19px] ${isFav ? 'text-accent-coral' : ''}" style="${isFav ? "font-variation-settings: 'FILL' 1;" : ''}">favorite</span>
+            </button>
+          </div>
+          <div class="flex flex-col mt-2 min-w-0">
+            <span class="font-title-sm text-title-sm text-on-surface line-clamp-2 leading-tight">${tool.name}</span>
+            <div class="flex items-center justify-between mt-2 pt-1 border-t border-border-subtle/60">
+              <span class="font-caption text-caption text-text-muted truncate max-w-[85px]">${tool.studio.split(' ')[0]}</span>
+              <span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded ${
+                tool.status === 'Coming Soon' ? 'bg-secondary-fixed text-on-secondary-fixed' :
+                tool.status === 'Downloadable' ? 'bg-surface-container text-primary' : 'bg-surface-container-low text-text-muted'
+              }">${tool.status === 'Coming Soon' ? 'Soon' : tool.status}</span>
+            </div>
+          </div>
+        `;
+      } else {
+        // List View Row
+        card.className = 'bg-surface-white rounded-xl p-3 shadow-[0_1px_6px_rgba(23,26,46,0.03)] flex items-center justify-between transition-all active:scale-[0.99] cursor-pointer';
+        card.innerHTML = `
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-10 h-10 rounded-xl ${theme.bg} ${theme.text} flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-[20px]">${theme.icon}</span>
+            </div>
+            <div class="flex flex-col min-w-0">
+              <span class="font-title-sm text-title-sm text-on-surface truncate">${tool.name}</span>
+              <div class="flex items-center gap-2 mt-0.5">
+                <span class="font-caption text-caption text-text-muted">${tool.studio}</span>
+                <span class="text-text-muted text-[10px]">•</span>
+                <span class="font-label-sm text-label-sm text-text-muted">#${tool.id}</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full ${
+              tool.status === 'Coming Soon' ? 'bg-secondary-fixed text-on-secondary-fixed font-semibold' : 'bg-surface-container-low text-text-muted'
+            }">${tool.status}</span>
+            <button class="fav-btn p-1 text-text-muted hover:text-accent-coral transition-colors" data-id="${tool.id}">
+              <span class="material-symbols-outlined text-[20px] ${isFav ? 'text-accent-coral' : ''}" style="${isFav ? "font-variation-settings: 'FILL' 1;" : ''}">favorite</span>
+            </button>
+          </div>
+        `;
+      }
+
+      // Card Click Handler
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.fav-btn')) return;
+        if (isAi) {
+          openAiPreview(tool.name);
+        } else {
+          // Standard tool tap delight feedback
+          card.classList.add('bg-surface-container-low');
+          setTimeout(() => card.classList.remove('bg-surface-container-low'), 180);
+        }
+      });
+
+      // Favorite Button Click
+      const favBtn = card.querySelector('.fav-btn');
+      favBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = parseInt(favBtn.getAttribute('data-id'), 10);
+        if (favorites.has(id)) {
+          favorites.delete(id);
+        } else {
+          favorites.add(id);
+        }
+        filterAndRenderTools();
+      });
+
+      container.appendChild(card);
+    });
+
+    if (list.length > 120) {
+      const moreHint = document.createElement('div');
+      moreHint.className = 'col-span-2 py-3 text-center text-text-muted font-caption text-caption';
+      moreHint.textContent = `Showing 120 of ${list.length} results. Use specific filters to narrow down.`;
+      container.appendChild(moreHint);
+    }
+  }
+
+  // AI Modal Controller
+  function openAiPreview(toolName) {
+    aiToolTitle.textContent = toolName;
+    aiModalOverlay.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      aiModalOverlay.classList.remove('opacity-0');
+      aiModalSheet.classList.remove('translate-y-full');
+    });
+  }
+
+  function closeAiPreview() {
+    aiModalSheet.classList.add('translate-y-full');
+    aiModalOverlay.classList.add('opacity-0');
+    setTimeout(() => {
+      aiModalOverlay.classList.add('hidden');
+    }, 280);
+  }
+
+  // Filter Modal Controller
+  function openFilterSheet() {
+    filterModalOverlay.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      filterModalOverlay.classList.remove('opacity-0');
+      filterModalSheet.classList.remove('translate-y-full');
+    });
+  }
+
+  function closeFilterSheet() {
+    filterModalSheet.classList.add('translate-y-full');
+    filterModalOverlay.classList.add('opacity-0');
+    setTimeout(() => {
+      filterModalOverlay.classList.add('hidden');
+    }, 280);
+  }
+
+  // Event Listeners
+  searchInput.addEventListener('input', (e) => {
+    searchQuery = e.target.value;
+    if (searchQuery.length > 0) {
+      clearSearchBtn.classList.remove('hidden');
+    } else {
+      clearSearchBtn.classList.add('hidden');
+    }
+    filterAndRenderTools();
+  });
+
+  clearSearchBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    searchQuery = '';
+    clearSearchBtn.classList.add('hidden');
+    filterAndRenderTools();
+  });
+
+  openFilterBtn.addEventListener('click', openFilterSheet);
+  closeFilterModalBtn.addEventListener('click', closeFilterSheet);
+  filterModalOverlay.addEventListener('click', (e) => {
+    if (e.target === filterModalOverlay) closeFilterSheet();
+  });
+
+  closeAiModalBtn.addEventListener('click', closeAiPreview);
+  dismissAiModalBtn.addEventListener('click', closeAiPreview);
+  aiModalOverlay.addEventListener('click', (e) => {
+    if (e.target === aiModalOverlay) closeAiPreview();
+  });
+
+  // Modal Sort and Availability Selectors
+  const sortButtons = document.querySelectorAll('#filterSortOptions button');
+  sortButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      sortButtons.forEach(b => {
+        b.classList.remove('bg-primary-fixed', 'text-on-primary-fixed', 'active');
+        b.classList.add('bg-surface-container-low', 'text-on-surface');
+        const icon = b.querySelector('.material-symbols-outlined');
+        if (icon) icon.classList.add('opacity-0');
+      });
+      btn.classList.add('bg-primary-fixed', 'text-on-primary-fixed', 'active');
+      btn.classList.remove('bg-surface-container-low', 'text-on-surface');
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon) icon.classList.remove('opacity-0');
+      activeSort = btn.getAttribute('data-sort');
+      activeSortLabel.textContent = btn.querySelector('span').textContent;
+    });
+  });
+
+  const availButtons = document.querySelectorAll('#filterAvailabilityOptions button');
+  availButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      availButtons.forEach(b => {
+        b.classList.remove('bg-primary-fixed', 'text-on-primary-fixed', 'active');
+        b.classList.add('bg-surface-container-low', 'text-on-surface');
+      });
+      btn.classList.add('bg-primary-fixed', 'text-on-primary-fixed', 'active');
+      btn.classList.remove('bg-surface-container-low', 'text-on-surface');
+      activeAvailability = btn.getAttribute('data-avail');
+      activeAvailabilityLabel.textContent = activeAvailability === 'all' ? 'All' : activeAvailability;
+    });
+  });
+
+  applyModalFiltersBtn.addEventListener('click', () => {
+    closeFilterSheet();
+    filterAndRenderTools();
+  });
+
+  resetModalFiltersBtn.addEventListener('click', () => {
+    activeSort = 'recommended';
+    activeAvailability = 'all';
+    activeSortLabel.textContent = 'Recommended';
+    activeAvailabilityLabel.textContent = 'All';
+    sortButtons[0].click();
+    availButtons[0].click();
+  });
+
+  resetAllFiltersBtn.addEventListener('click', () => {
+    activeStudio = 'all';
+    searchQuery = '';
+    searchInput.value = '';
+    clearSearchBtn.classList.add('hidden');
+    activeSort = 'recommended';
+    activeAvailability = 'all';
+    activeSortLabel.textContent = 'Recommended';
+    activeAvailabilityLabel.textContent = 'All';
+    renderStudioPills();
+    filterAndRenderTools();
+  });
+
+  // Secondary bar quick toggles
+  sortToggleBtn.addEventListener('click', () => {
+    const orders = ['recommended', 'az', 'popular', 'id'];
+    const idx = (orders.indexOf(activeSort) + 1) % orders.length;
+    activeSort = orders[idx];
+    const labels = { recommended: 'Recommended', az: 'A - Z', popular: 'Popular', id: 'Tool ID' };
+    activeSortLabel.textContent = labels[activeSort];
+    filterAndRenderTools();
+  });
+
+  availabilityToggleBtn.addEventListener('click', () => {
+    const avails = ['all', 'Offline', 'Downloadable', 'Coming Soon'];
+    const idx = (avails.indexOf(activeAvailability) + 1) % avails.length;
+    activeAvailability = avails[idx];
+    activeAvailabilityLabel.textContent = activeAvailability === 'all' ? 'All' : activeAvailability;
+    filterAndRenderTools();
+  });
+
+  // View switchers
+  viewGridBtn.addEventListener('click', () => {
+    if (isGridView) return;
+    isGridView = true;
+    viewGridBtn.classList.add('bg-primary', 'text-on-primary');
+    viewGridBtn.classList.remove('text-text-muted');
+    viewListBtn.classList.remove('bg-primary', 'text-on-primary');
+    viewListBtn.classList.add('text-text-muted');
+    filterAndRenderTools();
+  });
+
+  viewListBtn.addEventListener('click', () => {
+    if (!isGridView) return;
+    isGridView = false;
+    viewListBtn.classList.add('bg-primary', 'text-on-primary');
+    viewListBtn.classList.remove('text-text-muted');
+    viewGridBtn.classList.remove('bg-primary', 'text-on-primary');
+    viewGridBtn.classList.add('text-text-muted');
+    filterAndRenderTools();
+  });
+
+  // Initial Mount
+  renderStudioPills();
+  filterAndRenderTools();
+})();
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-white/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(23,26,46,0.06)]" data-active-classes="text-primary-container font-semibold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="home-dashboard" href="#"><span class="material-symbols-outlined text-[24px]">grid_view</span><span class="font-label-sm text-label-sm">Home</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="all-tools" href="#"><span class="material-symbols-outlined text-[24px]">category</span><span class="font-label-sm text-label-sm">All Tools</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="recent-history" href="#"><span class="material-symbols-outlined text-[24px]">history</span><span class="font-label-sm text-label-sm">Recent</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="my-files" href="#"><span class="material-symbols-outlined text-[24px]">folder_open</span><span class="font-label-sm text-label-sm">My Files</span></a></div><div class="w-32 h-1 bg-on-surface/20 rounded-full mx-auto mb-1"></div></nav></body></html>

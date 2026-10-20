@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-tertiary-container": "#f5fcff", "tertiary-container": "#007f95", "on-surface": "#171a2e", "accent-emerald": "#10B981", "on-surface-variant": "#464555", "surface-container": "#edecff", "secondary-fixed": "#f0dbff", "surface-text": "#FFF1E7", "on-primary-fixed-variant": "#311ed2", "surface-bright": "#fbf8ff", "surface-tint": "#4c42e9", "surface-variant": "#dfe0fc", "on-secondary-fixed-variant": "#6900b3", "background-cloud": "#F7F8FC", "on-secondary-container": "#fffbff", "inverse-primary": "#c3c0ff", "surface-container-highest": "#dfe0fc", "surface-container-high": "#e6e6ff", "on-primary-fixed": "#0e006a", "surface-pdf": "#FFF0EF", "surface-developer": "#E8F7FF", "on-secondary-fixed": "#2c0051", "surface-video": "#F5EAFF", "on-tertiary-fixed": "#001f26", "surface-container-lowest": "#ffffff", "accent-teal": "#14B8A6", "surface-container-low": "#f4f2ff", "outline": "#777587", "outline-variant": "#c7c4d8", "error-container": "#ffdad6", "surface": "#fbf8ff", "on-error-container": "#93000a", "surface-calculator": "#FFF7E2", "status-success": "#16A34A", "surface-audio": "#EAF2FF", "accent-amber": "#F59E0B", "primary": "#483ee5", "status-error": "#DC2626", "surface-ai": "#F4EAFE", "on-background": "#171a2e", "surface-white": "#FFFFFF", "surface-web": "#E5FAF6", "accent-rose": "#EC4899", "surface-archive": "#EEF2F6", "surface-office": "#EEEDFF", "primary-fixed-dim": "#c3c0ff", "tertiary-fixed": "#acedff", "accent-sky": "#0EA5E9", "secondary-container": "#9c48ea", "inverse-surface": "#2c2f44", "tertiary": "#006476", "primary-container": "#625bff", "secondary-fixed-dim": "#ddb7ff", "on-tertiary": "#ffffff", "on-error": "#ffffff", "surface-scanner": "#E6FAFD", "error": "ba1a1a", "on-primary": "#ffffff", "surface-dim": "#d7d8f4", "on-tertiary-fixed-variant": "#004e5c", "secondary": "#8127cf", "accent-orange": "#F97316", "accent-coral": "#FF6B6B", "background": "#fbf8ff", "primary-fixed": "#e2dfff", "status-warning": "#F59E0B", "surface-image": "#E7F9F1", "text-muted": "#64748B", "border-subtle": "#E2E8F0", "on-primary-container": "#fefaff", "on-secondary": "#ffffff", "surface-productivity": "#FDEBF5", "accent-blue": "#3B82F6", "tertiary-fixed-dim": "#4cd7f6", "inverse-on-surface": "#f0efff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-md": "1rem", "margin": "1.25rem", "space-sm": "0.5rem", "gutter-sm": "0.75rem", "gutter": "1rem", "space-xs": "0.25rem", "margin-sm": "1rem", "space-xl": "2rem", "space-lg": "1.5rem" }, fontFamily: { "body-md": ["Inter"], "headline-md": ["Inter"], "caption": ["Inter"], "headline-lg-mobile": ["Inter"], "title-md": ["Inter"], "body-lg": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"], "title-sm": ["Inter"], "label-sm": ["Inter"], "label-md": ["Inter"], "headline-lg": ["Inter"] }, fontSize: { "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "caption": ["12px", { lineHeight: "16px", fontWeight: "400" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }] } } } }</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-background-cloud/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Go back" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pr-space-xs"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-video text-secondary font-label-sm text-label-sm font-semibold tracking-wide uppercase">Video Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate tracking-tight">Format Converter</h1></div></div><div class="flex items-center gap-1 flex-shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-amber hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 ml-space-xs rounded-full bg-primary flex items-center justify-center shadow-sm flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-background-cloud min-h-screen"><div class="flex flex-col w-full pb-safe">
+<!-- Content Container with unified 16dp horizontal margin -->
+<div class="flex flex-col gap-space-lg px-margin pt-space-md">
+<!-- Top Metadata Badges -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-space-sm py-1 rounded-full bg-surface-video text-secondary font-label-md text-label-md font-semibold tracking-wide">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">movie_edit</span>
+        Tool #118 · Video Studio
+      </span>
+<span class="inline-flex items-center px-space-sm py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-md text-label-md">
+        Lanczos Scaler &amp; Downsampler
+      </span>
+</div>
+<!-- Header Section -->
+<div class="flex flex-col gap-space-xs">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">
+        Video Resolution Changer
+      </h2>
+<p class="font-body-md text-body-md text-text-muted">
+        Scale, downsample, or standardize video pixel dimensions while locking aspect ratio.
+      </p>
+</div>
+<!-- Source Video File Card -->
+<div class="p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-12 h-12 rounded-lg bg-surface-video text-secondary flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">video_file</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Cinematic_Forest_Trek_4K.mp4</span>
+<span class="px-1.5 py-0.5 rounded-full bg-surface-container-high text-secondary font-label-sm text-label-sm font-semibold">4K</span>
+</div>
+<span class="font-caption text-caption text-text-muted">01:45 · 540 MB · 60 fps · 16:9</span>
+</div>
+</div>
+<button class="h-10 px-space-sm rounded-lg bg-surface-container text-primary font-label-md text-label-md font-semibold flex items-center gap-1 active:scale-95 transition-transform flex-shrink-0" type="button">
+<span class="material-symbols-outlined text-[18px]">sync_alt</span>
+          Replace
+        </button>
+</div>
+<div class="flex items-center justify-between pt-space-xs px-space-xs bg-background-cloud rounded-lg p-space-xs">
+<div class="flex items-center gap-1.5 text-on-surface-variant font-caption text-caption">
+<span class="material-symbols-outlined text-[16px] text-accent-emerald" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span>Source Dimension: <strong class="text-on-surface font-title-sm text-title-sm">3840 × 2160</strong> (UHD)</span>
+</div>
+<span class="text-text-muted font-label-sm text-label-sm">AVC / H.264</span>
+</div>
+</div>
+<!-- Video Player Preview Container -->
+<div class="flex flex-col rounded-xl overflow-hidden bg-surface-white shadow-sm">
+<div class="relative w-full aspect-video bg-inverse-surface overflow-hidden group">
+<img class="w-full h-full object-cover select-none" data-alt="High-resolution cinematic 4K drone view flying over an emerald-green misty pine forest canopy during golden sunrise, sunbeams piercing through valley fog, ultra-crisp atmospheric landscape videography with natural dynamic contrast and deep vibrant foliage hues." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPinFfyiA5zGBl29VzAnEk4cItHQhyBT0PNE3u0nvSSyIHyCrovfNSl7MPx-frhewj9pYxTsRLltxcCik4wtk3fkn5o-z3D4F1tptdm-jpplfWkvfr1Yhdz7HCwjqWgFFqrLiicCDMk5iSH7jv_vGjKWarDBuxc5BgjaXyoQcRxObZne7gK3ZgMznQfHXf-Djtfj8ewcd_7b2oKKyn8wO3-FK5SXB_vVVl1pwj_IHbQ6kdOB8S1bLgNg"/>
+<!-- Live Resolution Badge Overlay -->
+<div class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-inverse-surface/85 backdrop-blur-md text-surface-white font-label-sm text-label-sm flex items-center gap-1.5 shadow-sm">
+<span class="w-2 h-2 rounded-full bg-accent-emerald animate-pulse"></span>
+          Current: 3840×2160
+        </div>
+<div class="absolute top-3 right-3 px-2 py-1 rounded-full bg-inverse-surface/85 backdrop-blur-md text-surface-white font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+          60 FPS
+        </div>
+<!-- Center Play Overlay Button -->
+<button aria-label="Play video" class="absolute inset-0 m-auto w-12 h-12 rounded-full bg-primary-container/90 backdrop-blur-md text-on-primary-container flex items-center justify-center shadow-md active:scale-90 transition-transform" type="button">
+<span class="material-symbols-outlined text-[28px] translate-x-0.5" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<!-- Scrub Timeline Bar Overlay -->
+<div class="absolute bottom-0 inset-x-0 p-space-sm bg-gradient-to-t from-inverse-surface/90 via-inverse-surface/50 to-transparent flex flex-col gap-1">
+<div class="relative w-full h-1.5 bg-surface-white/30 rounded-full overflow-hidden cursor-pointer">
+<div class="h-full w-2/5 bg-primary-container rounded-full"></div>
+</div>
+<div class="flex items-center justify-between text-surface-white font-caption text-caption px-0.5">
+<span>00:42</span>
+<span>01:45</span>
+</div>
+</div>
+</div>
+<div class="px-space-md py-space-sm bg-surface-white flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-secondary">aspect_ratio</span>
+          Native 16:9 Cinema Aspect Ratio
+        </span>
+<button class="text-primary font-label-md text-label-md font-semibold flex items-center gap-0.5" type="button">
+<span>Inspect Pixels</span>
+<span class="material-symbols-outlined text-[16px]">zoom_in</span>
+</button>
+</div>
+</div>
+<!-- Resolution Preset Matrix -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-on-surface">Target Resolution</h3>
+<span class="font-caption text-caption text-secondary font-medium">Standard Scales</span>
+</div>
+<!-- Presets Vertical Cards -->
+<div class="flex flex-col gap-space-sm" id="presetContainer">
+<!-- 1080p FHD - Active Item -->
+<div class="preset-option p-space-md rounded-xl bg-surface-video/30 shadow-sm cursor-pointer transition-all flex items-center justify-between gap-space-sm" onclick="selectPreset(this, '1080p FHD (1920 × 1080)', '145 MB')">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-secondary text-on-secondary flex items-center justify-center flex-shrink-0 font-title-sm text-title-sm font-bold">
+              HD
+            </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">1080p FHD</span>
+<span class="text-text-muted font-caption text-caption">(1920 × 1080)</span>
+<span class="px-1.5 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-bold">Recommended</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted truncate">Optimal for Web, YouTube &amp; Mobile Streaming</p>
+</div>
+</div>
+<div class="flex flex-col items-end flex-shrink-0 gap-1">
+<div class="w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+<span class="font-label-md text-label-md text-secondary font-semibold">~145 MB</span>
+</div>
+</div>
+<!-- 720p HD -->
+<div class="preset-option p-space-md rounded-xl bg-surface-white shadow-sm cursor-pointer hover:bg-surface-container-low transition-all flex items-center justify-between gap-space-sm" onclick="selectPreset(this, '720p HD (1280 × 720)', '68 MB')">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-on-surface-variant flex items-center justify-center flex-shrink-0 font-title-sm text-title-sm font-semibold">
+              720
+            </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">720p HD</span>
+<span class="text-text-muted font-caption text-caption">(1280 × 720)</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted truncate">Fast Social, WhatsApp &amp; Quick Messaging</p>
+</div>
+</div>
+<div class="flex flex-col items-end flex-shrink-0 gap-1">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center"></div>
+<span class="font-label-md text-label-md text-text-muted font-medium">~68 MB</span>
+</div>
+</div>
+<!-- 480p SD -->
+<div class="preset-option p-space-md rounded-xl bg-surface-white shadow-sm cursor-pointer hover:bg-surface-container-low transition-all flex items-center justify-between gap-space-sm" onclick="selectPreset(this, '480p SD (854 × 480)', '32 MB')">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-on-surface-variant flex items-center justify-center flex-shrink-0 font-title-sm text-title-sm font-semibold">
+              SD
+            </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">480p SD</span>
+<span class="text-text-muted font-caption text-caption">(854 × 480)</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted truncate">Ultra Compact Storage &amp; Low Bandwidth</p>
+</div>
+</div>
+<div class="flex flex-col items-end flex-shrink-0 gap-1">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center"></div>
+<span class="font-label-md text-label-md text-text-muted font-medium">~32 MB</span>
+</div>
+</div>
+<!-- Custom Scale Toggle Card -->
+<div class="p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-surface-container text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Custom Dimension</span>
+<span class="font-caption text-caption text-text-muted">Exact pixel rendering</span>
+</div>
+</div>
+<button class="text-primary font-label-md text-label-md font-semibold px-space-sm py-1 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors" id="customToggleBtn" onclick="toggleCustomInputs()" type="button">
+              Configure
+            </button>
+</div>
+<!-- Collapsible Custom Inputs Panel -->
+<div class="hidden flex flex-col gap-space-sm pt-space-xs" id="customInputsPanel">
+<div class="grid grid-cols-2 gap-space-sm items-center">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted font-medium">Width (px)</label>
+<div class="h-12 px-space-sm rounded-lg bg-background-cloud flex items-center justify-between">
+<input class="bg-transparent font-title-sm text-title-sm text-on-surface w-full focus:outline-none" id="customW" oninput="calculateCustom()" type="number" value="1920"/>
+<span class="text-text-muted font-caption text-caption ml-1">W</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted font-medium">Height (px)</label>
+<div class="h-12 px-space-sm rounded-lg bg-background-cloud flex items-center justify-between">
+<input class="bg-transparent font-title-sm text-title-sm text-on-surface w-full focus:outline-none" id="customH" oninput="calculateCustom()" type="number" value="1080"/>
+<span class="text-text-muted font-caption text-caption ml-1">H</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between px-space-sm py-2 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-1.5 text-secondary font-caption text-caption font-semibold">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span>Aspect ratio locked to 1.78:1 (16:9)</span>
+</div>
+<span class="text-text-muted font-caption text-caption">Mod-2 Compliant</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Aspect Ratio & Scaling Parameters Section -->
+<div class="p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Preserve Aspect Ratio (16:9)</span>
+<span class="font-caption text-caption text-text-muted">Avoid stretched or squished framing</span>
+</div>
+<!-- MD3 Style Pill Switch -->
+<button aria-checked="true" class="w-12 h-7 bg-primary rounded-full relative transition-colors focus:outline-none p-0.5 flex items-center shadow-inner" role="switch" type="button">
+<div class="w-6 h-6 rounded-full bg-surface-white shadow-sm transform translate-x-5 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[14px]">check</span>
+</div>
+</button>
+</div>
+<!-- Scaling Interpolation -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface-variant font-medium flex items-center justify-between">
+<span>Scaling Interpolation Filter</span>
+<span class="font-caption text-caption text-secondary">Lanczos3 Active</span>
+</label>
+<div class="grid grid-cols-3 gap-space-xs">
+<button class="py-2.5 px-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md text-center active:bg-surface-container transition-colors" type="button">
+            Bicubic Crisp
+          </button>
+<button class="py-2.5 px-2 rounded-lg bg-secondary text-on-secondary font-label-md text-label-md font-semibold text-center shadow-sm" type="button">
+            Lanczos3 Hi-Fi
+          </button>
+<button class="py-2.5 px-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md text-center active:bg-surface-container transition-colors" type="button">
+            Bilinear Fast
+          </button>
+</div>
+</div>
+<!-- Letterbox / Pillarbox Padding Color Selector -->
+<div class="flex items-center justify-between pt-space-xs">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Padding Color</span>
+<span class="font-caption text-caption text-text-muted">Letterbox border fill</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-inverse-surface text-surface-white font-label-sm text-label-sm font-semibold shadow-sm" type="button">
+<span class="w-3.5 h-3.5 rounded-full bg-on-surface"></span>
+            Black #000 (Default)
+          </button>
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm" type="button">
+<span class="material-symbols-outlined text-[14px]">crop</span>
+            Crop Fit
+          </button>
+</div>
+</div>
+</div>
+<!-- Storage Footprint Shift Comparison Bar -->
+<div class="p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">data_saver_on</span>
+<span class="font-title-sm text-title-sm text-on-surface">Storage Footprint Shift</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-accent-emerald/15 text-accent-emerald font-label-sm text-label-sm font-bold">
+          -73% File Size
+        </span>
+</div>
+<!-- Visual Data Comparison Gauge -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="w-full h-4 bg-surface-container rounded-full overflow-hidden flex shadow-inner">
+<div class="h-full bg-secondary transition-all duration-500 rounded-l-full" style="width: 27%;"></div>
+<div class="h-full bg-surface-container-highest transition-all duration-500 rounded-r-full" style="width: 73%;"></div>
+</div>
+<div class="flex items-center justify-between font-caption text-caption pt-0.5">
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+<span class="text-on-surface font-semibold">145 MB Target</span>
+<span class="text-text-muted">(1080p FHD)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-full bg-outline-variant"></span>
+<span class="text-text-muted">Original: 540 MB (4K)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Technical Advisory Banner -->
+<div class="p-space-md rounded-xl bg-surface-container flex items-start gap-space-sm shadow-sm">
+<div class="w-9 h-9 rounded-full bg-surface-video text-secondary flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">info</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Technical Advisory</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant pt-0.5">
+          Downscaling reduces storage while preserving sharp perceived density. Upscaling beyond 4K cannot synthesize real optical sensor detail.
+        </p>
+</div>
+</div>
+<!-- Primary Action Button -->
+<div class="flex flex-col pt-space-xs">
+<button class="w-full h-14 rounded-xl bg-primary-container text-on-primary font-title-sm text-title-sm font-bold flex items-center justify-center gap-space-sm shadow-md active:scale-[0.98] transition-transform" id="executeScaleBtn" onclick="simulateScale()" type="button">
+<span class="material-symbols-outlined text-[22px]">transform</span>
+<span id="scaleBtnText">Scale Video to 1080p FHD (1920 × 1080)</span>
+</button>
+<span class="text-center font-caption text-caption text-text-muted pt-2">
+        Hardware-accelerated client encoding · Lanczos3 resampling kernel
+      </span>
+</div>
+<!-- Processing Progress State (Hidden by default, triggered by JS) -->
+<div class="hidden p-space-md rounded-xl bg-surface-white shadow-sm flex flex-col gap-space-sm" id="processingState">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-surface-video text-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px] animate-spin">autorenew</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Downsampling Stream...</span>
+<span class="font-caption text-caption text-text-muted">Frame 1,840 of 6,300 · 60 FPS</span>
+</div>
+</div>
+<span class="font-title-sm text-title-sm text-secondary font-bold" id="progressPercent">29%</span>
+</div>
+<div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary transition-all duration-300" id="progressBar" style="width: 29%;"></div>
+</div>
+</div>
+<!-- Processing Completed Result Card -->
+<div class="p-space-md rounded-xl bg-surface-white shadow-md flex flex-col gap-space-md" id="resultCard">
+<!-- Status Badge & Title -->
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-accent-emerald/15 text-accent-emerald font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+          Video Scaled Successfully
+        </span>
+<span class="font-caption text-caption text-text-muted">Processed in 3.4s</span>
+</div>
+<!-- Result Video File Meta Container -->
+<div class="p-space-sm rounded-lg bg-background-cloud flex items-center gap-space-sm">
+<div class="w-14 h-14 rounded-lg bg-surface-video text-secondary flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">movie</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Cinematic_Forest_Trek_1080pFHD.mp4</span>
+<div class="flex items-center gap-space-xs text-text-muted font-caption text-caption flex-wrap pt-0.5">
+<span class="font-semibold text-accent-emerald">142.6 MB</span>
+<span>·</span>
+<span>1920 × 1080 @ 60fps</span>
+<span>·</span>
+<span>H.264 High</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons Stack -->
+<div class="flex flex-col gap-space-xs pt-1">
+<!-- Save to Gallery -->
+<button class="w-full h-12 rounded-lg bg-primary text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-space-sm shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+          Save to Gallery (.mp4)
+        </button>
+<div class="grid grid-cols-2 gap-space-xs">
+<!-- Share Video -->
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1 active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+            Share Video
+          </button>
+<!-- Change Another Resolution -->
+<button class="h-11 rounded-lg bg-surface-container text-secondary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 active:bg-surface-container-high transition-colors" onclick="resetWorkspace()" type="button">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+            Change Another
+          </button>
+</div>
+</div>
+</div>
+<!-- Studio Quality Tagline -->
+<div class="flex items-center justify-center gap-1 text-text-muted font-caption text-caption py-space-sm">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>Color profile BT.709 preserved · Zero chroma subsampling drift</span>
+</div>
+</div>
+</div>
+<script>
+  function selectPreset(element, presetName, estSize) {
+    const options = document.querySelectorAll('.preset-option');
+    options.forEach(opt => {
+      opt.className = 'preset-option p-space-md rounded-xl bg-surface-white shadow-sm cursor-pointer hover:bg-surface-container-low transition-all flex items-center justify-between gap-space-sm';
+      const badge = opt.querySelector('.flex-col.items-end > div');
+      if (badge) {
+        badge.className = 'w-6 h-6 rounded-full bg-surface-container flex items-center justify-center';
+        badge.innerHTML = '';
+      }
+    });
+
+    element.className = 'preset-option p-space-md rounded-xl bg-surface-video/30 shadow-sm cursor-pointer transition-all flex items-center justify-between gap-space-sm';
+    const indicator = element.querySelector('.flex-col.items-end > div');
+    if (indicator) {
+      indicator.className = 'w-6 h-6 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm';
+      indicator.innerHTML = '<span class="material-symbols-outlined text-[16px]">check</span>';
+    }
+
+    const btnText = document.getElementById('scaleBtnText');
+    if (btnText) {
+      btnText.innerText = 'Scale Video to ' + presetName;
+    }
+  }
+
+  function toggleCustomInputs() {
+    const panel = document.getElementById('customInputsPanel');
+    const toggleBtn = document.getElementById('customToggleBtn');
+    if (panel.classList.contains('hidden')) {
+      panel.classList.remove('hidden');
+      toggleBtn.innerText = 'Close';
+    } else {
+      panel.classList.add('hidden');
+      toggleBtn.innerText = 'Configure';
+    }
+  }
+
+  function calculateCustom() {
+    const w = document.getElementById('customW');
+    const h = document.getElementById('customH');
+    if (w && h && document.activeElement === w) {
+      h.value = Math.round(w.value * (9 / 16));
+    }
+    const btnText = document.getElementById('scaleBtnText');
+    if (btnText) {
+      btnText.innerText = 'Scale Video to Custom (' + w.value + ' × ' + h.value + ')';
+    }
+  }
+
+  function simulateScale() {
+    const processingState = document.getElementById('processingState');
+    const resultCard = document.getElementById('resultCard');
+    const btn = document.getElementById('executeScaleBtn');
+
+    if (processingState) processingState.classList.remove('hidden');
+    if (btn) btn.disabled = true;
+
+    let progress = 20;
+    const interval = setInterval(() => {
+      progress += 20;
+      const bar = document.getElementById('progressBar');
+      const text = document.getElementById('progressPercent');
+      if (bar) bar.style.width = progress + '%';
+      if (text) text.innerText = progress + '%';
+
+      if (progress >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          if (processingState) processingState.classList.add('hidden');
+          if (btn) btn.disabled = false;
+          if (resultCard) {
+            resultCard.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 400);
+      }
+    }, 250);
+  }
+
+  function resetWorkspace() {
+    const resultCard = document.getElementById('resultCard');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script></main></body></html>

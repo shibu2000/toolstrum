@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "inverse-surface": "#2c2f44", "on-error": "#ffffff", "inverse-on-surface": "#f0efff", "outline": "#777587", "surface-calculator": "#FFF7E2", "on-background": "#171a2e", "on-secondary-fixed-variant": "#6900b3", "surface-pdf": "#FFF0EF", "on-surface": "#171a2e", "surface-container-highest": "#dfe0fc", "background": "#fbf8ff", "surface-dim": "#d7d8f4", "primary-fixed-dim": "#c3c0ff", "on-secondary-container": "#fffbff", "surface-web": "#E5FAF6", "on-primary-container": "#fefaff", "surface-ai": "#F4EAFE", "on-primary-fixed": "#0e006a", "surface-image": "#E7F9F1", "on-tertiary": "#ffffff", "on-primary": "#ffffff", "on-secondary": "#ffffff", "status-warning": "#F59E0B", "status-error": "#DC2626", "surface-tint": "#4c42e9", "surface-variant": "#dfe0fc", "on-tertiary-fixed": "#001f26", "border-subtle": "#E2E8F0", "text-muted": "#64748B", "tertiary-fixed-dim": "#4cd7f6", "secondary-container": "#9c48ea", "surface-office": "#EEEDFF", "surface-container": "#edecff", "status-success": "#16A34A", "surface-video": "#F5EAFF", "secondary": "#8127cf", "accent-amber": "#F59E0B", "accent-coral": "#FF6B6B", "error-container": "#ffdad6", "on-tertiary-fixed-variant": "#004e5c", "primary-container": "#625bff", "error": "#ba1a1a", "surface-developer": "#E8F7FF", "secondary-fixed-dim": "#ddb7ff", "on-secondary-fixed": "#2c0051", "background-cloud": "#F7F8FC", "accent-blue": "#3B82F6", "surface-productivity": "#FDEBF5", "secondary-fixed": "#f0dbff", "surface": "#fbf8ff", "accent-rose": "#EC4899", "outline-variant": "#c7c4d8", "surface-scanner": "#E6FAFD", "surface-container-low": "#f4f2ff", "surface-container-lowest": "#ffffff", "on-error-container": "#93000a", "accent-teal": "#14B8A6", "surface-text": "#FFF1E7", "surface-archive": "#EEF2F6", "surface-audio": "#EAF2FF", "accent-sky": "#0EA5E9", "accent-emerald": "#10B981", "tertiary-fixed": "#acedff", "surface-white": "#FFFFFF", "tertiary": "#006476", "surface-container-high": "#e6e6ff", "on-primary-fixed-variant": "#311ed2", "surface-bright": "#fbf8ff", "accent-orange": "#F97316", "primary": "#483ee5", "primary-fixed": "#e2dfff", "on-surface-variant": "#464555", "tertiary-container": "#007f95", "inverse-primary": "#c3c0ff", "on-tertiary-container": "#f5fcff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xs": "0.25rem", "gutter-sm": "0.75rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xl": "2rem", "margin": "1.25rem", "space-sm": "0.5rem", "margin-sm": "1rem", "gutter": "1rem" }, "fontFamily": { "caption": ["Inter"], "headline-lg": ["Inter"], "headline-sm": ["Inter"], "label-md": ["Inter"], "title-md": ["Inter"], "body-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "title-sm": ["Inter"], "body-md": ["Inter"], "label-sm": ["Inter"], "headline-md": ["Inter"], "body-lg": ["Inter"] }, "fontSize": { "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}], "headline-lg": ["30px", {"lineHeight": "38px", "fontWeight": "700"}], "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}], "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}], "title-md": ["16px", {"lineHeight": "22px", "fontWeight": "600"}], "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}], "headline-lg-mobile": ["26px", {"lineHeight": "34px", "fontWeight": "700"}], "title-sm": ["14px", {"lineHeight": "20px", "fontWeight": "600"}], "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}], "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}], "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}], "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}] } } } }</script><style>@layer base{html,body{width:100%;margin:0;padding:0;background-color:#F7F8FC;}body{overscroll-behavior-y:none;font-family:'Inter',sans-serif;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between"><div class="flex items-center gap-space-sm"><button aria-label="Navigate back" class="w-12 h-12 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-pdf/60 active:bg-surface-pdf transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col"><div class="flex items-center gap-1.5"><h1 class="font-headline-sm text-headline-sm text-on-surface leading-tight truncate">Tool 2 Split Pdf</h1><span class="px-2 py-0.5 rounded-full bg-surface-pdf text-accent-coral font-label-sm text-label-sm font-semibold tracking-wide flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-accent-coral"></span>PDF Studio · Core v2.1</span></div></div></div><div class="flex items-center gap-1"><button aria-label="Favorite workspace" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-accent-coral hover:bg-surface-pdf/50 active:bg-surface-pdf transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="Workspace actions" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 ml-1 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_6px_rgba(72,62,229,0.3)]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-20 bg-background-cloud"><div class="flex flex-col w-full">
+<!-- Workspace Quick Identity Strip -->
+<div class="px-margin pt-3 pb-2 flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm font-semibold text-primary">#3</span>
+<span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">Scan to PDF</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-image/70 text-accent-emerald">
+<span class="w-2 h-2 rounded-full bg-accent-emerald animate-pulse"></span>
+<span class="font-label-sm text-label-sm font-semibold">Ready offline</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">
+      Scan physical documents and export clean multi-page PDFs · PDF Studio
+    </p>
+</div>
+<!-- Camera Permission & Quality Live Banner -->
+<div class="px-margin py-2">
+<div class="bg-surface-white rounded-xl p-3 shadow-sm flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-8 h-8 rounded-lg bg-surface-scanner flex items-center justify-center text-accent-teal">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">lens_blur</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Camera ready · Auto Edge Active</span>
+<span class="font-caption text-caption text-text-muted">300 DPI optical capture · Level calibrated</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-accent-teal text-[20px]">verified</span>
+</div>
+</div>
+<!-- Camera Scan Viewport Panel -->
+<div class="px-margin pt-2 pb-3">
+<div class="relative w-full rounded-2xl overflow-hidden bg-inverse-surface shadow-md">
+<!-- Camera Viewport Background Preview -->
+<div class="w-full h-80 bg-cover bg-center relative" data-alt="Close-up crisp top-down camera viewfinder showing an invoice document sitting on a light wooden desk, bright balanced studio lighting, subtle perspective alignment guides in soft turquoise overlay, high definition, product photography style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCifQZ6Mhrgwv48xUVHpGGn6vwGZU1FIbSHMCNLrC6VpnTwSfdKFhJ6cRsGOzOS9YgEOXVBOG7s4ELE5uwCTpw6tIIKNpBa9nTMBAFoZkqVKFy0JEoLz9F0mWWD7GH_CP4lT90X8ph-H203gcNGaxb1TxHtBBjP-SY4l82gSRGyokPTI_W--6-QEBC0h50v5GgM8LMGkTqSve1UAu9UVmZMa4BP0HltqbOxX0rB1LEu56zHet4RxXxsPQ')">
+<!-- Soft Vignette & Grid Lines -->
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 via-transparent to-inverse-surface/40"></div>
+<!-- Live Guide Grid (Rule of Thirds) -->
+<div class="absolute inset-0 grid grid-cols-3 grid-rows-3 pointer-events-none opacity-20">
+<div class="border-r border-b border-surface-white"></div>
+<div class="border-r border-b border-surface-white"></div>
+<div class="border-b border-surface-white"></div>
+<div class="border-r border-b border-surface-white"></div>
+<div class="border-r border-b border-surface-white"></div>
+<div class="border-b border-surface-white"></div>
+<div class="border-r border-surface-white"></div>
+<div class="border-r border-surface-white"></div>
+<div></div>
+</div>
+<!-- Glowing Turquoise Document Edge Detection Quad Overlay -->
+<div class="absolute inset-x-8 inset-y-10 pointer-events-none">
+<svg class="w-full h-full drop-shadow-[0_0_12px_rgba(20,184,166,0.85)]" fill="none" viewbox="0 0 240 200" xmlns="http://www.w3.org/2000/svg">
+<polygon fill="rgba(20, 184, 166, 0.12)" points="18,22 224,14 206,188 32,176" stroke="#14B8A6" stroke-dasharray="6 4" stroke-width="2.5"></polygon>
+<!-- Corner Handles -->
+<circle cx="18" cy="22" fill="#14B8A6" r="5"></circle>
+<circle cx="224" cy="14" fill="#14B8A6" r="5"></circle>
+<circle cx="206" cy="188" fill="#14B8A6" r="5"></circle>
+<circle cx="32" cy="176" fill="#14B8A6" r="5"></circle>
+</svg>
+<div class="absolute inset-x-0 bottom-1 flex justify-center">
+<span class="px-2.5 py-0.5 rounded-full bg-accent-teal/90 text-on-primary font-caption text-caption font-semibold tracking-wide flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">auto_fix_high</span> Auto Aligned 98%
+            </span>
+</div>
+</div>
+<!-- Viewport Top Controls (Flash, Grid, Aspect) -->
+<div class="absolute top-3 inset-x-3 flex items-center justify-between z-10">
+<div class="flex items-center gap-1 bg-inverse-surface/70 backdrop-blur-md rounded-full p-1">
+<button class="px-2.5 py-1 rounded-full text-accent-amber flex items-center gap-1 font-label-sm text-label-sm active:scale-95 transition-all" id="flash-toggle" type="button">
+<span class="material-symbols-outlined text-[16px]">flash_auto</span>
+<span>Auto</span>
+</button>
+<button class="w-7 h-7 rounded-full text-inverse-on-surface flex items-center justify-center hover:bg-surface-white/10 active:scale-95" id="grid-toggle" type="button">
+<span class="material-symbols-outlined text-[16px]">grid_on</span>
+</button>
+</div>
+<div class="flex items-center gap-1.5 bg-inverse-surface/70 backdrop-blur-md rounded-full px-3 py-1 text-inverse-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-accent-coral">aspect_ratio</span>
+<span>A4 Batch</span>
+</div>
+</div>
+<!-- Shutter Capture Area Overlaid Bottom Bar -->
+<div class="absolute bottom-3 inset-x-4 flex items-center justify-between z-10">
+<!-- Gallery Import Button -->
+<button class="h-11 px-3.5 rounded-xl bg-inverse-surface/80 backdrop-blur-md text-inverse-on-surface flex items-center gap-1.5 hover:bg-inverse-surface transition-all active:scale-95" type="button">
+<span class="material-symbols-outlined text-[20px] text-accent-sky">photo_library</span>
+<span class="font-label-md text-label-md">Import</span>
+</button>
+<!-- Tactile Shutter Button -->
+<button aria-label="Capture page" class="w-16 h-16 rounded-full bg-surface-white p-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.35)] active:scale-90 transition-transform flex items-center justify-center" id="shutter-btn" type="button">
+<div class="w-full h-full rounded-full bg-accent-coral flex items-center justify-center shadow-inner">
+<span class="material-symbols-outlined text-on-primary text-[28px]">photo_camera</span>
+</div>
+</button>
+<!-- Handheld Level Indicator -->
+<div class="h-11 px-3 rounded-xl bg-inverse-surface/80 backdrop-blur-md text-inverse-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">screen_rotation</span>
+<span class="font-caption text-caption font-semibold">0.4° Level</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Scanned Pages Thumbnail Strip -->
+<div class="pt-2 pb-1 flex flex-col">
+<div class="px-margin flex items-center justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="font-title-sm text-title-sm text-on-surface">Captured Queue</span>
+<span class="w-5 h-5 rounded-full bg-surface-pdf text-accent-coral font-label-sm text-label-sm flex items-center justify-center font-bold">3</span>
+</div>
+<button class="font-label-md text-label-md text-primary font-semibold flex items-center gap-1 hover:underline" type="button">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span> Reorder
+      </button>
+</div>
+<!-- Horizontal Strip -->
+<div class="flex gap-3 px-margin overflow-x-auto pb-3 pt-1 scroll-smooth">
+<!-- Card 1 -->
+<div class="w-44 flex-shrink-0 bg-surface-white rounded-xl shadow-sm p-2 flex flex-col gap-2">
+<div class="relative w-full h-32 rounded-lg overflow-hidden bg-surface-container-low">
+<div class="w-full h-full bg-cover bg-center" data-alt="Digital scan rendering of business invoice page with tabular rows and subtle clean coral accent totals, high clarity flat scan." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA7X2YQhAEcmZEbAQVrUW2wvwG4fWjn7MDAFOSB_KhcIZzkTezFR-Gd-S1skHoRFMmNtEdqf7jmLAgZ2kpuMFIOiLo7ZVy_2LPoCrFJBlx8cE7eWeRMBI4438qlQk_tducYhAlh4aiVxGDiQin_HI_AMVHPVLRM-x976Xj5ZYbc_WoBTCIT3AqKm7W-N-lHvWAfCgmXj7XqiFIIBsyoDsWrknC5vHaHrTGKiDpZtgJXrHIf78ZDzhfE3A')"></div>
+<span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-caption text-caption font-semibold">P1</span>
+<span class="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded bg-surface-white/90 text-on-surface font-caption text-caption">100%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Page 1 - Invoice</span>
+<span class="font-caption text-caption text-text-muted">612 × 792 pt</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button aria-label="Rotate Page 1" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">rotate_right</span>
+</button>
+<button aria-label="Crop Page 1" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">crop</span>
+</button>
+<button aria-label="Retake Page 1" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+</button>
+<button aria-label="Delete Page 1" class="w-7 h-7 rounded-lg bg-surface-pdf flex items-center justify-center text-accent-coral hover:bg-error-container" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="w-44 flex-shrink-0 bg-surface-white rounded-xl shadow-sm p-2 flex flex-col gap-2">
+<div class="relative w-full h-32 rounded-lg overflow-hidden bg-surface-container-low">
+<div class="w-full h-full bg-cover bg-center" data-alt="Flat scanned legal contract agreement page with signature field at bottom and crisp typography, professional document scan preview." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBoYgzoFWpU4ktbDCFe7YEli1Zom7ci7QDNnkClN1brHswi0iirYCA6Umr1qEtP1ikHYZyHO2dofxE9FHuUGvI_L9y8wwsDCxHB6cJVfgNVl6tXYtx50LD0KjKDaQ-XXRXVazVDu7h_s1HCntyrDelTzD6DuMtQllTJbMM3BSswNe_N4U4cgiG4fc0XlFsQ5eEJZ8GtLdJhS2uQr0fZ3mjdobOqwzz8Jy5KNQXdDN2QcriCO97JGXCv-Q')"></div>
+<span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-caption text-caption font-semibold">P2</span>
+<span class="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded bg-surface-white/90 text-on-surface font-caption text-caption">100%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Page 2 - Agreement</span>
+<span class="font-caption text-caption text-text-muted">612 × 792 pt</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button aria-label="Rotate Page 2" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">rotate_right</span>
+</button>
+<button aria-label="Crop Page 2" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">crop</span>
+</button>
+<button aria-label="Retake Page 2" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+</button>
+<button aria-label="Delete Page 2" class="w-7 h-7 rounded-lg bg-surface-pdf flex items-center justify-center text-accent-coral hover:bg-error-container" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="w-44 flex-shrink-0 bg-surface-white rounded-xl shadow-sm p-2 flex flex-col gap-2">
+<div class="relative w-full h-32 rounded-lg overflow-hidden bg-surface-container-low">
+<div class="w-full h-full bg-cover bg-center" data-alt="Scanned appendix terms and conditions page with numbered paragraphs, high contrast clean paper appearance, crisp text scan." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAML0JnuEp-BHuQnRTB-um09vZJz8FlrRbQUghVJl4CpLap9D6vt6_nEPYBSde-DBca2O3VnwtVPojaLOMePbKY5dKacPZjZ7L6OgvsNPa9lnTXUV2bqZEE4cQ65hw7s3Lmx6aDMqk8oHDWuVrXarPz-pvrTVd4rQXnu6nGfQoen8Yg6JgFGlVNeUaSmz56GVVIOWY1dxP4i2iiOdD_F1_Hqeg0j3JRzvMsNXhMB3_XxfU94uZOuJz6iQ')"></div>
+<span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-caption text-caption font-semibold">P3</span>
+<span class="absolute bottom-1.5 right-1.5 px-1.5 py-0.5 rounded bg-surface-white/90 text-on-surface font-caption text-caption">100%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Page 3 - Terms</span>
+<span class="font-caption text-caption text-text-muted">612 × 792 pt</span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button aria-label="Rotate Page 3" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">rotate_right</span>
+</button>
+<button aria-label="Crop Page 3" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">crop</span>
+</button>
+<button aria-label="Retake Page 3" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-on-surface hover:bg-surface-variant" type="button">
+<span class="material-symbols-outlined text-[16px]">replay</span>
+</button>
+<button aria-label="Delete Page 3" class="w-7 h-7 rounded-lg bg-surface-pdf flex items-center justify-center text-accent-coral hover:bg-error-container" type="button">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Scan Filter Presets -->
+<div class="px-margin py-2 flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Enhancement Filter</span>
+<span class="font-label-sm text-label-sm text-accent-coral font-medium">Applied across all pages</span>
+</div>
+<div class="grid grid-cols-4 gap-2">
+<!-- Original -->
+<button class="filter-chip flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-white shadow-sm text-on-surface active:scale-95 transition-all" type="button">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-text-muted">
+<span class="material-symbols-outlined text-[20px]">raw_on</span>
+</div>
+<span class="font-label-sm text-label-sm text-center">Original</span>
+</button>
+<!-- Magic Color (Active) -->
+<button class="filter-chip flex flex-col items-center gap-1.5 p-2 rounded-xl bg-primary text-on-primary shadow-md active:scale-95 transition-all" type="button">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">auto_fix_high</span>
+</div>
+<span class="font-label-sm text-label-sm text-center font-semibold">Magic Color</span>
+</button>
+<!-- Clean Grayscale -->
+<button class="filter-chip flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-white shadow-sm text-on-surface active:scale-95 transition-all" type="button">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-text-muted">
+<span class="material-symbols-outlined text-[20px]">filter_b_and_w</span>
+</div>
+<span class="font-label-sm text-label-sm text-center">Grayscale</span>
+</button>
+<!-- High Contrast B&W -->
+<button class="filter-chip flex flex-col items-center gap-1.5 p-2 rounded-xl bg-surface-white shadow-sm text-on-surface active:scale-95 transition-all" type="button">
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-text-muted">
+<span class="material-symbols-outlined text-[20px]">contrast</span>
+</div>
+<span class="font-label-sm text-label-sm text-center">B&amp;W Clean</span>
+</button>
+</div>
+</div>
+<!-- PDF Document Settings & File Naming -->
+<div class="px-margin py-3">
+<div class="bg-surface-white rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<span class="font-title-sm text-title-sm text-on-surface">Export Properties</span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-scanner text-accent-teal font-label-sm text-label-sm font-semibold">Auto-Crop A4</span>
+</div>
+<!-- Filename Field -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-text-muted" for="pdf-filename">File Name</label>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-2 rounded-xl">
+<span class="material-symbols-outlined text-accent-coral text-[20px]">picture_as_pdf</span>
+<input class="w-full bg-transparent font-title-sm text-title-sm text-on-surface outline-none focus:ring-0" id="pdf-filename" type="text" value="Scanned_Doc_2025.pdf"/>
+<button aria-label="Edit filename" class="text-text-muted hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Quick Toggles Grid -->
+<div class="grid grid-cols-2 gap-2 pt-1">
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-text-muted">compress</span>
+<span class="font-label-md text-label-md text-on-surface">Compress</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-accent-emerald">Standard</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-text-muted">text_fields</span>
+<span class="font-label-md text-label-md text-on-surface">OCR Search</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-primary">Enabled</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Action Execute Tool Button (In-flow prominent trigger) -->
+<div class="px-margin py-2">
+<button class="w-full h-13 py-3.5 px-4 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-title-md text-title-md font-semibold shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="create-pdf-btn" type="button">
+<span class="material-symbols-outlined text-[22px]">auto_stories</span>
+<span>Create Scanned PDF (3 pages)</span>
+</button>
+</div>
+<!-- Completed Output Showcase Card -->
+<div class="px-margin pt-3 pb-6">
+<div class="bg-surface-white rounded-2xl p-4 shadow-md flex flex-col gap-3">
+<!-- Top Output Header -->
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shadow-sm">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">picture_as_pdf</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface font-semibold">Scanned_Doc_2025.pdf</span>
+<div class="flex items-center gap-2 font-caption text-caption text-text-muted">
+<span>3 pages</span>
+<span>•</span>
+<span>1.8 MB</span>
+<span>•</span>
+<span class="text-accent-emerald font-semibold">Straightened &amp; OCR Ready</span>
+</div>
+</div>
+</div>
+<span class="w-7 h-7 rounded-full bg-surface-image flex items-center justify-center text-accent-emerald">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</span>
+</div>
+<!-- Straightened Interactive Preview Mini-Canvas -->
+<div class="relative w-full h-44 rounded-xl overflow-hidden bg-surface-container-high flex items-center justify-center">
+<div class="w-full h-full bg-cover bg-center" data-alt="Digital studio preview of high quality compiled multi-page PDF document spread, perfectly straightened and perspective-corrected edges, clean white sheets on clean backdrop, vector perfection." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCDxSdopOpgE4ajKZNV1P3NhO3NK84W3TymoH_X1OxeG_2oASRoCe3iomygQUU67y2-Itr95XxKbyJ9Rz42GzXNPCA1_WszIdTLKaEuTUlBzp7bHZoq6ZK7pN43lycoKHHdDZzkzAOSdB7k90RZ0PsORtH6NiLTNcZu2cdWFkQu0yrGi35UvrEBCx_OAXhqvAks6HT7l5TE1M5kGTOZHA5U1m0imJrc6SSvR7rX6XvPUGwAlv4-abGFvw')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent flex items-end p-3 justify-between">
+<span class="px-2 py-0.5 rounded bg-surface-white/90 text-on-surface font-caption text-caption font-semibold">
+            Deskewed · 300 DPI
+          </span>
+<button class="px-2.5 py-1 rounded-lg bg-surface-white/90 text-on-surface hover:bg-surface-white font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">fullscreen</span> Expand
+          </button>
+</div>
+</div>
+<!-- Output Quick Actions -->
+<div class="grid grid-cols-3 gap-2 pt-1">
+<button class="py-2.5 px-2 rounded-xl bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-semibold flex flex-col items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary">folder_open</span>
+<span class="truncate">Save to Files</span>
+</button>
+<button class="py-2.5 px-2 rounded-xl bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-semibold flex flex-col items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px] text-accent-coral">share</span>
+<span class="truncate">Share PDF</span>
+</button>
+<button class="py-2.5 px-2 rounded-xl bg-surface-pdf hover:bg-error-container text-accent-coral font-label-md text-label-md font-semibold flex flex-col items-center gap-1 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">add_a_photo</span>
+<span class="truncate">Scan More</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Micro-interaction handlers for delightful native tactile feel
+  document.addEventListener('DOMContentLoaded', () => {
+    const shutterBtn = document.getElementById('shutter-btn');
+    if (shutterBtn) {
+      shutterBtn.addEventListener('click', () => {
+        // Haptic pulse animation
+        shutterBtn.classList.add('scale-90');
+        setTimeout(() => shutterBtn.classList.remove('scale-90'), 150);
+      });
+    }
+
+    const filterChips = document.querySelectorAll('.filter-chip');
+    filterChips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        filterChips.forEach(c => {
+          c.classList.remove('bg-primary', 'text-on-primary', 'shadow-md');
+          c.classList.add('bg-surface-white', 'text-on-surface', 'shadow-sm');
+          const innerIcon = c.querySelector('div');
+          if (innerIcon) {
+            innerIcon.classList.remove('bg-primary-container', 'text-on-primary-container');
+            innerIcon.classList.add('bg-surface-container', 'text-text-muted');
+          }
+        });
+        chip.classList.remove('bg-surface-white', 'text-on-surface', 'shadow-sm');
+        chip.classList.add('bg-primary', 'text-on-primary', 'shadow-md');
+        const activeInnerIcon = chip.querySelector('div');
+        if (activeInnerIcon) {
+          activeInnerIcon.classList.remove('bg-surface-container', 'text-text-muted');
+          activeInnerIcon.classList.add('bg-primary-container', 'text-on-primary-container');
+        }
+      });
+    });
+
+    const flashToggle = document.getElementById('flash-toggle');
+    if (flashToggle) {
+      const states = [
+        { label: 'Auto', icon: 'flash_auto', color: 'text-accent-amber' },
+        { label: 'On', icon: 'flash_on', color: 'text-accent-amber' },
+        { label: 'Off', icon: 'flash_off', color: 'text-inverse-on-surface' }
+      ];
+      let currentState = 0;
+      flashToggle.addEventListener('click', () => {
+        currentState = (currentState + 1) % states.length;
+        const icon = flashToggle.querySelector('.material-symbols-outlined');
+        const text = flashToggle.querySelector('span:last-child');
+        if (icon) icon.textContent = states[currentState].icon;
+        if (text) text.textContent = states[currentState].label;
+        flashToggle.className = `px-2.5 py-1 rounded-full flex items-center gap-1 font-label-sm text-label-sm active:scale-95 transition-all ${states[currentState].color}`;
+      });
+    }
+  });
+</script></main><footer class="fixed bottom-0 w-full z-50 pb-safe bg-surface-white/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(23,26,46,0.06)]"><div class="h-20 px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm text-text-muted"><span class="material-symbols-outlined text-[20px] text-accent-coral">picture_as_pdf</span><span class="font-label-md text-label-md text-on-surface-variant">Ready to process</span></div><button class="h-12 px-space-lg rounded-xl bg-primary hover:bg-primary-container text-on-primary font-title-sm text-title-sm font-semibold shadow-[0_4px_14px_rgba(98,91,255,0.35)] active:scale-[0.98] transition-all flex items-center gap-2" type="button"><span class="material-symbols-outlined text-[20px]">play_arrow</span><span>Execute Tool</span></button></div></footer></body></html>

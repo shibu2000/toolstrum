@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-calculator": "#FFF7E2", "outline": "#777587", "surface-audio": "#EAF2FF", "surface-image": "#E7F9F1", "surface-scanner": "#E6FAFD", "primary-fixed": "#e2dfff", "secondary-fixed": "#f0dbff", "primary-fixed-dim": "#c3c0ff", "on-primary-fixed-variant": "#311ed2", "inverse-surface": "#2c2f44", "surface-office": "#EEEDFF", "status-warning": "#F59E0B", "on-secondary-fixed": "#2c0051", "on-tertiary-fixed": "#001f26", "on-primary-container": "#fefaff", "background": "#fbf8ff", "surface-bright": "#fbf8ff", "surface-container-low": "#f4f2ff", "on-secondary": "#ffffff", "accent-coral": "#FF6B6B", "on-tertiary-container": "#f5fcff", "surface-developer": "#E8F7FF", "primary-container": "#625bff", "text-muted": "#64748B", "accent-orange": "#F97316", "status-error": "#DC2626", "accent-rose": "#EC4899", "on-primary-fixed": "#0e006a", "surface-productivity": "#FDEBF5", "tertiary-fixed-dim": "#4cd7f6", "status-success": "#16A34A", "on-error": "#ffffff", "on-background": "#171a2e", "surface-ai": "#F4EAFE", "on-tertiary-fixed-variant": "#004e5c", "error": "#ba1a1a", "on-secondary-fixed-variant": "#6900b3", "on-surface-variant": "#464555", "tertiary": "#006476", "on-tertiary": "#ffffff", "accent-blue": "#3B82F6", "surface-container-lowest": "#ffffff", "surface-container": "#edecff", "surface-container-high": "#e6e6ff", "surface": "#fbf8ff", "surface-container-highest": "#dfe0fc", "secondary": "#8127cf", "tertiary-fixed": "#acedff", "secondary-container": "#9c48ea", "surface-dim": "#d7d8f4", "surface-archive": "#EEF2F6", "surface-tint": "#4c42e9", "border-subtle": "#E2E8F0", "on-primary": "#ffffff", "accent-sky": "#0EA5E9", "error-container": "#ffdad6", "surface-white": "#FFFFFF", "accent-amber": "#F59E0B", "accent-emerald": "#10B981", "background-cloud": "#F7F8FC", "accent-teal": "#14B8A6", "tertiary-container": "#007f95", "on-error-container": "#93000a", "surface-variant": "#dfe0fc", "secondary-fixed-dim": "#ddb7ff", "surface-pdf": "#FFF0EF", "inverse-on-surface": "#f0efff", "surface-text": "#FFF1E7", "inverse-primary": "#c3c0ff", "outline-variant": "#c7c4d8", "on-secondary-container": "#fffbff", "surface-video": "#F5EAFF", "surface-web": "#E5FAF6", "on-surface": "#171a2e", "primary": "#483ee5" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "margin-sm": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem", "space-lg": "1.5rem", "gutter": "1rem", "space-md": "1rem", "space-xl": "2rem", "space-xs": "0.25rem" }, "fontFamily": { "title-sm": ["Inter"], "body-md": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-sm": ["Inter"], "caption": ["Inter"], "label-md": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "title-md": ["Inter"], "headline-md": ["Inter"] }, "fontSize": { "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-margin-sm flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Navigate back" class="w-11 h-11 flex items-center justify-center text-on-surface rounded-full hover:bg-surface-container-high transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pr-space-xs"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-office text-primary-container font-label-sm text-label-sm leading-none">Office Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate">Word Document Viewer & Editor</h1></div></div><div class="flex items-center gap-0.5 shrink-0"><button aria-label="Add to favorites" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-accent-amber hover:bg-surface-container-high rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-background-cloud"><div class="flex flex-col w-full">
+<!-- Interactive Workspace Canvas -->
+<div class="px-margin flex flex-col gap-space-md pb-space-xl">
+<!-- Hero / Metadata Banner (Subtle and integrated) -->
+<div class="mt-space-sm bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-office text-primary-container font-label-sm text-label-sm">
+          Tool #156 · Office Studio
+        </span>
+<span class="flex items-center gap-1 text-accent-emerald font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+          W3C Validated
+        </span>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface">DOCX to HTML</p>
+<p class="font-body-sm text-body-sm text-text-muted">
+        Convert Word documents into clean, semantic HTML5 with CSS styling and sanitized markup.
+      </p>
+</div>
+<!-- 1. Loaded File Picker Card -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-text-muted uppercase tracking-wider">Source Document</span>
+<span class="inline-flex items-center gap-1 font-caption text-caption text-primary">
+<span class="w-2 h-2 rounded-full bg-accent-emerald animate-pulse"></span> Ready to Parse
+        </span>
+</div>
+<div class="bg-surface-office/60 rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-lg bg-surface-white flex items-center justify-center text-primary shadow-sm shrink-0">
+<span class="material-symbols-outlined text-[24px]">description</span>
+</div>
+<div class="flex flex-col min-w-0">
+<p class="font-title-sm text-title-sm text-on-surface truncate">Annual_Product_Catalog_2025.docx</p>
+<p class="font-caption text-caption text-text-muted truncate">24 pages · 6.5 MB · DOCX with tables & figures</p>
+</div>
+</div>
+<button class="shrink-0 h-9 px-space-sm rounded-lg bg-surface-white text-on-surface font-label-md text-label-md shadow-sm active:scale-95 transition-transform flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+          Replace
+        </button>
+</div>
+</div>
+<!-- 2. Conversion & Markup Settings Card -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<span class="font-title-sm text-title-sm text-on-surface">Markup & Styling Engine</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Preset: Clean Web</span>
+</div>
+<!-- Setting 1: Structure Generation -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface">Structure Generation</label>
+<div class="grid grid-cols-2 gap-space-xs p-1 bg-surface-container rounded-lg">
+<button class="py-2 px-space-xs rounded-md bg-surface-white text-on-surface font-label-sm text-label-sm shadow-sm transition-all flex items-center justify-center gap-1 truncate text-center" id="tab-struct-semantic" onclick="setStructureTab('semantic')" type="button">
+<span class="material-symbols-outlined text-[16px] text-primary">view_quilt</span>
+            Semantic HTML5
+          </button>
+<button class="py-2 px-space-xs rounded-md text-text-muted font-label-sm text-label-sm transition-all flex items-center justify-center gap-1 truncate text-center" id="tab-struct-basic" onclick="setStructureTab('basic')" type="button">
+<span class="material-symbols-outlined text-[16px]">code</span>
+            Basic (<div>, <p>)
+          </button>
+</div>
+</div>
+<!-- Setting 2: CSS Styling Output -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface">CSS Styling Output</label>
+<div class="flex flex-col gap-1.5">
+<label class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low cursor-pointer">
+<div class="flex items-center gap-2">
+<input checked="" class="accent-primary w-4 h-4" name="css_output" type="radio" value="embedded"/>
+<span class="font-label-md text-label-md text-on-surface">Embedded <style> Sheet</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary bg-surface-white px-2 py-0.5 rounded shadow-sm">Self-Contained</span>
+</label>
+<label class="flex items-center justify-between p-2.5 rounded-lg bg-surface-white cursor-pointer">
+<div class="flex items-center gap-2">
+<input class="accent-primary w-4 h-4" name="css_output" type="radio" value="inline"/>
+<span class="font-label-md text-label-md text-on-surface">Inline CSS Styles</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Email Safe</span>
+</label>
+<label class="flex items-center justify-between p-2.5 rounded-lg bg-surface-white cursor-pointer">
+<div class="flex items-center gap-2">
+<input class="accent-primary w-4 h-4" name="css_output" type="radio" value="none"/>
+<span class="font-label-md text-label-md text-on-surface">Clean Semantic Only (No Styles)</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Raw DOM</span>
+</label>
+</div>
+</div>
+<!-- Setting 3: Image & Media Assets Handling -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-label-md text-label-md text-on-surface">Media & Embeds Handling</label>
+<div class="grid grid-cols-1 gap-1.5">
+<label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-surface-container-low cursor-pointer">
+<input checked="" class="accent-primary w-4 h-4" name="media_handling" type="radio" value="base64"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface">Base64 Data URIs (Standalone Single File)</span>
+<span class="font-caption text-caption text-text-muted">Self-contained offline document with 0 broken links</span>
+</div>
+</label>
+<label class="flex items-center gap-2.5 p-2.5 rounded-lg bg-surface-white cursor-pointer">
+<input class="accent-primary w-4 h-4" name="media_handling" type="radio" value="zip"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface">External /images Directory</span>
+<span class="font-caption text-caption text-text-muted">Bundled package (.zip with index.html)</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Setting 4: Sanitization & Table Options -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<div class="flex items-center gap-2 px-space-sm py-2 rounded-lg bg-surface-image text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald shrink-0">verified_user</span>
+<span class="truncate">Strict Sanitization: JS & Object tags stripped</span>
+</div>
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+<div class="flex flex-col pr-space-xs">
+<span class="font-label-md text-label-md text-on-surface">Accessible <table> Preservation</span>
+<span class="font-caption text-caption text-text-muted">Generates semantic <thead>, <tbody>, and <th scope="col"></span>
+</div>
+<button aria-pressed="true" class="w-11 h-6 bg-primary rounded-full relative p-0.5 transition-colors shrink-0" id="table-toggle-btn" onclick="toggleAccessibleTables()" type="button">
+<div class="w-5 h-5 bg-surface-white rounded-full translate-x-5 transition-transform shadow-sm" id="table-toggle-knob"></div>
+</button>
+</div>
+</div>
+</div>
+<!-- 3. Dual-Tab Code & Render Preview -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">preview</span>
+<span class="font-title-sm text-title-sm text-on-surface">Preview Canvas</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Live Parser v4.2</span>
+</div>
+<!-- Segmented Tab Header -->
+<div class="grid grid-cols-2 gap-1 p-1 bg-surface-container rounded-lg">
+<button class="py-2 rounded-md bg-surface-white text-primary font-label-md text-label-md shadow-sm transition-all flex items-center justify-center gap-1.5" id="btn-tab-render" onclick="switchPreviewMode('render')" type="button">
+<span class="material-symbols-outlined text-[18px]">html</span>
+          Rendered Web Preview
+        </button>
+<button class="py-2 rounded-md text-text-muted font-label-md text-label-md transition-all flex items-center justify-center gap-1.5" id="btn-tab-code" onclick="switchPreviewMode('code')" type="button">
+<span class="material-symbols-outlined text-[18px]">data_object</span>
+          HTML5 Source Code
+        </button>
+</div>
+<!-- Tab Content 1: Rendered Web Preview Frame -->
+<div class="flex flex-col rounded-lg bg-background-cloud p-space-sm gap-space-sm shadow-inner" id="preview-render-view">
+<!-- Mock Browser Chrome -->
+<div class="flex items-center justify-between bg-surface-white px-space-sm py-1.5 rounded-lg shadow-sm">
+<div class="flex items-center gap-1">
+<span class="w-2.5 h-2.5 rounded-full bg-accent-coral"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-accent-amber"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-accent-emerald"></span>
+</div>
+<span class="font-caption text-caption text-text-muted truncate">file:///preview/Annual_Product_Catalog_2025.html</span>
+<span class="material-symbols-outlined text-[16px] text-text-muted">lock</span>
+</div>
+<!-- Rendered Web Document Shell -->
+<article class="bg-surface-white rounded-lg p-space-md shadow-sm flex flex-col gap-space-md font-body-sm text-body-sm text-on-surface">
+<!-- Article Header -->
+<header class="flex flex-col gap-1 pb-space-sm">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Aura Workspace Inc.</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold leading-tight">2025 Enterprise Hardware & Cloud Suite</h2>
+<p class="font-caption text-caption text-text-muted">Document Revision 4.8 · Released January 2025</p>
+</header>
+<!-- Featured Product Section -->
+<section class="flex flex-col gap-space-xs">
+<div class="relative w-full h-32 rounded-lg overflow-hidden shadow-sm">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist Scandinavian-inspired modern office desk featuring an ultra-slim metallic server hub, wireless mechanical keyboard, and glowing electric indigo ambient edge lighting. Photographed in sharp studio lighting with soft cool shadows, pastel white and slate tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJeh0Tx11HDOOgZMyWwUur0APprFxLu8wB5rX9tH-fH5O4u4W1wJFtJYQrv-2oRuxN5m7okR9MeKbJYiDYzrgRoWQDsgu20ppqd4BfH0wOBNC0Jp3gRFXyXXMxTN1oVqPQRRLmwn5porU7dDYadwaLNfMiGRp9oPqBjof5paHncdQmYgWJqRqO0GvOBCZpbq6UQjPPYeHyw25ZhhluIlf_y0YKvjvDO_B57qXBSKxMITBIFMbmvo-HEA"/>
+<div class="absolute top-2 right-2 bg-surface-white/90 backdrop-blur-md px-2 py-0.5 rounded-full font-label-sm text-label-sm text-primary">
+                Model: AX-900
+              </div>
+</div>
+<p class="text-on-surface-variant font-body-sm text-body-sm pt-1">
+              Engineered for seamless low-latency cloud workflows. Designed with zero-downtime thermal management and native TLS 1.3 cryptographic acceleration.
+            </p>
+</section>
+<!-- Accessible Converted Table -->
+<section class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Technical Specifications</span>
+<div class="overflow-x-auto rounded-lg">
+<table class="w-full text-left font-caption text-caption">
+<thead class="bg-surface-office text-primary font-semibold">
+<tr>
+<th class="p-2 rounded-tl-lg" scope="col">Parameter</th>
+<th class="p-2" scope="col">Standard</th>
+<th class="p-2 rounded-tr-lg" scope="col">Ultra</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="bg-surface-white">
+<td class="p-2 font-medium text-on-surface">Throughput</td>
+<td class="p-2 text-on-surface-variant">40 Gbps</td>
+<td class="p-2 text-primary font-semibold">100 Gbps</td>
+</tr>
+<tr class="bg-surface-container-low/50">
+<td class="p-2 font-medium text-on-surface">Memory Pool</td>
+<td class="p-2 text-on-surface-variant">64 GB ECC</td>
+<td class="p-2 text-primary font-semibold">256 GB ECC</td>
+</tr>
+<tr class="bg-surface-white">
+<td class="p-2 font-medium text-on-surface">Power Draw</td>
+<td class="p-2 text-on-surface-variant">45 W TDP</td>
+<td class="p-2 text-on-surface-variant">75 W TDP</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Secondary Visual Asset in Catalog -->
+<div class="grid grid-cols-2 gap-space-xs pt-1">
+<div class="h-20 rounded-lg overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="High-tech sleek server module casing with glowing blue status LEDs and matte aluminum finish, studio product photography style with crisp contrast and modern high-end industrial tech aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMk6FZnl2UN1Ji53oxKMoMw-D0vNBmKTS0ykCSIMNxXm3rrfIt8kPtHHBNQTQmyfhZbHa5hMDC5OcEbsF0E6WTGQNZyd4ZoPWi7_13ZHvSoMY0ukLckHXkORtSWli2PlBLqUwv5nE0WDIHX18qeP-yp5G7KP4Uh-eb9hMvME0U6WFuAxxtUrU1P-uV2Y263ScaxAsLLP620EM3MWXKNdoQEWoT5yHG2VkJRULEpBYRnHN0Z_3ySd4a5A"/>
+<div class="absolute bottom-1 left-1 bg-surface-white/90 px-1.5 py-0.5 rounded text-[10px] font-semibold text-on-surface">Node A</div>
+</div>
+<div class="h-20 rounded-lg overflow-hidden shadow-sm relative">
+<img class="w-full h-full object-cover" data-alt="Macro close-up shot of silicon integrated microchip processor pins with soft ambient indigo lighting reflection, futuristic engineering precision hardware product detail." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_lLUicU-OsuUE3I27awDnOT-eX2bdeMsyGUmwYrwL4kEEkl9zYIesnwBhqrxcdiye28epk3BYLJnuYR8_P2tTnAL1BagxRphKFKQyk7cXsyVMgLLVOlM4NK86mW6HY8PiDBIhX0l1m3DvAWtAItOv5iuMiyAGNFGzVyNMDUfZbVnu5u1Jsr9VZgARNvCnsl1xhhohqfBPDMNFMf0JV1hW0XZIDF1xForaBIgK_Dh_V7qMieyjXcfHlg"/>
+<div class="absolute bottom-1 left-1 bg-surface-white/90 px-1.5 py-0.5 rounded text-[10px] font-semibold text-on-surface">Core v2</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Tab Content 2: HTML5 Source Code (Hidden by default) -->
+<div class="hidden flex flex-col rounded-lg bg-inverse-surface p-space-sm gap-space-xs shadow-inner text-surface-white font-mono text-[11px] leading-relaxed overflow-x-auto max-h-96" id="preview-code-view">
+<div class="flex items-center justify-between text-text-muted pb-1">
+<span class="font-caption text-caption">UTF-8 · 1,420 Lines</span>
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+</div>
+<pre class="whitespace-pre text-surface-container-high"><code><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Annual Product Catalog 2025</title>
+  <style>
+    :root { --font-sans: 'Inter', system-ui; --primary: #625bff; }
+    body { font-family: var(--font-sans); margin: 0; padding: 2rem; color: #171a2e; }
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    th, td { padding: 0.75rem; border-bottom: 1px solid #e2e8f0; }
+    th { background: #eeedff; color: #625bff; text-align: left; }
+    img { max-width: 100%; border-radius: 8px; }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body>
+  <article class="catalog-root">
+    <header>
+      <h1>2025 Enterprise Hardware & Cloud Suite</h1>
+      <p class="meta">Revision 4.8 · Aura Workspace Inc.</p>
+    </header>
+    <section id="specs">
+      <table scope="grid">
+        <thead>
+          <tr><th scope="col">Parameter</th><th scope="col">Standard</th><th scope="col">Ultra</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Throughput</td><td>40 Gbps</td><td>100 Gbps</td></tr>
+        </tbody>
+      </table>
+    </section>
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ..." alt="Catalog Unit" />
+  </article>
+</body>
+</html></code></pre>
+</div>
+</div>
+<!-- 4. Primary Conversion Action Button -->
+<div class="flex flex-col gap-space-xs">
+<button class="w-full h-12 bg-primary-container text-on-primary-container rounded-xl font-title-sm text-title-sm shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="convert-btn" onclick="triggerConversion()" type="button">
+<span class="material-symbols-outlined text-[20px]">code_blocks</span>
+<span>Convert Document to HTML5</span>
+</button>
+<p class="text-center font-caption text-caption text-text-muted">
+        Deterministic conversion · Preserves styling rules, math, and data frames
+      </p>
+</div>
+<!-- 5. Conversion Result Card -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md" id="conversion-result">
+<!-- Status Banner -->
+<div class="p-space-sm rounded-lg bg-surface-image flex items-center gap-space-xs">
+<div class="w-7 h-7 rounded-full bg-accent-emerald text-surface-white flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">HTML Document Compiled Successfully</span>
+<span class="font-caption text-caption text-text-muted">Zero external dependencies · 100% self-contained</span>
+</div>
+</div>
+<!-- File Summary Card -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">html</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Annual_Product_Catalog_2025.html</span>
+<span class="font-caption text-caption text-text-muted">342 KB · Clean Single-File HTML5</span>
+</div>
+</div>
+<div class="shrink-0 flex items-center text-accent-emerald">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+</div>
+<!-- Result Action Grid -->
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="h-11 rounded-lg bg-primary text-on-primary font-label-md text-label-md shadow-sm active:scale-95 transition-transform flex items-center justify-center gap-1.5" onclick="toast('HTML file downloaded to device storage')" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+          Save HTML File
+        </button>
+<button class="h-11 rounded-lg bg-surface-office text-primary font-label-md text-label-md active:scale-95 transition-transform flex items-center justify-center gap-1.5" onclick="toast('HTML5 source copied to clipboard')" type="button">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+          Copy HTML Code
+        </button>
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md active:scale-95 transition-transform flex items-center justify-center gap-1.5" onclick="toast('Shared HTML package link')" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+          Share HTML
+        </button>
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md active:scale-95 transition-transform flex items-center justify-center gap-1.5" onclick="toast('Launching external browser viewer')" type="button">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+          Preview in Browser
+        </button>
+</div>
+</div>
+</div>
+<!-- Toast Notification element -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-4 py-2 rounded-full font-caption text-caption shadow-xl opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center gap-2" id="toast-el">
+<span class="material-symbols-outlined text-[16px] text-accent-emerald">check</span>
+<span id="toast-text">Action completed</span>
+</div>
+</div>
+<script>
+  function switchPreviewMode(mode) {
+    const renderTab = document.getElementById('btn-tab-render');
+    const codeTab = document.getElementById('btn-tab-code');
+    const renderView = document.getElementById('preview-render-view');
+    const codeView = document.getElementById('preview-code-view');
+
+    if (mode === 'render') {
+      renderTab.className = "py-2 rounded-md bg-surface-white text-primary font-label-md text-label-md shadow-sm transition-all flex items-center justify-center gap-1.5";
+      codeTab.className = "py-2 rounded-md text-text-muted font-label-md text-label-md transition-all flex items-center justify-center gap-1.5";
+      renderView.classList.remove('hidden');
+      codeView.classList.add('hidden');
+    } else {
+      codeTab.className = "py-2 rounded-md bg-surface-white text-primary font-label-md text-label-md shadow-sm transition-all flex items-center justify-center gap-1.5";
+      renderTab.className = "py-2 rounded-md text-text-muted font-label-md text-label-md transition-all flex items-center justify-center gap-1.5";
+      codeView.classList.remove('hidden');
+      renderView.classList.add('hidden');
+    }
+  }
+
+  function setStructureTab(type) {
+    const sem = document.getElementById('tab-struct-semantic');
+    const basic = document.getElementById('tab-struct-basic');
+    if (type === 'semantic') {
+      sem.className = "py-2 px-space-xs rounded-md bg-surface-white text-on-surface font-label-sm text-label-sm shadow-sm transition-all flex items-center justify-center gap-1 truncate text-center";
+      basic.className = "py-2 px-space-xs rounded-md text-text-muted font-label-sm text-label-sm transition-all flex items-center justify-center gap-1 truncate text-center";
+    } else {
+      basic.className = "py-2 px-space-xs rounded-md bg-surface-white text-on-surface font-label-sm text-label-sm shadow-sm transition-all flex items-center justify-center gap-1 truncate text-center";
+      sem.className = "py-2 px-space-xs rounded-md text-text-muted font-label-sm text-label-sm transition-all flex items-center justify-center gap-1 truncate text-center";
+    }
+  }
+
+  let tablesActive = true;
+  function toggleAccessibleTables() {
+    tablesActive = !tablesActive;
+    const btn = document.getElementById('table-toggle-btn');
+    const knob = document.getElementById('table-toggle-knob');
+    if (tablesActive) {
+      btn.className = "w-11 h-6 bg-primary rounded-full relative p-0.5 transition-colors shrink-0";
+      knob.className = "w-5 h-5 bg-surface-white rounded-full translate-x-5 transition-transform shadow-sm";
+      toast("Accessible table structure enabled");
+    } else {
+      btn.className = "w-11 h-6 bg-surface-container-highest rounded-full relative p-0.5 transition-colors shrink-0";
+      knob.className = "w-5 h-5 bg-surface-white rounded-full translate-x-0 transition-transform shadow-sm";
+      toast("Table structure reverted to standard");
+    }
+  }
+
+  function triggerConversion() {
+    const btn = document.getElementById('convert-btn');
+    const originalText = btn.innerHTML;
+    btn.innerHTML = `<span class="material-symbols-outlined text-[20px] animate-spin">refresh</span><span>Compiling HTML5...</span>`;
+    setTimeout(() => {
+      btn.innerHTML = originalText;
+      const res = document.getElementById('conversion-result');
+      res.scrollIntoView({ behavior: 'smooth' });
+      toast("Compilation finished in 380ms");
+    }, 600);
+  }
+
+  function toast(message) {
+    const el = document.getElementById('toast-el');
+    const txt = document.getElementById('toast-text');
+    txt.innerText = message;
+    el.classList.remove('opacity-0', 'pointer-events-none');
+    el.classList.add('opacity-100');
+    setTimeout(() => {
+      el.classList.add('opacity-0', 'pointer-events-none');
+      el.classList.remove('opacity-100');
+    }, 2200);
+  }
+</script></main></body></html>

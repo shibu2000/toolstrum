@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-low": "#f4f2ff", "surface-developer": "#E8F7FF", "primary-fixed-dim": "#c3c0ff", "primary": "#483ee5", "surface-audio": "#EAF2FF", "background": "#fbf8ff", "accent-teal": "#14B8A6", "tertiary-fixed": "#acedff", "status-success": "#16A34A", "accent-emerald": "#10B981", "accent-sky": "#0EA5E9", "on-error": "#ffffff", "secondary-fixed": "#f0dbff", "accent-orange": "#F97316", "surface-archive": "#EEF2F6", "on-surface-variant": "#464555", "on-primary-container": "#fefaff", "surface-pdf": "#FFF0EF", "outline-variant": "#c7c4d8", "outline": "#777587", "surface-image": "#E7F9F1", "on-background": "#171a2e", "accent-amber": "#F59E0B", "inverse-surface": "#2c2f44", "on-tertiary-fixed": "#001f26", "tertiary-fixed-dim": "#4cd7f6", "on-error-container": "#93000a", "secondary-container": "#9c48ea", "surface-dim": "#d7d8f4", "secondary": "#8127cf", "inverse-primary": "#c3c0ff", "on-tertiary": "#ffffff", "text-muted": "#64748B", "surface-container-highest": "dfe0fc", "tertiary": "#006476", "surface-text": "#FFF1E7", "surface-video": "#F5EAFF", "on-tertiary-fixed-variant": "#004e5c", "primary-fixed": "#e2dfff", "accent-blue": "#3B82F6", "accent-rose": "#EC4899", "primary-container": "#625bff", "inverse-on-surface": "#f0efff", "tertiary-container": "#007f95", "background-cloud": "#F7F8FC", "on-secondary-container": "#fffbff", "surface-tint": "#4c42e9", "surface-white": "#FFFFFF", "surface-office": "#EEEDFF", "surface-container": "#edecff", "surface-bright": "#fbf8ff", "on-primary-fixed-variant": "#311ed2", "border-subtle": "#E2E8F0", "on-primary-fixed": "#0e006a", "surface-web": "#E5FAF6", "surface-container-high": "#e6e6ff", "on-secondary-fixed": "#2c0051", "surface-scanner": "#E6FAFD", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "surface": "#fbf8ff", "error": "#ba1a1a", "status-error": "#DC2626", "on-primary": "#ffffff", "surface-ai": "#F4EAFE", "surface-productivity": "#FDEBF5", "status-warning": "#F59E0B", "error-container": "#ffdad6", "on-tertiary-container": "#f5fcff", "on-secondary-fixed-variant": "#6900b3", "on-surface": "#171a2e", "accent-coral": "#FF6B6B", "secondary-fixed-dim": "#ddb7ff", "surface-variant": "#dfe0fc", "surface-calculator": "#FFF7E2" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2rem", "margin-sm": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-md": "1rem", "gutter": "1rem" }, "fontFamily": { "label-md": ["Inter"], "title-md": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "label-sm": ["Inter"], "headline-md": ["Inter"], "caption": ["Inter"], "headline-lg-mobile": ["Inter"], "body-sm": ["Inter"], "title-sm": ["Inter"], "body-lg": ["Inter"] }, "fontSize": { "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-white/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.05)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center min-w-0 gap-space-xs"><button aria-label="Go back" class="w-11 h-11 -ml-1.5 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-audio/60 active:bg-surface-audio transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pl-1"><div class="flex items-center gap-space-xs"><h1 class="font-title-md text-title-md text-on-surface truncate">Format Converter</h1><span class="px-1.5 py-0.5 rounded-full bg-surface-audio text-accent-blue font-label-sm text-label-sm uppercase tracking-wide shrink-0">Audio Studio</span></div><span class="font-label-sm text-label-sm text-text-muted truncate">All-in-One Utility</span></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-text-muted hover:text-accent-amber hover:bg-surface-audio/60 active:bg-surface-audio transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-text-muted hover:text-on-surface hover:bg-surface-audio/60 active:bg-surface-audio transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_6px_rgba(72,62,229,0.3)] ml-0.5"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-background-cloud"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-md pb-space-xl flex flex-col gap-space-lg">
+<!-- Top Banner Card -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-space-md flex flex-col gap-space-xs relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-28 h-28 bg-surface-audio rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center gap-space-xs flex-wrap">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-audio text-accent-blue font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">graphic_eq</span>
+<span>Tool #142 · Audio Studio</span>
+</div>
+<div class="flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-low text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+<span>Lossless PCM Uncompressed Transcoder</span>
+</div>
+</div>
+<div class="mt-1 flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Audio to WAV</h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">Convert compressed audio formats into studio-grade uncompressed PCM WAV files.</p>
+</div>
+</div>
+<!-- Section 1: Source Audio Picker & Telemetry -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-accent-blue"></span>
+<span class="font-label-md text-label-md uppercase tracking-wider text-text-muted">Source Audio File</span>
+</div>
+<button class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container active:scale-95 transition-transform font-label-md text-label-md" type="button">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+<span>Replace File</span>
+</button>
+</div>
+<!-- File Details -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-surface-audio flex items-center justify-center shrink-0 text-accent-blue shadow-sm">
+<span class="material-symbols-outlined text-[26px]">audio_file</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Podcast_Interview_Episode4.m4a</span>
+<p class="font-caption text-caption text-text-muted mt-0.5 leading-tight">
+            Duration: 04:32 · Format: AAC / M4A · Bitrate: 128 kbps · Original Size: 4.3 MB
+          </p>
+</div>
+</div>
+<!-- Mini Playback Bar -->
+<div class="p-space-sm rounded-lg bg-background-cloud flex items-center gap-space-sm">
+<button class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center shrink-0 active:scale-90 transition-transform shadow-sm" id="playBtn" type="button">
+<span class="material-symbols-outlined text-[20px]" id="playIcon" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<div class="flex-1 flex flex-col gap-1 min-w-0">
+<div class="h-1.5 w-full bg-surface-container rounded-full overflow-hidden relative">
+<div class="h-full bg-accent-blue rounded-full w-1/3" id="playProgressBar"></div>
+</div>
+<div class="flex justify-between items-center text-text-muted font-caption text-caption">
+<span>01:30</span>
+<span>04:32</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-text-muted">
+<span class="material-symbols-outlined text-[18px]">volume_up</span>
+</div>
+</div>
+</div>
+<!-- Section 2: WAV Output Specifications -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<h3 class="font-title-sm text-title-sm text-on-surface">PCM Transcoding Parameters</h3>
+</div>
+<!-- Notice Banner -->
+<div class="p-space-sm rounded-lg bg-surface-calculator flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-accent-amber text-[20px] shrink-0 mt-0.5">info</span>
+<p class="font-caption text-caption text-on-surface">
+<strong class="font-label-md">Technical Note:</strong> WAV contains raw uncompressed PCM audio. Converted files will be substantially larger than compressed source files.
+        </p>
+</div>
+<!-- Sample Rate Selector -->
+<div class="flex flex-col gap-2">
+<span class="font-label-md text-label-md text-text-muted uppercase tracking-wider">Sample Rate (Frequencies)</span>
+<div class="grid grid-cols-1 gap-2" id="sampleRateGroup">
+<button class="sample-chip text-left px-3 py-2.5 rounded-lg bg-surface-audio text-accent-blue flex items-center justify-between font-label-md text-label-md transition-colors shadow-sm" data-rate="44.1" type="button">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">radio_button_checked</span>
+<span>44.1 kHz (CD Standard)</span>
+</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-white text-accent-blue font-label-sm text-label-sm">Standard</span>
+</button>
+<button class="sample-chip text-left px-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface-variant flex items-center justify-between font-label-md text-label-md hover:bg-surface-container transition-colors" data-rate="48.0" type="button">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">radio_button_unchecked</span>
+<span>48.0 kHz (Studio / Video Standard)</span>
+</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-white text-text-muted font-label-sm text-label-sm">Broadcast</span>
+</button>
+<button class="sample-chip text-left px-3 py-2.5 rounded-lg bg-surface-container-low text-on-surface-variant flex items-center justify-between font-label-md text-label-md hover:bg-surface-container transition-colors" data-rate="96.0" type="button">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">radio_button_unchecked</span>
+<span>96.0 kHz (Hi-Res Audio)</span>
+</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-white text-text-muted font-label-sm text-label-sm">Hi-Res</span>
+</button>
+</div>
+</div>
+<!-- Bit Depth Selector -->
+<div class="flex flex-col gap-2">
+<span class="font-label-md text-label-md text-text-muted uppercase tracking-wider">PCM Bit Depth Dynamic Range</span>
+<div class="flex flex-col gap-1.5" id="bitDepthGroup">
+<button class="bit-btn w-full py-2.5 px-3 rounded-lg bg-primary text-on-primary flex items-center justify-between font-label-md text-label-md transition-all shadow-sm" data-depth="16" type="button">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span>16-bit PCM (Standard CD Depth)</span>
+</span>
+<span class="font-caption text-caption opacity-90">96 dB Dynamic</span>
+</button>
+<button class="bit-btn w-full py-2.5 px-3 rounded-lg bg-surface-container-low text-on-surface-variant flex items-center justify-between font-label-md text-label-md hover:bg-surface-container transition-all" data-depth="24" type="button">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">circle</span>
+<span>24-bit PCM (Studio Dynamic Range)</span>
+</span>
+<span class="font-caption text-caption text-text-muted">144 dB Master</span>
+</button>
+<button class="bit-btn w-full py-2.5 px-3 rounded-lg bg-surface-container-low text-on-surface-variant flex items-center justify-between font-label-md text-label-md hover:bg-surface-container transition-all" data-depth="32" type="button">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">circle</span>
+<span>32-bit Float (Clipping Resilient)</span>
+</span>
+<span class="font-caption text-caption text-text-muted">Pro DAW</span>
+</button>
+</div>
+</div>
+<!-- Channel Configuration -->
+<div class="flex flex-col gap-2">
+<span class="font-label-md text-label-md text-text-muted uppercase tracking-wider">Channels</span>
+<div class="grid grid-cols-2 gap-2">
+<button class="p-2.5 rounded-lg bg-surface-audio text-accent-blue font-label-md text-label-md flex flex-col items-center gap-1 shadow-sm" type="button">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">spatial_audio</span>
+<span>Stereo</span>
+</div>
+<span class="font-caption text-caption text-text-muted">2-Channel L/R</span>
+</button>
+<button class="p-2.5 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md flex flex-col items-center gap-1 hover:bg-surface-container transition-colors" type="button">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">hearing</span>
+<span>Mono</span>
+</div>
+<span class="font-caption text-caption text-text-muted">1-Channel Downmix</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Section 3: Footprint & Storage Expansion Telemetry -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-accent-orange"></span>
+<h3 class="font-title-sm text-title-sm text-on-surface">Storage Expansion Forecast</h3>
+</div>
+<span class="font-label-sm text-label-sm text-accent-orange bg-surface-text px-2 py-0.5 rounded-full">+965% Expansion</span>
+</div>
+<div class="p-space-sm rounded-lg bg-background-cloud flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-caption text-caption text-text-muted">Original Source</span>
+<span class="font-title-sm text-title-sm text-on-surface">4.3 MB <span class="font-caption text-caption text-text-muted">(M4A)</span></span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">trending_up</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-caption text-caption text-text-muted">Estimated WAV Output</span>
+<span class="font-title-sm text-title-sm text-primary">~45.8 MB <span class="font-caption text-caption text-text-muted">(16-bit 44.1k)</span></span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden flex">
+<div class="bg-accent-blue h-full w-[9%]"></div>
+<div class="bg-primary h-full w-[91%]"></div>
+</div>
+<div class="flex items-center justify-between font-caption text-caption pt-1">
+<div class="flex items-center gap-1 text-status-success">
+<span class="material-symbols-outlined text-[15px]">check_circle</span>
+<span>Device Storage: 42.6 GB Available (Sufficient space)</span>
+</div>
+</div>
+</div>
+<!-- Output Filename -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-text-muted uppercase tracking-wider" for="wavNameInput">Output Master Filename</label>
+<div class="p-2.5 rounded-lg bg-surface-container-low flex items-center gap-2">
+<span class="material-symbols-outlined text-text-muted text-[20px]">edit_note</span>
+<input class="bg-transparent font-label-md text-label-md text-on-surface w-full focus:outline-none" id="wavNameInput" type="text" value="Podcast_Interview_Episode4_Master.wav"/>
+<span class="font-label-sm text-label-sm text-accent-blue bg-surface-audio px-2 py-0.5 rounded uppercase">WAV</span>
+</div>
+</div>
+</div>
+<!-- Primary Action Button -->
+<div class="w-full flex flex-col gap-2">
+<button class="w-full h-14 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm flex items-center justify-center gap-2.5 shadow-md active:scale-[0.99] transition-transform" id="startTranscodeBtn" type="button">
+<span class="material-symbols-outlined text-[24px]">graphic_eq</span>
+<span>Convert to WAV (44.1 kHz / 16-bit)</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-text-muted font-caption text-caption">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+<span>Lossless conversion · 0ms re-compression latency</span>
+</div>
+</div>
+<!-- Processing Modal Simulation (Toggled via JS) -->
+<div class="hidden w-full bg-surface-white rounded-xl shadow-md p-space-md flex-col gap-space-md" id="processingState">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 rounded-full bg-primary animate-ping"></span>
+<span class="font-title-sm text-title-sm text-on-surface">Decompressing AAC to PCM Stream...</span>
+</div>
+<span class="font-label-md text-label-md text-primary" id="transcodePct">68%</span>
+</div>
+<div class="w-full bg-surface-container rounded-full h-2.5 overflow-hidden">
+<div class="bg-primary h-full w-[68%] transition-all duration-300" id="transcodeBar"></div>
+</div>
+<p class="font-caption text-caption text-text-muted text-center">Allocating contiguous PCM blocks in 16-bit stereo buffers</p>
+</div>
+<!-- Section 4: Completed Conversion Result State -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<!-- Success Badge -->
+<div class="p-space-sm rounded-lg bg-surface-image flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-accent-emerald text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">done</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface">Conversion Complete · Studio WAV Rendered in 1.4s</span>
+</div>
+<span class="font-caption text-caption text-accent-emerald font-label-md">Bit-Perfect</span>
+</div>
+<!-- Processed WAV Output Card -->
+<div class="p-space-md rounded-xl bg-surface-audio flex flex-col gap-space-sm">
+<div class="flex items-start justify-between">
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Podcast_Interview_Episode4_Master.wav</span>
+<span class="font-caption text-caption text-accent-blue mt-0.5">45.7 MB · 04:32 · Linear PCM · 1,411 kbps · 16-bit / 44.1 kHz Stereo</span>
+</div>
+<span class="material-symbols-outlined text-accent-blue text-[24px]">album</span>
+</div>
+<!-- Audio Waveform Visualizer Simulation -->
+<div class="w-full bg-surface-white rounded-lg p-2.5 flex flex-col gap-2 shadow-sm">
+<div class="h-14 w-full flex items-center justify-between gap-1 overflow-hidden px-1">
+<!-- Simulated Waveform Bars in deep blue -->
+<div class="w-1.5 h-4 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-7 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-11 bg-primary rounded-full"></div>
+<div class="w-1.5 h-6 bg-primary rounded-full"></div>
+<div class="w-1.5 h-9 bg-primary rounded-full"></div>
+<div class="w-1.5 h-12 bg-primary rounded-full"></div>
+<div class="w-1.5 h-8 bg-primary rounded-full"></div>
+<div class="w-1.5 h-14 bg-primary rounded-full"></div>
+<div class="w-1.5 h-10 bg-primary rounded-full"></div>
+<div class="w-1.5 h-5 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-8 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-12 bg-primary/40 rounded-full"></div>
+<div class="w-1.5 h-6 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-10 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-13 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-7 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-4 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-9 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-11 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-6 bg-primary/30 rounded-full"></div>
+<div class="w-1.5 h-3 bg-primary/30 rounded-full"></div>
+</div>
+<div class="flex items-center justify-between font-caption text-caption text-text-muted px-1">
+<span class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">play_circle</span>
+<span>Audition PCM Stream</span>
+</span>
+<span>00:00 / 04:32</span>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-2">
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 shadow-sm active:scale-[0.99] transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Save to Device (.wav)</span>
+</button>
+<div class="grid grid-cols-2 gap-2">
+<button class="h-11 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+<span>Share File</span>
+</button>
+<button class="h-11 rounded-xl bg-surface-container-low text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span>Convert Another</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple interactive micro-interactions for tactile responsiveness
+  const playBtn = document.getElementById('playBtn');
+  const playIcon = document.getElementById('playIcon');
+  let isPlaying = false;
+
+  playBtn?.addEventListener('click', () => {
+    isPlaying = !isPlaying;
+    playIcon.textContent = isPlaying ? 'pause' : 'play_arrow';
+  });
+
+  // Sample Rate chip selection toggling
+  const sampleChips = document.querySelectorAll('.sample-chip');
+  sampleChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      sampleChips.forEach(c => {
+        c.classList.remove('bg-surface-audio', 'text-accent-blue', 'shadow-sm');
+        c.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+        const icon = c.querySelector('.material-symbols-outlined');
+        if (icon) icon.textContent = 'radio_button_unchecked';
+      });
+      chip.classList.add('bg-surface-audio', 'text-accent-blue', 'shadow-sm');
+      chip.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+      const icon = chip.querySelector('.material-symbols-outlined');
+      if (icon) icon.textContent = 'radio_button_checked';
+    });
+  });
+
+  // Bit Depth buttons toggling
+  const bitBtns = document.querySelectorAll('.bit-btn');
+  bitBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      bitBtns.forEach(b => {
+        b.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+        b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+        const icon = b.querySelector('.material-symbols-outlined');
+        if (icon) icon.textContent = 'circle';
+      });
+      btn.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+      btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon) icon.textContent = 'check_circle';
+    });
+  });
+
+  // Action simulate conversion
+  const startBtn = document.getElementById('startTranscodeBtn');
+  const procState = document.getElementById('processingState');
+  const transcodeBar = document.getElementById('transcodeBar');
+  const transcodePct = document.getElementById('transcodePct');
+
+  startBtn?.addEventListener('click', () => {
+    procState.classList.remove('hidden');
+    procState.classList.add('flex');
+    let pct = 0;
+    const interval = setInterval(() => {
+      pct += 15;
+      if (pct > 100) {
+        pct = 100;
+        clearInterval(interval);
+        setTimeout(() => {
+          procState.classList.add('hidden');
+          procState.classList.remove('flex');
+        }, 500);
+      }
+      transcodeBar.style.width = pct + '%';
+      transcodePct.textContent = pct + '%';
+    }, 120);
+  });
+</script></main></body></html>

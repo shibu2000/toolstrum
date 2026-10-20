@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fbf8ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-productivity": "#FDEBF5", "surface-container-highest": "#dfe0fc", "surface-audio": "#EAF2FF", "on-surface": "#171a2e", "surface-dim": "#d7d8f4", "inverse-on-surface": "#f0efff", "accent-rose": "#EC4899", "surface-video": "#F5EAFF", "error": "#ba1a1a", "accent-coral": "#FF6B6B", "status-success": "#16A34A", "on-primary": "#ffffff", "surface-white": "#FFFFFF", "secondary": "#8127cf", "surface-pdf": "#FFF0EF", "status-error": "#DC2626", "surface-ai": "#F4EAFE", "primary-container": "#625bff", "text-muted": "#64748B", "surface-archive": "#EEF2F6", "surface-container-high": "#e6e6ff", "tertiary-fixed-dim": "#4cd7f6", "surface-web": "#E5FAF6", "tertiary": "#006476", "background": "#fbf8ff", "on-primary-fixed-variant": "#311ed2", "accent-orange": "#F97316", "on-surface-variant": "#464555", "surface-container-lowest": "#ffffff", "surface-office": "#EEEDFF", "surface-scanner": "#E6FAFD", "on-error-container": "#93000a", "on-background": "#171a2e", "surface-bright": "#fbf8ff", "on-error": "#ffffff", "primary": "#483ee5", "on-tertiary": "#ffffff", "primary-fixed": "#e2dfff", "secondary-fixed-dim": "#ddb7ff", "status-warning": "#F59E0B", "accent-amber": "#F59E0B", "on-tertiary-container": "#f5fcff", "on-primary-container": "#fefaff", "on-tertiary-fixed-variant": "#004e5c", "tertiary-container": "#007f95", "on-secondary-container": "#fffbff", "border-subtle": "#E2E8F0", "on-secondary-fixed": "#2c0051", "on-tertiary-fixed": "#001f26", "secondary-fixed": "#f0dbff", "tertiary-fixed": "#acedff", "surface-calculator": "#FFF7E2", "error-container": "#ffdad6", "surface-developer": "#E8F7FF", "background-cloud": "#F7F8FC", "outline-variant": "#c7c4d8", "accent-sky": "#0EA5E9", "primary-fixed-dim": "#c3c0ff", "accent-emerald": "#10B981", "accent-teal": "#14B8A6", "on-primary-fixed": "#0e006a", "surface-tint": "#4c42e9", "surface-container": "#edecff", "on-secondary-fixed-variant": "#6900b3", "surface-container-low": "#f4f2ff", "surface-text": "#FFF1E7", "surface": "#fbf8ff", "inverse-primary": "#c3c0ff", "surface-image": "#E7F9F1", "secondary-container": "#9c48ea", "accent-blue": "#3B82F6", "outline": "#777587", "on-secondary": "#ffffff", "surface-variant": "#dfe0fc", "inverse-surface": "#2c2f44" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-sm": "1rem", "space-lg": "1.5rem", "gutter-sm": "0.75rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-sm": "0.5rem" }, fontFamily: { "headline-sm": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "title-sm": ["Inter"], "caption": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"] }, fontSize: { "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Navigate Back" class="w-12 h-12 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold tracking-wide"><span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span>Image Studio</span></div><h1 class="font-title-sm text-title-sm font-semibold text-on-surface truncate">Image Converter</h1></div></div><div class="flex items-center gap-0.5 shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-accent-amber hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="ml-1"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-8 space-y-4">
+<!-- Contextual Tool Header -->
+<div class="flex flex-col pt-2 pb-1">
+<div class="flex items-center gap-space-xs mb-1.5 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-container font-label-sm text-label-sm font-semibold text-on-surface-variant">
+        Tool #76 · Image Studio
+      </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-image font-label-sm text-label-sm font-semibold text-accent-emerald">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span>
+        Printable Multi-Up Imposition
+      </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface tracking-tight">
+      ID Photo Sheet Maker
+    </h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-1 leading-snug">
+      Arrange multiple identical passport or identity photos onto standard photo paper sheets for low-cost DIY printing.
+    </p>
+</div>
+<!-- Active Source Photo Card -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-3.5 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-surface-container-low shadow-sm">
+<img class="w-full h-full object-cover" data-alt="Close up crisp studio passport identity portrait of a professional woman with neutral expression, soft rim lighting, light gray clean backdrop, US passport format framing, ultra sharp photographic detail" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu_ERDJAncGoWk-jGKZts7T7VO7UjqgvpV_6hEUZwyTzu7GnUTWjKK1DxXBGjjtidhrtI9gKXEdI91GejRR5_wDj4YwkEMVLJTSPTpXQ-riBkDZvnD97pc2bNgPBdDssaeQHkGj9HN96e1Wx_ejBtsXOs_JoM2MEjx4HwzEdosbccdUMz3dahP2x1S-wV3t1OoqHixyANCkYxN8VnvNFiudvJ03bIjwd84dkcCtvoiZaW6dMoOen9wZw"/>
+<span class="absolute bottom-1 right-1 bg-on-surface/80 backdrop-blur-sm text-surface-white font-label-sm text-[9px] px-1 py-0.2 rounded leading-tight">
+          2×2″
+        </span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold truncate">
+            Passport_Photo_US_2x2.jpg
+          </span>
+<span class="inline-flex items-center text-accent-emerald shrink-0">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5 truncate">
+          600 × 600 px · 300 DPI · US 2×2 in
+        </p>
+<span class="inline-flex items-center gap-1 text-[11px] font-label-sm text-accent-teal mt-0.5">
+<span class="material-symbols-outlined text-[13px]">aspect_ratio</span> Biometric Face Positioned
+        </span>
+</div>
+</div>
+<button class="shrink-0 h-10 px-3 rounded-lg bg-surface-container-low hover:bg-surface-container active:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+<span>Change</span>
+</button>
+</div>
+<!-- Sheet Layout Parameters Panel -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-4 space-y-4">
+<!-- Paper Size Chips -->
+<div class="space-y-2">
+<div class="flex items-center justify-between">
+<label class="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">layers</span>
+          Target Photo Paper Format
+        </label>
+<span class="font-caption text-caption text-text-muted">Standard Lab Size</span>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<!-- 4x6 Active -->
+<button class="flex flex-col text-left p-2.5 rounded-lg bg-surface-container-high shadow-xs relative transition-all" type="button">
+<div class="flex items-center justify-between w-full">
+<span class="font-title-sm text-title-sm font-semibold text-primary">4 × 6 in</span>
+<span class="w-2 h-2 rounded-full bg-primary shrink-0"></span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant text-[11px] mt-0.5">10 × 15 cm Paper</span>
+<span class="font-label-sm text-[10px] text-accent-emerald font-medium mt-1">Drugstore / Home Lab</span>
+</button>
+<!-- 5x7 -->
+<button class="flex flex-col text-left p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-all" type="button">
+<div class="flex items-center justify-between w-full">
+<span class="font-title-sm text-title-sm font-medium text-on-surface">5 × 7 in</span>
+</div>
+<span class="font-caption text-caption text-text-muted text-[11px] mt-0.5">13 × 18 cm Paper</span>
+<span class="font-label-sm text-[10px] text-text-muted font-normal mt-1">Fits up to 8 copies</span>
+</button>
+<!-- A4 Sheet -->
+<button class="flex flex-col text-left p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-all" type="button">
+<div class="flex items-center justify-between w-full">
+<span class="font-title-sm text-title-sm font-medium text-on-surface">A4 Sheet</span>
+</div>
+<span class="font-caption text-caption text-text-muted text-[11px] mt-0.5">210 × 297 mm</span>
+<span class="font-label-sm text-[10px] text-text-muted font-normal mt-1">Standard Office Paper</span>
+</button>
+<!-- US Letter -->
+<button class="flex flex-col text-left p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container text-on-surface transition-all" type="button">
+<div class="flex items-center justify-between w-full">
+<span class="font-title-sm text-title-sm font-medium text-on-surface">US Letter</span>
+</div>
+<span class="font-caption text-caption text-text-muted text-[11px] mt-0.5">8.5 × 11 in</span>
+<span class="font-label-sm text-[10px] text-text-muted font-normal mt-1">Home Inkjet Tray</span>
+</button>
+</div>
+</div>
+<!-- Layout Grid & Copies Stepper -->
+<div class="p-3 bg-surface-container-low rounded-lg space-y-2.5">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-title-sm text-title-sm font-semibold text-on-surface block">Imposition Grid</span>
+<span class="font-caption text-caption text-text-muted">2 Columns × 3 Rows = 6 Photos</span>
+</div>
+<div class="flex items-center bg-surface-white rounded-lg p-1 shadow-xs">
+<button aria-label="Decrease copies" class="w-8 h-8 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</button>
+<span class="font-title-sm text-title-sm font-bold text-primary px-3">6</span>
+<button aria-label="Increase copies" class="w-8 h-8 rounded-md flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-1.5 text-text-muted font-caption text-caption">
+<span class="material-symbols-outlined text-[16px]">space_dashboard</span>
+<span>Spacing: 3 mm gutter</span>
+</div>
+<div class="flex items-center gap-1.5 text-text-muted font-caption text-caption">
+<span class="material-symbols-outlined text-[16px]">crop_free</span>
+<span>Margins: 5 mm outer</span>
+</div>
+</div>
+</div>
+<!-- Toggles: Cutting Guides & Photo Outlines -->
+<div class="space-y-3 pt-1">
+<label class="flex items-center justify-between cursor-pointer py-1">
+<div class="flex items-center gap-2.5 pr-2">
+<div class="w-8 h-8 rounded-lg bg-surface-office flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[18px]">content_cut</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm font-medium text-on-surface">Print Scissor Cutting Guides</span>
+<span class="font-caption text-caption text-text-muted">Hairline crosses and alignment tick marks for precise trimming</span>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</div>
+</label>
+<label class="flex items-center justify-between cursor-pointer py-1">
+<div class="flex items-center gap-2.5 pr-2">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant shrink-0">
+<span class="material-symbols-outlined text-[18px]">crop_square</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm font-medium text-on-surface">0.5pt Outline Border</span>
+<span class="font-caption text-caption text-text-muted">Adds faint boundary guide for white backdrop images</span>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</div>
+</label>
+</div>
+</div>
+<!-- Live Sheet Preview Canvas -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-4 space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">visibility</span>
+<span class="font-title-sm text-title-sm font-semibold text-on-surface">Live Sheet Canvas</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted bg-surface-container px-2 py-0.5 rounded">
+        4.00 × 6.00 in (1200 × 1800 px @ 300 DPI)
+      </span>
+</div>
+<!-- Scaled 4x6 Sheet Mockup (Aspect ratio 2:3) -->
+<div class="w-full flex justify-center py-2 bg-background-cloud rounded-xl p-3">
+<div class="relative w-56 aspect-[2/3] bg-surface-white rounded-md shadow-md p-2 flex flex-col justify-between">
+<!-- Corner Registration/Crop Marks (Decorative SVGs) -->
+<svg class="absolute top-1 left-1 w-3 h-3 text-text-muted opacity-60" fill="none" viewbox="0 0 16 16">
+<path d="M0 6H6V0" stroke="currentColor" stroke-width="1.2"></path>
+</svg>
+<svg class="absolute top-1 right-1 w-3 h-3 text-text-muted opacity-60" fill="none" viewbox="0 0 16 16">
+<path d="M16 6H10V0" stroke="currentColor" stroke-width="1.2"></path>
+</svg>
+<svg class="absolute bottom-1 left-1 w-3 h-3 text-text-muted opacity-60" fill="none" viewbox="0 0 16 16">
+<path d="M0 10H6V16" stroke="currentColor" stroke-width="1.2"></path>
+</svg>
+<svg class="absolute bottom-1 right-1 w-3 h-3 text-text-muted opacity-60" fill="none" viewbox="0 0 16 16">
+<path d="M16 10H10V16" stroke="currentColor" stroke-width="1.2"></path>
+</svg>
+<!-- 2x3 Photo Grid -->
+<div class="w-full h-full grid grid-cols-2 grid-rows-3 gap-1.5 relative p-1">
+<!-- Central Scissor indicator (delight element) -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none z-10 opacity-40">
+<span class="material-symbols-outlined text-[16px] text-text-muted rotate-90">content_cut</span>
+</div>
+<!-- Photo 1 -->
+<div class="relative rounded-sm overflow-hidden bg-surface-container-low shadow-2xs">
+<img class="w-full h-full object-cover" data-alt="Passport identity photo reproduction female executive clean lighting bright backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgKZ8A7b0ciLleM4MOr9CiJnkSijq36xS3I4TXnSDj4LJatpR2MfMoiBgFg4-uwyVASrz59FereLVTlyKMj5ojzbNVCqBpITimq3SNH0LTaXyTfDMPkxiDwqZkvXRdRL4VdmnQDTvOvoRaR2NkT_cePgQuf5qW53CShImpCnun_qb8Qfd1B4YG3aAmaDOpiH8U3hI1tn-x-UAw1QTTDyAveQXrm7mwWM6xyqVPxsc0J7JX9UquiwdR-A"/>
+<div class="absolute inset-0 shadow-[inset_0_0_0_0.5px_rgba(23,26,46,0.2)]"></div>
+</div>
+<!-- Photo 2 -->
+<div class="relative rounded-sm overflow-hidden bg-surface-container-low shadow-2xs">
+<img class="w-full h-full object-cover" data-alt="Passport identity photo reproduction female executive clean lighting bright backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtcamBrN1OT6zMiSm58M78uzO4-MTqcJevpCZNUun3PFUHZpVfwhPh-Fy3dcmZVWVFUtZvrnc2mV9XDjbQR-eg6y7HboWBcqr0hIXeUQC47ju9eeDTwgoMFmwKf4FO3iG_cdEk4soPoSTPVoMDf6GMzS-MkU3uk0LsNNnmzBRFnvN2uG30BTeyueWR9b8wL2q33vnWam1d6CtUgc5x29WU_OfhqyuijTY-0w-3GfQD-3EtR5iTSTuAhg"/>
+<div class="absolute inset-0 shadow-[inset_0_0_0_0.5px_rgba(23,26,46,0.2)]"></div>
+</div>
+<!-- Photo 3 -->
+<div class="relative rounded-sm overflow-hidden bg-surface-container-low shadow-2xs">
+<img class="w-full h-full object-cover" data-alt="Passport identity photo reproduction female executive clean lighting bright backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRgLlFLPTgngwXLCgL8T3ozUiV_2sGUDeokTrODBWig5bRQsrQfyVd4gszWdWlJzkLCoUMeBNbkFGUpJJapzquQiXjl6b6yyTdP04m7Q8IgIC7MlGqBF7y7z144iXDFK6Paos7U2FVnhpGTCdiQWjM-3L-SR454pdpBJ6jNUZ0RNiLBL0t6vnTltDwFVDKUJMTNhWOQx7fC5kOg9GgYo5o5_Ll_apDHlU_AdPeitZsT9g_RGMlV9HRrA"/>
+<div class="absolute inset-0 shadow-[inset_0_0_0_0.5px_rgba(23,26,46,0.2)]"></div>
+</div>
+<!-- Photo 4 -->
+<div class="relative rounded-sm overflow-hidden bg-surface-container-low shadow-2xs">
+<img class="w-full h-full object-cover" data-alt="Passport identity photo reproduction female executive clean lighting bright backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9PyXW67YGJSNxOb1lBA4V82a0mY8ZW5EshQO9VxzCs-8iTedDjCJ9sCpHBCWKvsFSwQQfrGzkwbO_S_wWAGjBxsGsniDxK2zKEQsjS1MV2KasshmQYbUcSChGCzNyUyaB3ARDkXCQQNrAIZXD9Q8yNymVT5oFS_wpE3PMxivYIibeFwJpPA-kQoOCk4nAQcV6xjB5fu5qZW1e5Ee_PTL3ToS9zAG9QB2co-7Uw5KD_Qnux2bC5xNsuw"/>
+<div class="absolute inset-0 shadow-[inset_0_0_0_0.5px_rgba(23,26,46,0.2)]"></div>
+</div>
+<!-- Photo 5 -->
+<div class="relative rounded-sm overflow-hidden bg-surface-container-low shadow-2xs">
+<img class="w-full h-full object-cover" data-alt="Passport identity photo reproduction female executive clean lighting bright backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHZcn10juxAAgIbzZOytxXU5BHPeB0lo8MUlrtkVRDPJ65WsybLzka9SfySZynTxo9TVEWC1F1qGSK1YAdDCU7lAF-YHWe-HRp1lhD79r5VJV17sjuBl14ge3gbbeNPu5GtmjyvsDnOi2StSIrbAJNnvdPUgnC-bTyEEKoI9vW8_57cI93GTpnUSNHRjWpNqiZ5O5pBh6f784pFXb6g-JMzgy9ZuKz-IgihX67GzSl-D1axafPOttINg"/>
+<div class="absolute inset-0 shadow-[inset_0_0_0_0.5px_rgba(23,26,46,0.2)]"></div>
+</div>
+<!-- Photo 6 -->
+<div class="relative rounded-sm overflow-hidden bg-surface-container-low shadow-2xs">
+<img class="w-full h-full object-cover" data-alt="Passport identity photo reproduction female executive clean lighting bright backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBY4Nbhv8N5zCaqShOFLDcuQ1boFHgYNm0-LkHcEi1Y7k018lU3qkj2NfS4ubLGfwyM26vYrPhx23E1tzGrztjRuVu3TBR5u4mMcxAtjMHEXDfZpmFjTRFNtrLvLfrEnfUlxJ1JjVivH5qBfPC1cAe8gsv1hqYa1UkcZvlt40K3ETJjy5BZE-_fSMi5xo7r4DY6VikEomBkDlXtP04z6NePEs-fgTqEk25c-qrfFBmPmyKfZlWDPj4rzA"/>
+<div class="absolute inset-0 shadow-[inset_0_0_0_0.5px_rgba(23,26,46,0.2)]"></div>
+</div>
+</div>
+<!-- Scale Footer Label -->
+<div class="w-full text-center py-0.5">
+<span class="font-caption text-[8px] text-text-muted tracking-widest uppercase">
+            100% Scale · No Resizing Required
+          </span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-text-muted pt-1 px-1">
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-accent-emerald"></span>
+        Zero Resolution Loss
+      </span>
+<span>Color Profile: sRGB IEC61966-2.1</span>
+</div>
+</div>
+<!-- Primary Execution CTA -->
+<button class="w-full h-13 py-3 px-4 rounded-xl bg-primary-container text-on-primary font-title-md text-title-md font-semibold shadow-md active:scale-[0.99] transition-transform flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[22px]">auto_fix_high</span>
+<span>Create Photo Sheet (6 Photos on 4×6 in)</span>
+</button>
+<!-- Completed Output Card -->
+<div class="w-full bg-surface-white rounded-xl shadow-sm p-4 space-y-3.5">
+<!-- Header with Success Pill -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-surface-image flex items-center justify-center text-status-success shrink-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<span class="font-title-sm text-title-sm font-semibold text-on-surface block">Sheet Generated</span>
+<span class="font-caption text-caption text-text-muted">300 DPI High-Res Ready</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-image text-status-success font-label-sm text-label-sm font-semibold">
+        Ready to Print
+      </span>
+</div>
+<!-- Generated Files Details -->
+<div class="space-y-2 bg-surface-container-low rounded-lg p-3">
+<!-- File 1: PDF -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md font-semibold text-on-surface truncate">ID_Photo_Sheet_4x6_6Up.pdf</span>
+<span class="font-caption text-caption text-text-muted">Print-ready PDF with Trim Vector Marks · 2.4 MB</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">verified</span>
+</div>
+<!-- File 2: JPEG -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-image flex items-center justify-center text-accent-emerald shrink-0">
+<span class="material-symbols-outlined text-[18px]">image</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md text-body-md font-medium text-on-surface truncate">ID_Photo_Sheet_4x6_6Up.jpg</span>
+<span class="font-caption text-caption text-text-muted">Photo Kiosk JPG · 1200 × 1800 px · 1.8 MB</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">verified</span>
+</div>
+</div>
+<!-- Action Buttons Cluster -->
+<div class="space-y-2 pt-1">
+<!-- Primary Download Button -->
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm font-semibold shadow-sm active:opacity-90 transition-opacity flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Download Print-Ready PDF</span>
+</button>
+<!-- Secondary Actions Row -->
+<div class="grid grid-cols-2 gap-2">
+<button class="h-11 px-3 rounded-xl bg-surface-container-high hover:bg-surface-container active:bg-surface-variant text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">save_alt</span>
+<span>Save 300 DPI JPEG</span>
+</button>
+<button class="h-11 px-3 rounded-xl bg-surface-container-high hover:bg-surface-container active:bg-surface-variant text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Print Directly</span>
+</button>
+</div>
+<!-- Tertiary Edit Button -->
+<button class="w-full h-10 rounded-lg text-primary font-label-md text-label-md font-medium hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Re-adjust Margins &amp; Layout</span>
+</button>
+</div>
+</div>
+<!-- Helpful Pro-Tip Footnote Card -->
+<div class="w-full p-3.5 rounded-xl bg-surface-container-low flex items-start gap-3">
+<div class="w-6 h-6 rounded-full bg-accent-amber/20 text-accent-amber flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[16px]">lightbulb</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm font-semibold text-on-surface">Drugstore &amp; Kiosk Print Tip</span>
+<p class="font-caption text-caption text-text-muted mt-0.5 leading-relaxed">
+        When printing at kiosks (Walgreens, CVS, Walmart), order as a standard <strong>4×6 inch photo print</strong> (costing ~$0.35) instead of a $16 passport photo order. Never select "Fit to Page" to keep actual biometric scale.
+      </p>
+</div>
+</div>
+</div></main></body></html>

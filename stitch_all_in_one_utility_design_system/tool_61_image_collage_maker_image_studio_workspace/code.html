@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fbf8ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-productivity": "#FDEBF5", "surface-container-highest": "#dfe0fc", "surface-audio": "#EAF2FF", "on-surface": "#171a2e", "surface-dim": "#d7d8f4", "inverse-on-surface": "#f0efff", "accent-rose": "#EC4899", "surface-video": "#F5EAFF", "error": "#ba1a1a", "accent-coral": "#FF6B6B", "status-success": "#16A34A", "on-primary": "#ffffff", "surface-white": "#FFFFFF", "secondary": "#8127cf", "surface-pdf": "#FFF0EF", "status-error": "#DC2626", "surface-ai": "#F4EAFE", "primary-container": "#625bff", "text-muted": "#64748B", "surface-archive": "#EEF2F6", "surface-container-high": "#e6e6ff", "tertiary-fixed-dim": "#4cd7f6", "surface-web": "#E5FAF6", "tertiary": "#006476", "background": "#fbf8ff", "on-primary-fixed-variant": "#311ed2", "accent-orange": "#F97316", "on-surface-variant": "#464555", "surface-container-lowest": "#ffffff", "surface-office": "#EEEDFF", "surface-scanner": "#E6FAFD", "on-error-container": "#93000a", "on-background": "#171a2e", "surface-bright": "#fbf8ff", "on-error": "#ffffff", "primary": "#483ee5", "on-tertiary": "#ffffff", "primary-fixed": "#e2dfff", "secondary-fixed-dim": "#ddb7ff", "status-warning": "#F59E0B", "accent-amber": "#F59E0B", "on-tertiary-container": "#f5fcff", "on-primary-container": "#fefaff", "on-tertiary-fixed-variant": "#004e5c", "tertiary-container": "#007f95", "on-secondary-container": "#fffbff", "border-subtle": "#E2E8F0", "on-secondary-fixed": "#2c0051", "on-tertiary-fixed": "#001f26", "secondary-fixed": "#f0dbff", "tertiary-fixed": "#acedff", "surface-calculator": "#FFF7E2", "error-container": "#ffdad6", "surface-developer": "#E8F7FF", "background-cloud": "#F7F8FC", "outline-variant": "#c7c4d8", "accent-sky": "#0EA5E9", "primary-fixed-dim": "#c3c0ff", "accent-emerald": "#10B981", "accent-teal": "#14B8A6", "on-primary-fixed": "#0e006a", "surface-tint": "#4c42e9", "surface-container": "#edecff", "on-secondary-fixed-variant": "#6900b3", "surface-container-low": "#f4f2ff", "surface-text": "#FFF1E7", "surface": "#fbf8ff", "inverse-primary": "#c3c0ff", "surface-image": "#E7F9F1", "secondary-container": "#9c48ea", "accent-blue": "#3B82F6", "outline": "#777587", "on-secondary": "#ffffff", "surface-variant": "#dfe0fc", "inverse-surface": "#2c2f44" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-sm": "1rem", "space-lg": "1.5rem", "gutter-sm": "0.75rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-sm": "0.5rem" }, fontFamily: { "headline-sm": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "title-sm": ["Inter"], "caption": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"] }, fontSize: { "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Navigate Back" class="w-12 h-12 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold tracking-wide"><span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span>Image Studio</span></div><h1 class="font-title-sm text-title-sm font-semibold text-on-surface truncate">Image Converter</h1></div></div><div class="flex items-center gap-0.5 shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-accent-amber hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="ml-1"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-10 space-y-5">
+<!-- Studio Tool Header & Badges -->
+<section class="flex flex-col space-y-2.5">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-image text-accent-emerald font-label-md text-label-md font-semibold tracking-wide shadow-sm">
+<span class="material-symbols-outlined text-[15px]" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+        Tool #61 · Image Studio
+      </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-md text-label-md font-medium">
+<span class="material-symbols-outlined text-[14px]">auto_awesome_mosaic</span>
+        Multi-Frame Compositor
+      </span>
+</div>
+<div class="flex flex-col space-y-1">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Image Collage Maker</h2>
+<p class="font-body-sm text-body-sm text-text-muted">Combine multiple photos into curated grid, mosaic, and asymmetric editorial layouts with custom borders.</p>
+</div>
+</section>
+<!-- Interactive Live Preview Viewport (Elevated Hero Card) -->
+<section class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden p-3.5 space-y-3">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-surface-image text-accent-emerald">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+</span>
+<span class="font-title-sm text-title-sm text-on-surface">Live Preview</span>
+</div>
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-surface-container-low text-text-muted font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span>
+        2400 × 2400 px
+      </span>
+</div>
+<!-- The 1:1 Collage Canvas Container -->
+<div class="relative w-full aspect-square rounded-xl bg-surface-container-lowest shadow-sm p-4 transition-all duration-200" id="collage-viewport">
+<div class="w-full h-full grid grid-cols-2 grid-rows-2 gap-3 transition-all" id="collage-grid-layout">
+<!-- Cell 1: Architecture -->
+<div class="relative overflow-hidden rounded-lg shadow-sm group">
+<img class="w-full h-full object-cover" data-alt="Minimalist architectural facade with pale concrete brutalist curves, high contrast sunlight cast shadows, crisp architectural lines and clear sky, modern clean editorial photo aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiyoUXWdU1nGGY3s5rpmq-tyGkb3JmZitiuB99vM0gu_MbLG_syPYhpAN_OpS4KgHDOc0lLF_YGqSPhAaGdlD4r7-5ASO3eee6APbrfo4EUu4jQcod87M38Qt6xffiPamTR7r7Pp5__GIv2cxFhA2lVMXReVlo56SQuwcYyf2UUFO_aKCFhTmAz1iI4_n5IjG7QhBXYJ0amkH4e4SIWpvHFW2ENqU2S77YAXVAmNWcNdg9Evrcnj313A"/>
+<span class="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded bg-on-surface/60 backdrop-blur-sm text-surface-white font-label-sm text-label-sm">Frame 1</span>
+</div>
+<!-- Cell 2: Coffee Shop -->
+<div class="relative overflow-hidden rounded-lg shadow-sm group">
+<img class="w-full h-full object-cover" data-alt="Artisanal cozy specialty urban coffee shop interior, warm brass lighting, barista pouring delicate latte art, wooden rustic counters and soft steam bokeh" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGeRVJSzBDytZjqPpdI1ueEsMHsOR8FLJ_9FNcpHF_LXueHhQnr5LxYWfGZ2_aBAWDmHTnX8EgUaHRXNVYzlLCedvjS45sE2MVraeCjdKpaK7hk_gfyxMVQi4Kwfjk1Lv2um4YbNSfMy5ahvtvhmyIXTrGYQhNUXt9HOQCVzMJufeW-iywudFEDuHqIqd8Xg7YEC2t2XrIbyrPE1sPYiLNiVTTVa-gzfYCdDO2nqrmzuroNc5pR_YLVg"/>
+<span class="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded bg-on-surface/60 backdrop-blur-sm text-surface-white font-label-sm text-label-sm">Frame 2</span>
+</div>
+<!-- Cell 3: Mountain Vista -->
+<div class="relative overflow-hidden rounded-lg shadow-sm group">
+<img class="w-full h-full object-cover" data-alt="Majestic high alpine mountain range during sunrise, golden ambient mist in pine valleys, vivid gradient sky with orange glow and deep teal peaks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwE4M-yjQlgd9XLQwXJyWuuY72OmREuK4p6DAEr5a9G7-2uLiNrD36xVghxx-ESO6oDx50I1hOKPbzQNrdTBg68Fk1L6Zv8BFPW4hgkR4RDZh91v_t30M5A7cZXIlf5e4Wa8pSxZBrA5xfGMqgQtdgzco74TwcX0oWOWlPb4kQbKX20ljd2kl_nrg-2UesPNUzKZKuNZDLVVbReGosTm5xsUYhuW_TAjqMGDn0RJOKlVhEoOTEjxD4bg"/>
+<span class="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded bg-on-surface/60 backdrop-blur-sm text-surface-white font-label-sm text-label-sm">Frame 3</span>
+</div>
+<!-- Cell 4: Portrait -->
+<div class="relative overflow-hidden rounded-lg shadow-sm group">
+<img class="w-full h-full object-cover" data-alt="Fashion editorial portrait session with natural golden hour lighting, smiling subject in structured beige coat, soft warm outdoor backdrop with rich tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDD8Hn3QMo4cuhIV6i8Dikikcx3hOipMnVQpWCZHVe0xsXU7InAppclaA6Wc8oMNgXdEQNTdLiBPDjRBUeBKHNkrV1-jcojDGsKf2gYab_ic5OULGjydspsRjtngerXR4ohffAKe0lOWk1GzunF_k0NzGyJwLH4e9NLjV8KrQ0nYa4drg-zh8QnhaCX0DQ8h1oc5tgsMm3-s4cUtWY_aJUnzofUC6-pg3a6_7k9-pjBZSFEarRDH24gw"/>
+<span class="absolute bottom-1.5 left-1.5 px-1.5 py-0.5 rounded bg-on-surface/60 backdrop-blur-sm text-surface-white font-label-sm text-label-sm">Frame 4</span>
+</div>
+</div>
+<!-- Quick Canvas Overlay Controls -->
+<div class="absolute top-6 right-6 flex items-center gap-1.5">
+<button aria-label="Toggle Fullscreen" class="w-8 h-8 rounded-full bg-surface-white/90 backdrop-blur-sm text-on-surface shadow-sm flex items-center justify-center hover:bg-surface-white transition-colors" id="zoom-preview-btn">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+<button aria-label="Shuffle Layout Order" class="w-8 h-8 rounded-full bg-surface-white/90 backdrop-blur-sm text-on-surface shadow-sm flex items-center justify-center hover:bg-surface-white transition-colors" id="shuffle-grid-btn">
+<span class="material-symbols-outlined text-[18px]">shuffle</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Multi-Image Selection Queue Card -->
+<section class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm p-4 space-y-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h3 class="font-title-sm text-title-sm text-on-surface">Selected Photos</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold">4</span>
+</div>
+<button class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container text-primary font-label-md text-label-md font-semibold hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[16px]">add_photo_alternate</span>
+        + Add Photos
+      </button>
+</div>
+<!-- Image Thumbnail Queue -->
+<div class="grid grid-cols-2 gap-2.5">
+<!-- Item 1 -->
+<div class="flex items-center gap-2.5 p-2 rounded-lg bg-surface-container-low relative">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Minimalist architectural facade with pale concrete brutalist curves, high contrast sunlight cast shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5X0k3ZQZTco99AOQ1HqMaMevKg2KdQPxcGf-07-6YUArB5lUUEQ-aHgr_Zm3JNW8V0nirG97vJHFN3XTXCoszZ-qSua-ox9pbhgzfcjr1ghCo3rcPK7u1p4HTxVEfwitCMLW64GkbQl5ue_1B25jD7YvEDScKQZXOBCb2cF3d_1YZPoKEim8i3zqlSmdN0nQlBdRg26Rs82RSSlFm7PCOdmWpUML0EuhFCIpqvOQg3IVZmBQv_DK3SA"/>
+<span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-on-surface/70 text-surface-white text-[9px] font-bold flex items-center justify-center">1</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface truncate">arch_facade.jpg</span>
+<span class="font-caption text-caption text-text-muted">4.1 MB · 3:2</span>
+</div>
+<div class="flex flex-col items-center justify-between shrink-0">
+<button aria-label="Replace Photo" class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[16px]">cached</span>
+</button>
+<button aria-label="Drag Handle" class="w-6 h-6 flex items-center justify-center text-outline cursor-grab">
+<span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-2.5 p-2 rounded-lg bg-surface-container-low relative">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Artisanal cozy specialty urban coffee shop interior with warm lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgMrdYtXwV0ZhB80X--UDcy0InjR-R8dYEUTwIMLopBbobwbpWj3IAgySJAm8olexsbAcRJZUmkxz1t-ciZlu514xfsxPqrVOa3s56q7Pbb01pv93niZ7L9ec8Lyg3ypM35lEIN20jRccu45W_-AnRGQdXl2tKR4yM2KGp9Q7EJbZzhVjC8F5b3Moic3QolKvkRodm6HIcHOuiW8wyVclQrrJR2X85nztlU5gc8cJJuYdrZdREW0acTQ"/>
+<span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-on-surface/70 text-surface-white text-[9px] font-bold flex items-center justify-center">2</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface truncate">cafe_espresso.jpg</span>
+<span class="font-caption text-caption text-text-muted">3.8 MB · 4:5</span>
+</div>
+<div class="flex flex-col items-center justify-between shrink-0">
+<button aria-label="Replace Photo" class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[16px]">cached</span>
+</button>
+<button aria-label="Drag Handle" class="w-6 h-6 flex items-center justify-center text-outline cursor-grab">
+<span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-2.5 p-2 rounded-lg bg-surface-container-low relative">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Majestic high alpine mountain range during sunrise with golden ambient glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVLv88zscys1N7OH5FCA_oUdzq9aBQDcbhFk1A5-ePxYT8JZTw95XDv5KlE4fBFVRuNaPzn-y_yWvFTzOJXz32WzEdvGF09ScP8JLc0NIMcc8Mfk1-kJtrDDvQLWEpg9qPC5Xs00GWWWuQcEtFMnvjk46IxbYbK4riZZi5klHGuFxnlFAY3W5UoW6TaF3eEo22GnFVOgYvbFfVMIGN2f4JLxmaKb9rp8dWsznpJu1WdruoFyJleltXSQ"/>
+<span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-on-surface/70 text-surface-white text-[9px] font-bold flex items-center justify-center">3</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface truncate">mountain_mist.jpg</span>
+<span class="font-caption text-caption text-text-muted">5.2 MB · 16:9</span>
+</div>
+<div class="flex flex-col items-center justify-between shrink-0">
+<button aria-label="Replace Photo" class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[16px]">cached</span>
+</button>
+<button aria-label="Drag Handle" class="w-6 h-6 flex items-center justify-center text-outline cursor-grab">
+<span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+</button>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="flex items-center gap-2.5 p-2 rounded-lg bg-surface-container-low relative">
+<div class="w-12 h-12 rounded-lg overflow-hidden shrink-0 relative bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="Fashion editorial portrait session with natural golden hour lighting in beige styling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtVp2iIb_kzBnJX9X6XDOdNAPHe-D7djZOfTt-G29u7a7AKNVW-ZV-nhN5mKAq6y28ciFtYIMiU4Pozlh8dQMfOy02xvykg6A_e4GxxCMrCYL-SE5Y7tNK3oE7oAb-g0PC6JxKvrIIPzo12URs4c_SgL-Q_YrAjCa0cgsVHknfliYnM1rbxzi2ifHyOvnX9OFUzqSDmw3K6gAh93QfKRVPzp9Q5z9H7kkQ4fmtrJF7RFj7MTqhel0abw"/>
+<span class="absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-on-surface/70 text-surface-white text-[9px] font-bold flex items-center justify-center">4</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface truncate">portrait_sun.jpg</span>
+<span class="font-caption text-caption text-text-muted">6.0 MB · 1:1</span>
+</div>
+<div class="flex flex-col items-center justify-between shrink-0">
+<button aria-label="Replace Photo" class="w-6 h-6 flex items-center justify-center text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined text-[16px]">cached</span>
+</button>
+<button aria-label="Drag Handle" class="w-6 h-6 flex items-center justify-center text-outline cursor-grab">
+<span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Reorder helper note -->
+<div class="flex items-center gap-2 pt-1 text-text-muted">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">swap_vert</span>
+<span class="font-caption text-caption">Drag thumbnails to re-arrange cell position in collage viewport.</span>
+</div>
+</section>
+<!-- Collage Layout Presets Selector -->
+<section class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm p-4 space-y-3.5">
+<div class="flex items-center justify-between">
+<h3 class="font-title-sm text-title-sm text-on-surface">Layout Architecture</h3>
+<span class="font-label-md text-label-md text-primary font-semibold">2x2 Quad Grid</span>
+</div>
+<!-- Grid Presets Chips -->
+<div class="flex gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold shadow-sm">
+<span class="material-symbols-outlined text-[16px]">grid_view</span>
+        2x2 Quad Grid
+      </button>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">dashboard</span>
+        Editorial Asymmetric
+      </button>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">view_column</span>
+        3-Column Strip
+      </button>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">splitscreen</span>
+        Triptych Mosaic
+      </button>
+<button class="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-container-low text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">aspect_ratio</span>
+        Hero Split
+      </button>
+</div>
+<!-- Aspect Ratio Selection -->
+<div class="flex flex-col space-y-1.5 pt-1">
+<span class="font-label-md text-label-md text-text-muted font-medium">Canvas Aspect Ratio</span>
+<div class="grid grid-cols-4 gap-2">
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-high text-primary font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[20px]">crop_square</span>
+<span class="mt-0.5">1:1 Square</span>
+</button>
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-medium hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">crop_portrait</span>
+<span class="mt-0.5">4:5 IG</span>
+</button>
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-medium hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">crop_16_9</span>
+<span class="mt-0.5">16:9 Wide</span>
+</button>
+<button class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-low text-on-surface-variant font-label-md text-label-md font-medium hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[20px]">crop_landscape</span>
+<span class="mt-0.5">3:2 Standard</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Framing & Aesthetic Styling Controls Card -->
+<section class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm p-4 space-y-4">
+<div class="flex items-center justify-between">
+<h3 class="font-title-sm text-title-sm text-on-surface">Framing & Styling</h3>
+<span class="inline-flex items-center gap-1 text-accent-emerald font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+        Live Adjust
+      </span>
+</div>
+<!-- Sliders -->
+<div class="space-y-3.5">
+<!-- Gutter Spacing -->
+<div class="flex flex-col space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="font-body-sm text-body-sm text-on-surface font-medium" for="cell-spacing-range">Cell Spacing (Gutter)</label>
+<span class="font-label-md text-label-md text-primary font-semibold" id="gutter-val">12 px</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-high rounded-full appearance-none cursor-pointer accent-primary" id="cell-spacing-range" max="48" min="0" type="range" value="12"/>
+<div class="flex justify-between text-text-muted font-caption text-caption">
+<span>0 px (Seamless)</span>
+<span>48 px (Airy)</span>
+</div>
+</div>
+<!-- Outer Canvas Margin -->
+<div class="flex flex-col space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="font-body-sm text-body-sm text-on-surface font-medium" for="canvas-margin-range">Outer Canvas Margin</label>
+<span class="font-label-md text-label-md text-primary font-semibold" id="margin-val">16 px</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-high rounded-full appearance-none cursor-pointer accent-primary" id="canvas-margin-range" max="48" min="0" type="range" value="16"/>
+<div class="flex justify-between text-text-muted font-caption text-caption">
+<span>Flush 0 px</span>
+<span>Passepartout 48 px</span>
+</div>
+</div>
+<!-- Corner Roundness -->
+<div class="flex flex-col space-y-1.5">
+<div class="flex items-center justify-between">
+<label class="font-body-sm text-body-sm text-on-surface font-medium" for="corner-roundness-range">Corner Roundness</label>
+<span class="font-label-md text-label-md text-primary font-semibold" id="radius-val">12 dp (Round)</span>
+</div>
+<input class="w-full h-1.5 bg-surface-container-high rounded-full appearance-none cursor-pointer accent-primary" id="corner-roundness-range" max="32" min="0" type="range" value="12"/>
+<div class="flex justify-between text-text-muted font-caption text-caption">
+<span>Sharp 0 dp</span>
+<span>Pill 32 dp</span>
+</div>
+</div>
+</div>
+<!-- Canvas Background Fill Swatches -->
+<div class="flex flex-col space-y-2 pt-2">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Canvas Background Fill</span>
+<div class="flex items-center gap-3">
+<!-- Pure White Swatch (Active) -->
+<button aria-label="White Fill" class="relative w-9 h-9 rounded-full bg-surface-white shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+<!-- Cloud Cream Swatch -->
+<button aria-label="Cloud Cream Fill" class="w-9 h-9 rounded-full bg-background-cloud shadow-sm flex items-center justify-center hover:scale-105 transition-transform"></button>
+<!-- Midnight Black Swatch -->
+<button aria-label="Midnight Black Fill" class="w-9 h-9 rounded-full bg-on-surface shadow-sm flex items-center justify-center hover:scale-105 transition-transform"></button>
+<!-- Pastel Emerald Swatch -->
+<button aria-label="Pastel Emerald Fill" class="w-9 h-9 rounded-full bg-surface-image shadow-sm flex items-center justify-center hover:scale-105 transition-transform"></button>
+<!-- Custom Hex Color Trigger -->
+<button aria-label="Custom Hex Color" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">palette</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Primary Render CTA -->
+<section class="flex flex-col space-y-2">
+<button class="w-full h-14 rounded-xl bg-primary-container text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 shadow-sm hover:brightness-105 active:scale-[0.99] transition-all" id="render-collage-btn">
+<span class="material-symbols-outlined text-[22px]">auto_fix_high</span>
+      Create Collage (2400 × 2400 px)
+    </button>
+<div class="flex items-center justify-center gap-1.5 text-text-muted">
+<span class="material-symbols-outlined text-[15px] text-accent-emerald">bolt</span>
+<span class="font-caption text-caption text-center">Instant client-side canvas rendering · Zero lossy re-encoding</span>
+</div>
+</section>
+<!-- Completed Result State Card -->
+<section class="flex flex-col bg-surface-container-lowest rounded-xl shadow-sm p-4 space-y-4" id="result-completed-card">
+<div class="flex items-center justify-between">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-image text-accent-emerald font-label-md text-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+        Collage Rendered Successfully
+      </span>
+<span class="font-caption text-caption text-text-muted">0.18s GPU execution</span>
+</div>
+<!-- Finished Composite Card Details -->
+<div class="flex items-center gap-3.5 p-3 rounded-xl bg-surface-container-low">
+<div class="w-16 h-16 rounded-lg bg-surface-container-high overflow-hidden shrink-0 shadow-sm">
+<img class="w-full h-full object-cover" data-alt="High quality assembled composite quad photo collage with modern white borders showcasing architecture, cafe, mountain vista, and portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeBw1CxemROrZCvCqwJ6l1cDdV4TDI1MNxoBuI3Kpx3mfyIVosHP01TbMDsplOC6Ak_xdhIuHonRNSXRneLzW0tLy5oX1izEpPCgOpjbmjW5_dctzyyIeNMOKpByHb4jzSuAwwDGxEEoDA7kwZylqIj5MpALOhn1NiyL9rvpyI3lqGB8NC-izYizl-NUyrMl3rbS3TWN28NFHqyptVQq5d4Tt6fOM8slOuOrAKkYYoKx3yH2nAYyh93g"/>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold truncate">Collage_Weekend_Story_2025.jpg</span>
+<span class="font-caption text-caption text-text-muted mt-0.5">2400 × 2400 px · 3.4 MB JPEG · 300 DPI</span>
+<div class="flex items-center gap-2 mt-1.5">
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-white text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px] text-accent-emerald">verified</span> sRGB Color
+          </span>
+<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-surface-white text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px] text-primary">security</span> Lossless
+          </span>
+</div>
+</div>
+</div>
+<!-- Execution Buttons -->
+<div class="flex flex-col gap-2 pt-1">
+<button class="w-full h-12 rounded-xl bg-primary-container text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 shadow-sm hover:brightness-105 transition-all">
+<span class="material-symbols-outlined text-[20px]">download</span>
+        Save to Gallery
+      </button>
+<div class="grid grid-cols-2 gap-2">
+<button class="h-11 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">share</span>
+          Share Collage
+        </button>
+<button class="h-11 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+          Create Another
+        </button>
+</div>
+</div>
+</section>
+</div>
+<script>
+  // Dynamic Live Canvas Adjustments
+  const gutterSlider = document.getElementById('cell-spacing-range');
+  const marginSlider = document.getElementById('canvas-margin-range');
+  const radiusSlider = document.getElementById('corner-roundness-range');
+  const gutterLabel = document.getElementById('gutter-val');
+  const marginLabel = document.getElementById('margin-val');
+  const radiusLabel = document.getElementById('radius-val');
+
+  const collageViewport = document.getElementById('collage-viewport');
+  const collageGrid = document.getElementById('collage-grid-layout');
+
+  if (gutterSlider && collageGrid && gutterLabel) {
+    gutterSlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      gutterLabel.textContent = `${val} px`;
+      collageGrid.style.gap = `${val}px`;
+    });
+  }
+
+  if (marginSlider && collageViewport && marginLabel) {
+    marginSlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      marginLabel.textContent = `${val} px`;
+      collageViewport.style.padding = `${val}px`;
+    });
+  }
+
+  if (radiusSlider && collageGrid && radiusLabel) {
+    radiusSlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      radiusLabel.textContent = `${val} dp`;
+      const cells = collageGrid.children;
+      for (let i = 0; i < cells.length; i++) {
+        cells[i].style.borderRadius = `${val}px`;
+      }
+    });
+  }
+
+  // Shuffle Micro-interaction
+  const shuffleBtn = document.getElementById('shuffle-grid-btn');
+  if (shuffleBtn && collageGrid) {
+    shuffleBtn.addEventListener('click', () => {
+      const items = Array.from(collageGrid.children);
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        collageGrid.appendChild(items[j]);
+      }
+    });
+  }
+</script></main></body></html>

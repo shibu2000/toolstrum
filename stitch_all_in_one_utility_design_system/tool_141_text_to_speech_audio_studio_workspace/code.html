@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-low": "#f4f2ff", "surface-developer": "#E8F7FF", "primary-fixed-dim": "#c3c0ff", "primary": "#483ee5", "surface-audio": "#EAF2FF", "background": "#fbf8ff", "accent-teal": "#14B8A6", "tertiary-fixed": "#acedff", "status-success": "#16A34A", "accent-emerald": "#10B981", "accent-sky": "#0EA5E9", "on-error": "#ffffff", "secondary-fixed": "#f0dbff", "accent-orange": "#F97316", "surface-archive": "#EEF2F6", "on-surface-variant": "#464555", "on-primary-container": "#fefaff", "surface-pdf": "#FFF0EF", "outline-variant": "#c7c4d8", "outline": "#777587", "surface-image": "#E7F9F1", "on-background": "#171a2e", "accent-amber": "#F59E0B", "inverse-surface": "#2c2f44", "on-tertiary-fixed": "#001f26", "tertiary-fixed-dim": "#4cd7f6", "on-error-container": "#93000a", "secondary-container": "#9c48ea", "surface-dim": "#d7d8f4", "secondary": "#8127cf", "inverse-primary": "#c3c0ff", "on-tertiary": "#ffffff", "text-muted": "#64748B", "surface-container-highest": "dfe0fc", "tertiary": "#006476", "surface-text": "#FFF1E7", "surface-video": "#F5EAFF", "on-tertiary-fixed-variant": "#004e5c", "primary-fixed": "#e2dfff", "accent-blue": "#3B82F6", "accent-rose": "#EC4899", "primary-container": "#625bff", "inverse-on-surface": "#f0efff", "tertiary-container": "#007f95", "background-cloud": "#F7F8FC", "on-secondary-container": "#fffbff", "surface-tint": "#4c42e9", "surface-white": "#FFFFFF", "surface-office": "#EEEDFF", "surface-container": "#edecff", "surface-bright": "#fbf8ff", "on-primary-fixed-variant": "#311ed2", "border-subtle": "#E2E8F0", "on-primary-fixed": "#0e006a", "surface-web": "#E5FAF6", "surface-container-high": "#e6e6ff", "on-secondary-fixed": "#2c0051", "surface-scanner": "#E6FAFD", "on-secondary": "#ffffff", "surface-container-lowest": "#ffffff", "surface": "#fbf8ff", "error": "#ba1a1a", "status-error": "#DC2626", "on-primary": "#ffffff", "surface-ai": "#F4EAFE", "surface-productivity": "#FDEBF5", "status-warning": "#F59E0B", "error-container": "#ffdad6", "on-tertiary-container": "#f5fcff", "on-secondary-fixed-variant": "#6900b3", "on-surface": "#171a2e", "accent-coral": "#FF6B6B", "secondary-fixed-dim": "#ddb7ff", "surface-variant": "#dfe0fc", "surface-calculator": "#FFF7E2" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "space-xs": "0.25rem", "space-xl": "2rem", "margin-sm": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem", "space-lg": "1.5rem", "space-md": "1rem", "gutter": "1rem" }, "fontFamily": { "label-md": ["Inter"], "title-md": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "label-sm": ["Inter"], "headline-md": ["Inter"], "caption": ["Inter"], "headline-lg-mobile": ["Inter"], "body-sm": ["Inter"], "title-sm": ["Inter"], "body-lg": ["Inter"] }, "fontSize": { "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-white/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.05)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center min-w-0 gap-space-xs"><button aria-label="Go back" class="w-11 h-11 -ml-1.5 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-audio/60 active:bg-surface-audio transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pl-1"><div class="flex items-center gap-space-xs"><h1 class="font-title-md text-title-md text-on-surface truncate">Audio Trimmer &amp; Cutter</h1><span class="px-1.5 py-0.5 rounded-full bg-surface-audio text-accent-blue font-label-sm text-label-sm uppercase tracking-wide shrink-0">Audio Studio</span></div><span class="font-label-sm text-label-sm text-text-muted truncate">All-in-One Utility</span></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-text-muted hover:text-accent-amber hover:bg-surface-audio/60 active:bg-surface-audio transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-text-muted hover:text-on-surface hover:bg-surface-audio/60 active:bg-surface-audio transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_2px_6px_rgba(72,62,229,0.3)] ml-0.5"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-background-cloud"><div class="flex flex-col w-full">
+<!-- Interactive & Reactive Container -->
+<div class="px-margin pt-space-md pb-space-xl flex flex-col gap-space-lg w-full max-w-md mx-auto">
+<!-- Header Info Banner -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-24 h-24 bg-surface-audio rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between gap-space-xs flex-wrap">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-audio text-accent-blue font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">graphic_eq</span>
+            Tool #141 · Audio Studio
+          </span>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">lock</span>
+          Offline Neural TTS
+        </span>
+</div>
+<div class="flex flex-col gap-0.5">
+<h2 class="font-headline-md text-headline-md text-on-surface">Text to Speech</h2>
+<p class="font-body-sm text-body-sm text-text-muted">
+          Convert typed text, articles, and scripts into natural sounding speech with customizable voices.
+        </p>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<div class="w-2 h-2 rounded-full bg-accent-emerald animate-pulse"></div>
+<span class="font-caption text-caption text-text-muted">On-Device Neural Engine Ready · 0ms Cloud Latency</span>
+</div>
+</div>
+<!-- Section 1: Multiline Text Editor Input -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">edit_note</span>
+<label class="font-title-sm text-title-sm text-on-surface" for="tts-input">Text Content</label>
+</div>
+<div class="flex items-center gap-1">
+<button class="h-8 px-2.5 rounded-full bg-surface-container-low text-primary hover:bg-surface-container active:scale-95 transition-all flex items-center gap-1 font-label-sm text-label-sm" id="btn-paste" type="button">
+<span class="material-symbols-outlined text-[14px]">content_paste</span>
+            Paste
+          </button>
+<button class="h-8 px-2.5 rounded-full bg-surface-container-low text-text-muted hover:text-error hover:bg-surface-pdf active:scale-95 transition-all flex items-center gap-1 font-label-sm text-label-sm" id="btn-clear" type="button">
+<span class="material-symbols-outlined text-[14px]">backspace</span>
+            Clear
+          </button>
+</div>
+</div>
+<div class="relative rounded-xl bg-surface-container-low p-space-sm focus-within:bg-surface-white focus-within:shadow-[0_0_0_2px_#625bff] transition-all">
+<textarea class="w-full bg-transparent resize-none outline-none font-body-md text-body-md text-on-surface placeholder:text-text-muted/60 leading-relaxed" id="tts-input" maxlength="5000" placeholder="Type or paste text to synthesize speech..." rows="4">Welcome to the Audio Studio. This offline neural speech engine transforms your written words into crystal clear, natural sounding human voice audio without sending any telemetry to the cloud.</textarea>
+<div class="flex items-center justify-between pt-space-xs mt-1 border-t-0 font-caption text-caption text-text-muted">
+<div class="flex items-center gap-1 text-accent-blue font-medium">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+<span id="speech-duration-est">~22 sec speech duration</span>
+</div>
+<span class="font-medium text-text-muted" id="char-counter">194 / 5,000 chars</span>
+</div>
+</div>
+<!-- Quick Text Presets -->
+<div class="flex items-center gap-1.5 overflow-x-auto pb-0.5">
+<span class="font-label-sm text-label-sm text-text-muted shrink-0">Presets:</span>
+<button class="h-7 px-2.5 rounded-full bg-surface-audio text-accent-blue font-label-sm text-label-sm shrink-0 active:scale-95 transition-transform" onclick="insertPrompt('Welcome listeners! Today we delve into ambient soundscapes.')" type="button">Podcast Intro</button>
+<button class="h-7 px-2.5 rounded-full bg-surface-audio text-accent-blue font-label-sm text-label-sm shrink-0 active:scale-95 transition-transform" onclick="insertPrompt('Chapter One: The morning mist gathered quietly over the high pines.')" type="button">Audiobook Sample</button>
+<button class="h-7 px-2.5 rounded-full bg-surface-audio text-accent-blue font-label-sm text-label-sm shrink-0 active:scale-95 transition-transform" onclick="insertPrompt('Reminder: Your scheduled daily breathing exercise begins in 5 minutes.')" type="button">Notification</button>
+</div>
+</div>
+<!-- Section 2: Voice & Language Selection -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">record_voice_over</span>
+<span class="font-title-sm text-title-sm text-on-surface">Voice &amp; Language</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Engine v4.2 Local</span>
+</div>
+<!-- Language Selector -->
+<div class="flex items-center justify-between p-space-sm bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-space-xs min-w-0">
+<div class="w-8 h-8 rounded-full bg-surface-audio text-accent-blue flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px]">language</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">English (US)</span>
+<span class="font-caption text-caption text-text-muted truncate">4 Neural Voices Installed</span>
+</div>
+</div>
+<button class="h-8 px-2.5 rounded-full bg-surface-white text-on-surface font-label-sm text-label-sm shadow-sm flex items-center gap-1" type="button">
+<span>Change</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+<!-- Voice Persona Radios -->
+<div class="grid grid-cols-1 gap-2" id="voice-options">
+<!-- Nova (Selected) -->
+<label class="voice-card relative flex items-center justify-between p-3 rounded-xl bg-surface-audio shadow-sm cursor-pointer transition-all" data-voice="Nova">
+<input checked="" class="sr-only" name="voice_persona" type="radio" value="Nova"/>
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-accent-blue text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">female</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface">Nova</span>
+<span class="px-1.5 py-0.2 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">Recommended</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Warm &amp; Friendly · Female</span>
+</div>
+</div>
+<div class="voice-check w-6 h-6 rounded-full bg-accent-blue text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</label>
+<!-- Echo -->
+<label class="voice-card relative flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-audio/40 cursor-pointer transition-all" data-voice="Echo">
+<input class="sr-only" name="voice_persona" type="radio" value="Echo"/>
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">male</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface">Echo</span>
+<span class="font-caption text-caption text-text-muted">Deep &amp; Authoritative · Male</span>
+</div>
+</div>
+<div class="voice-check hidden w-6 h-6 rounded-full bg-accent-blue text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</label>
+<!-- Aura -->
+<label class="voice-card relative flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-audio/40 cursor-pointer transition-all" data-voice="Aura">
+<input class="sr-only" name="voice_persona" type="radio" value="Aura"/>
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">face</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface">Aura</span>
+<span class="font-caption text-caption text-text-muted">Expressive &amp; Calm · Neutral</span>
+</div>
+</div>
+<div class="voice-check hidden w-6 h-6 rounded-full bg-accent-blue text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</label>
+<!-- Onyx -->
+<label class="voice-card relative flex items-center justify-between p-3 rounded-xl bg-surface-container-low hover:bg-surface-audio/40 cursor-pointer transition-all" data-voice="Onyx">
+<input class="sr-only" name="voice_persona" type="radio" value="Onyx"/>
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-full bg-surface-container text-on-surface flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">campaign</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface">Onyx</span>
+<span class="font-caption text-caption text-text-muted">Broadcast News · Male</span>
+</div>
+</div>
+<div class="voice-check hidden w-6 h-6 rounded-full bg-accent-blue text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</label>
+</div>
+<!-- Preview Voice Audio Button -->
+<button class="w-full h-11 px-space-md rounded-xl bg-surface-audio text-accent-blue font-title-sm text-title-sm hover:bg-surface-audio/80 active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="btn-preview-voice" type="button">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+<span id="preview-voice-label">Preview Voice 'Nova'</span>
+</button>
+</div>
+<!-- Section 3: Speech Modulation Controls -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">tune</span>
+<span class="font-title-sm text-title-sm text-on-surface">Speech Modulation</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary hover:underline" id="btn-reset-sliders" type="button">Reset</button>
+</div>
+<!-- Slider 1: Speed -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-text-muted">speed</span>
+            Speech Rate (Speed)
+          </span>
+<span class="text-accent-blue font-semibold" id="val-speed">1.00× (Normal)</span>
+</div>
+<input class="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="slider-speed" max="2.0" min="0.5" step="0.05" type="range" value="1.0"/>
+<div class="flex justify-between font-caption text-caption text-text-muted px-0.5">
+<span>0.5× Slow</span>
+<span>1.0×</span>
+<span>2.0× Fast</span>
+</div>
+</div>
+<!-- Slider 2: Pitch -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-text-muted">music_note</span>
+            Voice Pitch
+          </span>
+<span class="text-accent-blue font-semibold" id="val-pitch">0 (Natural)</span>
+</div>
+<input class="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="slider-pitch" max="5" min="-5" step="1" type="range" value="0"/>
+<div class="flex justify-between font-caption text-caption text-text-muted px-0.5">
+<span>-5 Deep</span>
+<span>0 Default</span>
+<span>+5 High</span>
+</div>
+</div>
+<!-- Slider 3: Volume -->
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-text-muted">volume_up</span>
+            Audio Volume / Gain
+          </span>
+<span class="text-accent-blue font-semibold" id="val-volume">100%</span>
+</div>
+<input class="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="slider-volume" max="100" min="0" step="5" type="range" value="100"/>
+<div class="flex justify-between font-caption text-caption text-text-muted px-0.5">
+<span>0% Mute</span>
+<span>50%</span>
+<span>100% Boost</span>
+</div>
+</div>
+</div>
+<!-- Section 4: Output Configuration & Formats -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">settings_suggest</span>
+<span class="font-title-sm text-title-sm text-on-surface">Output Configuration</span>
+</div>
+<!-- Format selector buttons -->
+<div class="flex flex-col gap-1.5">
+<span class="font-label-sm text-label-sm text-text-muted font-medium">Audio Encoding Format</span>
+<div class="grid grid-cols-3 gap-2" id="format-picker">
+<button class="format-btn active flex flex-col items-center justify-center p-2 rounded-xl bg-surface-audio text-accent-blue transition-all" data-format="MP3" type="button">
+<span class="font-title-sm text-title-sm font-bold">MP3</span>
+<span class="font-caption text-caption text-accent-blue/80">192 kbps</span>
+</button>
+<button class="format-btn flex flex-col items-center justify-center p-2 rounded-xl bg-surface-container-low text-text-muted hover:bg-surface-container transition-all" data-format="WAV" type="button">
+<span class="font-title-sm text-title-sm font-bold">WAV</span>
+<span class="font-caption text-caption text-text-muted">PCM Lossless</span>
+</button>
+<button class="format-btn flex flex-col items-center justify-center p-2 rounded-xl bg-surface-container-low text-text-muted hover:bg-surface-container transition-all" data-format="OGG" type="button">
+<span class="font-title-sm text-title-sm font-bold">OGG</span>
+<span class="font-caption text-caption text-text-muted">Compact Vorbis</span>
+</button>
+</div>
+</div>
+<!-- Output Filename -->
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-text-muted font-medium">Output Filename</span>
+<div class="flex items-center gap-2 px-3 py-2 bg-surface-container-low rounded-xl">
+<span class="material-symbols-outlined text-[18px] text-text-muted">audio_file</span>
+<input class="w-full bg-transparent outline-none font-body-sm text-body-sm text-on-surface font-medium truncate" id="filename-input" type="text" value="Speech_Audio_Synthesis_01.mp3"/>
+<button class="text-text-muted hover:text-on-surface" onclick="document.getElementById('filename-input').focus()" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+</div>
+</div>
+<!-- Export Destination -->
+<div class="flex items-center justify-between p-2.5 bg-surface-container-low rounded-xl">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-accent-blue text-[18px]">folder_special</span>
+<div class="flex flex-col min-w-0">
+<span class="font-caption text-caption text-text-muted">Destination Folder</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold truncate">App Storage / Audio Exports</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-text-muted text-[18px]">navigate_next</span>
+</div>
+</div>
+<!-- Primary Action Generation Button -->
+<div class="flex flex-col gap-2">
+<button class="w-full h-14 rounded-xl bg-primary-container text-on-primary-container hover:bg-primary active:scale-[0.98] transition-all shadow-[0_4px_16px_rgba(98,91,255,0.35)] flex items-center justify-center gap-2.5 font-title-md text-title-md font-semibold" id="btn-generate" type="button">
+<span class="material-symbols-outlined text-[24px]">graphic_eq</span>
+<span id="generate-btn-text">Generate Speech (MP3 · 192 kbps)</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-text-muted font-caption text-caption">
+<span class="material-symbols-outlined text-accent-emerald text-[15px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span>Zero cloud upload · Processed locally on-device</span>
+</div>
+</div>
+<!-- Section 5: Synthesized Result State (Card) -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-md flex flex-col gap-space-md transition-all" id="result-card">
+<!-- Success Banner -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-image text-on-surface">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-accent-emerald text-on-primary flex items-center justify-center shadow-xs shrink-0">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Speech Generated Successfully</span>
+<span class="font-caption text-caption text-text-muted">Total Run Time: 00:22 Duration</span>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-white text-status-success font-label-sm text-label-sm font-bold shadow-xs">
+          READY
+        </span>
+</div>
+<!-- Audio Player Unit -->
+<div class="p-space-md rounded-xl bg-surface-audio flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-9 h-9 rounded-full bg-accent-blue text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[20px]">music_cast</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate font-semibold" id="result-audio-title">Speech_Audio_Synthesis_01.mp3</span>
+<span class="font-caption text-caption text-text-muted">192 kbps MP3 · 528 KB · Stereo 44.1 kHz</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full bg-surface-white/60 hover:bg-surface-white text-accent-blue flex items-center justify-center transition-colors" title="Loop" type="button">
+<span class="material-symbols-outlined text-[18px]">repeat</span>
+</button>
+</div>
+<!-- Audio Waveform Visualization -->
+<div class="flex flex-col gap-1.5">
+<div class="relative w-full h-14 bg-surface-white/80 rounded-lg p-2 flex items-center justify-between gap-1 overflow-hidden">
+<!-- Simulated Waveform Bars -->
+<div class="flex items-center justify-between w-full h-full gap-[3px] px-1" id="waveform-bars">
+<!-- Bars populated via markup / dynamic heights -->
+<span class="w-1 bg-accent-blue rounded-full h-3"></span>
+<span class="w-1 bg-accent-blue rounded-full h-6"></span>
+<span class="w-1 bg-accent-blue rounded-full h-9"></span>
+<span class="w-1 bg-accent-blue rounded-full h-5"></span>
+<span class="w-1 bg-accent-blue rounded-full h-10"></span>
+<span class="w-1 bg-accent-blue rounded-full h-7"></span>
+<span class="w-1 bg-accent-blue rounded-full h-11"></span>
+<span class="w-1 bg-accent-blue rounded-full h-4"></span>
+<!-- Scrubber Needle Marker -->
+<div class="absolute left-[36%] top-0 bottom-0 w-0.5 bg-primary shadow-sm flex flex-col items-center justify-between pointer-events-none">
+<span class="w-2 h-2 rounded-full bg-primary -mt-0.5 shadow-sm"></span>
+<span class="w-2 h-2 rounded-full bg-primary -mb-0.5 shadow-sm"></span>
+</div>
+<span class="w-1 bg-accent-blue/40 rounded-full h-8"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-10"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-6"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-12"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-8"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-4"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-7"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-9"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-5"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-3"></span>
+<span class="w-1 bg-accent-blue/40 rounded-full h-6"></span>
+</div>
+</div>
+<!-- Timeline Timecodes -->
+<div class="flex justify-between font-label-sm text-label-sm text-text-muted px-0.5">
+<span class="text-accent-blue font-semibold">00:08</span>
+<span>00:22</span>
+</div>
+</div>
+<!-- Player Controls -->
+<div class="flex items-center justify-center gap-4 pt-1">
+<button aria-label="Skip backward 5 seconds" class="w-11 h-11 rounded-full bg-surface-white text-on-surface hover:text-accent-blue active:scale-95 transition-all shadow-xs flex items-center justify-center" id="btn-rewind" type="button">
+<span class="material-symbols-outlined text-[20px]">replay_5</span>
+</button>
+<button aria-label="Play or pause synthesized audio" class="w-14 h-14 rounded-full bg-accent-blue text-on-primary hover:bg-primary active:scale-95 transition-all shadow-md flex items-center justify-center" id="btn-play-pause" type="button">
+<span class="material-symbols-outlined text-[28px]" id="play-pause-icon" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+<button aria-label="Skip forward 5 seconds" class="w-11 h-11 rounded-full bg-surface-white text-on-surface hover:text-accent-blue active:scale-95 transition-all shadow-xs flex items-center justify-center" id="btn-forward" type="button">
+<span class="material-symbols-outlined text-[20px]">forward_5</span>
+</button>
+</div>
+</div>
+<!-- Action Buttons Grid -->
+<div class="flex flex-col gap-2 pt-1">
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary hover:bg-primary/90 active:scale-[0.98] transition-all shadow-sm flex items-center justify-center gap-2 font-title-sm text-title-sm font-semibold" id="btn-save-library" type="button">
+<span class="material-symbols-outlined text-[20px]">save</span>
+<span>Save to Audio Library</span>
+</button>
+<div class="grid grid-cols-3 gap-2">
+<button class="h-11 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-audio active:scale-95 transition-all flex items-center justify-center gap-1 font-label-md text-label-md" id="btn-share" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+<span>Share</span>
+</button>
+<button class="h-11 rounded-xl bg-surface-container-low text-on-surface hover:bg-surface-audio active:scale-95 transition-all flex items-center justify-center gap-1 font-label-md text-label-md" id="btn-copy-script" type="button">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+<span>Copy Text</span>
+</button>
+<button class="h-11 rounded-xl bg-surface-container-low text-accent-blue hover:bg-surface-audio active:scale-95 transition-all flex items-center justify-center gap-1 font-label-md text-label-md" id="btn-generate-another" type="button">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span>Reset</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Delight Helper / Audio Studio Tip -->
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-audio text-accent-blue flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">tips_and_updates</span>
+</div>
+<p class="font-body-sm text-body-sm text-text-muted">
+        Tip: Add commas or ellipses (<span class="font-semibold text-on-surface">...</span>) to give sentences dramatic pauses and lifelike breath cadence.
+      </p>
+</div>
+</div>
+</div>
+<script>
+  (function () {
+    // DOM Elements
+    const textarea = document.getElementById('tts-input');
+    const charCounter = document.getElementById('char-counter');
+    const speechEst = document.getElementById('speech-duration-est');
+    const btnClear = document.getElementById('btn-clear');
+    const btnPaste = document.getElementById('btn-paste');
+    const voiceCards = document.querySelectorAll('.voice-card');
+    const previewVoiceLabel = document.getElementById('preview-voice-label');
+    const btnPreviewVoice = document.getElementById('btn-preview-voice');
+    const sliderSpeed = document.getElementById('slider-speed');
+    const valSpeed = document.getElementById('val-speed');
+    const sliderPitch = document.getElementById('slider-pitch');
+    const valPitch = document.getElementById('val-pitch');
+    const sliderVolume = document.getElementById('slider-volume');
+    const valVolume = document.getElementById('val-volume');
+    const btnResetSliders = document.getElementById('btn-reset-sliders');
+    const formatButtons = document.querySelectorAll('.format-btn');
+    const filenameInput = document.getElementById('filename-input');
+    const btnGenerate = document.getElementById('btn-generate');
+    const generateBtnText = document.getElementById('generate-btn-text');
+    const resultCard = document.getElementById('result-card');
+    const btnPlayPause = document.getElementById('btn-play-pause');
+    const playPauseIcon = document.getElementById('play-pause-icon');
+    const btnSaveLibrary = document.getElementById('btn-save-library');
+    const btnCopyScript = document.getElementById('btn-copy-script');
+    const btnShare = document.getElementById('btn-share');
+    const btnGenerateAnother = document.getElementById('btn-generate-another');
+
+    let currentFormat = 'MP3';
+    let currentVoice = 'Nova';
+    let isPlaying = false;
+
+    // Character counter & duration estimator
+    function updateTextMetadata() {
+      if (!textarea) return;
+      const count = textarea.value.length;
+      charCounter.textContent = `${count} / 5,000 chars`;
+      
+      // Rough speech estimation: 150 words per minute ~ 2.5 words/sec
+      const words = textarea.value.trim().split(/\s+/).filter(Boolean).length;
+      const sec = Math.max(1, Math.round(words / 2.5));
+      speechEst.textContent = `~${sec} sec speech duration`;
+    }
+
+    textarea.addEventListener('input', updateTextMetadata);
+
+    // Clear and Paste Buttons
+    btnClear.addEventListener('click', () => {
+      textarea.value = '';
+      updateTextMetadata();
+      textarea.focus();
+    });
+
+    btnPaste.addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard && navigator.clipboard.readText) {
+          const clipText = await navigator.clipboard.readText();
+          if (clipText) {
+            textarea.value = clipText.slice(0, 5000);
+            updateTextMetadata();
+          }
+        } else {
+          // Fallback demo text
+          textarea.value = "The crisp morning air felt invigorating as the team initiated the neural speech testing protocol.";
+          updateTextMetadata();
+        }
+      } catch (e) {
+        textarea.value = "Welcome to Audio Studio. The next-generation on-device synthesizer delivers high fidelity audio without cloud latency.";
+        updateTextMetadata();
+      }
+    });
+
+    window.insertPrompt = function(text) {
+      textarea.value = text;
+      updateTextMetadata();
+    };
+
+    // Voice selector handler
+    voiceCards.forEach(card => {
+      card.addEventListener('click', () => {
+        voiceCards.forEach(c => {
+          c.classList.remove('bg-surface-audio', 'shadow-sm');
+          c.classList.add('bg-surface-container-low');
+          const check = c.querySelector('.voice-check');
+          if (check) check.classList.add('hidden');
+        });
+
+        card.classList.remove('bg-surface-container-low');
+        card.classList.add('bg-surface-audio', 'shadow-sm');
+        const activeCheck = card.querySelector('.voice-check');
+        if (activeCheck) activeCheck.classList.remove('hidden');
+
+        currentVoice = card.getAttribute('data-voice');
+        previewVoiceLabel.textContent = `Preview Voice '${currentVoice}'`;
+      });
+    });
+
+    // Preview Voice trigger
+    btnPreviewVoice.addEventListener('click', () => {
+      const originalText = previewVoiceLabel.textContent;
+      previewVoiceLabel.textContent = `Playing sample (${currentVoice})...`;
+      btnPreviewVoice.classList.add('opacity-80');
+
+      setTimeout(() => {
+        previewVoiceLabel.textContent = originalText;
+        btnPreviewVoice.classList.remove('opacity-80');
+      }, 1800);
+    });
+
+    // Slider Listeners
+    sliderSpeed.addEventListener('input', () => {
+      const v = parseFloat(sliderSpeed.value).toFixed(2);
+      let desc = 'Normal';
+      if (v < 0.9) desc = 'Slow';
+      if (v > 1.1) desc = 'Fast';
+      valSpeed.textContent = `${v}× (${desc})`;
+    });
+
+    sliderPitch.addEventListener('input', () => {
+      const p = parseInt(sliderPitch.value, 10);
+      let desc = 'Natural';
+      if (p < 0) desc = 'Deeper';
+      if (p > 0) desc = 'Higher';
+      valPitch.textContent = `${p > 0 ? '+' : ''}${p} (${desc})`;
+    });
+
+    sliderVolume.addEventListener('input', () => {
+      valVolume.textContent = `${sliderVolume.value}%`;
+    });
+
+    btnResetSliders.addEventListener('click', () => {
+      sliderSpeed.value = 1.0;
+      sliderPitch.value = 0;
+      sliderVolume.value = 100;
+      valSpeed.textContent = '1.00× (Normal)';
+      valPitch.textContent = '0 (Natural)';
+      valVolume.textContent = '100%';
+    });
+
+    // Format selection
+    formatButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        formatButtons.forEach(b => {
+          b.classList.remove('active', 'bg-surface-audio', 'text-accent-blue');
+          b.classList.add('bg-surface-container-low', 'text-text-muted');
+          const sub = b.querySelector('span:last-child');
+          if (sub) {
+            sub.classList.remove('text-accent-blue/80');
+            sub.classList.add('text-text-muted');
+          }
+        });
+
+        btn.classList.add('active', 'bg-surface-audio', 'text-accent-blue');
+        btn.classList.remove('bg-surface-container-low', 'text-text-muted');
+        const activeSub = btn.querySelector('span:last-child');
+        if (activeSub) {
+          activeSub.classList.remove('text-text-muted');
+          activeSub.classList.add('text-accent-blue/80');
+        }
+
+        currentFormat = btn.getAttribute('data-format');
+        let bitrate = currentFormat === 'MP3' ? 'MP3 · 192 kbps' : currentFormat === 'WAV' ? 'WAV · Lossless' : 'OGG · 160 kbps';
+        generateBtnText.textContent = `Generate Speech (${bitrate})`;
+        
+        // Update filename extension
+        const baseName = filenameInput.value.split('.')[0] || 'Speech_Audio_Synthesis_01';
+        filenameInput.value = `${baseName}.${currentFormat.toLowerCase()}`;
+      });
+    });
+
+    // Generate CTA Click simulation
+    btnGenerate.addEventListener('click', () => {
+      const originalCTA = generateBtnText.textContent;
+      generateBtnText.textContent = "Synthesizing Neural Speech...";
+      btnGenerate.disabled = true;
+      btnGenerate.classList.add('opacity-90');
+
+      setTimeout(() => {
+        generateBtnText.textContent = originalCTA;
+        btnGenerate.disabled = false;
+        btnGenerate.classList.remove('opacity-90');
+
+        // Scroll gracefully to the result state
+        resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 1000);
+    });
+
+    // Audio Play/Pause Toggle
+    btnPlayPause.addEventListener('click', () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        playPauseIcon.textContent = 'pause';
+        btnPlayPause.classList.replace('bg-accent-blue', 'bg-primary');
+      } else {
+        playPauseIcon.textContent = 'play_arrow';
+        btnPlayPause.classList.replace('bg-primary', 'bg-accent-blue');
+      }
+    });
+
+    // Save, Share, Copy Script & Reset actions
+    btnSaveLibrary.addEventListener('click', () => {
+      const originalHTML = btnSaveLibrary.innerHTML;
+      btnSaveLibrary.innerHTML = `<span class="material-symbols-outlined text-[20px]">check</span> Saved in Library!`;
+      btnSaveLibrary.classList.replace('bg-primary', 'bg-status-success');
+      setTimeout(() => {
+        btnSaveLibrary.innerHTML = originalHTML;
+        btnSaveLibrary.classList.replace('bg-status-success', 'bg-primary');
+      }, 1600);
+    });
+
+    btnCopyScript.addEventListener('click', () => {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(textarea.value);
+      }
+      btnCopyScript.innerHTML = `<span class="material-symbols-outlined text-[18px]">check</span> Copied!`;
+      setTimeout(() => {
+        btnCopyScript.innerHTML = `<span class="material-symbols-outlined text-[18px]">content_copy</span><span>Copy Text</span>`;
+      }, 1400);
+    });
+
+    btnShare.addEventListener('click', () => {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Speech Audio Synthesis',
+          text: textarea.value.slice(0, 100)
+        }).catch(() => {});
+      } else {
+        btnShare.innerHTML = `<span class="material-symbols-outlined text-[18px]">check</span> Shared!`;
+        setTimeout(() => {
+          btnShare.innerHTML = `<span class="material-symbols-outlined text-[18px]">share</span><span>Share</span>`;
+        }, 1200);
+      }
+    });
+
+    btnGenerateAnother.addEventListener('click', () => {
+      textarea.value = '';
+      updateTextMetadata();
+      textarea.focus();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+  })();
+</script></main></body></html>

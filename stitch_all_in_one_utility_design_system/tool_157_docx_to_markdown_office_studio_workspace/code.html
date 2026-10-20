@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-calculator": "#FFF7E2", "outline": "#777587", "surface-audio": "#EAF2FF", "surface-image": "#E7F9F1", "surface-scanner": "#E6FAFD", "primary-fixed": "#e2dfff", "secondary-fixed": "#f0dbff", "primary-fixed-dim": "#c3c0ff", "on-primary-fixed-variant": "#311ed2", "inverse-surface": "#2c2f44", "surface-office": "#EEEDFF", "status-warning": "#F59E0B", "on-secondary-fixed": "#2c0051", "on-tertiary-fixed": "#001f26", "on-primary-container": "#fefaff", "background": "#fbf8ff", "surface-bright": "#fbf8ff", "surface-container-low": "#f4f2ff", "on-secondary": "#ffffff", "accent-coral": "#FF6B6B", "on-tertiary-container": "#f5fcff", "surface-developer": "#E8F7FF", "primary-container": "#625bff", "text-muted": "#64748B", "accent-orange": "#F97316", "status-error": "#DC2626", "accent-rose": "#EC4899", "on-primary-fixed": "#0e006a", "surface-productivity": "#FDEBF5", "tertiary-fixed-dim": "#4cd7f6", "status-success": "#16A34A", "on-error": "#ffffff", "on-background": "#171a2e", "surface-ai": "#F4EAFE", "on-tertiary-fixed-variant": "#004e5c", "error": "#ba1a1a", "on-secondary-fixed-variant": "#6900b3", "on-surface-variant": "#464555", "tertiary": "#006476", "on-tertiary": "#ffffff", "accent-blue": "#3B82F6", "surface-container-lowest": "#ffffff", "surface-container": "#edecff", "surface-container-high": "#e6e6ff", "surface": "#fbf8ff", "surface-container-highest": "#dfe0fc", "secondary": "#8127cf", "tertiary-fixed": "#acedff", "secondary-container": "#9c48ea", "surface-dim": "#d7d8f4", "surface-archive": "#EEF2F6", "surface-tint": "#4c42e9", "border-subtle": "#E2E8F0", "on-primary": "#ffffff", "accent-sky": "#0EA5E9", "error-container": "#ffdad6", "surface-white": "#FFFFFF", "accent-amber": "#F59E0B", "accent-emerald": "#10B981", "background-cloud": "#F7F8FC", "accent-teal": "#14B8A6", "tertiary-container": "#007f95", "on-error-container": "#93000a", "surface-variant": "#dfe0fc", "secondary-fixed-dim": "#ddb7ff", "surface-pdf": "#FFF0EF", "inverse-on-surface": "#f0efff", "surface-text": "#FFF1E7", "inverse-primary": "#c3c0ff", "outline-variant": "#c7c4d8", "on-secondary-container": "#fffbff", "surface-video": "#F5EAFF", "surface-web": "#E5FAF6", "on-surface": "#171a2e", "primary": "#483ee5" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "margin-sm": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem", "space-lg": "1.5rem", "gutter": "1rem", "space-md": "1rem", "space-xl": "2rem", "space-xs": "0.25rem" }, "fontFamily": { "title-sm": ["Inter"], "body-md": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-sm": ["Inter"], "caption": ["Inter"], "label-md": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "title-md": ["Inter"], "headline-md": ["Inter"] }, "fontSize": { "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-margin-sm flex items-center justify-between gap-space-xs"><div class="flex items-center gap-space-xs min-w-0 flex-1"><button aria-label="Navigate back" class="w-11 h-11 flex items-center justify-center text-on-surface rounded-full hover:bg-surface-container-high transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0 pr-space-xs"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-office text-primary-container font-label-sm text-label-sm leading-none">Office Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate">Rich Text To Markdown Studio</h1></div></div><div class="flex items-center gap-0.5 shrink-0"><button aria-label="Add to favorites" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-accent-amber hover:bg-surface-container-high rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-background-cloud"><div class="flex flex-col w-full pb-10">
+<!-- Top Ambient Banner / Breadcrumb & Subtitle -->
+<div class="px-margin pt-space-md pb-space-sm flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-office text-primary-container font-label-sm text-label-sm">
+        Tool #157
+      </span>
+<span class="text-text-muted font-label-sm text-label-sm">•</span>
+<span class="font-label-sm text-label-sm text-text-muted">Office & Documents Studio</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-developer text-accent-sky font-label-sm text-label-sm">
+        GFM Converter
+      </span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+      Transform Word documents into clean GitHub Flavored Markdown (GFM) with tables and code blocks.
+    </p>
+</div>
+<div class="px-margin flex flex-col gap-space-md">
+<!-- Card 1: Loaded Document Card -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-office text-primary-container flex items-center justify-center shrink-0 shadow-inner">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<div class="flex flex-col min-w-0">
+<h2 class="font-title-sm text-title-sm text-on-surface truncate">
+              Developer_API_Documentation_Draft.docx
+            </h2>
+<div class="flex items-center gap-space-xs text-text-muted font-caption text-caption mt-0.5">
+<span>12 pages</span>
+<span>•</span>
+<span>2.1 MB</span>
+<span>•</span>
+<span class="uppercase font-label-sm text-label-sm text-primary-container">DOCX</span>
+</div>
+</div>
+</div>
+<button class="h-9 px-3 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors shrink-0" type="button">
+<span class="material-symbols-outlined text-[18px]">cached</span>
+<span>Replace</span>
+</button>
+</div>
+<div class="flex items-center gap-space-xs px-2.5 py-1.5 rounded-lg bg-surface-scanner text-tertiary">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">dataset</span>
+<span class="font-label-sm text-label-sm">Code blocks and 4 tables detected</span>
+</div>
+</div>
+<!-- Card 2: Conversion Configuration -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-[20px]">tune</span>
+<h3 class="font-title-sm text-title-sm text-on-surface">Conversion Configuration</h3>
+</div>
+<span class="font-label-sm text-label-sm text-accent-emerald bg-surface-image px-2 py-0.5 rounded-full">Optimal Setup</span>
+</div>
+<!-- Dialect Selector -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant">Markdown Dialect</label>
+<div class="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+<button class="px-3 py-1.5 rounded-full bg-primary-container text-on-primary font-label-md text-label-md shrink-0 shadow-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span>GFM (GitHub)</span>
+</button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md shrink-0 transition-colors" type="button">
+            CommonMark
+          </button>
+<button class="px-3 py-1.5 rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-high font-label-md text-label-md shrink-0 transition-colors" type="button">
+            Obsidian / Frontmatter
+          </button>
+</div>
+</div>
+<!-- Table Conversion Engine Toggle -->
+<div class="flex items-center justify-between gap-space-sm pt-1">
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface">Convert Tables to GFM Pipes</span>
+<span class="font-caption text-caption text-text-muted">Outputs clean ASCII markdown tables (| --- |)</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" id="toggle-tables" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Heading Format Toggle -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface">ATX Headings (# Heading)</span>
+<span class="font-caption text-caption text-text-muted">Standard hash prefixes instead of Setext (===)</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0">
+<input checked="" class="sr-only peer" id="toggle-atx" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:border-gray-300 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Image Handling Radio Options -->
+<div class="flex flex-col gap-1.5 pt-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Image Tag Handling</label>
+<div class="grid grid-cols-2 gap-space-xs">
+<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-office cursor-pointer">
+<input checked="" class="accent-primary-container text-primary-container w-4 h-4" name="image-handling" type="radio"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Relative Links</span>
+<span class="font-caption text-caption text-text-muted truncate">![alt](media/img.png)</span>
+</div>
+</label>
+<label class="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input class="accent-primary-container text-primary-container w-4 h-4" name="image-handling" type="radio"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface truncate">Omit Images</span>
+<span class="font-caption text-caption text-text-muted truncate">Clean text only</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Technical Callouts Checkbox -->
+<label class="flex items-center gap-space-sm p-2.5 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="accent-primary-container text-primary-container w-4 h-4 rounded" type="checkbox"/>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md text-on-surface">Convert Callouts to Blockquotes</span>
+<span class="font-caption text-caption text-text-muted">Transforms Word tip & alert boxes into Markdown > quotes</span>
+</div>
+</label>
+</div>
+<!-- Card 3: Split-Pane / Toggle Markdown Editor & Viewer -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<!-- Toggle Header -->
+<div class="flex items-center justify-between gap-space-xs">
+<div class="inline-flex p-0.5 rounded-lg bg-surface-container-high">
+<button class="px-3 py-1 rounded-md bg-surface-white text-on-surface shadow-xs font-label-md text-label-md transition-all flex items-center gap-1" id="btn-source" onclick="setMode('source')" type="button">
+<span class="material-symbols-outlined text-[16px]">code</span>
+<span>Markdown Source</span>
+</button>
+<button class="px-3 py-1 rounded-md text-text-muted hover:text-on-surface font-label-md text-label-md transition-all flex items-center gap-1" id="btn-preview" onclick="setMode('preview')" type="button">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+<span>Rich Preview</span>
+</button>
+</div>
+<button class="w-8 h-8 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-on-surface-variant flex items-center justify-center transition-colors" onclick="copyEditorContent()" title="Copy snippet" type="button">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</div>
+<!-- Editor Panel (Source) -->
+<div class="relative rounded-lg bg-surface-office overflow-hidden flex min-h-[220px]" id="pane-source">
+<!-- Gutter Line Numbers -->
+<div class="w-8 py-3 bg-surface-container text-text-muted font-caption text-caption flex flex-col items-center select-none shrink-0 leading-5">
+<span>1</span>
+<span>2</span>
+<span>3</span>
+<span>4</span>
+<span>5</span>
+<span>6</span>
+<span>7</span>
+<span>8</span>
+<span>9</span>
+</div>
+<!-- Editable Textarea -->
+<textarea class="w-full h-full p-3 bg-transparent text-on-surface font-mono text-[13px] leading-5 resize-none focus:outline-none overflow-y-auto" id="markdown-input" spellcheck="false"># Stripe Integration Architecture
+
+> **Note:** API keys must be stored in secure environment variables.
+
+### Endpoint Parameters
+| Parameter | Type | Required |
+| :--- | :--- | :--- |
+| `api_key` | string | Yes |
+| `timeout` | integer | No |</textarea>
+</div>
+<!-- Rich Preview Panel (Hidden by default) -->
+<div class="hidden rounded-lg bg-surface-container-low p-3.5 min-h-[220px] flex-col gap-2.5 overflow-y-auto" id="pane-preview">
+<h1 class="font-headline-sm text-headline-sm text-on-surface font-bold pb-1">Stripe Integration Architecture</h1>
+<div class="border-l-4 pl-3 py-1 bg-surface-white rounded-r-md text-text-muted font-body-sm text-body-sm italic">
+<strong class="text-on-surface not-italic">Note:</strong> API keys must be stored in secure environment variables.
+        </div>
+<h3 class="font-title-sm text-title-sm text-on-surface pt-1">Endpoint Parameters</h3>
+<div class="overflow-x-auto rounded-md bg-surface-white shadow-xs">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-office text-on-surface font-title-sm text-title-sm">
+<tr>
+<th class="p-2">Parameter</th>
+<th class="p-2">Type</th>
+<th class="p-2">Required</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high text-on-surface-variant font-caption text-caption">
+<tr>
+<td class="p-2"><code class="px-1 py-0.5 rounded bg-surface-container font-mono text-primary-container">api_key</code></td>
+<td class="p-2">string</td>
+<td class="p-2"><span class="px-1.5 py-0.5 rounded bg-surface-image text-status-success font-label-sm text-label-sm">Yes</span></td>
+</tr>
+<tr>
+<td class="p-2"><code class="px-1 py-0.5 rounded bg-surface-container font-mono text-primary-container">timeout</code></td>
+<td class="p-2">integer</td>
+<td class="p-2"><span class="px-1.5 py-0.5 rounded bg-surface-container text-text-muted font-label-sm text-label-sm">No</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Telemetry Strip -->
+<div class="flex items-center justify-between text-text-muted font-caption text-caption px-1 pt-1">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-accent-emerald">check_circle</span>
+<span>GFM Syntax Valid</span>
+</div>
+<div class="flex items-center gap-2">
+<span>2,840 words</span>
+<span>•</span>
+<span>18,920 characters</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Primary Action Button -->
+<button class="w-full h-14 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-title-md text-title-md shadow-md flex items-center justify-center gap-space-sm active:scale-[0.99] transition-all" id="convert-btn" onclick="handleConvert()" type="button">
+<span class="material-symbols-outlined text-[24px]">markdown</span>
+<span>Convert to Markdown (.md)</span>
+</button>
+<!-- Card 5: Export & Share Result Card -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Status Badge & Meta -->
+<div class="flex items-center justify-between">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-image text-status-success font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>Markdown Generated in 0.12s</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Ready for export</span>
+</div>
+<!-- Output File Summary -->
+<div class="p-space-sm rounded-xl bg-surface-container-low flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-lg bg-surface-ai text-secondary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">file_download_done</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">
+              Developer_API_Documentation_Draft.md
+            </span>
+<div class="flex items-center gap-space-xs text-text-muted font-caption text-caption">
+<span>24.8 KB</span>
+<span>•</span>
+<span class="text-primary-container font-medium">GFM Format</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions Grid -->
+<div class="flex flex-col gap-2">
+<button class="w-full h-12 rounded-lg bg-primary-container text-on-primary font-title-sm text-title-sm flex items-center justify-center gap-2 shadow-xs active:bg-primary transition-colors" onclick="triggerToast('Saved to Downloads')" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Save .md to Device</span>
+</button>
+<div class="grid grid-cols-2 gap-2">
+<button class="h-11 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" onclick="copyEditorContent()" type="button">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+<span>Copy Markdown</span>
+</button>
+<button class="h-11 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" onclick="triggerToast('Share sheet triggered')" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+<span>Share File</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-interaction Toast Pill -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-inverse-surface text-inverse-on-surface font-label-md text-label-md rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center gap-2" id="toast-pill">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">done</span>
+<span id="toast-msg">Copied to clipboard</span>
+</div>
+</div>
+<script>
+  function setMode(mode) {
+    const paneSource = document.getElementById('pane-source');
+    const panePreview = document.getElementById('pane-preview');
+    const btnSource = document.getElementById('btn-source');
+    const btnPreview = document.getElementById('btn-preview');
+
+    if (mode === 'source') {
+      paneSource.classList.remove('hidden');
+      paneSource.classList.add('flex');
+      panePreview.classList.add('hidden');
+      panePreview.classList.remove('flex');
+
+      btnSource.className = "px-3 py-1 rounded-md bg-surface-white text-on-surface shadow-xs font-label-md text-label-md transition-all flex items-center gap-1";
+      btnPreview.className = "px-3 py-1 rounded-md text-text-muted hover:text-on-surface font-label-md text-label-md transition-all flex items-center gap-1";
+    } else {
+      paneSource.classList.add('hidden');
+      paneSource.classList.remove('flex');
+      panePreview.classList.remove('hidden');
+      panePreview.classList.add('flex');
+
+      btnPreview.className = "px-3 py-1 rounded-md bg-surface-white text-on-surface shadow-xs font-label-md text-label-md transition-all flex items-center gap-1";
+      btnSource.className = "px-3 py-1 rounded-md text-text-muted hover:text-on-surface font-label-md text-label-md transition-all flex items-center gap-1";
+    }
+  }
+
+  function triggerToast(text) {
+    const toast = document.getElementById('toast-pill');
+    const msg = document.getElementById('toast-msg');
+    if (!toast || !msg) return;
+    msg.textContent = text;
+    toast.classList.remove('opacity-0', 'pointer-events-none');
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'pointer-events-none');
+    }, 2200);
+  }
+
+  function copyEditorContent() {
+    const val = document.getElementById('markdown-input')?.value;
+    if (navigator.clipboard && val) {
+      navigator.clipboard.writeText(val);
+      triggerToast('Markdown copied to clipboard!');
+    } else {
+      triggerToast('Copied to clipboard!');
+    }
+  }
+
+  function handleConvert() {
+    const btn = document.getElementById('convert-btn');
+    if (!btn) return;
+    btn.innerHTML = `
+      <span class="material-symbols-outlined text-[22px] animate-spin">progress_activity</span>
+      <span>Regenerating Markdown...</span>
+    `;
+    setTimeout(() => {
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-[24px]">markdown</span>
+        <span>Convert to Markdown (.md)</span>
+      `;
+      triggerToast('Markdown rebuilt in 0.09s');
+    }, 500);
+  }
+</script></main></body></html>

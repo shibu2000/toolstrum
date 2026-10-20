@@ -1,0 +1,1631 @@
+<!DOCTYPE html><html class="h-full" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "status-success": "#16A34A", "on-secondary-fixed-variant": "#6900b3", "surface": "#fbf8ff", "on-surface-variant": "#464555", "on-secondary": "#ffffff", "on-secondary-container": "#fffbff", "on-primary-fixed-variant": "#311ed2", "surface-pdf": "#FFF0EF", "surface-ai": "#F4EAFE", "outline-variant": "#c7c4d8", "surface-archive": "#EEF2F6", "surface-text": "#FFF1E7", "on-tertiary-fixed": "#001f26", "text-muted": "#64748B", "primary-container": "#625bff", "on-primary": "#ffffff", "on-background": "#171a2e", "surface-office": "#EEEDFF", "status-error": "#DC2626", "tertiary-fixed-dim": "#4cd7f6", "on-surface": "#171a2e", "surface-image": "#E7F9F1", "inverse-on-surface": "#f0efff", "secondary": "#8127cf", "accent-emerald": "#10B981", "tertiary": "#006476", "outline": "#777587", "primary-fixed": "#e2dfff", "secondary-fixed": "#f0dbff", "surface-container": "#edecff", "surface-productivity": "#FDEBF5", "error": "#ba1a1a", "on-error-container": "#93000a", "surface-variant": "#dfe0fc", "inverse-primary": "#c3c0ff", "surface-container-highest": "#dfe0fc", "surface-scanner": "#E6FAFD", "accent-rose": "#EC4899", "on-tertiary-fixed-variant": "#004e5c", "border-subtle": "#E2E8F0", "error-container": "#ffdad6", "accent-coral": "#FF6B6B", "accent-teal": "#14B8A6", "surface-bright": "#fbf8ff", "surface-container-high": "#e6e6ff", "surface-video": "#F5EAFF", "on-error": "#ffffff", "secondary-container": "#9c48ea", "tertiary-fixed": "#acedff", "background-cloud": "#F7F8FC", "background": "#fbf8ff", "secondary-fixed-dim": "#ddb7ff", "surface-tint": "#4c42e9", "primary": "#483ee5", "accent-blue": "#3B82F6", "on-secondary-fixed": "#2c0051", "on-primary-fixed": "#0e006a", "surface-audio": "#EAF2FF", "surface-container-low": "#f4f2ff", "accent-orange": "#F97316", "surface-calculator": "#FFF7E2", "surface-container-lowest": "#ffffff", "surface-web": "#E5FAF6", "status-warning": "#F59E0B", "on-tertiary": "#ffffff", "on-tertiary-container": "#f5fcff", "accent-amber": "#F59E0B", "accent-sky": "#0EA5E9", "surface-developer": "#E8F7FF", "on-primary-container": "#fefaff", "inverse-surface": "#2c2f44", "primary-fixed-dim": "#c3c0ff", "surface-white": "#FFFFFF", "surface-dim": "#d7d8f4", "tertiary-container": "#007f95" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-lg": "1.5rem", "margin-sm": "1rem", "space-xs": "0.25rem", "space-sm": "0.5rem", "margin": "1.25rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem", "gutter-sm": "0.75rem" }, fontFamily: { "label-sm": ["Inter"], "body-md": ["Inter"], "headline-lg": ["Inter"], "caption": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "title-sm": ["Inter"], "headline-md": ["Inter"] }, fontSize: { "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }], "caption": ["12px", { lineHeight: "16px", fontWeight: "400" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }] } } } }</script><style>@layer base { html, body { min-height: 100%; margin: 0; padding: 0; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 16px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-background-cloud text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface-white/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="flex items-center justify-between px-margin h-20"><div class="flex items-center gap-space-sm min-w-0"><img alt="All-in-One Utility Logo" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1WocWdlXLhaPo9EMBQ3ItlSUqbLTJF6ap1FoleJmSdeedp3cjw3gyn_9RFMoVCmlZIzJ5cl4ArPOgjTIAJ_Xe7KtPZp8TeKGOANq2t_TexHCoqo32x3hBNSwfyTvxFz8jxDN8K8dAb6HO92rlefOBnQTGU0ATUs7x-N62RM-o57zeNWia5gee4l9MOAwNnDsrJw4LKPF4U7Q7Igpx_KDej0ax8t1hYPTmV9oygRKaEhALytj2x_K1lyNPo"><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><h1 class="font-title-md text-title-md text-on-surface truncate">All-in-One Utility</h1><span class="hidden">Home Dashboard</span></div><p class="font-caption text-caption text-text-muted truncate">Everything you need, in one place</p></div></div><div class="flex items-center gap-space-xs shrink-0"><a class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="material-symbols-outlined text-[22px]">settings</span></a><a class="w-11 h-11 flex items-center justify-center" data-path="user-profile" href="#"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHwxPwQ5AOCzAa_HyCghnhgKLo9oSHp5lgEy3Nv3xoHkiJqySXT7g0h6hFyhIZuux7H7ovZIgU72O82XqF8tWnffJ-kfwBn0P_VyjrfPBWc0sQ4MfEodDWvrm2ZJHMvZi8J54MJTu8K0AgVV_aGBmDiRAC7B8Ko_IJvD2IApTaYwvH_iIsC0i4NBF1f_PrUBW8w8t7wLkuatSzOBwUeslmpzKIJPVtGUvEJfqdRFx9GWrztBFPqCPJOQ"></a></div></div></header><main class="flex-1 w-full bg-background-cloud pt-20 pb-28"><div class="flex flex-col w-full pb-8">
+<!-- Studio Top Hero Header -->
+<section class="px-margin pt-2 pb-4">
+<div class="flex items-center justify-between gap-space-sm mb-3">
+<div class="flex items-center gap-2">
+<a aria-label="Go back" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface bg-surface-white shadow-sm" href="#">
+<span class="material-symbols-outlined text-[24px]">arrow_back</span>
+</a>
+<span class="font-label-md text-label-md text-text-muted">Studios / Document Toolkit</span>
+</div>
+<div class="flex items-center gap-1">
+<button aria-label="Pin PDF studio to favorites" class="w-11 h-11 rounded-full flex items-center justify-center text-accent-coral bg-surface-white shadow-sm" id="studio-fav-btn">
+<span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<button aria-label="Engine specifications and offline security info" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface bg-surface-white shadow-sm" id="studio-info-btn">
+<span class="material-symbols-outlined text-[22px]">info</span>
+</button>
+</div>
+</div>
+<!-- Title & Identity Card -->
+<div class="bg-surface-white rounded-2xl p-space-md shadow-sm relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-surface-pdf/80 pointer-events-none"></div>
+<div class="flex items-start gap-3.5 relative z-10">
+<div class="w-14 h-14 rounded-2xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[32px]">picture_as_pdf</span>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 flex-wrap mb-1">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">PDF Studio</h1>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full font-label-sm text-label-sm bg-surface-pdf text-accent-coral">
+              48 tools
+            </span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Create, convert, organize, and manage PDF documents.
+          </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Engine Sandbox Status Card -->
+<section class="px-margin mb-4">
+<div class="bg-surface-white rounded-2xl p-3.5 shadow-sm">
+<div class="flex items-center justify-between mb-1.5">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-status-success animate-pulse"></div>
+<span class="font-title-sm text-title-sm text-on-surface">PDF Engine Core v2.1</span>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-status-success bg-surface-image px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+          Ready offline (12.4 MB)
+        </span>
+</div>
+<p class="font-caption text-caption text-text-muted leading-relaxed">
+        All 48 PDF operations execute 100% locally on-device in your sandbox with zero cloud uploads.
+      </p>
+</div>
+</section>
+<!-- Studio-Specific Search Bar -->
+<section class="px-margin mb-5">
+<div class="bg-surface-white rounded-2xl p-1.5 shadow-sm flex items-center gap-2">
+<div class="w-10 h-10 flex items-center justify-center text-text-muted shrink-0">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</div>
+<input aria-label="Search all 48 PDF tools" class="w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-text-muted focus:outline-none" id="tool-search-input" placeholder="Search PDF tools..." type="search">
+<button aria-label="Clear search input" class="w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-on-surface shrink-0 hidden" id="clear-search-btn">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+<button aria-label="Quick filter modal" class="w-9 h-9 rounded-xl flex items-center justify-center text-on-surface-variant hover:text-on-surface bg-surface-container-low shrink-0 mr-1">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+<div class="flex items-center justify-between px-1 mt-2">
+<span class="font-caption text-caption text-text-muted" id="result-count-label">48 tools available</span>
+<span class="font-caption text-caption text-accent-coral flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified_user</span>
+        Private Execution
+      </span>
+</div>
+</section>
+<!-- Popular in this Studio -->
+<section class="mb-5">
+<div class="flex items-center justify-between px-margin mb-2.5">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-accent-coral" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Popular in this studio</h2>
+</div>
+<span class="font-caption text-caption text-text-muted">Top 4</span>
+</div>
+<div class="grid grid-cols-2 gap-3 px-margin">
+<!-- Popular 1: Images to PDF -->
+<div class="tool-card bg-surface-white rounded-2xl p-3 shadow-sm flex flex-col justify-between" data-category="convert" data-name="images to pdf">
+<div>
+<div class="flex items-center justify-between mb-2">
+<div class="w-10 h-10 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shadow-sm">
+<span class="material-symbols-outlined text-[22px]">add_photo_alternate</span>
+</div>
+<button aria-label="Favorite Images to PDF" class="tool-fav-toggle w-8 h-8 rounded-full flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">Images to PDF</h3>
+<p class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">Batch JPG, PNG to single PDF document</p>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-label-sm text-label-sm text-accent-coral">ID 1</span>
+</div>
+</div>
+<!-- Popular 2: Merge PDF -->
+<div class="tool-card bg-surface-white rounded-2xl p-3 shadow-sm flex flex-col justify-between" data-category="organize" data-name="merge pdf">
+<div>
+<div class="flex items-center justify-between mb-2">
+<div class="w-10 h-10 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shadow-sm">
+<span class="material-symbols-outlined text-[22px]">call_merge</span>
+</div>
+<button aria-label="Favorite Merge PDF" class="tool-fav-toggle w-8 h-8 rounded-full flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">Merge PDF</h3>
+<p class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">Combine multiple PDFs in custom order</p>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-label-sm text-label-sm text-accent-coral">ID 4</span>
+</div>
+</div>
+<!-- Popular 3: Compress PDF -->
+<div class="tool-card bg-surface-white rounded-2xl p-3 shadow-sm flex flex-col justify-between" data-category="optimize" data-name="compress pdf">
+<div>
+<div class="flex items-center justify-between mb-2">
+<div class="w-10 h-10 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shadow-sm">
+<span class="material-symbols-outlined text-[22px]">compress</span>
+</div>
+<button aria-label="Favorite Compress PDF" class="tool-fav-toggle w-8 h-8 rounded-full flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">Compress PDF</h3>
+<p class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">Reduce file size without quality loss</p>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-label-sm text-label-sm text-accent-coral">ID 6</span>
+</div>
+</div>
+<!-- Popular 4: PDF Viewer -->
+<div class="tool-card bg-surface-white rounded-2xl p-3 shadow-sm flex flex-col justify-between" data-category="edit-view" data-name="pdf viewer">
+<div>
+<div class="flex items-center justify-between mb-2">
+<div class="w-10 h-10 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shadow-sm">
+<span class="material-symbols-outlined text-[22px]">chrome_reader_mode</span>
+</div>
+<button aria-label="Favorite PDF Viewer" class="tool-fav-toggle w-8 h-8 rounded-full flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface truncate">PDF Viewer</h3>
+<p class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">Fast local document reader &amp; text search</p>
+</div>
+<div class="flex items-center justify-between mt-3 pt-2">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-label-sm text-label-sm text-accent-coral">ID 23</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Reusable Category Filter Chips -->
+<section class="mb-4">
+<div class="flex items-center gap-2 overflow-x-auto px-margin pb-1 no-scrollbar" id="category-chips">
+<button class="chip active whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-accent-coral text-on-primary shadow-sm flex items-center gap-1.5 transition-colors" data-cat="all">
+<span>All</span>
+<span class="bg-surface-white/20 px-1.5 py-0.2 rounded-full text-caption">48</span>
+</button>
+<button class="chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors" data-cat="convert">
+<span>Convert</span>
+<span class="text-text-muted text-caption">14</span>
+</button>
+<button class="chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors" data-cat="organize">
+<span>Organize</span>
+<span class="text-text-muted text-caption">8</span>
+</button>
+<button class="chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors" data-cat="optimize">
+<span>Optimize</span>
+<span class="text-text-muted text-caption">4</span>
+</button>
+<button class="chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors" data-cat="edit-view">
+<span>Edit &amp; View</span>
+<span class="text-text-muted text-caption">6</span>
+</button>
+<button class="chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors" data-cat="security">
+<span>Security</span>
+<span class="text-text-muted text-caption">4</span>
+</button>
+<button class="chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors" data-cat="extract">
+<span>Extract &amp; Export</span>
+<span class="text-text-muted text-caption">6</span>
+</button>
+<button class="chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors" data-cat="batch">
+<span>Batch</span>
+<span class="text-text-muted text-caption">2</span>
+</button>
+</div>
+</section>
+<!-- Tool Listing Header & View Controls -->
+<section class="px-margin mb-3 flex items-center justify-between">
+<div>
+<h2 class="font-title-md text-title-md text-on-surface" id="list-title">All PDF Tools (48)</h2>
+<p class="font-caption text-caption text-text-muted">Tap to launch instantly in sandbox</p>
+</div>
+<div class="flex items-center gap-1.5">
+<!-- Sort Selector Dropdown -->
+<div class="relative">
+<select class="appearance-none bg-surface-white text-on-surface font-label-md text-label-md py-1.5 pl-2.5 pr-7 rounded-xl shadow-sm focus:outline-none cursor-pointer" id="sort-select">
+<option value="rec">Recommended</option>
+<option value="az">A to Z</option>
+<option value="id">Tool ID</option>
+</select>
+<span class="material-symbols-outlined text-[16px] text-text-muted absolute right-2 top-2 pointer-events-none">unfold_more</span>
+</div>
+<!-- View mode toggle -->
+<button aria-label="Toggle grid or list view" class="w-9 h-9 rounded-xl bg-surface-white text-on-surface shadow-sm flex items-center justify-center" id="view-toggle-btn">
+<span class="material-symbols-outlined text-[20px]" id="view-toggle-icon">view_list</span>
+</button>
+</div>
+</section>
+<!-- Canonical 48 Tool Listing Container -->
+<section class="px-margin" id="tools-container">
+<div class="flex flex-col gap-2.5" id="tools-list">
+<!-- ID 1 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="1" data-name="Images to PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">collections</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Images to PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#1</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Batch convert images to single document</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">JPG, PNG, HEIC</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Images to PDF" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 2 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="2" data-name="Text to PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">text_snippet</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Text to PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#2</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Convert plain or rich text files</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">TXT, RTF</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Text to PDF" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 3 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="3" data-name="Scan to PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">document_scanner</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Scan to PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#3</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Import camera scans with auto-rectify</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">Camera OCR</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Scan to PDF" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 4 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="4" data-name="Merge PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">call_merge</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Merge PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#4</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Combine multi-page PDFs with drag reorder</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">Unlimited files</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Merge PDF" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 5 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="5" data-name="Split PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">call_split</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Split PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#5</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Extract specific page ranges into files</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">Page selector</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Split PDF" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 6 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="optimize" data-id="6" data-name="Compress PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">compress</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Compress PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#6</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Lossless &amp; custom DPI downsampling</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">3 profiles</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Compress PDF" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 7 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="extract" data-id="7" data-name="PDF to Images">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">photo_library</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF to Images</span>
+<span class="font-label-sm text-label-sm text-text-muted">#7</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Render pages into high-res PNG/JPG</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">300 DPI</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star PDF to Images" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 8 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="8" data-name="Images to JPG/PNG PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">image</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Images to JPG/PNG PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#8</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Format specific graphic packaging</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">Color profiles</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 9 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="9" data-name="Rotate PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">rotate_right</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Rotate PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#9</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">90°, 180°, or 270° orientation fix</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">Per page / All</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 10 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="10" data-name="Reorder PDF Pages">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">drag_indicator</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Reorder PDF Pages</span>
+<span class="font-label-sm text-label-sm text-text-muted">#10</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Interactive thumbnail grid sorter</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">Visual drag</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 11 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="11" data-name="Delete PDF Pages">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">auto_delete</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Delete PDF Pages</span>
+<span class="font-label-sm text-label-sm text-text-muted">#11</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Remove blank or unwanted pages</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 12 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="12" data-name="Extract PDF Pages">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">file_copy</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Extract PDF Pages</span>
+<span class="font-label-sm text-label-sm text-text-muted">#12</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Save selected pages into new file</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 13 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="13" data-name="Duplicate PDF Pages">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">content_copy</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Duplicate PDF Pages</span>
+<span class="font-label-sm text-label-sm text-text-muted">#13</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Clone pages for forms or packets</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 14 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="14" data-name="Add PDF Pages">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">note_add</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Add PDF Pages</span>
+<span class="font-label-sm text-label-sm text-text-muted">#14</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Insert cover sheets or annexures</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 15 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="15" data-name="Crop PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">crop</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Crop PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#15</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Trim margins and bleed areas</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 16 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="optimize" data-id="16" data-name="Resize PDF Pages">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">aspect_ratio</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Resize PDF Pages</span>
+<span class="font-label-sm text-label-sm text-text-muted">#16</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">A4, Letter, Legal, custom scale</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 17 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="edit-view" data-id="17" data-name="Add Page Numbers">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">pin</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Add Page Numbers</span>
+<span class="font-label-sm text-label-sm text-text-muted">#17</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Header/footer pagination stamps</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 18 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="security" data-id="18" data-name="Add Watermark">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">branding_watermark</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Add Watermark</span>
+<span class="font-label-sm text-label-sm text-text-muted">#18</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Text or graphic stamp overlay</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 19 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="security" data-id="19" data-name="Protect PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">lock</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Protect PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#19</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">AES-256 password encryption</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 20 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="security" data-id="20" data-name="Unlock PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">lock_open</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Unlock PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#20</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Decrypt and remove owner password</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 21 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="security" data-id="21" data-name="PDF Permissions Editor">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">policy</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Permissions Editor</span>
+<span class="font-label-sm text-label-sm text-text-muted">#21</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Manage printing &amp; copying flags</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 22 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="edit-view" data-id="22" data-name="PDF Metadata Editor">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">info</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Metadata Editor</span>
+<span class="font-label-sm text-label-sm text-text-muted">#22</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Title, author, keywords &amp; creation date</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 23 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="edit-view" data-id="23" data-name="PDF Viewer">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">chrome_reader_mode</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Viewer</span>
+<span class="font-label-sm text-label-sm text-text-muted">#23</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Crisp vector rendering with search</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-accent-coral">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 24 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="edit-view" data-id="24" data-name="PDF Annotator">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">draw</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Annotator</span>
+<span class="font-label-sm text-label-sm text-text-muted">#24</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Highlight, freehand pencil &amp; sticky notes</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 25 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="edit-view" data-id="25" data-name="PDF Signer">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">edit_document</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Signer</span>
+<span class="font-label-sm text-label-sm text-text-muted">#25</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Draw, type or import digital signature</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 26 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="edit-view" data-id="26" data-name="Fill PDF Forms">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">assignment_turned_in</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Fill PDF Forms</span>
+<span class="font-label-sm text-label-sm text-text-muted">#26</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Interactive AcroForm field completion</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 27 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="extract" data-id="27" data-name="PDF to Text">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">notes</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF to Text</span>
+<span class="font-label-sm text-label-sm text-text-muted">#27</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Fast ASCII/Unicode text stripper</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 28 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="28" data-name="PDF to Word">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">description</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF to Word</span>
+<span class="font-label-sm text-label-sm text-text-muted">#28</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Export to DOCX format preserving layout</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 29 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="29" data-name="PDF to Excel">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">table_view</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF to Excel</span>
+<span class="font-label-sm text-label-sm text-text-muted">#29</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Extract tables into XLSX sheets</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 30 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="30" data-name="PDF to PowerPoint">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">slideshow</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF to PowerPoint</span>
+<span class="font-label-sm text-label-sm text-text-muted">#30</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Convert slides to PPTX presentation</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 31 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="31" data-name="Word to PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">article</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Word to PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#31</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Convert DOCX to standard PDF</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 32 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="32" data-name="Excel to PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">grid_on</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Excel to PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#32</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Sheet formatting to PDF document</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 33 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="33" data-name="PowerPoint to PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">co_present</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PowerPoint to PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#33</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Slides deck to printable PDF</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 34 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="34" data-name="HTML to PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">code</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">HTML to PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#34</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Webpage markup to vector PDF</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 35: Online required -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="convert" data-id="35" data-name="Webpage to PDF">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">public</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Webpage to PDF</span>
+<span class="font-label-sm text-label-sm text-text-muted">#35</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Capture URL snapshot with media</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-web text-tertiary">Online required</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 36: Local Model Pack -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="extract" data-id="36" data-name="PDF OCR">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">view_in_ar</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF OCR</span>
+<span class="font-label-sm text-label-sm text-text-muted">#36</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Optical character recognition engine</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-ai text-secondary">Local Model Pack</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 37 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="optimize" data-id="37" data-name="PDF Compare">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">difference</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Compare</span>
+<span class="font-label-sm text-label-sm text-text-muted">#37</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Side-by-side visual &amp; text diff</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 38 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="optimize" data-id="38" data-name="PDF Repair">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">healing</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Repair</span>
+<span class="font-label-sm text-label-sm text-text-muted">#38</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Rebuild corrupted xref tables</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 39 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="optimize" data-id="39" data-name="PDF Flatten">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">layers_clear</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Flatten</span>
+<span class="font-label-sm text-label-sm text-text-muted">#39</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Lock form fields and annotations</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 40 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="40" data-name="PDF Booklet Maker">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">menu_book</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Booklet Maker</span>
+<span class="font-label-sm text-label-sm text-text-muted">#40</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">2-up imposition for printing</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 41 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="optimize" data-id="41" data-name="PDF Print Optimizer">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">print</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Print Optimizer</span>
+<span class="font-label-sm text-label-sm text-text-muted">#41</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">CMYK prepress raster adjustment</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 42 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="extract" data-id="42" data-name="PDF to Markdown">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">markdown</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF to Markdown</span>
+<span class="font-label-sm text-label-sm text-text-muted">#42</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Structured document to MD syntax</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 43 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="extract" data-id="43" data-name="PDF to JSON">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">data_object</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF to JSON</span>
+<span class="font-label-sm text-label-sm text-text-muted">#43</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Structural AST &amp; metadata tree</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 44 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="security" data-id="44" data-name="PDF Redaction">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">ink_highlighter</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Redaction</span>
+<span class="font-label-sm text-label-sm text-text-muted">#44</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Permanent black-box privacy wipe</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 45 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="organize" data-id="45" data-name="PDF Page Labels">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">label</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Page Labels</span>
+<span class="font-label-sm text-label-sm text-text-muted">#45</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Roman / Arabic bates numbering</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 46 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="extract" data-id="46" data-name="PDF File Inspector">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">manage_search</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF File Inspector</span>
+<span class="font-label-sm text-label-sm text-text-muted">#46</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Fonts, streams &amp; object breakdown</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 47 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="batch" data-id="47" data-name="PDF Batch Processor">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">dynamic_feed</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Batch Processor</span>
+<span class="font-label-sm text-label-sm text-text-muted">#47</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Run multiple rules across 50+ files</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">Queued pipeline</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+<!-- ID 48 -->
+<div class="tool-item bg-surface-white rounded-2xl p-3 shadow-sm flex items-center justify-between gap-3 active:scale-[0.99] transition-transform" data-category="batch" data-id="48" data-name="PDF Compare &amp; Merge">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center text-accent-coral shrink-0">
+<span class="material-symbols-outlined text-[24px]">sync_alt</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate">PDF Compare &amp; Merge</span>
+<span class="font-label-sm text-label-sm text-text-muted">#48</span>
+</div>
+<p class="font-caption text-caption text-text-muted truncate">Diff versions and unify changes</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="inline-flex items-center px-2 py-0.2 rounded-full font-label-sm text-label-sm bg-surface-image text-accent-emerald">Offline</span>
+<span class="font-caption text-caption text-text-muted">Auto-align</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<button aria-label="Star Tool" class="tool-fav-item w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-accent-coral">
+<span class="material-symbols-outlined text-[20px]">star</span>
+</button>
+<span class="material-symbols-outlined text-[20px] text-text-muted">chevron_right</span>
+</div>
+</div>
+</div>
+<!-- Empty State for Search / Filter -->
+<div class="hidden bg-surface-white rounded-2xl p-8 shadow-sm text-center flex-col items-center justify-center" id="no-results-state">
+<div class="w-16 h-16 rounded-2xl bg-surface-pdf text-accent-coral flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[32px]">manage_search</span>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1">No matching tools found</h3>
+<p class="font-body-md text-body-md text-text-muted mb-4 max-w-xs">
+        Try checking spelling or choose another category filter.
+      </p>
+<button class="px-4 py-2 rounded-xl font-label-md text-label-md bg-surface-pdf text-accent-coral hover:bg-accent-coral hover:text-on-primary transition-colors" id="reset-filter-btn">
+        Reset filters
+      </button>
+</div>
+</section>
+<!-- Offline Engine Capabilities Modal / Sheet -->
+<div class="fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm hidden flex items-end sm:items-center justify-center p-0 sm:p-4" id="info-modal">
+<div class="bg-surface-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl p-space-lg shadow-xl relative">
+<div class="w-12 h-1 bg-surface-container-highest rounded-full mx-auto mb-4 sm:hidden"></div>
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-surface-pdf text-accent-coral flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Offline Engine v2.1</h3>
+<span class="font-caption text-caption text-status-success flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Zero network dependency
+            </span>
+</div>
+</div>
+<button aria-label="Close dialog" class="w-9 h-9 rounded-full flex items-center justify-center text-text-muted hover:text-on-surface bg-surface-container-low" id="close-modal-btn">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="space-y-2.5 font-body-md text-body-md text-on-surface-variant mb-5">
+<div class="p-3 bg-surface-container-low rounded-xl">
+<span class="font-title-sm text-title-sm text-on-surface block mb-0.5">Hardware Sandboxing</span>
+          Memory execution runs inside isolated WebAssembly &amp; Android NDK boundaries with immediate RAM scrub upon completion.
+        </div>
+<div class="p-3 bg-surface-container-low rounded-xl">
+<span class="font-title-sm text-title-sm text-on-surface block mb-0.5">Privacy First</span>
+          Files never leave device storage. No analytics telemetry reads document contents or file names.
+        </div>
+</div>
+<button class="w-full py-3 rounded-xl bg-accent-coral text-on-primary font-title-sm text-title-sm shadow-md text-center" id="confirm-modal-btn">
+        Understood
+      </button>
+</div>
+</div>
+</div>
+<script>
+  // Filter & Search Logic
+  const searchInput = document.getElementById('tool-search-input');
+  const clearSearchBtn = document.getElementById('clear-search-btn');
+  const categoryChips = document.querySelectorAll('#category-chips .chip');
+  const toolItems = document.querySelectorAll('#tools-list .tool-item');
+  const resultCountLabel = document.getElementById('result-count-label');
+  const listTitle = document.getElementById('list-title');
+  const noResultsState = document.getElementById('no-results-state');
+  const resetFilterBtn = document.getElementById('reset-filter-btn');
+  const sortSelect = document.getElementById('sort-select');
+  const toolsList = document.getElementById('tools-list');
+  const viewToggleBtn = document.getElementById('view-toggle-btn');
+  const viewToggleIcon = document.getElementById('view-toggle-icon');
+
+  let activeCategory = 'all';
+  let isGridView = false;
+
+  function filterTools() {
+    const query = searchInput.value.trim().toLowerCase();
+    let visibleCount = 0;
+
+    clearSearchBtn.classList.toggle('hidden', query.length === 0);
+
+    toolItems.forEach(item => {
+      const name = item.dataset.name.toLowerCase();
+      const cat = item.dataset.category;
+      const matchesCat = (activeCategory === 'all' || cat === activeCategory);
+      const matchesQuery = !query || name.includes(query) || (item.textContent && item.textContent.toLowerCase().includes(query));
+
+      if (matchesCat && matchesQuery) {
+        item.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+
+    resultCountLabel.textContent = visibleCount + ' tools available';
+    listTitle.textContent = activeCategory === 'all' 
+      ? 'All PDF Tools (' + visibleCount + ')'
+      : 'PDF ' + activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1) + ' (' + visibleCount + ')';
+
+    if (visibleCount === 0) {
+      noResultsState.classList.remove('hidden');
+      noResultsState.classList.add('flex');
+      toolsList.classList.add('hidden');
+    } else {
+      noResultsState.classList.add('hidden');
+      noResultsState.classList.remove('flex');
+      toolsList.classList.remove('hidden');
+    }
+  }
+
+  // Search input handler
+  searchInput.addEventListener('input', filterTools);
+  clearSearchBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    filterTools();
+    searchInput.focus();
+  });
+
+  // Reset filter button in empty state
+  resetFilterBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    activeCategory = 'all';
+    categoryChips.forEach(chip => {
+      const isAll = chip.dataset.cat === 'all';
+      chip.className = isAll
+        ? 'chip active whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-accent-coral text-on-primary shadow-sm flex items-center gap-1.5 transition-colors'
+        : 'chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors';
+    });
+    filterTools();
+  });
+
+  // Category chip toggle
+  categoryChips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      categoryChips.forEach(c => {
+        c.className = 'chip whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-surface-white text-on-surface-variant shadow-sm flex items-center gap-1.5 transition-colors';
+      });
+      chip.className = 'chip active whitespace-nowrap px-3.5 py-1.5 rounded-full font-label-md text-label-md bg-accent-coral text-on-primary shadow-sm flex items-center gap-1.5 transition-colors';
+      activeCategory = chip.dataset.cat;
+      filterTools();
+    });
+  });
+
+  // Sorting Handler
+  sortSelect.addEventListener('change', (e) => {
+    const sortVal = e.target.value;
+    const itemsArr = Array.from(toolItems);
+
+    itemsArr.sort((a, b) => {
+      if (sortVal === 'az') {
+        return a.dataset.name.localeCompare(b.dataset.name);
+      } else if (sortVal === 'id') {
+        return parseInt(a.dataset.id, 10) - parseInt(b.dataset.id, 10);
+      }
+      // Recommended default
+      return parseInt(a.dataset.id, 10) - parseInt(b.dataset.id, 10);
+    });
+
+    itemsArr.forEach(item => toolsList.appendChild(item));
+  });
+
+  // Grid/List View Toggle
+  viewToggleBtn.addEventListener('click', () => {
+    isGridView = !isGridView;
+    if (isGridView) {
+      toolsList.className = 'grid grid-cols-2 gap-2.5';
+      viewToggleIcon.textContent = 'grid_view';
+      toolItems.forEach(item => {
+        item.classList.remove('justify-between');
+        item.classList.add('flex-col', 'items-start');
+      });
+    } else {
+      toolsList.className = 'flex flex-col gap-2.5';
+      viewToggleIcon.textContent = 'view_list';
+      toolItems.forEach(item => {
+        item.classList.add('justify-between');
+        item.classList.remove('flex-col', 'items-start');
+      });
+    }
+  });
+
+  // Favorite Star Toggles
+  document.querySelectorAll('.tool-fav-item, .tool-fav-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const icon = btn.querySelector('.material-symbols-outlined');
+      const isFilled = icon.style.fontVariationSettings?.includes("'FILL' 1");
+      if (isFilled) {
+        icon.style.fontVariationSettings = "'FILL' 0";
+        icon.classList.remove('text-accent-coral');
+        icon.classList.add('text-text-muted');
+      } else {
+        icon.style.fontVariationSettings = "'FILL' 1";
+        icon.classList.remove('text-text-muted');
+        icon.classList.add('text-accent-coral');
+      }
+    });
+  });
+
+  // Studio Star Fav
+  const studioFavBtn = document.getElementById('studio-fav-btn');
+  studioFavBtn.addEventListener('click', () => {
+    const icon = studioFavBtn.querySelector('.material-symbols-outlined');
+    const isFilled = icon.style.fontVariationSettings?.includes("'FILL' 1");
+    if (isFilled) {
+      icon.style.fontVariationSettings = "'FILL' 0";
+      icon.classList.remove('text-accent-coral');
+      icon.classList.add('text-text-muted');
+    } else {
+      icon.style.fontVariationSettings = "'FILL' 1";
+      icon.classList.remove('text-text-muted');
+      icon.classList.add('text-accent-coral');
+    }
+  });
+
+  // Modal handlers
+  const infoBtn = document.getElementById('studio-info-btn');
+  const infoModal = document.getElementById('info-modal');
+  const closeModalBtn = document.getElementById('close-modal-btn');
+  const confirmModalBtn = document.getElementById('confirm-modal-btn');
+
+  function openModal() {
+    infoModal.classList.remove('hidden');
+  }
+  function closeModal() {
+    infoModal.classList.add('hidden');
+  }
+
+  infoBtn.addEventListener('click', openModal);
+  closeModalBtn.addEventListener('click', closeModal);
+  confirmModalBtn.addEventListener('click', closeModal);
+  infoModal.addEventListener('click', (e) => {
+    if (e.target === infoModal) closeModal();
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface-white/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(23,26,46,0.06)]" data-active-classes="text-primary-container font-semibold"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="home-dashboard" href="#"><span class="material-symbols-outlined text-[24px]">grid_view</span><span class="font-label-sm text-label-sm">Home</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="all-tools" href="#"><span class="material-symbols-outlined text-[24px]">category</span><span class="font-label-sm text-label-sm">All Tools</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="recent-history" href="#"><span class="material-symbols-outlined text-[24px]">history</span><span class="font-label-sm text-label-sm">Recent</span></a><a class="flex flex-col items-center justify-center flex-1 h-full gap-0.5 text-text-muted transition-colors" data-path="my-files" href="#"><span class="material-symbols-outlined text-[24px]">folder_open</span><span class="font-label-sm text-label-sm">My Files</span></a></div><div class="w-32 h-1 bg-on-surface/20 rounded-full mx-auto mb-1"></div></nav></body></html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-office": "#EEEDFF", "surface-container-low": "#f4f2ff", "secondary-fixed-dim": "#ddb7ff", "tertiary-fixed": "#acedff", "text-muted": "#64748B", "surface-pdf": "#FFF0EF", "surface-container-lowest": "#ffffff", "accent-rose": "#EC4899", "surface-ai": "#F4EAFE", "on-tertiary": "#ffffff", "surface-tint": "#4c42e9", "inverse-primary": "#c3c0ff", "surface-image": "#E7F9F1", "surface-archive": "#EEF2F6", "accent-emerald": "#10B981", "surface-variant": "#dfe0fc", "border-subtle": "#E2E8F0", "outline-variant": "#c7c4d8", "on-secondary-fixed-variant": "#6900b3", "surface-container-high": "#e6e6ff", "status-warning": "#F59E0B", "primary-container": "#625bff", "background-cloud": "#F7F8FC", "on-tertiary-fixed-variant": "#004e5c", "on-tertiary-fixed": "#001f26", "surface-audio": "#EAF2FF", "accent-coral": "#FF6B6B", "error-container": "#ffdad6", "primary-fixed": "#e2dfff", "on-secondary-container": "#fffbff", "secondary": "#8127cf", "surface-dim": "#d7d8f4", "surface-bright": "#fbf8ff", "on-background": "#171a2e", "status-success": "#16A34A", "accent-sky": "#0EA5E9", "inverse-surface": "#2c2f44", "surface-video": "#F5EAFF", "primary": "#483ee5", "primary-fixed-dim": "#c3c0ff", "surface-white": "#FFFFFF", "outline": "#777587", "secondary-container": "#9c48ea", "background": "#fbf8ff", "inverse-on-surface": "#f0efff", "on-primary-fixed": "#0e006a", "surface-developer": "#E8F7FF", "surface-container": "#edecff", "status-error": "#DC2626", "on-surface": "#171a2e", "tertiary": "#006476", "on-secondary": "#ffffff", "tertiary-fixed-dim": "#4cd7f6", "on-error-container": "#93000a", "surface-container-highest": "#dfe0fc", "on-primary-container": "#fefaff", "surface-productivity": "#FDEBF5", "on-secondary-fixed": "#2c0051", "surface-scanner": "#E6FAFD", "accent-teal": "#14B8A6", "on-error": "#ffffff", "on-tertiary-container": "#f5fcff", "surface-calculator": "#FFF7E2", "on-primary": "#ffffff", "surface-text": "#FFF1E7", "accent-amber": "#F59E0B", "on-primary-fixed-variant": "#311ed2", "tertiary-container": "#007f95", "accent-orange": "#F97316", "accent-blue": "#3B82F6", "surface-web": "#E5FAF6", "error": "#ba1a1a", "on-surface-variant": "#464555", "secondary-fixed": "#f0dbff", "surface": "#fbf8ff" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "margin-sm": "1rem", margin: "1.25rem", "space-lg": "1.5rem", "space-md": "1rem", gutter: "1rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter-sm": "0.75rem" }, fontFamily: { "body-lg": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "headline-md": ["Inter"], "headline-lg-mobile": ["Inter"], caption: ["Inter"], "title-sm": ["Inter"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "body-sm": ["Inter"] }, fontSize: { "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], caption: ["12px", { lineHeight: "16px", fontWeight: "400" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }] } } } }</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-background-cloud/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-surface-scanner text-tertiary font-label-sm text-label-sm tracking-wide uppercase font-semibold">Scanner Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate tracking-tight">Document Scanner Workspace</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Favorite" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><button aria-label="User profile" class="w-11 h-11 rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all" type="button"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-background-cloud pb-safe"><div class="flex flex-col w-full pb-10">
+<div class="px-margin pt-space-md flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-scanner text-tertiary font-label-sm text-label-sm font-semibold tracking-wide shadow-sm">
+<span class="material-symbols-outlined text-[14px]">auto_fix_high</span>
+        Tool #89 · Scanner Studio
+      </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+        Adaptive Document Enhancement
+      </span>
+</div>
+<div class="flex flex-col gap-1">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">Scan Filters</h2>
+<p class="font-body-sm text-body-sm text-text-muted leading-relaxed">
+        Enhance document legibility, whiten backgrounds, eliminate shadows, and optimize text contrast for archival quality.
+      </p>
+</div>
+</div>
+<div class="px-margin mt-space-md">
+<div class="bg-surface-white rounded-xl shadow-sm p-3 flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-accent-teal animate-pulse"></span>
+<span class="font-label-md text-label-md text-on-surface font-medium">Real-Time Split Preview</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-caption text-caption text-text-muted">Original</span>
+<span class="material-symbols-outlined text-[16px] text-text-muted">swap_horiz</span>
+<span class="font-caption text-caption text-primary font-semibold">Filtered (Magic Color)</span>
+</div>
+</div>
+<div class="relative w-full h-80 rounded-lg overflow-hidden select-none bg-surface-container-high cursor-ew-resize" id="preview-viewport">
+<div class="absolute inset-0 w-full h-full">
+<img class="w-full h-full object-cover" data-alt="A warm, dimly lit top-down photo of a legal agreement on aged cream paper, showing distinct phone cast shadow across top-left corner, faded blue ballpoint signatures, and slightly underexposed text." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrJZ6WcUcGs8IOUnFJU3AbZ63yQZ9LupSbl_TeOVHFp-cypIGifGS9YgxcVOJj6Emk0xCyCj8tSZWjSBi7DYp9Hw60RMq46IFUR_uml9qG9EovXZx0B4K1QohZsBXJmA4gIUFoPuKUaxAEkDsJZq4CwS4xNwbCDOm22PhBF-fVkq7dI4iBJiYIt8p1wV3BO0jV2DYvmHlYxhJ59qMDL8LCNiJ5Lt0SeJe1OndqA-0qUTyik3ZMBXMG4Q"/>
+<div class="absolute bottom-3 left-3 bg-on-surface/70 backdrop-blur-sm px-2 py-1 rounded text-on-primary font-label-sm text-label-sm">
+            Original (Shadowed)
+          </div>
+</div>
+<div class="absolute inset-y-0 left-0 overflow-hidden w-1/2" id="split-layer">
+<div class="relative w-full h-full">
+<img class="absolute inset-0 h-full max-w-none object-cover" data-alt="Crisp ultra-clean archival scan of a printed agreement, pure snow white paper background, razor sharp high contrast obsidian black typographic letters, vibrant preserved red official notary stamp, and vivid navy signature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsFJXGlfLhgcGEsAMnomfbNNq-H_uC0AB14l3sd_KAcrFXY4TRm75gxauxs9rVni97z4cdMaF4KYIk9I90onVjn40zsvzDn3xSQGzMV8JCl5EtVA2_XoIuIg10nXtwadiUi3j2nv55-wxRNH-ebLY4FWWFS9V90JtaAHSlWs-Z3zX55OzC9E54IqBNF9kOTqP2tH4vEAq_2O-HZ8ga4Y8YUD9Q4C035cjFhuiNSEwQu-ruzoyX0it9MA" style="width: calc(100vw - 2.5rem);"/>
+<div class="absolute bottom-3 left-3 bg-primary/80 backdrop-blur-sm px-2 py-1 rounded text-on-primary font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">auto_fix_high</span>
+              Bleached &amp; Inked
+            </div>
+</div>
+</div>
+<div class="absolute inset-y-0 left-1/2 -ml-0.5 w-1 bg-surface-white shadow-md flex items-center justify-center" id="divider-bar">
+<div class="w-7 h-7 rounded-full bg-surface-white text-primary shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<button class="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-scanner text-tertiary hover:bg-surface-container active:scale-95 transition-all" id="loupe-toggle-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">loupe</span>
+<span class="font-label-md text-label-md font-semibold">Inspect 200% micro-text detail</span>
+</button>
+<span class="font-caption text-caption text-text-muted">Drag center handle to compare</span>
+</div>
+<div class="hidden p-3 rounded-lg bg-surface-container-low flex flex-col gap-2" id="loupe-modal">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-semibold text-tertiary uppercase tracking-wider">200% Vector OCR Edge Detail</span>
+<button class="text-on-surface-variant hover:text-on-surface" id="loupe-close-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="relative h-28 w-full rounded overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Extreme macro close-up view of microprinted serif alphanumeric characters on ultra bright bleached synthetic archival paper, showing crisp black ink edges with zero artifacting and saturated red wax seal particles." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsDwdt-nMcxU3Csmw1Qs7-GeIu669UsancVxxjCB3m1DvqfElqSLcX0HWG3m4zhQVLH_k9fipIkCbs_I8BGLbA5q9Lw2jbaPQB1UtsDQ2YS6RLuoWUz0X45AioGHvuh3hp1zcrYHg5692LYz9WoRAGXGLGVzlDkUt_3cgrmotcTnZmKQo1sVuiG5V0hIfemTnvWXWXAVvpcKOeJIhlzi1Acr_BAHUfDewSfmHQ50OWu3NlblQmc_xm9Q"/>
+<div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+<div class="absolute top-2 right-2 bg-on-surface/70 text-on-primary font-label-sm text-label-sm px-1.5 py-0.5 rounded">2.0x Matrix</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-lg px-margin flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Preset Filter Gallery</span>
+<span class="font-caption text-caption text-text-muted">5 Presets Available</span>
+</div>
+<div class="flex gap-2 overflow-x-auto py-1 -mx-margin px-margin no-scrollbar">
+<button class="preset-card shrink-0 w-36 p-2.5 rounded-xl bg-surface-white shadow-sm flex flex-col gap-2 text-left transition-all active:scale-95 bg-surface-scanner/50" data-filter="magic" type="button">
+<div class="relative h-20 w-full rounded-lg overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Scanned certificate sample with bright white bleached surface, razor sharp obsidian signatures and an authentic scarlet stamp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHrqdMglT9pjCjxL4YBkcnZHwnbiswLkjdY5yRAhFtxI53O6qCDGo5gFuZJRM_b5CMf-n4s3pgcViIy9RqdTNgtguGvkKW_hFTgBtCnx6tMyrksIUOIRluVM0ll1ziBY6uHqYFvMbYLF6xfG6HmDrH1s1KEwdBpi5RCGFBQfBpRvAh8eNQpXxHi7ebCnQSdZ9BFbA1go1mh_zFHrBP9DZTfgMX2PASZOsszyUATcig1zwYzuPcVuXcQw"/>
+<span class="absolute top-1.5 right-1.5 w-5 h-5 rounded-full bg-accent-teal text-surface-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</span>
+</div>
+<div>
+<span class="font-title-sm text-title-sm text-on-surface block">Magic Color</span>
+<span class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">Whitens paper background while preserving stamps.</span>
+</div>
+</button>
+<button class="preset-card shrink-0 w-36 p-2.5 rounded-xl bg-surface-white shadow-sm flex flex-col gap-2 text-left transition-all active:scale-95" data-filter="grayscale" type="button">
+<div class="relative h-20 w-full rounded-lg overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Smooth monotone architectural blueprint drawing rendered in clean 256 grayscale levels, perfectly balanced graphite shading." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNBlAt3bXR_XoBlnFkmPT-v3btOcINtlZicLscpqNauxR4W-3y0-gm-TLIEeU46n1J6gE76fWy20RvdoLRkL5OAuT8-Zhx6rL6kitq3iDp-gMSnugrv8BoGV0Mz1qM1gmmLyXpKqeT-sKct4UKaYuHvfG5DATuoROXuV6H_LQT7MjzFRhCPfcXWZA8n9FS-FxIGqZzDGEiKLAIm_Y54maXr6pHp_LSUQ_J8kEBTyRZyxCGF-6PLKVUnw"/>
+</div>
+<div>
+<span class="font-title-sm text-title-sm text-on-surface block">Grayscale</span>
+<span class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">256-level uniform tone, ideal for pencil sketches.</span>
+</div>
+</button>
+<button class="preset-card shrink-0 w-36 p-2.5 rounded-xl bg-surface-white shadow-sm flex flex-col gap-2 text-left transition-all active:scale-95" data-filter="bw" type="button">
+<div class="relative h-20 w-full rounded-lg overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Ultra high contrast pure 1-bit black and white scanned contract text with stark silhouette letterforms and zero noise." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA15fjOXQi7dqsAE31zSTNDlhrIUjEniZ5WA48L-rF_mfmO4DepnZEdmxUPhiJaWdpWHpbyRRHC7vZPJx5sgx81ZNXQa6qAcCs-hLNeCMam_AGp1FYznrtTWaXRlNQnCdDnw2Slkj7lUkw0fWh1wSNQ7DqL08P4pH-KHMeANq-ja8wLJ0Jja2wBPmKu0RvwFUyT4oZrDlmFgvKALxxZj9uqqD668vmgFTxBgzhgJJRaAAAKd_Fq5XvJdg"/>
+</div>
+<div>
+<span class="font-title-sm text-title-sm text-on-surface block">B&amp;W Threshold</span>
+<span class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">Pure 1-bit high-contrast, maximum clarity for OCR.</span>
+</div>
+</button>
+<button class="preset-card shrink-0 w-36 p-2.5 rounded-xl bg-surface-white shadow-sm flex flex-col gap-2 text-left transition-all active:scale-95" data-filter="original" type="button">
+<div class="relative h-20 w-full rounded-lg overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Raw unprocessed camera photograph of paper under warm indoor household lamp light with faint perspective skew." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmnPbeunP_0cz6rxHmxRom7DLVl6_g9PxSaEw8O6LShCQHhFWoG7iRHtGA_7WJyraDiItz0cAos1jpjOKyDQYNkiE5Un_mU2pBxksuLgWP4jKo1K5X8vLPpatlVpPGJrUy8NZDDsFmcrfvW8Bbodeh3JrMrf-DxowBS7xPj6nBmbECYamU8Iu8mYjLD02IxCJXOG66UtaEh99Z-mtyzPvBvfJroFmWi5rQVDG-ypPgr89STa_uZf05iQ"/>
+</div>
+<div>
+<span class="font-title-sm text-title-sm text-on-surface block">Original</span>
+<span class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">Raw sensor color without automated tone adjustments.</span>
+</div>
+</button>
+<button class="preset-card shrink-0 w-36 p-2.5 rounded-xl bg-surface-white shadow-sm flex flex-col gap-2 text-left transition-all active:scale-95" data-filter="shadow" type="button">
+<div class="relative h-20 w-full rounded-lg overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="Document scan with localized corner gradient shadow completely erased, revealing pristine white paper beneath thumb region." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSRdKxDBwOxMTrgJ_h4WEVPZWbCKOa1lMyjDeWGxa5xPHfAi0fTLQffUM6esZjgc5iNH0UPw5ipvORhzIvx5VkxtkHSS-L2XZRBK7TkQVHsxyU9Ilh2fyb7S1BfIWF3Q-UJbD_NWgW6xL0zhW1vy56VumzCWvHcbx8pI6wvtt4FEQQ2dPQYeIsuMLQdCKfgkBfWkdAmqU64GYW2bqU5gK7vAUoWnJl69yr_NUi2emEaavwlb7GchBzFA"/>
+</div>
+<div>
+<span class="font-title-sm text-title-sm text-on-surface block">Shadow Eraser</span>
+<span class="font-caption text-caption text-text-muted line-clamp-2 mt-0.5">Eliminates phone and hand shadows from page corners.</span>
+</div>
+</button>
+</div>
+</div>
+<div class="mt-space-lg px-margin">
+<div class="bg-surface-white rounded-xl shadow-sm p-4 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[20px] text-primary">tune</span>
+<span class="font-title-sm text-title-sm text-on-surface">Fine-Tuning Controls</span>
+</div>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary font-caption text-caption" id="reset-controls-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+          Reset to Original
+        </button>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-1.5">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Filter Intensity</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-scanner text-tertiary font-label-sm text-label-sm">Recommended</span>
+</div>
+<span class="font-label-md text-label-md font-semibold text-primary" id="intensity-val">85%</span>
+</div>
+<div class="relative flex items-center">
+<input class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" id="intensity-range" max="100" min="0" type="range" value="85"/>
+</div>
+<div class="flex justify-between font-caption text-caption text-text-muted px-0.5">
+<span>Subtle (0%)</span>
+<span class="text-tertiary font-medium">Target 85%</span>
+<span>Aggressive (100%)</span>
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Background Bleach / Whiten</span>
+<span class="font-label-md text-label-md font-semibold text-primary" id="bleach-val">90%</span>
+</div>
+<input class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary" id="bleach-range" max="100" min="0" type="range" value="90"/>
+<div class="flex justify-between font-caption text-caption text-text-muted px-0.5">
+<span>Natural Tint</span>
+<span>Archival Pure White</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Contrast Sharpening</span>
+<span class="font-caption text-caption text-text-muted">Unsharp masking algorithm</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-2 py-1 rounded-lg">
+<button class="w-8 h-8 rounded-full bg-surface-white text-on-surface flex items-center justify-center shadow-xs active:scale-90 transition-all" id="sharp-minus" type="button">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="font-title-sm text-title-sm text-primary w-16 text-center font-bold" id="sharp-val">+2 High</span>
+<button class="w-8 h-8 rounded-full bg-surface-white text-on-surface flex items-center justify-center shadow-xs active:scale-90 transition-all" id="sharp-plus" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-space-lg px-margin flex flex-col gap-2">
+<button class="w-full h-13 py-3 px-4 rounded-xl bg-primary-container text-on-primary flex items-center justify-center gap-2 shadow-md hover:opacity-95 active:scale-[0.99] transition-all" id="apply-filter-btn" type="button">
+<span class="material-symbols-outlined text-[22px]">magic_button</span>
+<span class="font-title-md text-title-md font-semibold">Apply Magic Color Filter</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-text-muted">
+<span class="material-symbols-outlined text-[15px] text-accent-teal">memory</span>
+<span class="font-caption text-caption text-center">Processes on-device in WebAssembly · Retains vector OCR layer</span>
+</div>
+</div>
+<div class="mt-space-lg px-margin">
+<div class="bg-surface-white rounded-xl shadow-sm p-4 flex flex-col gap-3">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-image flex items-center justify-center text-status-success">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Enhanced Document Ready</span>
+<span class="font-caption text-caption text-accent-teal font-medium">Contrast +42% · File size -35%</span>
+</div>
+</div>
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-pdf flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px] text-accent-coral">picture_as_pdf</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Contract_2025_Filtered_MagicColor.pdf</span>
+<span class="font-caption text-caption text-text-muted">1 Page · 1.1 MB · Bleach 90% · 300 DPI</span>
+</div>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-scanner text-tertiary font-label-sm text-label-sm font-semibold">A4</span>
+</div>
+<div class="grid grid-cols-2 gap-2 pt-1">
+<button class="py-2.5 px-3 rounded-lg bg-surface-container text-on-surface flex items-center justify-center gap-1.5 active:bg-surface-variant transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">image</span>
+<span class="font-label-md text-label-md font-medium truncate">Save Image</span>
+</button>
+<button class="py-2.5 px-3 rounded-lg bg-primary text-on-primary flex items-center justify-center gap-1.5 active:opacity-90 transition-opacity shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="font-label-md text-label-md font-medium truncate">Export Clean PDF</span>
+</button>
+<button class="py-2.5 px-3 rounded-lg bg-surface-container text-on-surface flex items-center justify-center gap-1.5 active:bg-surface-variant transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">share</span>
+<span class="font-label-md text-label-md font-medium truncate">Share Document</span>
+</button>
+<button class="py-2.5 px-3 rounded-lg bg-surface-scanner text-tertiary flex items-center justify-center gap-1.5 active:opacity-80 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">filter_vintage</span>
+<span class="font-label-md text-label-md font-medium truncate">Filter Another</span>
+</button>
+</div>
+</div>
+</div>
+<div class="mt-space-md px-margin">
+<div class="p-3.5 rounded-xl bg-surface-calculator flex items-start gap-3">
+<span class="material-symbols-outlined text-[22px] text-accent-amber shrink-0 mt-0.5">tips_and_updates</span>
+<div class="flex flex-col gap-0.5">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Document Hygiene Tip</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Switching to <strong class="text-on-surface font-semibold">B&amp;W Threshold</strong> discards background micro-grain entirely, yielding the smallest file footprint and up to 3x faster OCR word recognition speed on mobile devices.
+        </p>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initScanFilterWorkspace() {
+    const viewport = document.getElementById('preview-viewport');
+    const divider = document.getElementById('divider-bar');
+    const splitLayer = document.getElementById('split-layer');
+
+    let isDragging = false;
+
+    function updateSplit(clientX) {
+      if (!viewport) return;
+      const rect = viewport.getBoundingClientRect();
+      let pos = (clientX - rect.left) / rect.width;
+      pos = Math.max(0.05, Math.min(0.95, pos));
+      const percentage = pos * 100;
+      if (splitLayer) splitLayer.style.width = percentage + '%';
+      if (divider) divider.style.left = percentage + '%';
+    }
+
+    if (viewport) {
+      viewport.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        updateSplit(e.clientX);
+      });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        updateSplit(e.clientX);
+      });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+
+      viewport.addEventListener('touchstart', (e) => {
+        if (e.touches && e.touches[0]) {
+          isDragging = true;
+          updateSplit(e.touches[0].clientX);
+        }
+      }, { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (!isDragging || !e.touches || !e.touches[0]) return;
+        updateSplit(e.touches[0].clientX);
+      }, { passive: true });
+      window.addEventListener('touchend', () => { isDragging = false; });
+    }
+
+    const loupeBtn = document.getElementById('loupe-toggle-btn');
+    const loupeModal = document.getElementById('loupe-modal');
+    const loupeClose = document.getElementById('loupe-close-btn');
+
+    if (loupeBtn && loupeModal) {
+      loupeBtn.addEventListener('click', () => {
+        loupeModal.classList.toggle('hidden');
+      });
+    }
+    if (loupeClose && loupeModal) {
+      loupeClose.addEventListener('click', () => {
+        loupeModal.classList.add('hidden');
+      });
+    }
+
+    const intensityRange = document.getElementById('intensity-range');
+    const intensityVal = document.getElementById('intensity-val');
+    if (intensityRange && intensityVal) {
+      intensityRange.addEventListener('input', (e) => {
+        intensityVal.textContent = e.target.value + '%';
+      });
+    }
+
+    const bleachRange = document.getElementById('bleach-range');
+    const bleachVal = document.getElementById('bleach-val');
+    if (bleachRange && bleachVal) {
+      bleachRange.addEventListener('input', (e) => {
+        bleachVal.textContent = e.target.value + '%';
+      });
+    }
+
+    const sharpLevels = ['Off (0)', '+1 Soft', '+2 High', '+3 Extreme'];
+    let sharpIdx = 2;
+    const sharpVal = document.getElementById('sharp-val');
+    const sharpPlus = document.getElementById('sharp-plus');
+    const sharpMinus = document.getElementById('sharp-minus');
+
+    function syncSharp() {
+      if (sharpVal) sharpVal.textContent = sharpLevels[sharpIdx];
+    }
+    if (sharpPlus) {
+      sharpPlus.addEventListener('click', () => {
+        if (sharpIdx < sharpLevels.length - 1) {
+          sharpIdx++;
+          syncSharp();
+        }
+      });
+    }
+    if (sharpMinus) {
+      sharpMinus.addEventListener('click', () => {
+        if (sharpIdx > 0) {
+          sharpIdx--;
+          syncSharp();
+        }
+      });
+    }
+
+    const resetBtn = document.getElementById('reset-controls-btn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (intensityRange) { intensityRange.value = '85'; intensityVal.textContent = '85%'; }
+        if (bleachRange) { bleachRange.value = '90'; bleachVal.textContent = '90%'; }
+        sharpIdx = 2;
+        syncSharp();
+      });
+    }
+
+    const presetCards = document.querySelectorAll('.preset-card');
+    const applyBtn = document.getElementById('apply-filter-btn');
+
+    presetCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        presetCards.forEach(c => c.classList.remove('bg-surface-scanner/50'));
+        card.classList.add('bg-surface-scanner/50');
+        const filterName = card.querySelector('span.block')?.textContent || 'Preset';
+        if (applyBtn) {
+          applyBtn.innerHTML = `
+            <span class="material-symbols-outlined text-[22px]">magic_button</span>
+            <span class="font-title-md text-title-md font-semibold">Apply ${filterName} Filter</span>
+          `;
+        }
+      });
+    });
+  })();
+</script></main></body></html>

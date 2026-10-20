@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container": "#edecff", "outline-variant": "#c7c4d8", "surface-dim": "#d7d8f4", "inverse-on-surface": "#f0efff", "on-primary-fixed": "#0e006a", "on-primary": "#ffffff", "surface-container-low": "#f4f2ff", "on-secondary": "#ffffff", "surface-pdf": "#FFF0EF", "on-tertiary-fixed-variant": "#004e5c", "surface-office": "#EEEDFF", "on-primary-container": "#fefaff", "surface-developer": "#E8F7FF", "on-tertiary": "#ffffff", "accent-teal": "#14B8A6", "on-surface-variant": "#464555", "status-error": "#DC2626", "on-secondary-fixed": "#2c0051", "surface-audio": "#EAF2FF", "primary-fixed-dim": "#c3c0ff", "on-primary-fixed-variant": "#311ed2", "status-warning": "#F59E0B", "primary-container": "#625bff", "accent-sky": "#0EA5E9", "surface-image": "#E7F9F1", "accent-rose": "#EC4899", "surface-video": "#F5EAFF", "surface-web": "#E5FAF6", "background": "#fbf8ff", "secondary-container": "#9c48ea", "surface-white": "#FFFFFF", "on-secondary-container": "#fffbff", "surface-container-highest": "#dfe0fc", "surface-scanner": "#E6FAFD", "primary": "#483ee5", "error-container": "#ffdad6", "on-tertiary-container": "#f5fcff", "accent-amber": "#F59E0B", "on-secondary-fixed-variant": "#6900b3", "inverse-primary": "#c3c0ff", "accent-orange": "#F97316", "outline": "#777587", "tertiary-fixed-dim": "#4cd7f6", "accent-blue": "#3B82F6", "secondary": "#8127cf", "surface-ai": "#F4EAFE", "background-cloud": "#F7F8FC", "on-background": "#171a2e", "text-muted": "#64748B", "surface-container-lowest": "#ffffff", "primary-fixed": "#e2dfff", "surface": "#fbf8ff", "secondary-fixed-dim": "#ddb7ff", "accent-emerald": "#10B981", "surface-calculator": "#FFF7E2", "secondary-fixed": "#f0dbff", "inverse-surface": "#2c2f44", "on-error-container": "#93000a", "error": "#ba1a1a", "surface-bright": "#fbf8ff", "accent-coral": "#FF6B6B", "border-subtle": "#E2E8F0", "tertiary-container": "#007f95", "surface-archive": "#EEF2F6", "surface-productivity": "#FDEBF5", "on-tertiary-fixed": "#001f26", "on-error": "#ffffff", "surface-variant": "#dfe0fc", "surface-container-high": "#e6e6ff", "tertiary-fixed": "#acedff", "on-surface": "#171a2e", "surface-text": "#FFF1E7", "status-success": "#16A34A", "tertiary": "#006476", "surface-tint": "#4c42e9" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "margin-sm": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem", "space-md": "1rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "space-xs": "0.25rem", "space-xl": "2rem", "gutter": "1rem" }, "fontFamily": { "body-md": ["Inter"], "label-sm": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "headline-md": ["Inter"], "body-sm": ["Inter"], "headline-lg": ["Inter"], "headline-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "title-sm": ["Inter"], "caption": ["Inter"], "body-lg": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface-white/90 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-28 flex flex-col justify-between px-margin-sm"><div class="flex items-center justify-between pt-space-xs text-on-surface-variant"><span class="font-label-md text-label-md font-semibold tracking-tight text-on-surface">9:41</span><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-[16px]">wifi</span><span class="material-symbols-outlined text-[16px]">signal_cellular_alt</span><span class="material-symbols-outlined text-[18px]">battery_full</span></div></div><div class="flex items-center justify-between pb-space-sm"><div class="flex items-center gap-space-sm"><button aria-label="Back to Scanner Studio catalog" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-scanner transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col"><div class="flex items-center gap-space-xs"><h1 class="font-headline-sm text-headline-sm text-on-surface leading-tight truncate">Document Scanner Studio</h1><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-scanner text-tertiary font-label-sm text-label-sm font-semibold tracking-wide">Scanner Studio</span></div><p class="font-caption text-caption text-text-muted leading-none mt-0.5">Workspace &amp; Document Capture</p></div></div><div class="flex items-center gap-space-xs"><button aria-label="Add to favorites" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-accent-amber hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More workspace options" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm ml-space-xs"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="flex flex-col relative w-full pt-28 pb-safe bg-background-cloud min-h-screen"><div class="flex flex-col w-full px-margin-sm space-y-space-md pb-space-xl">
+<!-- Header / Badge Context -->
+<section class="flex flex-col space-y-space-xs pt-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-scanner text-tertiary">
+<span class="material-symbols-outlined text-[16px]">table_chart</span>
+<span class="font-label-sm text-label-sm font-semibold tracking-wide">Tool #98 · Scanner Studio</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined text-[15px] text-accent-teal">psychology</span>
+<span class="font-label-sm text-label-sm font-medium">Table Recognition AI · On-Device OCR</span>
+</div>
+</div>
+<div class="pt-1">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface tracking-tight">Scan to Excel</h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">
+        Extract structured tables, spreadsheets, and line items from photographed documents into native .xlsx workbooks.
+      </p>
+</div>
+</section>
+<!-- Document Source & Page Selection Card -->
+<section class="bg-surface-white rounded-xl shadow-sm p-space-md space-y-space-md">
+<!-- Active Document Meta -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-11 h-11 rounded-lg bg-surface-scanner flex items-center justify-center text-tertiary shrink-0">
+<span class="material-symbols-outlined text-[24px]">description</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-title-sm text-title-sm text-on-surface truncate font-semibold">Quarterly_Financial_Statement_Scan.pdf</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm shrink-0">HQ</span>
+</div>
+<span class="font-caption text-caption text-text-muted">3 pages · 4.2 MB · 300 DPI Raw Capture</span>
+</div>
+</div>
+<button class="px-3 py-1.5 rounded-lg bg-surface-container-low text-primary font-label-md text-label-md font-semibold hover:bg-surface-container transition-colors shrink-0" type="button">
+        Replace
+      </button>
+</div>
+<!-- Page Selection Strip -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Target Pages</span>
+<span class="font-caption text-caption text-text-muted">2 of 3 pages selected</span>
+</div>
+<div class="grid grid-cols-3 gap-space-xs">
+<!-- Page 1 (Selected) -->
+<button class="relative flex flex-col p-1.5 rounded-lg bg-surface-container-low text-left shadow-sm transition-all focus:outline-none" type="button">
+<div class="relative w-full aspect-[3/4] rounded bg-surface-white overflow-hidden mb-1.5">
+<img class="w-full h-full object-cover" data-alt="High contrast clean monochrome balance sheet document scan showing neatly aligned multi-column numerical ledger rows, financial tables, headers, and grid layout in scanner lighting style with electric cyan accent overlays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFpLd9gFEaUVeCLWhOB9mZB-Iwn4GIaMYP5FGoWduIEJ6k2rP-CbhOinrjC3u1JiMf2cvCCs-ruOx1cDYwPz9fDV66Q-NvM2JhqJxbeHVwH1Zh625MunylXsW5yRmT0bA5ntSWgwLFVzCkBX9dlbSNQYWDjUeUB1jY5nDe1io-yxkXeEZt7-uvx1GxiBB7gs3JfIiFm1mlAFUQoQ3hUGPqcCfHq5D6B9Ls8Kz8PPVE2sdyvCcHn2As-A"/>
+<div class="absolute inset-0 bg-tertiary/10"></div>
+<div class="absolute top-1 left-1 bg-tertiary text-on-tertiary rounded-full w-5 h-5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+<span class="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-[10px]">p.1</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface truncate">Balance Sheet</span>
+<span class="inline-flex items-center gap-0.5 text-tertiary font-label-sm text-[10px] font-medium">
+<span class="material-symbols-outlined text-[11px]">grid_4x4</span> 6×4 Grid
+          </span>
+</button>
+<!-- Page 2 (Selected) -->
+<button class="relative flex flex-col p-1.5 rounded-lg bg-surface-container-low text-left shadow-sm transition-all focus:outline-none" type="button">
+<div class="relative w-full aspect-[3/4] rounded bg-surface-white overflow-hidden mb-1.5">
+<img class="w-full h-full object-cover" data-alt="Corporate income statement revenue audit scanned page with tabular data, subtotals, currency symbols, and clean ledger column lines under neutral studio scanning illumination." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZSRppCYQbvW6weO8nypUeBg1Sw1nt-WMUt2T4cX-mD7tgMn2ruCOgHjNV9HVp834Z-Na5wm8FuM7mgqy58m2HCA3dY-ffr4yko-oO_U4oF3QnbMxxiqoVmYrZr8QIdvLH5X_aGWAg86BpbNN3zr9WpZ8l4cnIAOIfJ4uuwI5phfbmMJWEUZMyyyxsFxB9tSF3DtU6yFA18tDKKgOGUgsYSwn_2xAT89a7YytDzScgI8Dq7wz-Z9RDcA"/>
+<div class="absolute inset-0 bg-tertiary/10"></div>
+<div class="absolute top-1 left-1 bg-tertiary text-on-tertiary rounded-full w-5 h-5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">check</span>
+</div>
+<span class="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-[10px]">p.2</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold text-on-surface truncate">Income Statement</span>
+<span class="inline-flex items-center gap-0.5 text-tertiary font-label-sm text-[10px] font-medium">
+<span class="material-symbols-outlined text-[11px]">grid_4x4</span> 12×5 Grid
+          </span>
+</button>
+<!-- Page 3 (Unchecked) -->
+<button class="relative flex flex-col p-1.5 rounded-lg bg-surface-container text-left opacity-70 transition-all focus:outline-none" type="button">
+<div class="relative w-full aspect-[3/4] rounded bg-surface-white overflow-hidden mb-1.5">
+<img class="w-full h-full object-cover grayscale opacity-75" data-alt="Dense paragraphs of typed financial auditor footnotes, legal disclosures, and text notes without numerical tables on paper scanned page with soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTFcvuzOKLvKXQWc4CpTTPCymkKe7MlaytuloNyt1Dasn7X9UQuZUAcqAPV2JizLrWQDH49zZSdSiez2no8Jp20OD_Gwys7uii-y7SnuHAO9XEuZyG-2LUo8hYSNj41N8dZH-G9QNHtLiuGCbCRrrXRQPo1J3Z3dON1zWqtGKg6oiTS_lNSGOKP5EK3lvy0RTyAyXw34d6UtvXM-hQhCODyuDAc4qURA4H5H_yNiwba2VEq29SQezN4Q"/>
+<div class="absolute top-1 left-1 bg-outline-variant text-surface-white rounded-full w-5 h-5 flex items-center justify-center">
+<span class="material-symbols-outlined text-[13px]">add</span>
+</div>
+<span class="absolute bottom-1 right-1 px-1 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-[10px]">p.3</span>
+</div>
+<span class="font-label-sm text-label-sm font-medium text-text-muted truncate">Notes Annex</span>
+<span class="text-text-muted font-label-sm text-[10px]">No Tables Found</span>
+</button>
+</div>
+</div>
+<!-- OCR Engine Selector Dropdown Pill -->
+<div class="flex items-center justify-between p-2.5 rounded-lg bg-surface-container-low">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[20px]">translate</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-text-muted">OCR Language Model</span>
+<span class="font-title-sm text-title-sm font-semibold text-on-surface leading-tight">English (US) — Installed (v3.2)</span>
+</div>
+</div>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+</section>
+<!-- Table Detection & Interactive Grid Preview -->
+<section class="bg-surface-white rounded-xl shadow-sm p-space-md space-y-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">dataset</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Parsed Table Data</h3>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-scanner text-tertiary font-label-sm text-label-sm font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-teal animate-pulse"></span> 99.4% Confidence
+      </span>
+</div>
+<!-- Tab Selector -->
+<div class="grid grid-cols-2 gap-1.5 p-1 rounded-lg bg-surface-container-low">
+<button class="py-2 px-2.5 rounded-md bg-surface-white shadow-sm font-label-md text-label-md font-semibold text-on-surface flex items-center justify-center gap-1.5 truncate" type="button">
+<span class="w-2 h-2 rounded-full bg-accent-teal"></span>
+<span class="truncate">Table 1 (P.1) · Balance</span>
+</button>
+<button class="py-2 px-2.5 rounded-md text-on-surface-variant hover:bg-surface-container/50 font-label-md text-label-md font-medium flex items-center justify-center gap-1.5 truncate" type="button">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="truncate">Table 2 (P.2) · Revenue</span>
+</button>
+</div>
+<!-- Visual Bounding Box Crop Card -->
+<div class="relative w-full h-32 rounded-lg overflow-hidden bg-inverse-surface/5 flex items-center justify-center">
+<div class="bg-cover bg-center w-full h-full" data-alt="High resolution macro close up crop of a balance sheet accounting table with highlighted neon cyan computerized neural network grid bounding box outlines marking rows and columns accurately." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCIFWQXZtU1lYNY5ZWIvYHOEm1TM9mg7NfAi37tMZE_JSrJ3fEog0aQQjQsWBtI6sGKF9Hex1uMb_X5y1efMkB3tWUhBBr-ntshD26yyW1ZmiSurxqyqRdSwH1nQfQJZUyELbl6PDi8-tHaSp8cRVNCXHK08vjcAbILdkCX0j3xRq0YnN1HT8wW8k6nGiWYEc60FbXJBtBDc3xvcVL_Gpv8CRy7Jyt18dq_zoyzPysfG37MYaF1XZ-BCA')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/70 via-transparent to-transparent"></div>
+<!-- Cyan Grid Overlay Lines Simulation -->
+<div class="absolute inset-3 rounded pointer-events-none flex flex-col justify-between p-2">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 rounded bg-tertiary-container/90 text-on-tertiary-container font-label-sm text-label-sm font-semibold">
+            Region [X: 42, Y: 110, W: 780, H: 460]
+          </span>
+<span class="material-symbols-outlined text-surface-scanner text-[18px]">aspect_ratio</span>
+</div>
+<div class="flex items-center justify-between text-surface-white font-caption text-caption">
+<span>Auto-Deskewed: +0.4°</span>
+<span class="text-surface-scanner font-medium">BBox Snapped</span>
+</div>
+</div>
+</div>
+<!-- Interactive Editable Table Grid -->
+<div class="space-y-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Live Extracted Cell Matrix</span>
+<span class="font-label-sm text-label-sm text-tertiary font-semibold">Formula Preserved</span>
+</div>
+<div class="overflow-x-auto rounded-lg bg-surface-container-low shadow-inner">
+<table class="w-full text-left font-body-sm text-body-sm whitespace-nowrap">
+<thead>
+<tr class="bg-surface-scanner text-tertiary font-label-md text-label-md">
+<th class="py-2.5 px-3 font-semibold" scope="col">Item / Category</th>
+<th class="py-2.5 px-3 font-semibold text-right" scope="col">Q1 2024</th>
+<th class="py-2.5 px-3 font-semibold text-right" scope="col">Q2 2024</th>
+<th class="py-2.5 px-3 font-semibold text-right" scope="col">Variance %</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-high text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-white/60 transition-colors">
+<td class="py-2 px-3 font-medium">
+<input class="bg-transparent text-on-surface focus:bg-surface-white rounded px-1 w-full focus:outline-none" type="text" value="Enterprise ARR"/>
+</td>
+<td class="py-2 px-3 text-right">
+<input class="bg-transparent text-right text-on-surface focus:bg-surface-white rounded px-1 w-24 focus:outline-none" type="text" value="$14,820,000"/>
+</td>
+<td class="py-2 px-3 text-right">
+<input class="bg-transparent text-right text-on-surface focus:bg-surface-white rounded px-1 w-24 focus:outline-none" type="text" value="$17,350,000"/>
+</td>
+<td class="py-2 px-3 text-right font-semibold text-status-success">
+<input class="bg-transparent text-right text-status-success focus:bg-surface-white rounded px-1 w-16 focus:outline-none" type="text" value="+17.1%"/>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-white/60 transition-colors">
+<td class="py-2 px-3 font-medium">
+<input class="bg-transparent text-on-surface focus:bg-surface-white rounded px-1 w-full focus:outline-none" type="text" value="Cloud Infrastructure"/>
+</td>
+<td class="py-2 px-3 text-right">
+<input class="bg-transparent text-right text-on-surface focus:bg-surface-white rounded px-1 w-24 focus:outline-none" type="text" value="$3,120,400"/>
+</td>
+<td class="py-2 px-3 text-right">
+<input class="bg-transparent text-right text-on-surface focus:bg-surface-white rounded px-1 w-24 focus:outline-none" type="text" value="$3,050,100"/>
+</td>
+<td class="py-2 px-3 text-right font-semibold text-status-error">
+<input class="bg-transparent text-right text-status-error focus:bg-surface-white rounded px-1 w-16 focus:outline-none" type="text" value="-2.2%"/>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-white/60 transition-colors">
+<td class="py-2 px-3 font-medium">
+<input class="bg-transparent text-on-surface focus:bg-surface-white rounded px-1 w-full focus:outline-none" type="text" value="R&amp;D Operations"/>
+</td>
+<td class="py-2 px-3 text-right">
+<input class="bg-transparent text-right text-on-surface focus:bg-surface-white rounded px-1 w-24 focus:outline-none" type="text" value="$4,850,000"/>
+</td>
+<td class="py-2 px-3 text-right">
+<input class="bg-transparent text-right text-on-surface focus:bg-surface-white rounded px-1 w-24 focus:outline-none" type="text" value="$5,100,000"/>
+</td>
+<td class="py-2 px-3 text-right font-semibold text-status-success">
+<input class="bg-transparent text-right text-status-success focus:bg-surface-white rounded px-1 w-16 focus:outline-none" type="text" value="+5.1%"/>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center gap-1.5 pt-1 text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-tertiary">edit_note</span>
+<span class="font-caption text-caption">Tap any cell to edit extracted value before export. Numbers formatted as Currency.</span>
+</div>
+</div>
+</section>
+<!-- Export Configuration -->
+<section class="bg-surface-white rounded-xl shadow-sm p-space-md space-y-space-md">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<h3 class="font-title-md text-title-md text-on-surface font-semibold">Export Settings</h3>
+</div>
+<!-- Segmented Control for Table Scope -->
+<div class="space-y-space-xs">
+<label class="font-label-md text-label-md font-medium text-on-surface-variant">Table Scope</label>
+<div class="grid grid-cols-2 gap-1.5 p-1 rounded-lg bg-surface-container-low">
+<button class="py-2 px-2 rounded-md bg-surface-white shadow-sm font-label-md text-label-md font-semibold text-primary truncate" type="button">
+          Export All Tables (2)
+        </button>
+<button class="py-2 px-2 rounded-md text-on-surface-variant font-label-md text-label-md font-medium truncate" type="button">
+          Current Table Only
+        </button>
+</div>
+</div>
+<!-- Filename Input -->
+<div class="space-y-space-xs">
+<label class="font-label-md text-label-md font-medium text-on-surface-variant">Target Filename</label>
+<div class="flex items-center gap-2 px-3 py-2.5 rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-text-muted text-[18px]">drive_file_rename_outline</span>
+<input class="bg-transparent font-body-sm text-body-sm text-on-surface flex-1 focus:outline-none font-medium truncate" type="text" value="Quarterly_Financial_Scan_TableExtract"/>
+<span class="px-2 py-0.5 rounded bg-surface-scanner text-tertiary font-label-sm text-label-sm font-bold">.xlsx</span>
+</div>
+</div>
+<!-- Toggle Switch -->
+<div class="flex items-center justify-between py-1">
+<div class="flex flex-col pr-space-sm">
+<span class="font-title-sm text-title-sm font-semibold text-on-surface">Preserve Cell Formats</span>
+<span class="font-caption text-caption text-text-muted leading-tight mt-0.5">Detect currency ($), percentages (%), and negative accounting parentheses.</span>
+</div>
+<button aria-checked="true" class="w-12 h-7 rounded-full bg-primary p-0.5 transition-colors shrink-0 flex items-center justify-end" role="switch" type="button">
+<span class="w-6 h-6 rounded-full bg-surface-white shadow-md flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-primary font-bold">check</span>
+</span>
+</button>
+</div>
+</section>
+<!-- Primary Action Execute Bar -->
+<section class="space-y-space-xs">
+<button class="w-full h-14 rounded-xl bg-primary-container text-on-primary font-title-md text-title-md font-semibold flex items-center justify-center gap-2.5 shadow-md active:scale-[0.99] transition-transform" type="button">
+<span class="material-symbols-outlined text-[24px]">sim_card_download</span>
+<span>Extract Tables to Excel (.xlsx)</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 text-text-muted">
+<span class="material-symbols-outlined text-[15px] text-accent-teal">format_image_left</span>
+<span class="font-caption text-caption">Zero telemetry · Tables parsed on-device via WebAssembly spreadsheet engine.</span>
+</div>
+</section>
+<!-- Results / Completed State Card -->
+<section class="bg-surface-white rounded-xl shadow-sm p-space-md space-y-space-md">
+<!-- Success Banner -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-image flex items-center justify-center text-accent-emerald">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div>
+<h4 class="font-title-sm text-title-sm font-semibold text-on-surface">Extraction Complete</h4>
+<p class="font-caption text-caption text-text-muted">2 worksheets successfully compiled</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold">Ready</span>
+</div>
+<!-- Output File Overview Row -->
+<div class="flex items-center gap-space-sm p-3 rounded-lg bg-surface-container-low">
+<div class="w-10 h-10 rounded-lg bg-surface-image flex items-center justify-center text-accent-emerald shrink-0">
+<span class="material-symbols-outlined text-[24px]">table_view</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm font-semibold text-on-surface truncate">Quarterly_Financial_Scan_TableExtract.xlsx</span>
+<div class="flex items-center gap-2 text-text-muted font-caption text-caption">
+<span>2 sheets</span>
+<span>•</span>
+<span>18 total rows</span>
+<span>•</span>
+<span class="text-tertiary font-medium">48 KB</span>
+</div>
+</div>
+</div>
+<!-- Dual Actions -->
+<div class="grid grid-cols-2 gap-space-sm pt-1">
+<button class="h-11 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 shadow-sm active:scale-[0.98] transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+<span class="truncate">Open in Excel</span>
+</button>
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 hover:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">ios_share</span>
+<span class="truncate">Share Workbook</span>
+</button>
+</div>
+<!-- Bottom Reset Link -->
+<div class="flex justify-center pt-1">
+<button class="font-label-md text-label-md text-primary font-semibold flex items-center gap-1 hover:underline" type="button">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+<span>Process Another Document</span>
+</button>
+</div>
+</section>
+</div></main></body></html>

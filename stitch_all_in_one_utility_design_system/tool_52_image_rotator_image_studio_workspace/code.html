@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-pdf": "#FFF0EF", "status-error": "#DC2626", "secondary-container": "#9c48ea", "outline": "#777587", "surface-office": "#EEEDFF", "surface-bright": "#fbf8ff", "surface-image": "#E7F9F1", "on-primary-container": "#fefaff", "accent-rose": "#EC4899", "accent-coral": "#FF6B6B", "surface": "#fbf8ff", "primary-container": "#625bff", "inverse-on-surface": "#f0efff", "surface-dim": "#d7d8f4", "on-error-container": "#93000a", "on-surface-variant": "#464555", "on-tertiary-fixed-variant": "#004e5c", "border-subtle": "#E2E8F0", "surface-scanner": "#E6FAFD", "surface-container-high": "#e6e6ff", "on-primary-fixed-variant": "#311ed2", "error": "#ba1a1a", "tertiary-fixed-dim": "#4cd7f6", "surface-container-lowest": "#ffffff", "secondary-fixed-dim": "#ddb7ff", "primary-fixed": "#e2dfff", "accent-sky": "#0EA5E9", "surface-archive": "#EEF2F6", "status-success": "#16A34A", "surface-web": "#E5FAF6", "surface-productivity": "#FDEBF5", "secondary-fixed": "#f0dbff", "on-secondary-fixed": "#2c0051", "surface-ai": "#F4EAFE", "error-container": "#ffdad6", "tertiary-container": "#007f95", "on-error": "#ffffff", "outline-variant": "#c7c4d8", "primary": "#483ee5", "on-primary": "#ffffff", "on-background": "#171a2e", "surface-calculator": "#FFF7E2", "on-secondary-fixed-variant": "#6900b3", "tertiary": "#006476", "on-tertiary-fixed": "#001f26", "accent-amber": "#F59E0B", "background-cloud": "#F7F8FC", "accent-emerald": "#10B981", "accent-orange": "#F97316", "secondary": "#8127cf", "surface-developer": "#E8F7FF", "on-secondary-container": "#fffbff", "on-tertiary": "#ffffff", "on-surface": "#171a2e", "on-tertiary-container": "#f5fcff", "primary-fixed-dim": "#c3c0ff", "on-secondary": "#ffffff", "surface-variant": "#dfe0fc", "inverse-surface": "#2c2f44", "tertiary-fixed": "#acedff", "on-primary-fixed": "#0e006a", "surface-container": "#edecff", "accent-blue": "#3B82F6", "surface-white": "#FFFFFF", "surface-video": "#F5EAFF", "surface-text": "#FFF1E7", "background": "#fbf8ff", "inverse-primary": "#c3c0ff", "status-warning": "#F59E0B", "text-muted": "#64748B", "surface-container-low": "#f4f2ff", "surface-container-highest": "#dfe0fc", "surface-tint": "#4c42e9", "accent-teal": "#14B8A6", "surface-audio": "#EAF2FF" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "gutter": "1rem", "space-xs": "0.25rem", "space-md": "1rem", "space-xl": "2rem", "margin": "1.25rem", "margin-sm": "1rem", "space-lg": "1.5rem", "gutter-sm": "0.75rem" }, "fontFamily": { "body-md": ["Inter"], "headline-md": ["Inter"], "caption": ["Inter"], "headline-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-lg": ["Inter"], "title-sm": ["Inter"], "label-md": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "label-sm": ["Inter"], "title-md": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface-white/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-xs"><div class="flex items-center min-w-0 flex-1"><button aria-label="Back" class="w-12 h-12 flex items-center justify-center -ml-space-xs rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex items-center min-w-0 pl-space-xs gap-space-xs"><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm shrink-0 tracking-wide font-medium">Image Studio</span><h1 class="font-title-md text-title-md text-on-surface truncate">Image Compressor</h1></div></div><div class="flex items-center gap-0 shrink-0"><button aria-label="Favorite" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-coral hover:bg-surface-container active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[22px]">favorite_border</span></button><button aria-label="More options" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[24px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 w-full bg-background-cloud pt-16 pb-safe"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-md pb-space-lg flex flex-col gap-space-lg max-w-xl mx-auto w-full">
+<!-- Top Meta Section -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold tracking-tight">
+<span class="material-symbols-outlined text-[14px]">rotate_right</span>
+          Tool #52 · Image Studio
+        </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px] text-accent-teal">verified</span>
+          Lossless EXIF &amp; Pixel Rotation
+        </span>
+</div>
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface font-bold tracking-tight">Image Rotator</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Rotate images by 90-degree steps, fine-tune custom angle straightening, or mirror horizontally and vertically.</p>
+</div>
+</section>
+<!-- Interactive Transformation Canvas -->
+<section class="bg-surface-white rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Canvas Header Meta bar -->
+<div class="px-space-md py-space-sm bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-primary text-[18px]">image</span>
+<span class="font-title-sm text-title-sm text-on-surface truncate">Architecture_Facade_Draft.jpg</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-white px-space-xs py-0.5 rounded shadow-sm shrink-0">3264 × 2448 px</span>
+</div>
+<!-- Viewport with Alignment Grid & HUD -->
+<div class="relative w-full aspect-[4/3] bg-on-background flex items-center justify-center overflow-hidden select-none">
+<!-- Technical Horizon Leveling Grid Overlay -->
+<div class="absolute inset-0 pointer-events-none opacity-20 flex flex-col justify-between p-4 z-10">
+<div class="w-full h-full grid grid-cols-4 grid-rows-4">
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+<div class="bg-surface-white/10 m-[1px]"></div>
+</div>
+</div>
+<!-- Center Crosshair Marker -->
+<div class="absolute inset-0 pointer-events-none flex items-center justify-center z-10 opacity-30">
+<div class="w-10 h-0.5 bg-surface-white"></div>
+<div class="h-10 w-0.5 bg-surface-white absolute"></div>
+</div>
+<!-- Transformable Photo Container -->
+<div class="relative max-w-[70%] max-h-[70%] transition-transform duration-300 ease-out shadow-md" id="image-transform-container" style="transform: rotate(90deg) scaleX(1) scaleY(1);">
+<img class="w-full h-full object-contain rounded select-none pointer-events-none" data-alt="A modern architectural facade of a brutalist concrete building with angled geometric shadows, glass louvers, and clean vertical lines under a crisp blue afternoon sky, warm sunlight glancing across stone texture, ultra sharp architectural rendering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuACUxxwhLlGQzt5ORPjMNA9YOnsLWvhTQRYYDC3oVAeGf9DrJE5ov7-G5pJZTaGPbsREWPBTi070pr_RaOwg3LFiLllu5LK12RqaydACEkzoHrVYDbYh-uyHRxhAUs3KdJNVAuWwIWAbOgap4FDQ0iFYgGayRZ0WCGGrXerZfYSHjd-vWAnnSxmCCOo5GNrFF5aor7-3ApeA_syNgNhIw09_Y6pOdjRkMfrqXs07Y6w-5RKnL-kSNdA0w"/>
+</div>
+<!-- Floating Alignment Compass HUD -->
+<div class="absolute top-space-sm left-space-sm z-20 flex items-center gap-space-xs bg-inverse-surface/80 backdrop-blur-md px-space-sm py-1 rounded-full text-inverse-on-surface shadow-md">
+<span class="material-symbols-outlined text-accent-emerald text-[16px] animate-pulse">compass_calibration</span>
+<span class="font-label-md text-label-md font-medium" id="hud-angle-text">Angle: 90° Clockwise</span>
+</div>
+<!-- Aspect Ratio Flag HUD -->
+<div class="absolute bottom-space-sm right-space-sm z-20 bg-inverse-surface/80 backdrop-blur-md px-space-sm py-1 rounded-full text-inverse-on-surface flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-[14px] text-accent-sky">swap_horiz</span>
+<span class="font-label-sm text-label-sm">Portrait Orientation (3:4)</span>
+</div>
+</div>
+</section>
+<!-- Transformation & Flip Controls Grid -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Stepwise Controls</span>
+<button class="flex items-center gap-1 text-primary hover:text-primary-container active:scale-95 transition-all font-label-md text-label-md py-1 px-2 rounded-full hover:bg-surface-container" id="btn-reset" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+          Reset to 0° Original
+        </button>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Rotate Left 90 -->
+<button class="group relative flex flex-col items-center justify-center p-space-md bg-surface-white rounded-xl shadow-sm hover:bg-surface-container-low active:scale-[0.98] transition-all min-h-[96px] text-left" id="btn-rot-left" type="button">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary mb-1.5 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">rotate_90_degrees_ccw</span>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface">Rotate Left</span>
+<span class="font-caption text-caption text-on-surface-variant font-medium">90° Counter-CW</span>
+</button>
+<!-- Rotate Right 90 (Active State Glow) -->
+<button class="relative flex flex-col items-center justify-center p-space-md bg-surface-image rounded-xl shadow-sm ring-0 active:scale-[0.98] transition-all min-h-[96px] text-left" id="btn-rot-right" type="button">
+<div class="w-10 h-10 rounded-full bg-accent-emerald flex items-center justify-center text-on-primary mb-1.5 shadow-[0_0_12px_rgba(16,185,129,0.35)]">
+<span class="material-symbols-outlined text-[24px]">rotate_90_degrees_cw</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Rotate Right</span>
+<span class="w-2 h-2 rounded-full bg-accent-emerald inline-block"></span>
+</div>
+<span class="font-caption text-caption text-accent-emerald font-semibold">90° Active Step</span>
+</button>
+<!-- Flip Horizontal -->
+<button class="group flex flex-col items-center justify-center p-space-md bg-surface-white rounded-xl shadow-sm hover:bg-surface-container-low active:scale-[0.98] transition-all min-h-[96px]" id="btn-flip-h" type="button">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface mb-1.5 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">flip</span>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface">Flip Horizontal</span>
+<span class="font-caption text-caption text-on-surface-variant">Mirror X Axis</span>
+</button>
+<!-- Flip Vertical -->
+<button class="group flex flex-col items-center justify-center p-space-md bg-surface-white rounded-xl shadow-sm hover:bg-surface-container-low active:scale-[0.98] transition-all min-h-[96px]" id="btn-flip-v" type="button">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface mb-1.5 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined text-[24px] rotate-90">flip</span>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface">Flip Vertical</span>
+<span class="font-caption text-caption text-on-surface-variant">Mirror Y Axis</span>
+</button>
+</div>
+</section>
+<!-- Fine-Tuning Straighten Slider -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[20px]">tune</span>
+<span class="font-title-sm text-title-sm text-on-surface">Fine Horizon Straightening</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container px-space-sm py-0.5 rounded-full">
+<span class="font-label-md text-label-md font-semibold text-primary" id="straighten-val-display">0.0°</span>
+</div>
+</div>
+<!-- Dial Indicator Slider Control -->
+<div class="flex flex-col gap-1.5 pt-1">
+<input aria-label="Straighten tilt angle" class="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="straighten-slider" max="45" min="-45" step="0.5" type="range" value="0"/>
+<div class="flex items-center justify-between font-caption text-caption text-on-surface-variant px-1 font-medium">
+<span>-45°</span>
+<button class="hover:text-primary transition-colors text-on-surface-variant" id="btn-center-dial" type="button">0.0° (Center)</button>
+<span>+45°</span>
+</div>
+</div>
+<!-- Canvas Fill Mode for Custom Angles -->
+<div class="pt-space-xs flex flex-col gap-1.5">
+<span class="font-label-md text-label-md text-on-surface-variant">Canvas Background Fill (Arbitrary Angles)</span>
+<div class="grid grid-cols-3 gap-space-xs">
+<button class="px-space-xs py-2 rounded-lg bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center justify-center gap-1 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[14px]">crop</span>
+            Auto-crop
+          </button>
+<button class="px-space-xs py-2 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">format_color_fill</span>
+            White
+          </button>
+<button class="px-space-xs py-2 rounded-lg bg-surface-container text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm font-medium flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">grid_view</span>
+            Alpha
+          </button>
+</div>
+</div>
+</section>
+<!-- Transformation Summary Card -->
+<section class="bg-surface-office rounded-xl p-space-md flex items-start gap-space-sm shadow-sm">
+<div class="w-9 h-9 rounded-full bg-primary flex items-center justify-center text-on-primary shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[20px]">transform</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-md text-label-md font-semibold text-primary">Pending Transformation Pipeline</span>
+<p class="font-body-sm text-body-sm text-on-surface mt-0.5 font-medium" id="summary-spec">
+          90° CW Rotation · New Dimensions: 2448 × 3264 px (Swapped Aspect)
+        </p>
+<span class="font-caption text-caption text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-accent-emerald">bolt</span>
+          Ultra-fast direct EXIF byte swap without lossy decompression
+        </span>
+</div>
+</section>
+<!-- Execution Action Button -->
+<section class="flex flex-col gap-space-xs">
+<button class="w-full h-[52px] rounded-xl bg-primary-container text-on-primary-container font-title-md text-title-md font-semibold shadow-md hover:bg-primary active:scale-[0.98] transition-all flex items-center justify-center gap-space-xs" id="btn-apply-rotation" type="button">
+<span class="material-symbols-outlined text-[22px]">published_with_changes</span>
+        Apply Rotation (2448 × 3264 px)
+      </button>
+<div class="flex items-center justify-center gap-1.5 py-1 text-center">
+<span class="material-symbols-outlined text-accent-emerald text-[16px]">offline_bolt</span>
+<span class="font-caption text-caption text-on-surface-variant">Fast lossless JPEG transform where supported</span>
+</div>
+</section>
+<!-- Result Output Card (Completed State) -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<!-- Success Header Tag -->
+<div class="flex items-center gap-space-sm bg-surface-image px-space-md py-space-sm rounded-lg">
+<span class="material-symbols-outlined text-accent-emerald text-[22px]">check_circle</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Rotation Applied Successfully</span>
+<span class="font-caption text-caption text-accent-emerald font-medium">Pixel orientation synced · Ready for Export</span>
+</div>
+</div>
+<!-- Output File Details Card -->
+<div class="bg-surface-container-low rounded-lg p-space-sm flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm min-w-0">
+<div class="w-10 h-10 rounded-lg bg-surface-image flex items-center justify-center text-accent-emerald shrink-0">
+<span class="material-symbols-outlined text-[20px]">photo_library</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Architecture_Facade_Draft_rot90.jpg</span>
+<span class="font-caption text-caption text-on-surface-variant">2448 × 3264 px · 4.1 MB JPEG</span>
+</div>
+</div>
+<span class="inline-flex items-center px-space-xs py-0.5 rounded bg-surface-white font-label-sm text-label-sm font-semibold text-accent-emerald shadow-sm shrink-0">Lossless</span>
+</div>
+<!-- Action Button Group -->
+<div class="flex flex-col gap-space-xs pt-1">
+<button class="w-full h-12 rounded-lg bg-primary text-on-primary font-title-sm text-title-sm font-semibold shadow-sm hover:bg-primary-container active:scale-[0.98] transition-all flex items-center justify-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+          Save Rotated Image
+        </button>
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-title-sm text-title-sm font-medium hover:bg-surface-container-high active:scale-[0.98] transition-all flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+            Share Image
+          </button>
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-title-sm text-title-sm font-medium hover:bg-surface-container-high active:scale-[0.98] transition-all flex items-center justify-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
+            Rotate Another
+          </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script>
+  (function () {
+    let currentStepAngle = 90;
+    let fineAngle = 0;
+    let flipX = 1;
+    let flipY = 1;
+
+    const imgContainer = document.getElementById('image-transform-container');
+    const hudAngle = document.getElementById('hud-angle-text');
+    const summarySpec = document.getElementById('summary-spec');
+    const straightenSlider = document.getElementById('straighten-slider');
+    const straightenValDisplay = document.getElementById('straighten-val-display');
+
+    function updateTransform() {
+      const totalAngle = currentStepAngle + fineAngle;
+      if (imgContainer) {
+        imgContainer.style.transform = `rotate(${totalAngle}deg) scaleX(${flipX}) scaleY(${flipY})`;
+      }
+
+      const normalized = ((totalAngle % 360) + 360) % 360;
+      if (hudAngle) {
+        hudAngle.innerText = `Angle: ${normalized.toFixed(1)}° (${totalAngle >= 0 ? 'Clockwise' : 'Counter-CW'})`;
+      }
+
+      const isSwapped = (Math.abs(Math.round(totalAngle / 90)) % 2) === 1;
+      const w = isSwapped ? 2448 : 3264;
+      const h = isSwapped ? 3264 : 2448;
+      if (summarySpec) {
+        summarySpec.innerText = `${normalized.toFixed(1)}° Total Angle · Dimensions: ${w} × ${h} px (${isSwapped ? 'Swapped Aspect' : 'Native Aspect'})`;
+      }
+    }
+
+    document.getElementById('btn-rot-left')?.addEventListener('click', function () {
+      currentStepAngle -= 90;
+      updateTransform();
+    });
+
+    document.getElementById('btn-rot-right')?.addEventListener('click', function () {
+      currentStepAngle += 90;
+      updateTransform();
+    });
+
+    document.getElementById('btn-flip-h')?.addEventListener('click', function () {
+      flipX = flipX * -1;
+      updateTransform();
+    });
+
+    document.getElementById('btn-flip-v')?.addEventListener('click', function () {
+      flipY = flipY * -1;
+      updateTransform();
+    });
+
+    document.getElementById('btn-reset')?.addEventListener('click', function () {
+      currentStepAngle = 0;
+      fineAngle = 0;
+      flipX = 1;
+      flipY = 1;
+      if (straightenSlider) straightenSlider.value = 0;
+      if (straightenValDisplay) straightenValDisplay.innerText = '0.0°';
+      updateTransform();
+    });
+
+    straightenSlider?.addEventListener('input', function (e) {
+      fineAngle = parseFloat(e.target.value) || 0;
+      if (straightenValDisplay) {
+        straightenValDisplay.innerText = (fineAngle > 0 ? '+' : '') + fineAngle.toFixed(1) + '°';
+      }
+      updateTransform();
+    });
+
+    document.getElementById('btn-center-dial')?.addEventListener('click', function () {
+      fineAngle = 0;
+      if (straightenSlider) straightenSlider.value = 0;
+      if (straightenValDisplay) straightenValDisplay.innerText = '0.0°';
+      updateTransform();
+    });
+
+    document.getElementById('btn-apply-rotation')?.addEventListener('click', function () {
+      this.classList.add('opacity-80', 'scale-95');
+      setTimeout(() => {
+        this.classList.remove('opacity-80', 'scale-95');
+      }, 150);
+    });
+  })();
+</script></main></body></html>

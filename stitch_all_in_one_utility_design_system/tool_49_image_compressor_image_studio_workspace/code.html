@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-pdf": "#FFF0EF", "status-error": "#DC2626", "secondary-container": "#9c48ea", "outline": "#777587", "surface-office": "#EEEDFF", "surface-bright": "#fbf8ff", "surface-image": "#E7F9F1", "on-primary-container": "#fefaff", "accent-rose": "#EC4899", "accent-coral": "#FF6B6B", "surface": "#fbf8ff", "primary-container": "#625bff", "inverse-on-surface": "#f0efff", "surface-dim": "#d7d8f4", "on-error-container": "#93000a", "on-surface-variant": "#464555", "on-tertiary-fixed-variant": "#004e5c", "border-subtle": "#E2E8F0", "surface-scanner": "#E6FAFD", "surface-container-high": "#e6e6ff", "on-primary-fixed-variant": "#311ed2", "error": "#ba1a1a", "tertiary-fixed-dim": "#4cd7f6", "surface-container-lowest": "#ffffff", "secondary-fixed-dim": "#ddb7ff", "primary-fixed": "#e2dfff", "accent-sky": "#0EA5E9", "surface-archive": "#EEF2F6", "status-success": "#16A34A", "surface-web": "#E5FAF6", "surface-productivity": "#FDEBF5", "secondary-fixed": "#f0dbff", "on-secondary-fixed": "#2c0051", "surface-ai": "#F4EAFE", "error-container": "#ffdad6", "tertiary-container": "#007f95", "on-error": "#ffffff", "outline-variant": "#c7c4d8", "primary": "#483ee5", "on-primary": "#ffffff", "on-background": "#171a2e", "surface-calculator": "#FFF7E2", "on-secondary-fixed-variant": "#6900b3", "tertiary": "#006476", "on-tertiary-fixed": "#001f26", "accent-amber": "#F59E0B", "background-cloud": "#F7F8FC", "accent-emerald": "#10B981", "accent-orange": "#F97316", "secondary": "#8127cf", "surface-developer": "#E8F7FF", "on-secondary-container": "#fffbff", "on-tertiary": "#ffffff", "on-surface": "#171a2e", "on-tertiary-container": "#f5fcff", "primary-fixed-dim": "#c3c0ff", "on-secondary": "#ffffff", "surface-variant": "#dfe0fc", "inverse-surface": "#2c2f44", "tertiary-fixed": "#acedff", "on-primary-fixed": "#0e006a", "surface-container": "#edecff", "accent-blue": "#3B82F6", "surface-white": "#FFFFFF", "surface-video": "#F5EAFF", "surface-text": "#FFF1E7", "background": "#fbf8ff", "inverse-primary": "#c3c0ff", "status-warning": "#F59E0B", "text-muted": "#64748B", "surface-container-low": "#f4f2ff", "surface-container-highest": "#dfe0fc", "surface-tint": "#4c42e9", "accent-teal": "#14B8A6", "surface-audio": "#EAF2FF" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-sm": "0.5rem", "gutter": "1rem", "space-xs": "0.25rem", "space-md": "1rem", "space-xl": "2rem", "margin": "1.25rem", "margin-sm": "1rem", "space-lg": "1.5rem", "gutter-sm": "0.75rem" }, "fontFamily": { "body-md": ["Inter"], "headline-md": ["Inter"], "caption": ["Inter"], "headline-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-lg": ["Inter"], "title-sm": ["Inter"], "label-md": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "label-sm": ["Inter"], "title-md": ["Inter"] }, "fontSize": { "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }] } } } };</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-on-surface antialiased min-h-screen flex flex-col"><header class="fixed top-0 w-full z-50 bg-surface-white/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-xs"><div class="flex items-center min-w-0 flex-1"><button aria-label="Back" class="w-12 h-12 flex items-center justify-center -ml-space-xs rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex items-center min-w-0 pl-space-xs gap-space-xs"><span class="inline-flex items-center px-space-xs py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm shrink-0 tracking-wide font-medium">Image Studio</span><h1 class="font-title-md text-title-md text-on-surface truncate">Image Compressor</h1></div></div><div class="flex items-center gap-0 shrink-0"><button aria-label="Favorite" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-coral hover:bg-surface-container active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[22px]">favorite_border</span></button><button aria-label="More options" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[24px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 w-full bg-background-cloud pt-16 pb-safe"><div class="flex flex-col w-full pb-8">
+<!-- Header Overview & Badges Section -->
+<section class="px-margin pt-space-md pb-space-sm flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-emerald animate-pulse"></span>
+        Tool #49 · Image Studio
+      </div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px] text-accent-emerald" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+        100% On-Device · Lossless / Lossy
+      </div>
+</div>
+<div class="mt-space-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">Image Compressor</h2>
+<p class="font-body-sm text-body-sm text-text-muted mt-0.5">
+        Reduce image file size while balancing visual clarity, metadata retention, and dimensions.
+      </p>
+</div>
+</section>
+<!-- Active Source Image Card -->
+<section class="px-margin my-space-sm">
+<div class="bg-surface-white rounded-xl shadow-sm p-4 flex flex-col gap-3.5">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="relative w-14 h-14 rounded-lg overflow-hidden shrink-0 shadow-sm bg-surface-container">
+<img alt="Source photo thumbnail" class="w-full h-full object-cover" data-alt="Stunning ultra-high resolution photography of snow-capped Alpine peaks during sunrise with warm golden hour morning light hitting rugged granite ridges and deep turquoise glacial valleys, crystal clear sharp photographic detail, cinematic composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB99-itYkKrhw_eXsK4ZOr2ARRabKftQISs_zknPRee_vZXHrjKdgpI6DmZ0O60ItDDN5T0H5h9wMyQyet00vEenjJlh2pU8lgFycVGI4atENaEZWGVSe_5aeIFUPUr5qIKITRKOyWdlyZo2R_WKp5WDLOeC6I5x_QkoB9RhcJeVoBctQsVTnmr6OE6qCi8OU3kf4r66kWwR50wu1H-U4fDikCfE8Q4efqVx3xB2xcMLI8NjwtN-Bn_Kg"/>
+<div class="absolute bottom-0 inset-x-0 bg-on-surface/60 backdrop-blur-xs py-0.5 text-center">
+<span class="font-label-sm text-label-sm text-surface-white leading-none text-[9px] uppercase tracking-wider font-semibold">RAW JPG</span>
+</div>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate">Landscape_Alps_Panorama.jpg</span>
+<div class="flex flex-wrap items-center gap-x-2 gap-y-0.5 mt-0.5 font-caption text-caption text-text-muted">
+<span class="font-medium text-on-surface-variant">14.8 MB</span>
+<span>•</span>
+<span>6000 × 4000 px</span>
+<span>•</span>
+<span>24-bit sRGB</span>
+</div>
+</div>
+</div>
+<button class="shrink-0 h-9 px-3 rounded-lg bg-surface-container text-primary font-label-md text-label-md flex items-center gap-1.5 active:scale-95 transition-all shadow-xs" id="btn-replace" type="button">
+<span class="material-symbols-outlined text-[18px]">cached</span>
+          Replace
+        </button>
+</div>
+<div class="flex items-center justify-between px-3 py-2 rounded-lg bg-surface-container-low text-on-surface-variant font-caption text-caption">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-accent-emerald text-[16px]">info</span>
+<span class="truncate">EXIF metadata preserved (GPS, Camera, Lens)</span>
+</div>
+<span class="text-accent-teal font-medium shrink-0 ml-2">Keep EXIF</span>
+</div>
+</div>
+</section>
+<!-- Interactive Compression Controls -->
+<section class="px-margin my-space-xs flex flex-col gap-3.5">
+<div class="bg-surface-white rounded-xl shadow-sm p-4 flex flex-col gap-4">
+<!-- Preset Chips -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center justify-between">
+<span>Target Optimization Mode</span>
+<span class="font-caption text-caption text-primary font-medium">Smart Adaptive</span>
+</label>
+<div class="grid grid-cols-3 gap-2">
+<!-- Preset 1 -->
+<button class="preset-chip p-2.5 rounded-lg bg-surface-container-low text-left flex flex-col justify-between active:scale-95 transition-all group" onclick="selectPreset(55, this)" type="button">
+<div class="flex items-center justify-between w-full">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Small File</span>
+<span class="material-symbols-outlined text-[14px] text-text-muted group-hover:text-primary check-icon hidden">check_circle</span>
+</div>
+<span class="font-caption text-caption text-accent-coral font-medium mt-1">-85%</span>
+<span class="font-caption text-caption text-text-muted text-[10px] leading-tight mt-0.5">Email &amp; Web</span>
+</button>
+<!-- Preset 2 (Selected Active) -->
+<button class="preset-chip p-2.5 rounded-lg bg-surface-office shadow-xs text-left flex flex-col justify-between active:scale-95 transition-all group active-preset" onclick="selectPreset(72, this)" type="button">
+<div class="flex items-center justify-between w-full">
+<span class="font-label-sm text-label-sm font-semibold text-primary">Balanced</span>
+<span class="material-symbols-outlined text-[14px] text-accent-emerald check-icon block" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-caption text-caption text-primary font-medium mt-1">-65%</span>
+<span class="font-caption text-caption text-text-muted text-[10px] leading-tight mt-0.5">Recommended</span>
+</button>
+<!-- Preset 3 -->
+<button class="preset-chip p-2.5 rounded-lg bg-surface-container-low text-left flex flex-col justify-between active:scale-95 transition-all group" onclick="selectPreset(90, this)" type="button">
+<div class="flex items-center justify-between w-full">
+<span class="font-label-sm text-label-sm font-semibold text-on-surface">Lossless</span>
+<span class="material-symbols-outlined text-[14px] text-text-muted group-hover:text-primary check-icon hidden">check_circle</span>
+</div>
+<span class="font-caption text-caption text-accent-teal font-medium mt-1">-30%</span>
+<span class="font-caption text-caption text-text-muted text-[10px] leading-tight mt-0.5">Print / Master</span>
+</button>
+</div>
+</div>
+<!-- Slider Control -->
+<div class="flex flex-col gap-2 pt-1">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="font-label-md text-label-md text-on-surface font-medium">Compression Quality</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-image text-accent-emerald font-label-sm text-label-sm text-[10px]">Optimal</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="font-title-md text-title-md text-primary font-bold" id="quality-display">72</span>
+<span class="font-label-sm text-label-sm text-text-muted">%</span>
+</div>
+</div>
+<!-- Custom Slider Track -->
+<div class="relative w-full flex items-center py-2">
+<input class="w-full h-2.5 bg-surface-container rounded-full appearance-none cursor-pointer accent-primary focus:outline-none" id="quality-slider" max="100" min="10" oninput="handleSliderChange(this.value)" type="range" value="72"/>
+</div>
+<div class="flex items-center justify-between font-caption text-caption text-text-muted">
+<span>Aggressive (Tiny)</span>
+<span class="flex items-center gap-1 text-accent-emerald font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span>
+            Optimal Threshold (70-75%)
+          </span>
+<span>Ultra (Crisp)</span>
+</div>
+</div>
+<!-- Output Format Selector -->
+<div class="flex flex-col gap-1.5 pt-1">
+<label class="font-label-md text-label-md text-on-surface-variant">Output Format Container</label>
+<div class="grid grid-cols-3 gap-1.5 p-1 rounded-xl bg-surface-container">
+<button class="format-tab py-2 rounded-lg font-label-md text-label-md font-semibold bg-surface-white text-primary shadow-xs transition-all flex flex-col items-center" onclick="selectFormat('jpg', this)" type="button">
+<span>JPG / MozJPEG</span>
+<span class="font-caption text-caption text-[10px] opacity-75 font-normal">Universal</span>
+</button>
+<button class="format-tab py-2 rounded-lg font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all flex flex-col items-center" onclick="selectFormat('webp', this)" type="button">
+<span>WebP</span>
+<span class="font-caption text-caption text-[10px] opacity-75 font-normal">Next-Gen</span>
+</button>
+<button class="format-tab py-2 rounded-lg font-label-md text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all flex flex-col items-center" onclick="selectFormat('png', this)" type="button">
+<span>PNG</span>
+<span class="font-caption text-caption text-[10px] opacity-75 font-normal">Indexed / Alpha</span>
+</button>
+</div>
+</div>
+<!-- Resolution Rescaling Toggle -->
+<div class="pt-1">
+<label class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low cursor-pointer active:bg-surface-container transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-office flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">aspect_ratio</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Downscale Ultra-Res</span>
+<span class="font-caption text-caption text-text-muted">Limit max dimension to 2048px (Long edge)</span>
+</div>
+</div>
+<div class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="rescale-toggle" onchange="toggleRescale(this.checked)" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</div>
+</label>
+</div>
+<!-- Output Filename Input -->
+<div class="flex flex-col gap-1.5 pt-1">
+<label class="font-label-md text-label-md text-on-surface-variant flex items-center justify-between" for="output-name">
+<span>Target Filename</span>
+<span class="font-caption text-caption text-text-muted">Auto-suffixed</span>
+</label>
+<div class="flex items-center gap-2 px-3.5 py-2.5 rounded-lg bg-surface-container-low focus-within:bg-surface-white focus-within:shadow-xs transition-all">
+<span class="material-symbols-outlined text-text-muted text-[18px]">drive_file_rename_outline</span>
+<input class="w-full bg-transparent font-body-sm text-body-sm text-on-surface focus:outline-none" id="output-name" type="text" value="Landscape_Alps_Panorama_compressed.jpg"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Primary Execution Trigger -->
+<section class="px-margin mt-space-sm mb-space-md flex flex-col items-center gap-2">
+<button class="w-full h-[52px] rounded-xl bg-primary-container text-on-primary-container font-title-md text-title-md font-semibold flex items-center justify-center gap-2.5 shadow-md active:scale-[0.99] transition-all hover:opacity-95" id="btn-compress-action" onclick="simulateCompression()" type="button">
+<span class="material-symbols-outlined text-[22px]">auto_fix_high</span>
+<span id="action-btn-label">Compress Image (Estimate: ~2.1 MB)</span>
+</button>
+<div class="flex items-center gap-1.5 text-center font-caption text-caption text-text-muted">
+<span class="material-symbols-outlined text-accent-amber text-[16px]">bolt</span>
+<span>Client-side WebAssembly MozJPEG engine · Zero cloud upload</span>
+</div>
+</section>
+<!-- Compression Result Card (Representative Completed State) -->
+<section class="px-margin my-space-xs flex flex-col gap-3.5">
+<div class="bg-surface-white rounded-xl shadow-md p-4 flex flex-col gap-4">
+<!-- Success Header Tag -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-image text-accent-emerald">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-7 h-7 rounded-full bg-accent-emerald/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald font-bold">check</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm font-bold truncate">Compression Successful</span>
+<span class="font-caption text-caption text-on-surface-variant">Saved 12.7 MB · 86% Smaller footprint</span>
+</div>
+</div>
+<div class="px-2 py-1 rounded bg-accent-emerald text-surface-white font-label-sm text-label-sm font-bold shrink-0 shadow-xs">
+          -86%
+        </div>
+</div>
+<!-- Before & After Comparison Mosaic -->
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Quality Inspection</span>
+<span class="font-caption text-caption text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">zoom_in</span>
+            Tap loupe to 200% inspect
+          </span>
+</div>
+<div class="grid grid-cols-2 gap-2 relative">
+<!-- Before Column -->
+<div class="flex flex-col rounded-lg overflow-hidden bg-surface-container-low shadow-xs">
+<div class="relative h-32 w-full overflow-hidden bg-surface-dim">
+<img alt="Original preview texture" class="w-full h-full object-cover" data-alt="Close up photographic sample of crisp alpine rock textures and ice formations against a high altitude mountain backdrop in soft sunlight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmNJH9fH5zZtFGrpkeNYa5O1Bv7VQSV0gMFEX2EecbHChABesr05Me4KJOJvAFK5dssMUnG4nb4sZ5tLWddx1vvofTRqQkI-IDRwPxL2yVkM5RHmZNf7jRu7911wRYGFZppK0D8ERyRfASoHphrDJGuMD4OdtIo0NOfcXeWkE95iVoVmu1EUP5stf_ZmBeSnhj_2kCGXY0SNB8eOTkSqoNGAYdHXVZMIJ-j9D9sI8aCfqN5Y74C492Pw"/>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-on-surface/75 backdrop-blur-xs text-surface-white font-label-sm text-label-sm text-[10px]">
+                Original
+              </span>
+</div>
+<div class="p-2.5 flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">14.8 MB</span>
+<span class="font-caption text-caption text-text-muted mt-0.5">6000 × 4000 px</span>
+<span class="font-label-sm text-label-sm text-text-muted text-[10px] mt-1">100% Uncompressed</span>
+</div>
+</div>
+<!-- After Column -->
+<div class="flex flex-col rounded-lg overflow-hidden bg-surface-office shadow-xs relative">
+<div class="relative h-32 w-full overflow-hidden bg-surface-container">
+<img alt="Compressed preview texture" class="w-full h-full object-cover" data-alt="Detailed visual match macro view of identical snow covered mountain ridgeline after compression showing pristine edges without banding or artifacting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCC5ezo3lhsbVY1pDUaXT9nH5E0jwXjufxT1hkHhW3xojEeLMVUmvs2Sdp_WM5UG5MIOL_nGH-u-oNrPd6m6gp3kWGwWn7848z-ukfOcX5WNhjN64ytG7Ea_ySGpwluQP-KeMP-wUvFIa_Yc2pHNUygyCqOJzIZHfHzvbYraULwq4GsMASMIPMXoBQdjcd2PrlyMqZNFFjVjujuCbp3dcJUOcNHjv4y4ktvkRYZgL4qemrILY2T_yzXQ"/>
+<span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-primary text-on-primary font-label-sm text-label-sm text-[10px] font-semibold">
+                Compressed
+              </span>
+<button aria-label="Inspect 200% detail" class="absolute bottom-2 right-2 w-7 h-7 rounded-full bg-surface-white/90 text-on-surface shadow-sm flex items-center justify-center hover:scale-105 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">loupe</span>
+</button>
+</div>
+<div class="p-2.5 flex flex-col">
+<span class="font-title-sm text-title-sm text-primary font-bold">2.1 MB</span>
+<span class="font-caption text-caption text-text-muted mt-0.5">2048 × 1365 px</span>
+<span class="font-label-sm text-label-sm text-accent-emerald text-[10px] font-semibold mt-1">Ready for Storage</span>
+</div>
+</div>
+</div>
+</div>
+<!-- SSIM Metric Readout Bento Bar -->
+<div class="p-3 rounded-lg bg-surface-container-low flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">high_quality</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">SSIM Index: 0.984</span>
+<span class="font-caption text-caption text-accent-emerald font-medium">Perceptually Lossless Fidelity</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-caption text-caption text-text-muted">Encode Time</span>
+<div class="font-title-sm text-title-sm text-on-surface font-semibold">342 ms</div>
+</div>
+</div>
+<!-- Export Actions Stack & Grid -->
+<div class="flex flex-col gap-2 pt-1">
+<!-- Save to Gallery (Primary) -->
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">photo_library</span>
+          Save to Gallery
+        </button>
+<!-- Secondary Operational Actions -->
+<div class="grid grid-cols-2 gap-2">
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-medium flex items-center justify-center gap-1.5 active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+            Share Image
+          </button>
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-medium flex items-center justify-center gap-1.5 active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">folder</span>
+            Save to Files
+          </button>
+</div>
+<!-- Compress Another Reset Button -->
+<button class="h-10 mt-1 rounded-lg text-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1 hover:bg-surface-container-low active:scale-95 transition-all" onclick="resetCompressorState()" type="button">
+<span class="material-symbols-outlined text-[18px]">add_photo_alternate</span>
+          Compress Another Image
+        </button>
+</div>
+</div>
+</section>
+<!-- Helpful Studio Pro-Tip -->
+<section class="px-margin mt-space-xs">
+<div class="p-3.5 rounded-xl bg-surface-bright shadow-xs flex items-start gap-3">
+<span class="material-symbols-outlined text-accent-amber text-[20px] shrink-0 mt-0.5">lightbulb</span>
+<p class="font-caption text-caption text-on-surface-variant leading-relaxed">
+<strong>Pro-Tip:</strong> Using <strong>WebP</strong> produces 25–35% smaller files than MozJPEG with zero visible compression artifacts on mobile screens.
+      </p>
+</div>
+</section>
+</div>
+<script>
+  function handleSliderChange(val) {
+    document.getElementById('quality-display').innerText = val;
+    updateEstimate(val);
+  }
+
+  function selectPreset(val, elem) {
+    document.getElementById('quality-slider').value = val;
+    document.getElementById('quality-display').innerText = val;
+    
+    // Toggle active chip styling
+    document.querySelectorAll('.preset-chip').forEach(btn => {
+      btn.classList.remove('bg-surface-office', 'shadow-xs', 'active-preset');
+      btn.classList.add('bg-surface-container-low');
+      const check = btn.querySelector('.check-icon');
+      if (check) {
+        check.classList.add('hidden');
+        check.classList.remove('block');
+      }
+    });
+
+    elem.classList.remove('bg-surface-container-low');
+    elem.classList.add('bg-surface-office', 'shadow-xs', 'active-preset');
+    const check = elem.querySelector('.check-icon');
+    if (check) {
+      check.classList.remove('hidden');
+      check.classList.add('block');
+    }
+
+    updateEstimate(val);
+  }
+
+  function updateEstimate(quality) {
+    let est = (quality * 0.03).toFixed(1);
+    if (est < 0.8) est = 0.9;
+    document.getElementById('action-btn-label').innerText = `Compress Image (Estimate: ~${est} MB)`;
+  }
+
+  function selectFormat(fmt, elem) {
+    document.querySelectorAll('.format-tab').forEach(btn => {
+      btn.classList.remove('bg-surface-white', 'text-primary', 'shadow-xs', 'font-semibold');
+      btn.classList.add('text-on-surface-variant', 'font-medium');
+    });
+    elem.classList.add('bg-surface-white', 'text-primary', 'shadow-xs', 'font-semibold');
+    elem.classList.remove('text-on-surface-variant', 'font-medium');
+
+    const nameInput = document.getElementById('output-name');
+    if (nameInput) {
+      nameInput.value = `Landscape_Alps_Panorama_compressed.${fmt}`;
+    }
+  }
+
+  function toggleRescale(isChecked) {
+    const currentQ = document.getElementById('quality-slider').value;
+    updateEstimate(currentQ);
+  }
+
+  function simulateCompression() {
+    const btn = document.getElementById('btn-compress-action');
+    const originalText = document.getElementById('action-btn-label').innerText;
+    
+    btn.disabled = true;
+    document.getElementById('action-btn-label').innerText = 'Processing with MozJPEG...';
+    btn.classList.add('opacity-80');
+
+    setTimeout(() => {
+      btn.disabled = false;
+      document.getElementById('action-btn-label').innerText = originalText;
+      btn.classList.remove('opacity-80');
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+      });
+    }, 600);
+  }
+
+  function resetCompressorState() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script></main></body></html>

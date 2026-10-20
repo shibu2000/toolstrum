@@ -1,0 +1,63 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Top Wing Left -->
+    <linearGradient id="af-t-left" x1="128" y1="144" x2="256" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#6366F1" />
+      <stop offset="100%" stopColor="#4F46E5" />
+    </linearGradient>
+
+    <!-- Top Wing Right -->
+    <linearGradient id="af-t-right" x1="256" y1="144" x2="384" y2="240" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#A855F7" />
+      <stop offset="100%" stopColor="#7C3AED" />
+    </linearGradient>
+
+    <!-- Prismatic Vertical Stem -->
+    <linearGradient id="af-t-stem" x1="256" y1="176" x2="256" y2="400" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#EC4899" />
+      <stop offset="35%" stopColor="#8B5CF6" />
+      <stop offset="75%" stopColor="#06B6D4" />
+      <stop offset="100%" stopColor="#10B981" />
+    </linearGradient>
+
+    <!-- Sonic Beam Laser Core -->
+    <linearGradient id="af-beam" x1="256" y1="144" x2="256" y2="384" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stopColor="#FFFFFF" />
+      <stop offset="60%" stopColor="#67E8F9" />
+      <stop offset="100%" stopColor="#34D399" />
+    </linearGradient>
+
+    <!-- Ambient Glow Filter -->
+    <filter id="af-glow" x="64" y="80" width="384" height="384" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Ambient Light Reflection -->
+  <circle cx="256" cy="144" r="100" fill="#818CF8" opacity="0.3" filter="blur(40px)" />
+  <circle cx="256" cy="360" r="90" fill="#06B6D4" opacity="0.25" filter="blur(35px)" />
+
+  <!-- The Iconic Toolstrum "T" Symbol scaled to 512 -->
+  <g filter="url(#af-glow)">
+    <!-- Left Crossbar Wing -->
+    <path d="M128 176C128 158.327 142.327 144 160 144H252L244 224H160C142.327 224 128 209.673 128 192V176Z" fill="url(#af-t-left)" />
+
+    <!-- Right Crossbar Wing -->
+    <path d="M384 176C384 158.327 369.673 144 352 144H260L268 224H352C369.673 224 384 209.673 384 192V176Z" fill="url(#af-t-right)" />
+
+    <!-- Center Prismatic Crest -->
+    <path d="M220 144H292L276 224H236L220 144Z" fill="#E9D5FF" opacity="0.9" />
+
+    <!-- Vertical T-Spine Pillar -->
+    <path d="M228 208L284 208L272 384C272 397.255 264.8 408 256 408C247.2 408 240 397.255 240 384L228 208Z" fill="url(#af-t-stem)" />
+
+    <!-- Central Resonant Chord / Laser Beam -->
+    <line x1="256" y1="160" x2="256" y2="384" stroke="url(#af-beam)" stroke-width="12" stroke-linecap="round" />
+
+    <!-- Precision Resonance Nodes -->
+    <circle cx="256" cy="192" r="10" fill="#FFFFFF" />
+    <circle cx="256" cy="272" r="8" fill="#FFFFFF" opacity="0.95" />
+    <circle cx="256" cy="352" r="7" fill="#E0F2FE" opacity="0.85" />
+  </g>
+</svg>

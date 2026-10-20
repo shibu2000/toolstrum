@@ -1,0 +1,3 @@
+-Use S.O.L.I.D principle
+-Dont write comments anywhere
+-Write optimized industry standard code

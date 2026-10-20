@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-lowest": "#ffffff", "surface-audio": "#EAF2FF", "on-tertiary-fixed": "#001f26", "surface-web": "#E5FAF6", "on-primary": "#ffffff", "primary": "#483ee5", "accent-amber": "#F59E0B", "tertiary": "#006476", "tertiary-fixed-dim": "#4cd7f6", "status-error": "#DC2626", "accent-blue": "#3B82F6", "surface-calculator": "#FFF7E2", "on-error-container": "#93000a", "background-cloud": "#F7F8FC", "tertiary-container": "#007f95", "outline": "#777587", "accent-emerald": "#10B981", "surface-pdf": "#FFF0EF", "accent-rose": "#EC4899", "surface-container-highest": "#dfe0fc", "status-success": "#16A34A", "surface-ai": "#F4EAFE", "surface-bright": "#fbf8ff", "secondary-container": "#9c48ea", "secondary-fixed": "#f0dbff", "surface-tint": "#4c42e9", "surface-container": "#edecff", "surface-image": "#E7F9F1", "secondary-fixed-dim": "#ddb7ff", "secondary": "#8127cf", "surface-container-high": "#e6e6ff", "accent-sky": "#0EA5E9", "surface-scanner": "#E6FAFD", "on-background": "#171a2e", "surface-archive": "#EEF2F6", "surface-video": "#F5EAFF", "surface-dim": "#d7d8f4", "on-surface": "#171a2e", "surface-productivity": "#FDEBF5", "surface-text": "#FFF1E7", "error-container": "#ffdad6", "on-tertiary-container": "#f5fcff", "on-tertiary-fixed-variant": "#004e5c", "error": "#ba1a1a", "accent-teal": "#14B8A6", "on-primary-fixed": "#0e006a", "on-error": "#ffffff", "on-secondary": "#ffffff", "on-tertiary": "#ffffff", "primary-container": "#625bff", "surface-container-low": "#f4f2ff", "surface-white": "#FFFFFF", "on-surface-variant": "#464555", "tertiary-fixed": "#acedff", "primary-fixed": "#e2dfff", "text-muted": "#64748B", "surface-variant": "#dfe0fc", "primary-fixed-dim": "#c3c0ff", "background": "#fbf8ff", "border-subtle": "#E2E8F0", "accent-coral": "#FF6B6B", "on-secondary-container": "#fffbff", "inverse-primary": "#c3c0ff", "surface-developer": "#E8F7FF", "inverse-on-surface": "#f0efff", "inverse-surface": "#2c2f44", "outline-variant": "#c7c4d8", "surface": "#fbf8ff", "status-warning": "#F59E0B", "on-secondary-fixed": "#2c0051", "on-primary-fixed-variant": "#311ed2", "accent-orange": "#F97316", "on-primary-container": "#fefaff", "on-secondary-fixed-variant": "#6900b3", "surface-office": "#EEEDFF" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "gutter-sm": "0.75rem", "margin": "1.25rem", "space-xs": "0.25rem", "space-md": "1rem", "space-lg": "1.5rem", "space-xl": "2rem", "space-sm": "0.5rem", "margin-sm": "1rem", "gutter": "1rem" }, fontFamily: { "body-sm": ["Inter"], "headline-lg": ["Inter"], "caption": ["Inter"], "body-lg": ["Inter"], "headline-md": ["Inter"], "title-sm": ["Inter"], "headline-sm": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "headline-lg-mobile": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"] }, fontSize: { "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }], "caption": ["12px", { lineHeight: "16px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }] } } } };</script></head><body class="bg-background-cloud font-body-md text-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center min-w-0 gap-space-xs"><button aria-label="Navigate back" class="w-12 h-12 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-office transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-1"><span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-semibold">Office Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate leading-tight">Spreadsheet Inspector</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-amber hover:bg-surface-office transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-office transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-1"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-background-cloud flex-1"><div class="flex flex-col w-full">
+<!-- Interactive & State Orchestrator Script -->
+<script>
+    function toggleState(elementId) {
+      const el = document.getElementById(elementId);
+      if (el) {
+        el.classList.toggle('hidden');
+      }
+    }
+
+    function switchMergeMode(modeIndex) {
+      const btn1 = document.getElementById('mode-btn-1');
+      const btn2 = document.getElementById('mode-btn-2');
+      if (modeIndex === 1) {
+        btn1.className = 'flex items-start gap-space-sm p-space-md rounded-xl bg-primary text-on-primary shadow-sm text-left transition-all';
+        btn2.className = 'flex items-start gap-space-sm p-space-md rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-all text-left';
+      } else {
+        btn2.className = 'flex items-start gap-space-sm p-space-md rounded-xl bg-primary text-on-primary shadow-sm text-left transition-all';
+        btn1.className = 'flex items-start gap-space-sm p-space-md rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-all text-left';
+      }
+    }
+
+    function toggleSwitch(switchId) {
+      const switchHandle = document.getElementById(switchId + '-handle');
+      const switchTrack = document.getElementById(switchId + '-track');
+      if (switchTrack && switchHandle) {
+        const isChecked = switchTrack.getAttribute('data-checked') === 'true';
+        if (isChecked) {
+          switchTrack.setAttribute('data-checked', 'false');
+          switchTrack.classList.remove('bg-primary');
+          switchTrack.classList.add('bg-surface-container-highest');
+          switchHandle.classList.remove('translate-x-5');
+          switchHandle.classList.add('translate-x-0.5');
+        } else {
+          switchTrack.setAttribute('data-checked', 'true');
+          switchTrack.classList.remove('bg-surface-container-highest');
+          switchTrack.classList.add('bg-primary');
+          switchHandle.classList.remove('translate-x-0.5');
+          switchHandle.classList.add('translate-x-5');
+        }
+      }
+    }
+
+    function selectRadio(selectedId, unselectedId) {
+      const sel = document.getElementById(selectedId);
+      const unsel = document.getElementById(unselectedId);
+      if (sel && unsel) {
+        sel.querySelector('.radio-dot').classList.remove('hidden');
+        sel.classList.add('bg-surface-office', 'text-primary');
+        unsel.querySelector('.radio-dot').classList.add('hidden');
+        unsel.classList.remove('bg-surface-office', 'text-primary');
+        unsel.classList.add('text-on-surface');
+      }
+    }
+
+    function triggerMergeSimulation() {
+      const btn = document.getElementById('merge-cta-btn');
+      const loader = document.getElementById('merge-loader');
+      const resultCard = document.getElementById('results-card');
+      if (btn && loader && resultCard) {
+        btn.classList.add('opacity-75', 'pointer-events-none');
+        loader.classList.remove('hidden');
+        setTimeout(() => {
+          loader.classList.add('hidden');
+          btn.classList.remove('opacity-75', 'pointer-events-none');
+          resultCard.classList.remove('hidden');
+          resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 650);
+      }
+    }
+  </script>
+<!-- Content Stream Container -->
+<div class="px-gutter flex flex-col gap-space-lg pb-space-xl">
+<!-- Top Header Banner (Tool Details) -->
+<section class="flex flex-col gap-space-xs pt-space-md">
+<div class="flex items-center gap-space-xs flex-wrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-high text-primary font-label-sm text-label-sm font-semibold tracking-wide">
+<span class="material-symbols-outlined text-[14px]">table_rows</span>
+          Tool #167 · Office Studio
+        </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-text text-accent-orange font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">join_inner</span>
+          Multi-Dataset Concatenator
+        </span>
+</div>
+<div class="flex flex-col gap-1 mt-1">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">CSV Merger</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Combine multiple CSV spreadsheets into a single unified dataset with automatic schema alignment and column mapping.</p>
+</div>
+</section>
+<!-- Multi-File Sequence Queue -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h3 class="font-title-sm text-title-sm text-on-surface">Datasets Queue</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">3 Files</span>
+</div>
+<button class="h-9 px-3 rounded-full bg-surface-container text-primary hover:bg-surface-container-high flex items-center gap-1.5 font-label-md text-label-md font-semibold transition-colors active:scale-95" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+          Add CSV Files
+        </button>
+</div>
+<!-- File Queue Stack -->
+<div class="flex flex-col gap-space-xs">
+<!-- File Card #1 -->
+<div class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-space-sm min-w-0">
+<button aria-label="Reorder handle" class="w-8 h-8 flex items-center justify-center text-outline cursor-grab active:cursor-grabbing hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[20px]">drag_indicator</span>
+</button>
+<div class="w-6 h-6 rounded-md bg-surface-office text-primary font-label-sm text-label-sm font-bold flex items-center justify-center shrink-0">
+              #1
+            </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0">csv</span>
+<span class="font-title-sm text-title-sm text-on-surface truncate">North_America_Sales_Q1.csv</span>
+</div>
+<span class="font-caption text-caption text-text-muted">4,200 rows · 8 cols · 850 KB</span>
+</div>
+</div>
+<div class="flex items-center gap-0.5 shrink-0 ml-2">
+<button aria-label="Move down" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+</button>
+<button aria-label="Remove dataset" class="w-8 h-8 flex items-center justify-center rounded-lg text-outline hover:text-status-error hover:bg-error-container" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<!-- File Card #2 -->
+<div class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow">
+<div class="flex items-center gap-space-sm min-w-0">
+<button aria-label="Reorder handle" class="w-8 h-8 flex items-center justify-center text-outline cursor-grab active:cursor-grabbing hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[20px]">drag_indicator</span>
+</button>
+<div class="w-6 h-6 rounded-md bg-surface-office text-primary font-label-sm text-label-sm font-bold flex items-center justify-center shrink-0">
+              #2
+            </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0">csv</span>
+<span class="font-title-sm text-title-sm text-on-surface truncate">EMEA_Sales_Q1.csv</span>
+</div>
+<span class="font-caption text-caption text-text-muted">3,840 rows · 8 cols · 790 KB</span>
+</div>
+</div>
+<div class="flex items-center gap-0.5 shrink-0 ml-2">
+<button aria-label="Move up" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_upward</span>
+</button>
+<button aria-label="Move down" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_downward</span>
+</button>
+<button aria-label="Remove dataset" class="w-8 h-8 flex items-center justify-center rounded-lg text-outline hover:text-status-error hover:bg-error-container" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<!-- File Card #3 (With Schema Warning Notice) -->
+<div class="flex flex-col p-space-sm rounded-xl bg-surface-container-lowest shadow-sm gap-2">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm min-w-0">
+<button aria-label="Reorder handle" class="w-8 h-8 flex items-center justify-center text-outline cursor-grab active:cursor-grabbing hover:text-on-surface" type="button">
+<span class="material-symbols-outlined text-[20px]">drag_indicator</span>
+</button>
+<div class="w-6 h-6 rounded-md bg-surface-office text-primary font-label-sm text-label-sm font-bold flex items-center justify-center shrink-0">
+                #3
+              </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-primary text-[18px] shrink-0">csv</span>
+<span class="font-title-sm text-title-sm text-on-surface truncate">APAC_Sales_Q1.csv</span>
+</div>
+<span class="font-caption text-caption text-text-muted">5,120 rows · 9 cols · 1.05 MB</span>
+</div>
+</div>
+<div class="flex items-center gap-0.5 shrink-0 ml-2">
+<button aria-label="Move up" class="w-8 h-8 flex items-center justify-center rounded-lg text-on-surface-variant hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-[18px]">arrow_upward</span>
+</button>
+<button aria-label="Remove dataset" class="w-8 h-8 flex items-center justify-center rounded-lg text-outline hover:text-status-error hover:bg-error-container" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Warning Badge -->
+<div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-calculator text-status-warning ml-9 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span>1 extra column detected: <strong class="font-semibold text-on-surface">"currency_code"</strong></span>
+</div>
+</div>
+</div>
+<!-- Combined Metrics Banner -->
+<div class="grid grid-cols-2 gap-space-sm mt-1">
+<div class="p-space-sm rounded-xl bg-surface-audio flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-lowest flex items-center justify-center text-accent-blue shadow-sm">
+<span class="material-symbols-outlined text-[20px]">dataset</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-caption text-caption text-text-muted">Combined Rows</span>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold truncate">13,160 total</span>
+</div>
+</div>
+<div class="p-space-sm rounded-xl bg-surface-image flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded-lg bg-surface-container-lowest flex items-center justify-center text-accent-emerald shadow-sm">
+<span class="material-symbols-outlined text-[20px]">view_column</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-caption text-caption text-text-muted">Target Columns</span>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold truncate">9 normalized fields</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Schema Alignment & Merge Configuration -->
+<section class="flex flex-col gap-space-md p-space-md rounded-2xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center justify-between">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Schema &amp; Merge Rules</h3>
+<span class="material-symbols-outlined text-outline">tune</span>
+</div>
+<!-- Merge Mode Selector -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Merge Mode</span>
+<button class="flex items-start gap-space-sm p-space-md rounded-xl bg-primary text-on-primary shadow-sm text-left transition-all" id="mode-btn-1" onclick="switchMergeMode(1)" type="button">
+<span class="material-symbols-outlined text-[20px] mt-0.5">schema</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm font-semibold">Match Columns by Header Name</span>
+<span class="font-caption text-caption opacity-90">Auto-aligns fields regardless of source order</span>
+</div>
+</button>
+<button class="flex items-start gap-space-sm p-space-md rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-all text-left" id="mode-btn-2" onclick="switchMergeMode(2)" type="button">
+<span class="material-symbols-outlined text-[20px] mt-0.5 text-on-surface-variant">format_line_spacing</span>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm font-semibold">Strict Row Concatenation</span>
+<span class="font-caption text-caption text-on-surface-variant">Index-based raw stacking ignoring header names</span>
+</div>
+</button>
+</div>
+<!-- Missing Column Handling -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Handling for Missing Columns</span>
+<div class="flex flex-col gap-1.5">
+<!-- Option A: Fill blank -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-office text-primary cursor-pointer transition-colors" id="radio-opt-fill" onclick="selectRadio('radio-opt-fill', 'radio-opt-drop')">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-full bg-primary flex items-center justify-center shrink-0">
+<div class="radio-dot w-2 h-2 rounded-full bg-surface-container-lowest"></div>
+</div>
+<span class="font-body-md text-body-md font-medium">Fill with Empty Value (NULL / blank)</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Recommended</span>
+</div>
+<!-- Option B: Drop missing -->
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low text-on-surface cursor-pointer hover:bg-surface-container transition-colors" id="radio-opt-drop" onclick="selectRadio('radio-opt-drop', 'radio-opt-fill')">
+<div class="flex items-center gap-space-sm">
+<div class="w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center shrink-0">
+<div class="radio-dot w-2 h-2 rounded-full bg-primary hidden"></div>
+</div>
+<span class="font-body-md text-body-md font-medium">Drop Non-matching Columns</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Intersection</span>
+</div>
+</div>
+</div>
+<!-- Header Row Rules Toggles -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">Header Settings</span>
+<!-- Toggle 1: Preserve Master Header -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Preserve Master Header from File #1</span>
+<span class="font-caption text-caption text-text-muted">Sets canonical field names and casing</span>
+</div>
+<button aria-label="Toggle Master Header" class="shrink-0" onclick="toggleSwitch('toggle-header')" role="switch" type="button">
+<div class="w-11 h-6 bg-primary rounded-full transition-colors relative flex items-center" data-checked="true" id="toggle-header-track">
+<div class="w-5 h-5 bg-surface-container-lowest rounded-full shadow-sm transition-transform translate-x-5" id="toggle-header-handle"></div>
+</div>
+</button>
+</div>
+<!-- Toggle 2: Strip Duplicate Headers -->
+<div class="flex items-center justify-between gap-space-sm">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md text-on-surface font-medium">Strip Duplicate Headers</span>
+<span class="font-caption text-caption text-text-muted">Removes header rows from subsequent files #2 &amp; #3</span>
+</div>
+<button aria-label="Toggle Strip Headers" class="shrink-0" onclick="toggleSwitch('toggle-strip')" role="switch" type="button">
+<div class="w-11 h-6 bg-primary rounded-full transition-colors relative flex items-center" data-checked="true" id="toggle-strip-track">
+<div class="w-5 h-5 bg-surface-container-lowest rounded-full shadow-sm transition-transform translate-x-5" id="toggle-strip-handle"></div>
+</div>
+</button>
+</div>
+</div>
+<!-- Delimiter & Encoding Settings -->
+<div class="grid grid-cols-2 gap-space-sm pt-space-xs">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Delimiter</label>
+<div class="relative">
+<select class="w-full h-11 px-3 appearance-none rounded-xl bg-surface-container-low font-body-md text-body-md text-on-surface pr-8 focus:outline-none focus:bg-surface-office">
+<option value="comma">Comma (,)</option>
+<option value="semicolon">Semicolon (;)</option>
+<option value="tab">Tab (\t)</option>
+<option value="pipe">Pipe (|)</option>
+</select>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-semibold">Encoding</label>
+<div class="relative">
+<select class="w-full h-11 px-3 appearance-none rounded-xl bg-surface-container-low font-body-md text-body-md text-on-surface pr-8 focus:outline-none focus:bg-surface-office">
+<option value="utf-8">UTF-8 Universal</option>
+<option value="ascii">ASCII</option>
+<option value="latin1">ISO-8859-1 (Latin1)</option>
+<option value="utf-16">UTF-16 LE</option>
+</select>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Schema Alignment Preview Section -->
+<section class="flex flex-col gap-space-sm p-space-md rounded-2xl bg-surface-container-lowest shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Aligned Schema Preview</h3>
+<span class="px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold">Ready</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Horizontal scroll</span>
+</div>
+<!-- Mini Scrollable Table -->
+<div class="w-full overflow-x-auto rounded-xl bg-background-cloud p-1">
+<table class="w-full text-left font-caption text-caption min-w-[500px]">
+<thead>
+<tr class="text-on-surface-variant bg-surface-container-high rounded-lg">
+<th class="p-2.5 font-semibold rounded-l-lg">Transaction_ID</th>
+<th class="p-2.5 font-semibold">Customer_Name</th>
+<th class="p-2.5 font-semibold">Amount_USD</th>
+<th class="p-2.5 font-semibold">Status</th>
+<th class="p-2.5 font-semibold">Region</th>
+<th class="p-2.5 font-semibold text-accent-orange rounded-r-lg">currency_code*</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2.5 font-mono text-primary font-medium">TX-9901</td>
+<td class="p-2.5 font-medium">Robert Chen</td>
+<td class="p-2.5 font-mono">$450.00</td>
+<td class="p-2.5"><span class="px-1.5 py-0.5 rounded bg-surface-image text-accent-emerald text-[11px] font-semibold">Complete</span></td>
+<td class="p-2.5 font-medium">NA</td>
+<td class="p-2.5 font-mono text-text-muted italic">-</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2.5 font-mono text-primary font-medium">TX-3312</td>
+<td class="p-2.5 font-medium">Aoi Tanaka</td>
+<td class="p-2.5 font-mono">$820.00</td>
+<td class="p-2.5"><span class="px-1.5 py-0.5 rounded bg-surface-image text-accent-emerald text-[11px] font-semibold">Complete</span></td>
+<td class="p-2.5 font-medium">APAC</td>
+<td class="p-2.5 font-mono text-accent-orange font-semibold">JPY</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Alignment Validation Callout -->
+<div class="flex items-center gap-space-xs p-space-sm rounded-xl bg-surface-web text-tertiary">
+<span class="material-symbols-outlined text-[20px] text-tertiary shrink-0">verified</span>
+<span class="font-body-sm text-body-sm">Column alignment validated across all 3 source files with zero data truncation.</span>
+</div>
+</section>
+<!-- Primary Action Execution Bar -->
+<section class="flex flex-col gap-space-xs">
+<button class="w-full h-[52px] px-6 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm font-semibold shadow-md active:scale-[0.98] transition-all flex items-center justify-center gap-2" id="merge-cta-btn" onclick="triggerMergeSimulation()" type="button">
+<span class="material-symbols-outlined text-[22px] animate-spin hidden" id="merge-loader">progress_activity</span>
+<span class="material-symbols-outlined text-[22px]">merge_type</span>
+<span>Merge 3 CSV Files (13,160 Rows)</span>
+</button>
+<div class="flex items-center justify-center gap-1.5 py-1 text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-accent-emerald">bolt</span>
+<span class="font-label-sm text-label-sm">High-speed on-device processing · No cloud upload</span>
+</div>
+</section>
+<!-- Results State Card (Export Ready) -->
+<section class="flex flex-col gap-space-md p-space-md rounded-2xl bg-surface-container-lowest shadow-md" id="results-card">
+<!-- Success Badge Header -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-surface-image text-status-success flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Merge Completed</span>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold">
+          in 0.38s
+        </span>
+</div>
+<!-- File Details Pill -->
+<div class="flex items-start gap-space-sm p-space-sm rounded-xl bg-surface-container-low">
+<div class="w-10 h-10 rounded-lg bg-surface-office text-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">description</span>
+</div>
+<div class="flex flex-col min-w-0 flex-1">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold truncate">Global_Sales_Q1_Consolidated_Master.csv</span>
+<span class="font-caption text-caption text-text-muted mt-0.5">13,160 rows · 9 columns · 2.68 MB · UTF-8</span>
+</div>
+</div>
+<!-- Interactive Action Buttons -->
+<div class="flex flex-col gap-space-xs pt-1">
+<!-- Save CSV -->
+<button class="w-full h-12 rounded-xl bg-primary text-on-primary font-title-sm text-title-sm font-semibold shadow-sm flex items-center justify-center gap-2 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+<span>Save Merged CSV</span>
+</button>
+<!-- Secondary Option Grid -->
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="h-11 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+<span>Preview Full Table</span>
+</button>
+<button class="h-11 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+<span>Share File</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</div></main></body></html>

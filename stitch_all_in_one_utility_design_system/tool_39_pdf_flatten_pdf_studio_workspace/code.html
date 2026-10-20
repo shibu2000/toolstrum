@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-developer": "#E8F7FF", "on-secondary-container": "#fffbff", "on-surface": "#171a2e", "background": "#fbf8ff", "surface-container-lowest": "#ffffff", "on-primary-fixed": "#0e006a", "tertiary-fixed-dim": "#4cd7f6", "inverse-surface": "#2c2f44", "on-primary": "#ffffff", "surface-ai": "#F4EAFE", "on-tertiary-container": "#f5fcff", "surface-productivity": "#FDEBF5", "inverse-on-surface": "#f0efff", "primary-fixed": "#e2dfff", "outline": "#777587", "text-muted": "#64748B", "on-tertiary": "#ffffff", "accent-orange": "#F97316", "surface-text": "#FFF1E7", "surface-calculator": "#FFF7E2", "error-container": "#ffdad6", "surface-bright": "#fbf8ff", "surface-dim": "#d7d8f4", "error": "#ba1a1a", "surface-web": "#E5FAF6", "tertiary-fixed": "#acedff", "surface-variant": "#dfe0fc", "accent-emerald": "#10B981", "surface-white": "#FFFFFF", "surface-pdf": "#FFF0EF", "on-primary-fixed-variant": "#311ed2", "surface-audio": "#EAF2FF", "secondary-container": "#9c48ea", "tertiary": "#006476", "surface-container-low": "#f4f2ff", "on-primary-container": "#fefaff", "status-warning": "#F59E0B", "primary-fixed-dim": "#c3c0ff", "surface-image": "#E7F9F1", "outline-variant": "#c7c4d8", "surface-scanner": "#E6FAFD", "surface-container-highest": "#dfe0fc", "on-background": "#171a2e", "secondary": "#8127cf", "secondary-fixed-dim": "#ddb7ff", "on-error": "#ffffff", "primary": "#483ee5", "secondary-fixed": "#f0dbff", "on-secondary": "#ffffff", "background-cloud": "#F7F8FC", "tertiary-container": "#007f95", "on-surface-variant": "#464555", "accent-teal": "#14B8A6", "on-secondary-fixed": "#2c0051", "surface-video": "#F5EAFF", "on-tertiary-fixed": "#001f26", "status-error": "#DC2626", "surface-container-high": "#e6e6ff", "surface-tint": "#4c42e9", "accent-sky": "#0EA5E9", "status-success": "#16A34A", "inverse-primary": "#c3c0ff", "surface-office": "#EEEDFF", "accent-rose": "#EC4899", "surface-archive": "#EEF2F6", "surface-container": "#edecff", "accent-blue": "#3B82F6", "border-subtle": "#E2E8F0", "surface": "#fbf8ff", "on-error-container": "#93000a", "on-tertiary-fixed-variant": "#004e5c", "accent-amber": "#F59E0B", "accent-coral": "#FF6B6B", "primary-container": "#625bff", "on-secondary-fixed-variant": "#6900b3" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter": "1rem", "gutter-sm": "0.75rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-lg": "1.5rem", "space-md": "1rem", "margin": "1.25rem", "margin-sm": "1rem", "space-xs": "0.25rem" }, "fontFamily": { "headline-lg-mobile": ["Inter"], "caption": ["Inter"], "label-md": ["Inter"], "headline-sm": ["Inter"], "title-md": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "body-md": ["Inter"], "title-sm": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-sm": ["Inter"] }, "fontSize": { "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }] } } } }</script><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface-white/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><button aria-label="Go back" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors flex-shrink-0" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex items-center gap-space-sm min-w-0"><div class="flex items-center gap-space-xs px-2.5 py-1 rounded-full bg-surface-pdf text-accent-coral flex-shrink-0"><span class="material-symbols-outlined text-[16px]">picture_as_pdf</span><span class="font-label-sm text-label-sm tracking-wide uppercase">PDF-08</span></div><h1 class="font-title-sm text-title-sm text-on-surface truncate">Merge Pdf Workspace</h1></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-coral hover:bg-surface-pdf active:scale-95 transition-all"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0 ml-space-xs"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-safe bg-background-cloud"><div class="flex flex-col w-full pb-8">
+<!-- Interactive Feedback & Notification Toast -->
+<div class="fixed top-20 left-4 right-4 z-50 pointer-events-none transform -translate-y-8 opacity-0 transition-all duration-300 ease-out flex items-center gap-space-sm p-margin bg-inverse-surface text-inverse-on-surface rounded-xl shadow-xl" id="toastNotification">
+<span class="material-symbols-outlined text-accent-emerald text-[22px]">check_circle</span>
+<span class="font-body-sm text-body-sm text-inverse-on-surface font-medium flex-1" id="toastMessage">Scope updated</span>
+</div>
+<div class="px-margin pt-space-md flex flex-col gap-space-lg">
+<!-- Hero / Tool Identity Banner -->
+<div class="relative overflow-hidden bg-surface-white rounded-xl p-margin shadow-sm">
+<div class="absolute -right-6 -bottom-6 w-32 h-32 rounded-full bg-surface-pdf opacity-60 pointer-events-none"></div>
+<div class="flex items-start justify-between relative z-10">
+<div class="flex items-center gap-space-sm">
+<div class="w-12 h-12 rounded-xl bg-surface-pdf flex items-center justify-center flex-shrink-0 text-accent-coral shadow-sm">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">layers_clear</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm text-on-surface">PDF Flatten</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-pdf text-accent-coral font-label-sm text-label-sm font-semibold tracking-wide uppercase">#39</span>
+</div>
+<div class="flex items-center gap-space-xs mt-0.5">
+<span class="w-2 h-2 rounded-full bg-accent-emerald inline-block"></span>
+<span class="font-caption text-caption text-text-muted">100% Offline · Tamper-Resistant</span>
+</div>
+</div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-sm relative z-10 leading-relaxed">
+        Bake interactive AcroForm fields, digital annotations, stamps, and vector overlays permanently into background canvas.
+      </p>
+<div class="mt-space-md pt-space-sm flex items-center justify-between bg-surface-container-low px-space-md py-2.5 rounded-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-coral text-[18px]">verified_user</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">Safe Architecture Engine</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">Zero Cloud Upload</span>
+</div>
+</div>
+<!-- Active Source File Card -->
+<div class="bg-surface-white rounded-xl p-margin shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider font-semibold">Active Document Source</span>
+<button class="flex items-center gap-1 font-label-sm text-label-sm text-primary hover:text-primary-container transition-colors py-1 px-2 rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+<span>Switch</span>
+</button>
+</div>
+<div class="flex items-start gap-space-md bg-background-cloud p-space-md rounded-xl">
+<div class="w-12 h-14 rounded-lg bg-surface-pdf flex flex-col items-center justify-center flex-shrink-0 text-accent-coral shadow-sm relative">
+<span class="material-symbols-outlined text-[26px]">picture_as_pdf</span>
+<span class="font-label-sm text-[9px] font-bold text-accent-coral mt-0.5">6 PGS</span>
+</div>
+<div class="flex-1 min-w-0">
+<h2 class="font-title-sm text-title-sm text-on-surface truncate" title="Commercial_Lease_Agreement_Filled.pdf">
+            Commercial_Lease_Agreement_Filled.pdf
+          </h2>
+<p class="font-caption text-caption text-text-muted mt-0.5">
+            6 pages • 2.1 MB • Interactive PDF v1.7
+          </p>
+<div class="flex items-center gap-1.5 mt-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface-audio text-accent-blue font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">tune</span>
+              17 Targets Found
+            </span>
+</div>
+</div>
+</div>
+<!-- Detected Interactive Elements Badges -->
+<div class="flex flex-col gap-1.5">
+<span class="font-caption text-caption text-text-muted">Detected Editable Artifacts:</span>
+<div class="flex flex-wrap gap-2">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-primary text-[15px]">edit_note</span>
+<span>12 AcroForm Fields</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-accent-amber text-[15px]">approval</span>
+<span>3 Stamp Annotations</span>
+</div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-accent-coral text-[15px]">draw</span>
+<span>2 Freehand Signatures</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Flattening Scope & Targets Card -->
+<div class="bg-surface-white rounded-xl p-margin shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface">Bake Targets &amp; Scope</h3>
+<p class="font-caption text-caption text-text-muted">Select specific document layers to rasterize</p>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-primary font-label-sm text-label-sm font-semibold" id="selectedCountBadge">
+          3 / 4 Selected
+        </span>
+</div>
+<div class="flex flex-col gap-2.5">
+<!-- Option 1 -->
+<label class="flatten-scope-item flex items-start gap-space-sm p-space-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container select-none" data-target="acroform">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary focus:ring-0 cursor-pointer accent-primary" onchange="toggleScope(this)" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Flatten Interactive Form Fields</span>
+<span class="material-symbols-outlined text-accent-coral text-[18px]">lock</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">
+              Bakes text inputs, checkboxes, and radio lists directly into static font glyphs and paths.
+            </p>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="flatten-scope-item flex items-start gap-space-sm p-space-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container select-none" data-target="annotations">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary focus:ring-0 cursor-pointer accent-primary" onchange="toggleScope(this)" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Bake Annotations &amp; Sticky Notes</span>
+<span class="material-symbols-outlined text-accent-amber text-[18px]">comment_bank</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">
+              Locks all comments, highlighters, sticky notes, and visual review marks into the canvas.
+            </p>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="flatten-scope-item flex items-start gap-space-sm p-space-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container select-none" data-target="signatures">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary focus:ring-0 cursor-pointer accent-primary" onchange="toggleScope(this)" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Merge Digital Signatures &amp; Stamps</span>
+<span class="material-symbols-outlined text-accent-teal text-[18px]">verified</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">
+              Converts cryptographic stamps and drawn signatures into immutable vector primitives.
+            </p>
+</div>
+</label>
+<!-- Option 4 -->
+<label class="flatten-scope-item flex items-start gap-space-sm p-space-md rounded-xl bg-surface-container-low cursor-pointer transition-all hover:bg-surface-container select-none" data-target="transparency">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-0 cursor-pointer accent-primary" onchange="toggleScope(this)" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-sm text-title-sm text-on-surface">Rasterize Layer Transparency &amp; Masks</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">opacity</span>
+</div>
+<p class="font-caption text-caption text-text-muted mt-0.5">
+              Pre-renders blend modes and alpha masks to eliminate rendering glitches across older readers.
+            </p>
+</div>
+</label>
+</div>
+</div>
+<!-- Output Quality & Resolution Segmented Chips -->
+<div class="bg-surface-white rounded-xl p-margin shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h3 class="font-title-sm text-title-sm text-on-surface">Rasterization Engine &amp; DPI</h3>
+<span class="font-caption text-caption text-accent-emerald flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[14px]">bolt</span> Recommended
+        </span>
+</div>
+<div class="grid grid-cols-1 gap-2.5" id="dpiSelectorGroup">
+<!-- Preset 1: Lossless Vector -->
+<button class="dpi-choice text-left flex items-center justify-between p-space-md rounded-xl bg-primary text-on-primary transition-all shadow-sm" onclick="selectDpi(0)" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-[22px]">polyline</span>
+<div>
+<p class="font-title-sm text-title-sm text-on-primary">Pure Vector (Lossless Text)</p>
+<p class="font-caption text-caption text-on-primary/80">Preserves razor-sharp typography at any zoom</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] check-icon">check_circle</span>
+</button>
+<!-- Preset 2: 300 DPI -->
+<button class="dpi-choice text-left flex items-center justify-between p-space-md rounded-xl bg-surface-container-low text-on-surface transition-all hover:bg-surface-container" onclick="selectDpi(1)" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[22px]">print</span>
+<div>
+<p class="font-title-sm text-title-sm text-on-surface">Print Quality (300 DPI)</p>
+<p class="font-caption text-caption text-text-muted">High resolution bitmap for commercial printers</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] check-icon hidden">check_circle</span>
+</button>
+<!-- Preset 3: 150 DPI -->
+<button class="dpi-choice text-left flex items-center justify-between p-space-md rounded-xl bg-surface-container-low text-on-surface transition-all hover:bg-surface-container" onclick="selectDpi(2)" type="button">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-[22px]">public</span>
+<div>
+<p class="font-title-sm text-title-sm text-on-surface">Web Compressed (150 DPI)</p>
+<p class="font-caption text-caption text-text-muted">Compact lightweight file size for email attachment</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] check-icon hidden">check_circle</span>
+</button>
+</div>
+</div>
+<!-- Security & Irreversibility Advisory Banner -->
+<div class="bg-surface-calculator p-space-md rounded-xl flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-accent-amber text-[22px] flex-shrink-0 mt-0.5">warning</span>
+<div class="flex-1">
+<h4 class="font-label-md text-label-md text-on-surface font-semibold">Security &amp; Irreversibility Advisory</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1 leading-relaxed">
+          Flattening converts interactive fields into static page content to prevent further editing or accidental modification in viewer apps. A pristine new flattened copy will be created; your original remains untouched.
+        </p>
+</div>
+</div>
+<!-- Primary Action Trigger & Progress State -->
+<div class="flex flex-col gap-space-sm">
+<button class="w-full h-14 bg-primary text-on-primary rounded-xl font-title-sm text-title-sm font-semibold flex items-center justify-center gap-space-sm active:scale-[0.98] transition-all shadow-md hover:bg-primary-container" id="flattenTriggerBtn" onclick="runFlattenSimulation()">
+<span class="material-symbols-outlined text-[22px]">auto_fix_high</span>
+<span id="triggerBtnText">Flatten 6 Pages (Bake All Layers)</span>
+</button>
+<!-- Processing State Panel (Hidden by default) -->
+<div class="hidden bg-surface-white rounded-xl p-margin shadow-sm flex flex-col gap-space-md" id="processingPanel">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[24px] animate-spin">progress_activity</span>
+<div>
+<p class="font-title-sm text-title-sm text-on-surface">Baking PDF Content Tree...</p>
+<p class="font-caption text-caption text-text-muted" id="processStatusText">Vectorizing page 1 of 6</p>
+</div>
+</div>
+<span class="font-title-sm text-title-sm text-primary font-semibold" id="processPercentText">18%</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-300 w-[18%]" id="processProgressBar"></div>
+</div>
+<div class="flex items-center justify-between text-caption font-caption text-text-muted">
+<span>Rasterizing annotations</span>
+<span class="text-accent-coral font-medium">Tamper Lock ON</span>
+</div>
+</div>
+</div>
+<!-- Completed Output Card -->
+<div class="flex flex-col gap-space-md" id="completedOutputSection">
+<div class="bg-surface-white rounded-xl p-margin shadow-md flex flex-col gap-space-md">
+<!-- Success State Badge -->
+<div class="flex items-center justify-between bg-surface-image p-space-md rounded-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-accent-emerald text-surface-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">task_alt</span>
+</div>
+<div>
+<p class="font-title-sm text-title-sm text-on-surface">PDF Flattened Successfully</p>
+<p class="font-caption text-caption text-accent-emerald font-medium">Read-Only Locked · Tamper Protected</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-accent-emerald text-[24px]">verified</span>
+</div>
+<!-- Output File Info Row -->
+<div class="flex items-start gap-space-md bg-background-cloud p-space-md rounded-xl">
+<div class="w-12 h-14 rounded-lg bg-surface-pdf flex flex-col items-center justify-center flex-shrink-0 text-accent-coral shadow-sm">
+<span class="material-symbols-outlined text-[26px]">lock</span>
+<span class="font-label-sm text-[9px] font-bold text-accent-coral mt-0.5">BAKED</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-title-sm text-title-sm text-on-surface truncate" title="Commercial_Lease_Agreement_Flattened.pdf">
+              Commercial_Lease_Agreement_Flattened.pdf
+            </h3>
+<p class="font-caption text-caption text-text-muted mt-0.5">
+              6 pages • 1.9 MB (saved 9%) • Static Vector PDF
+            </p>
+<div class="flex items-center gap-1.5 mt-2">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface-container text-on-surface font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px] text-accent-emerald">shield</span>
+                0 Interactive Elements Left
+              </span>
+</div>
+</div>
+</div>
+<!-- Before vs After Interactive Inspection Card -->
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-text-muted uppercase tracking-wider font-semibold">Visual Layer Comparison</span>
+<span class="font-caption text-caption text-accent-blue font-medium">Page 1 Signature Block</span>
+</div>
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Before Card -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-2 relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-accent-blue font-semibold uppercase">Before Flattening</span>
+<span class="material-symbols-outlined text-accent-blue text-[16px]">edit</span>
+</div>
+<div class="h-20 bg-surface-white rounded-lg p-2.5 flex flex-col justify-between shadow-xs">
+<div class="h-2.5 w-16 bg-surface-container-high rounded"></div>
+<div class="p-1.5 bg-surface-audio rounded text-[11px] font-caption text-accent-blue flex items-center justify-between">
+<span>Interactive Field</span>
+<span class="material-symbols-outlined text-[13px]">animated_images</span>
+</div>
+<div class="h-1.5 w-24 bg-surface-container-high rounded"></div>
+</div>
+<p class="font-caption text-caption text-text-muted text-[11px]">
+                Editable blue highlight box, movable signature layer
+              </p>
+</div>
+<!-- After Card -->
+<div class="bg-surface-image rounded-xl p-space-md flex flex-col gap-2 relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-status-success font-semibold uppercase">After Flattening</span>
+<span class="material-symbols-outlined text-status-success text-[16px]">lock</span>
+</div>
+<div class="h-20 bg-surface-white rounded-lg p-2.5 flex flex-col justify-between shadow-xs">
+<div class="h-2.5 w-16 bg-surface-container-high rounded"></div>
+<div class="p-1.5 bg-transparent rounded text-[11px] font-caption text-on-surface font-semibold flex items-center justify-between">
+<span>Baked Text &amp; Ink</span>
+<span class="material-symbols-outlined text-[13px] text-status-success">verified</span>
+</div>
+<div class="h-1.5 w-24 bg-surface-container-high rounded"></div>
+</div>
+<p class="font-caption text-caption text-text-muted text-[11px]">
+                Permanently merged glyphs, zero field editability
+              </p>
+</div>
+</div>
+</div>
+<!-- Action Grid for Completed File -->
+<div class="flex flex-col gap-2.5 pt-space-xs">
+<div class="grid grid-cols-2 gap-2.5">
+<button class="h-12 bg-primary text-on-primary rounded-xl font-title-sm text-title-sm font-semibold flex items-center justify-center gap-space-xs active:scale-95 transition-all" onclick="triggerToast('Opening PDF in secure viewer...')">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+<span>Open PDF</span>
+</button>
+<button class="h-12 bg-surface-container text-on-surface rounded-xl font-title-sm text-title-sm font-semibold flex items-center justify-center gap-space-xs active:scale-95 transition-all hover:bg-surface-container-high" onclick="triggerToast('Opening Android Share sheet...')">
+<span class="material-symbols-outlined text-[20px]">share</span>
+<span>Share File</span>
+</button>
+</div>
+<button class="h-12 bg-surface-container-low text-on-surface rounded-xl font-title-sm text-title-sm font-semibold flex items-center justify-center gap-space-xs active:scale-95 transition-all hover:bg-surface-container" onclick="triggerToast('Saved to My Files / PDF Flattened/')">
+<span class="material-symbols-outlined text-accent-coral text-[20px]">folder</span>
+<span>Save to My Files</span>
+</button>
+<button class="h-11 text-text-muted hover:text-on-surface rounded-xl font-title-sm text-title-sm flex items-center justify-center gap-space-xs active:scale-95 transition-all" onclick="resetWorkspace()">
+<span class="material-symbols-outlined text-[18px]">restart_alt</span>
+<span>Flatten Another Document</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  function toggleScope(checkbox) {
+    const parent = checkbox.closest('.flatten-scope-item');
+    const checkedCheckboxes = document.querySelectorAll('.flatten-scope-item input[type="checkbox"]:checked');
+    const badge = document.getElementById('selectedCountBadge');
+    
+    if (badge) {
+      badge.textContent = checkedCheckboxes.length + ' / 4 Selected';
+    }
+
+    triggerToast(checkbox.checked ? 'Layer target added' : 'Layer target excluded');
+  }
+
+  function selectDpi(index) {
+    const buttons = document.querySelectorAll('#dpiSelectorGroup .dpi-choice');
+    buttons.forEach((btn, i) => {
+      const checkIcon = btn.querySelector('.check-icon');
+      const textHead = btn.querySelector('p:first-child');
+      const icon = btn.querySelector('.material-symbols-outlined:first-child');
+      
+      if (i === index) {
+        btn.className = "dpi-choice text-left flex items-center justify-between p-space-md rounded-xl bg-primary text-on-primary transition-all shadow-sm";
+        checkIcon.classList.remove('hidden');
+        textHead.classList.remove('text-on-surface');
+        textHead.classList.add('text-on-primary');
+        if (icon) icon.classList.remove('text-on-surface-variant');
+      } else {
+        btn.className = "dpi-choice text-left flex items-center justify-between p-space-md rounded-xl bg-surface-container-low text-on-surface transition-all hover:bg-surface-container";
+        checkIcon.classList.add('hidden');
+        textHead.classList.remove('text-on-primary');
+        textHead.classList.add('text-on-surface');
+        if (icon) icon.classList.add('text-on-surface-variant');
+      }
+    });
+
+    const presetNames = ['Pure Vector (Lossless)', 'Print Quality (300 DPI)', 'Web Compressed (150 DPI)'];
+    triggerToast('Engine set to: ' + presetNames[index]);
+  }
+
+  function triggerToast(msg) {
+    const toast = document.getElementById('toastNotification');
+    const toastText = document.getElementById('toastMessage');
+    if (!toast || !toastText) return;
+    
+    toastText.textContent = msg;
+    toast.classList.remove('-translate-y-8', 'opacity-0');
+    toast.classList.add('translate-y-0', 'opacity-100');
+
+    clearTimeout(window._toastTimer);
+    window._toastTimer = setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('-translate-y-8', 'opacity-0');
+    }, 2400);
+  }
+
+  function runFlattenSimulation() {
+    const triggerBtn = document.getElementById('flattenTriggerBtn');
+    const panel = document.getElementById('processingPanel');
+    const outputSection = document.getElementById('completedOutputSection');
+    const progressBar = document.getElementById('processProgressBar');
+    const percentText = document.getElementById('processPercentText');
+    const statusText = document.getElementById('processStatusText');
+
+    if (!triggerBtn || !panel || !progressBar) return;
+
+    triggerBtn.disabled = true;
+    triggerBtn.classList.add('opacity-50', 'pointer-events-none');
+    panel.classList.remove('hidden');
+    outputSection.classList.add('opacity-40');
+
+    let current = 15;
+    const interval = setInterval(() => {
+      current += Math.floor(Math.random() * 20) + 15;
+      if (current > 100) current = 100;
+
+      progressBar.style.width = current + '%';
+      percentText.textContent = current + '%';
+
+      if (current < 45) {
+        statusText.textContent = 'Baking AcroForm text fields into glyph outlines...';
+      } else if (current < 80) {
+        statusText.textContent = 'Merging cryptographic stamp vectors & ink layers...';
+      } else {
+        statusText.textContent = 'Stripping edit catalogs & finalizing locked tree...';
+      }
+
+      if (current >= 100) {
+        clearInterval(interval);
+        setTimeout(() => {
+          panel.classList.add('hidden');
+          triggerBtn.disabled = false;
+          triggerBtn.classList.remove('opacity-50', 'pointer-events-none');
+          outputSection.classList.remove('opacity-40');
+          outputSection.scrollIntoView({ behavior: 'smooth' });
+          triggerToast('PDF Flattening complete & tamper-locked!');
+        }, 400);
+      }
+    }, 280);
+  }
+
+  function resetWorkspace() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    triggerToast('Ready for new file selection');
+  }
+</script></main></body></html>

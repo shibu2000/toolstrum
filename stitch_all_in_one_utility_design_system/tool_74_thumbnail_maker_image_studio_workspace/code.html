@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fbf8ff;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-productivity": "#FDEBF5", "surface-container-highest": "#dfe0fc", "surface-audio": "#EAF2FF", "on-surface": "#171a2e", "surface-dim": "#d7d8f4", "inverse-on-surface": "#f0efff", "accent-rose": "#EC4899", "surface-video": "#F5EAFF", "error": "#ba1a1a", "accent-coral": "#FF6B6B", "status-success": "#16A34A", "on-primary": "#ffffff", "surface-white": "#FFFFFF", "secondary": "#8127cf", "surface-pdf": "#FFF0EF", "status-error": "#DC2626", "surface-ai": "#F4EAFE", "primary-container": "#625bff", "text-muted": "#64748B", "surface-archive": "#EEF2F6", "surface-container-high": "#e6e6ff", "tertiary-fixed-dim": "#4cd7f6", "surface-web": "#E5FAF6", "tertiary": "#006476", "background": "#fbf8ff", "on-primary-fixed-variant": "#311ed2", "accent-orange": "#F97316", "on-surface-variant": "#464555", "surface-container-lowest": "#ffffff", "surface-office": "#EEEDFF", "surface-scanner": "#E6FAFD", "on-error-container": "#93000a", "on-background": "#171a2e", "surface-bright": "#fbf8ff", "on-error": "#ffffff", "primary": "#483ee5", "on-tertiary": "#ffffff", "primary-fixed": "#e2dfff", "secondary-fixed-dim": "#ddb7ff", "status-warning": "#F59E0B", "accent-amber": "#F59E0B", "on-tertiary-container": "#f5fcff", "on-primary-container": "#fefaff", "on-tertiary-fixed-variant": "#004e5c", "tertiary-container": "#007f95", "on-secondary-container": "#fffbff", "border-subtle": "#E2E8F0", "on-secondary-fixed": "#2c0051", "on-tertiary-fixed": "#001f26", "secondary-fixed": "#f0dbff", "tertiary-fixed": "#acedff", "surface-calculator": "#FFF7E2", "error-container": "#ffdad6", "surface-developer": "#E8F7FF", "background-cloud": "#F7F8FC", "outline-variant": "#c7c4d8", "accent-sky": "#0EA5E9", "primary-fixed-dim": "#c3c0ff", "accent-emerald": "#10B981", "accent-teal": "#14B8A6", "on-primary-fixed": "#0e006a", "surface-tint": "#4c42e9", "surface-container": "#edecff", "on-secondary-fixed-variant": "#6900b3", "surface-container-low": "#f4f2ff", "surface-text": "#FFF1E7", "surface": "#fbf8ff", "inverse-primary": "#c3c0ff", "surface-image": "#E7F9F1", "secondary-container": "#9c48ea", "accent-blue": "#3B82F6", "outline": "#777587", "on-secondary": "#ffffff", "surface-variant": "#dfe0fc", "inverse-surface": "#2c2f44" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin-sm": "1rem", "space-lg": "1.5rem", "gutter-sm": "0.75rem", "space-md": "1rem", "space-xl": "2rem", "gutter": "1rem", "space-xs": "0.25rem", "margin": "1.25rem", "space-sm": "0.5rem" }, fontFamily: { "headline-sm": ["Inter"], "body-lg": ["Inter"], "body-sm": ["Inter"], "headline-md": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "title-sm": ["Inter"], "caption": ["Inter"], "headline-lg": ["Inter"], "headline-lg-mobile": ["Inter"] }, fontSize: { "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(23,26,46,0.04)]"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs min-w-0"><button aria-label="Navigate Back" class="w-12 h-12 -ml-2 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-container-high transition-colors" onclick="history.back()"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold tracking-wide"><span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span>Image Studio</span></div><h1 class="font-title-sm text-title-sm font-semibold text-on-surface truncate">Image Converter</h1></div></div><div class="flex items-center gap-0.5 shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-accent-amber hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="ml-1"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></div></header><main class="flex flex-col relative w-full px-margin pt-16 pb-safe bg-surface min-h-screen"><div class="flex flex-col w-full pb-8 space-y-5">
+<!-- Contextual Workspace Header -->
+<div class="flex flex-col space-y-2 pt-2">
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold tracking-wide">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-emerald"></span>
+        Tool #74 · Image Studio
+      </span>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-medium">
+        Video &amp; Social Cover Studio
+      </span>
+</div>
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-on-surface tracking-tight">
+        Thumbnail Maker
+      </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-snug">
+        Create compelling, high-CTR cover thumbnails for YouTube, podcasts, social feeds, and web listings.
+      </p>
+</div>
+</div>
+<!-- Interactive Thumbnail Canvas Stage -->
+<div class="flex flex-col space-y-2.5">
+<div class="flex items-center justify-between px-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald" style="font-variation-settings: 'FILL' 1;">crop_original</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Live Canvas Preview</span>
+</div>
+<span class="font-caption text-caption text-text-muted">Gaming_Setup_Neon_Desk.jpg (3840×2160)</span>
+</div>
+<!-- 16:9 Canvas Viewport with Bounding Box Overlay -->
+<div class="relative w-full aspect-video rounded-xl overflow-hidden bg-on-surface shadow-md select-none group">
+<!-- Background Image -->
+<img class="w-full h-full object-cover transition-transform duration-300" data-alt="Modern cyberpunk gaming desktop setup with dual ultrawide monitors glowing in vivid neon purple and cyber-emerald hues, mechanical RGB keyboard, sleek matte black speakers, volumetric ambient atmospheric light in a cinematic dark tech workspace." id="canvasImg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6iyENbu8cJQvdgtAbcw2oJz-Q7fcegWb-BdSbGX5-1ozeUpcO7x6MKUnZ0uS3IWg3Gwoox1STiOpwRKg2bHtQ2A1i51iLGl0u45PzD7uKzCjnBxE9z-EmDF_JfFu4whx3x1s5SJDqUxdxNTl6qvJeHhBINa5UChokZSsQNk5fPNpehCg0X_kpc1coMa5R2zze3LWV8PQtC_Z52UxiE0AwNfYYSCdXQ0iSk9KDENXSHekPtdctOZWoKw"/>
+<!-- Composition Crop Guides & Interactive Bounding Box -->
+<div class="absolute inset-0 pointer-events-none p-3 flex flex-col justify-between">
+<!-- Rule of thirds dashed aesthetic guides -->
+<div class="absolute inset-0 grid grid-cols-3 grid-rows-3 opacity-25">
+<div class="border-r border-b border-surface-white/60"></div>
+<div class="border-r border-b border-surface-white/60"></div>
+<div class="border-b border-surface-white/60"></div>
+<div class="border-r border-b border-surface-white/60"></div>
+<div class="border-r border-b border-surface-white/60"></div>
+<div class="border-b border-surface-white/60"></div>
+<div class="border-r border-surface-white/60"></div>
+<div class="border-r border-surface-white/60"></div>
+<div></div>
+</div>
+<!-- Corner Bounding Box Grips -->
+<div class="w-3.5 h-3.5 rounded-full bg-surface-white shadow-md absolute -top-1 -left-1"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-surface-white shadow-md absolute -top-1 -right-1"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-surface-white shadow-md absolute -bottom-1 -left-1"></div>
+<div class="w-3.5 h-3.5 rounded-full bg-surface-white shadow-md absolute -bottom-1 -right-1"></div>
+<!-- Safe Title Zone Indicator -->
+<div class="self-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-inverse-surface/80 backdrop-blur-md text-surface-white font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[12px] text-accent-emerald">videocam</span> 16:9 YT Safe Area
+          </span>
+</div>
+<!-- Interactive Text Overlay Layer on Canvas -->
+<div class="relative z-10 max-w-[85%] transition-all duration-200" id="canvasTextOverlay">
+<div class="inline-block bg-accent-emerald text-on-surface px-2.5 py-0.5 rounded-md font-label-sm text-label-sm font-bold tracking-widest uppercase mb-1 shadow-sm">
+            NEW EPISODE
+          </div>
+<div class="font-headline-md text-headline-md font-black tracking-tight text-surface-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] leading-tight uppercase" id="canvasMainText" style="text-shadow: -1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000;">
+            EPISODE 04: BUILD SETUP
+          </div>
+</div>
+</div>
+<!-- Quick Canvas Overlay Controls -->
+<div class="absolute bottom-2 right-2 flex items-center gap-1.5 z-20">
+<button class="w-8 h-8 rounded-lg bg-surface-white/90 backdrop-blur-sm text-on-surface flex items-center justify-center shadow hover:bg-surface-white transition-colors" id="toggleGuidesBtn" title="Toggle Grid Guides">
+<span class="material-symbols-outlined text-[18px]">grid_3x3</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-surface-white/90 backdrop-blur-sm text-on-surface flex items-center justify-center shadow hover:bg-surface-white transition-colors" id="previewFullBtn" title="Fit Zoom">
+<span class="material-symbols-outlined text-[18px]">fit_screen</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Aspect Ratio & Dimension Presets Card -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm space-y-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">aspect_ratio</span>
+<span class="font-title-sm text-title-sm font-semibold text-on-surface">Target Platform &amp; Ratio</span>
+</div>
+<span class="font-label-sm text-label-sm text-text-muted">1280 × 720 Standard</span>
+</div>
+<!-- Ratio Horizontal Scroller / Segmented Chips -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 -mx-1 px-1">
+<button class="ratio-btn shrink-0 px-3.5 py-2 rounded-xl text-left bg-primary-container text-on-primary font-label-md text-label-md flex flex-col gap-0.5 shadow-sm transition-all" data-dim="1280 × 720" data-ratio="16:9">
+<span class="font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">smart_display</span> 16:9 YouTube
+        </span>
+<span class="font-caption text-caption opacity-90">1280 × 720 px</span>
+</button>
+<button class="ratio-btn shrink-0 px-3.5 py-2 rounded-xl text-left bg-surface-container text-on-surface font-label-md text-label-md flex flex-col gap-0.5 hover:bg-surface-container-high transition-all" data-dim="1080 × 1080" data-ratio="1:1">
+<span class="font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">crop_square</span> 1:1 Square
+        </span>
+<span class="font-caption text-caption text-on-surface-variant">1080 × 1080 px</span>
+</button>
+<button class="ratio-btn shrink-0 px-3.5 py-2 rounded-xl text-left bg-surface-container text-on-surface font-label-md text-label-md flex flex-col gap-0.5 hover:bg-surface-container-high transition-all" data-dim="1080 × 1350" data-ratio="4:5">
+<span class="font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">stay_current_portrait</span> 4:5 Feed
+        </span>
+<span class="font-caption text-caption text-on-surface-variant">1080 × 1350 px</span>
+</button>
+<button class="ratio-btn shrink-0 px-3.5 py-2 rounded-xl text-left bg-surface-container text-on-surface font-label-md text-label-md flex flex-col gap-0.5 hover:bg-surface-container-high transition-all" data-dim="1080 × 1920" data-ratio="9:16">
+<span class="font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">smartphone</span> 9:16 Shorts
+        </span>
+<span class="font-caption text-caption text-on-surface-variant">1080 × 1920 px</span>
+</button>
+</div>
+<!-- Fit Mode & Letterbox Controls -->
+<div class="pt-2 flex flex-col space-y-2.5">
+<div class="flex items-center justify-between text-on-surface">
+<span class="font-label-md text-label-md font-medium">Fit &amp; Framing Mode</span>
+<span class="font-caption text-caption text-accent-emerald font-semibold">Zero Distortion</span>
+</div>
+<div class="grid grid-cols-2 gap-2 p-1 bg-surface-container rounded-xl">
+<button class="py-2 px-3 rounded-lg bg-surface-white text-on-surface shadow-sm font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-all" id="fitCropBtn">
+<span class="material-symbols-outlined text-[18px] text-accent-emerald">crop</span> Crop to Fit
+        </button>
+<button class="py-2 px-3 rounded-lg text-on-surface-variant font-label-md text-label-md font-medium flex items-center justify-center gap-1.5 hover:text-on-surface transition-all" id="fitContainBtn">
+<span class="material-symbols-outlined text-[18px]">photo_size_select_large</span> Contain &amp; Bar
+        </button>
+</div>
+<!-- Letterbox color picker row (visible when contain selected) -->
+<div class="hidden items-center justify-between p-2.5 bg-surface-container-low rounded-lg" id="letterboxRow">
+<span class="font-caption text-caption text-on-surface-variant font-medium">Letterbox Padding:</span>
+<div class="flex items-center gap-2">
+<button class="w-6 h-6 rounded-full bg-black shadow-sm ring-2 ring-primary ring-offset-1"></button>
+<button class="w-6 h-6 rounded-full bg-white shadow-sm"></button>
+<button class="w-6 h-6 rounded-full bg-surface-dim shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-surface">colorize</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Text & Graphic Overlay Customizer Accordion -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
+<!-- Header trigger -->
+<button class="w-full p-4 flex items-center justify-between text-left focus:outline-none" id="textAccordionHeader">
+<div class="flex items-center gap-2.5 min-w-0">
+<div class="w-8 h-8 rounded-lg bg-surface-office flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[20px]">title</span>
+</div>
+<div class="min-w-0">
+<div class="font-title-sm text-title-sm font-semibold text-on-surface">Text Overlay (Optional)</div>
+<div class="font-caption text-caption text-on-surface-variant truncate">Edit hero headline, typography, colors &amp; outline</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant transition-transform duration-200" id="accordionChevron">expand_less</span>
+</button>
+<!-- Content Panel -->
+<div class="px-4 pb-4 space-y-4" id="textAccordionContent">
+<!-- Input String -->
+<div class="space-y-1.5">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface-variant uppercase tracking-wider">Thumbnail Catchphrase</label>
+<div class="relative flex items-center">
+<input class="w-full bg-surface-container-low text-on-surface rounded-xl px-3.5 py-3 font-body-md text-body-md focus:bg-surface-white focus:outline-none focus:ring-2 focus:ring-primary-container pr-10" id="textInput" maxlength="45" placeholder="Type your high-impact title..." type="text" value="EPISODE 04: BUILD SETUP"/>
+<button class="absolute right-2.5 text-text-muted hover:text-on-surface p-1 rounded-full" id="clearTextBtn">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+</button>
+</div>
+</div>
+<!-- Typography Controls (Size Slider + Swatches) -->
+<div class="space-y-3">
+<!-- Font Size Slider -->
+<div class="space-y-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-medium">Text Size</span>
+<span class="font-label-md text-label-md font-bold text-primary" id="fontSizeDisplay">44 pt</span>
+</div>
+<input class="w-full accent-primary-container h-2 bg-surface-container rounded-lg cursor-pointer" id="fontSizeSlider" max="68" min="24" type="range" value="44"/>
+</div>
+<!-- Color Swatches & Outline Toggle -->
+<div class="flex items-center justify-between gap-2 pt-1">
+<div class="flex flex-col space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Palette</span>
+<div class="flex items-center gap-2">
+<!-- Pure White swatch -->
+<button class="color-swatch w-7 h-7 rounded-full bg-white shadow-sm ring-2 ring-primary ring-offset-2 transition-transform" data-color="#FFFFFF" title="Pure White"></button>
+<!-- Sunbeam Yellow swatch -->
+<button class="color-swatch w-7 h-7 rounded-full bg-amber-400 shadow-sm transition-transform" data-color="#FACC15" title="Sunbeam Yellow"></button>
+<!-- Studio Emerald swatch -->
+<button class="color-swatch w-7 h-7 rounded-full bg-accent-emerald shadow-sm transition-transform" data-color="#10B981" title="Emerald Green"></button>
+</div>
+</div>
+<!-- Stroke Toggle -->
+<div class="flex flex-col items-end space-y-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">+2px Black Stroke</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="strokeToggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- Alignment Segmented Chips -->
+<div class="pt-1 flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Text Alignment</span>
+<div class="inline-flex rounded-lg bg-surface-container p-1 gap-1">
+<button class="align-btn px-2.5 py-1 rounded bg-surface-white text-on-surface shadow-xs font-label-sm text-label-sm" data-align="left">
+<span class="material-symbols-outlined text-[16px]">format_align_left</span>
+</button>
+<button class="align-btn px-2.5 py-1 rounded text-on-surface-variant font-label-sm text-label-sm" data-align="center">
+<span class="material-symbols-outlined text-[16px]">format_align_center</span>
+</button>
+<button class="align-btn px-2.5 py-1 rounded text-on-surface-variant font-label-sm text-label-sm" data-align="right">
+<span class="material-symbols-outlined text-[16px]">format_align_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Export Quality & Compression Specs -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm space-y-3.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-accent-emerald">tune</span>
+<span class="font-title-sm text-title-sm font-semibold text-on-surface">Export Quality &amp; Compression</span>
+</div>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm font-semibold text-status-success">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span> &lt; 2 MB Ready
+      </span>
+</div>
+<!-- Format Toggle -->
+<div class="grid grid-cols-2 gap-2 p-1 bg-surface-container rounded-xl">
+<button class="format-btn py-2 px-3 rounded-lg text-on-surface-variant font-label-md text-label-md font-medium transition-all" data-format="jpg">
+        JPEG (Universal)
+      </button>
+<button class="format-btn py-2 px-3 rounded-lg bg-surface-white text-on-surface shadow-sm font-label-md text-label-md font-bold transition-all" data-format="webp">
+        WebP (Ultra-Compact)
+      </button>
+</div>
+<!-- Quality Slider -->
+<div class="space-y-1.5 pt-1">
+<div class="flex items-center justify-between font-label-md text-label-md">
+<span class="text-on-surface font-medium">Quality Optimization</span>
+<span class="font-bold text-primary" id="qualityVal">85% (Balanced High)</span>
+</div>
+<input class="w-full accent-primary-container h-2 bg-surface-container rounded-lg cursor-pointer" id="qualitySlider" max="100" min="60" type="range" value="85"/>
+<div class="flex justify-between font-caption text-caption text-text-muted">
+<span>Fastest Load (60%)</span>
+<span>Recommended (85%)</span>
+<span>Lossless (100%)</span>
+</div>
+</div>
+</div>
+<!-- Primary Action Execution Bar -->
+<div class="pt-1">
+<button class="w-full h-14 rounded-xl bg-primary-container hover:bg-primary active:scale-[0.99] text-on-primary font-title-md text-title-md font-semibold tracking-wide shadow-md flex items-center justify-center gap-2.5 transition-all" id="renderActionBtn">
+<span class="material-symbols-outlined text-[22px]">auto_fix_high</span>
+<span id="renderActionText">Create Thumbnail (1280 × 720 px)</span>
+</button>
+</div>
+<!-- Processing State Overlay Simulation (Hidden by default) -->
+<div class="hidden p-4 rounded-xl bg-surface-container-low shadow-sm animate-pulse flex-col items-center justify-center py-6 space-y-3" id="processingCard">
+<div class="w-10 h-10 rounded-full border-4 border-primary-container border-t-transparent animate-spin"></div>
+<div class="font-title-sm text-title-sm font-semibold text-on-surface">Compositing High-CTR Thumbnail...</div>
+<div class="font-caption text-caption text-text-muted">Downsampling 3840px raw canvas to 1280×720 WebP</div>
+</div>
+<!-- Completed Output Card -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-sm space-y-4" id="completedOutputCard">
+<!-- Verified Badge -->
+<div class="flex items-center justify-between bg-surface-image px-3 py-2 rounded-lg text-accent-emerald">
+<div class="flex items-center gap-1.5 min-w-0">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md font-bold truncate">Thumbnail Rendered Ready · 684 KB</span>
+</div>
+<span class="font-label-sm text-label-sm font-semibold shrink-0 uppercase tracking-wider text-accent-emerald">Compliant</span>
+</div>
+<!-- Final Render Preview Card -->
+<div class="space-y-2">
+<div class="relative w-full aspect-video rounded-lg overflow-hidden bg-on-surface shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Exported finished digital YouTube thumbnail showing vibrant purple and neon green desktop gamer battlestation with bold white graphic overlay headline EPISODE 04: BUILD SETUP and sharp high contrast visual finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX-735zKILO6417Ok6QRepyvGKFzyNT5IgCAjbfeoXaIj7L7ymhOXgHTu38lQATnYejTEKIdzB99BnMldyYIu7LHZiEt4uvP5DueVQiWyXqF7aRLJN6wop2457PeJUe6SEOv0FCo_PVsKfWw3YgpSebgZDMYbS1_XyKkKQjkps1VH-Lrt9v5s9VHImaFpfwgYTcYA0Sqp6MW4aWGUs6I-vMjJIQokxL6uE7zKQIVrgW9IcK60CKUNhLA"/>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-on-surface/80 backdrop-blur-md text-surface-white font-caption text-caption font-mono">
+          1280 × 720 · sRGB · 85% WebP
+        </div>
+</div>
+</div>
+<!-- Output Action Buttons Stack -->
+<div class="space-y-2 pt-1">
+<!-- Save to Gallery (Indigo Primary) -->
+<button class="w-full h-12 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors active:scale-[0.99]">
+<span class="material-symbols-outlined text-[20px]">download</span>
+        Save to Gallery (684 KB)
+      </button>
+<!-- Secondary & Ghost Action Row -->
+<div class="grid grid-cols-2 gap-2">
+<button class="h-11 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors">
+<span class="material-symbols-outlined text-[18px]">share</span>
+          Share Thumbnail
+        </button>
+<button class="h-11 rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 transition-colors" id="resetToolBtn">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+          Create Another
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // DOM element bindings
+  const textInput = document.getElementById('textInput');
+  const canvasMainText = document.getElementById('canvasMainText');
+  const clearTextBtn = document.getElementById('clearTextBtn');
+  const fontSizeSlider = document.getElementById('fontSizeSlider');
+  const fontSizeDisplay = document.getElementById('fontSizeDisplay');
+  const strokeToggle = document.getElementById('strokeToggle');
+  const colorSwatches = document.querySelectorAll('.color-swatch');
+  const alignBtns = document.querySelectorAll('.align-btn');
+  const textAccordionHeader = document.getElementById('textAccordionHeader');
+  const textAccordionContent = document.getElementById('textAccordionContent');
+  const accordionChevron = document.getElementById('accordionChevron');
+  const ratioBtns = document.querySelectorAll('.ratio-btn');
+  const fitCropBtn = document.getElementById('fitCropBtn');
+  const fitContainBtn = document.getElementById('fitContainBtn');
+  const letterboxRow = document.getElementById('letterboxRow');
+  const qualitySlider = document.getElementById('qualitySlider');
+  const qualityVal = document.getElementById('qualityVal');
+  const formatBtns = document.querySelectorAll('.format-btn');
+  const renderActionBtn = document.getElementById('renderActionBtn');
+  const renderActionText = document.getElementById('renderActionText');
+  const processingCard = document.getElementById('processingCard');
+  const completedOutputCard = document.getElementById('completedOutputCard');
+  const resetToolBtn = document.getElementById('resetToolBtn');
+
+  // Real-time Text Input Sync
+  textInput.addEventListener('input', (e) => {
+    const val = e.target.value.trim();
+    canvasMainText.textContent = val.length > 0 ? val : 'YOUR TITLE HERE';
+  });
+
+  clearTextBtn.addEventListener('click', () => {
+    textInput.value = '';
+    canvasMainText.textContent = 'YOUR TITLE HERE';
+    textInput.focus();
+  });
+
+  // Font Size Slider
+  fontSizeSlider.addEventListener('input', (e) => {
+    const size = e.target.value;
+    fontSizeDisplay.textContent = `${size} pt`;
+    canvasMainText.style.fontSize = `${Math.round(size * 0.42)}px`; // scaled for preview aspect-ratio container
+  });
+
+  // Color Swatches
+  colorSwatches.forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      colorSwatches.forEach(s => s.classList.remove('ring-2', 'ring-primary', 'ring-offset-2'));
+      swatch.classList.add('ring-2', 'ring-primary', 'ring-offset-2');
+      const hex = swatch.getAttribute('data-color');
+      canvasMainText.style.color = hex;
+    });
+  });
+
+  // Stroke Toggle
+  strokeToggle.addEventListener('change', (e) => {
+    if (e.target.checked) {
+      canvasMainText.style.textShadow = '-1.5px -1.5px 0 #000, 1.5px -1.5px 0 #000, -1.5px 1.5px 0 #000, 1.5px 1.5px 0 #000';
+    } else {
+      canvasMainText.style.textShadow = '0 2px 8px rgba(0,0,0,0.7)';
+    }
+  });
+
+  // Alignment
+  alignBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      alignBtns.forEach(b => {
+        b.classList.remove('bg-surface-white', 'text-on-surface', 'shadow-xs');
+        b.classList.add('text-on-surface-variant');
+      });
+      btn.classList.add('bg-surface-white', 'text-on-surface', 'shadow-xs');
+      btn.classList.remove('text-on-surface-variant');
+      const align = btn.getAttribute('data-align');
+      const container = document.getElementById('canvasTextOverlay');
+      if (align === 'left') {
+        container.style.textAlign = 'left';
+        container.style.marginLeft = '0';
+        container.style.marginRight = 'auto';
+      } else if (align === 'center') {
+        container.style.textAlign = 'center';
+        container.style.marginLeft = 'auto';
+        container.style.marginRight = 'auto';
+      } else {
+        container.style.textAlign = 'right';
+        container.style.marginLeft = 'auto';
+        container.style.marginRight = '0';
+      }
+    });
+  });
+
+  // Accordion Toggle
+  textAccordionHeader.addEventListener('click', () => {
+    const isHidden = textAccordionContent.classList.contains('hidden');
+    if (isHidden) {
+      textAccordionContent.classList.remove('hidden');
+      accordionChevron.style.transform = 'rotate(0deg)';
+    } else {
+      textAccordionContent.classList.add('hidden');
+      accordionChevron.style.transform = 'rotate(180deg)';
+    }
+  });
+
+  // Presets Ratio Toggle
+  ratioBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      ratioBtns.forEach(b => {
+        b.classList.remove('bg-primary-container', 'text-on-primary', 'shadow-sm');
+        b.classList.add('bg-surface-container', 'text-on-surface');
+      });
+      btn.classList.add('bg-primary-container', 'text-on-primary', 'shadow-sm');
+      btn.classList.remove('bg-surface-container', 'text-on-surface');
+      const dim = btn.getAttribute('data-dim');
+      renderActionText.textContent = `Create Thumbnail (${dim} px)`;
+    });
+  });
+
+  // Fit & Contain Toggles
+  fitCropBtn.addEventListener('click', () => {
+    fitCropBtn.classList.add('bg-surface-white', 'text-on-surface', 'shadow-sm', 'font-semibold');
+    fitCropBtn.classList.remove('text-on-surface-variant', 'font-medium');
+    fitContainBtn.classList.remove('bg-surface-white', 'text-on-surface', 'shadow-sm', 'font-semibold');
+    fitContainBtn.classList.add('text-on-surface-variant', 'font-medium');
+    letterboxRow.classList.add('hidden');
+    letterboxRow.classList.remove('flex');
+  });
+
+  fitContainBtn.addEventListener('click', () => {
+    fitContainBtn.classList.add('bg-surface-white', 'text-on-surface', 'shadow-sm', 'font-semibold');
+    fitContainBtn.classList.remove('text-on-surface-variant', 'font-medium');
+    fitCropBtn.classList.remove('bg-surface-white', 'text-on-surface', 'shadow-sm', 'font-semibold');
+    fitCropBtn.classList.add('text-on-surface-variant', 'font-medium');
+    letterboxRow.classList.remove('hidden');
+    letterboxRow.classList.add('flex');
+  });
+
+  // Export Quality Slider
+  qualitySlider.addEventListener('input', (e) => {
+    const val = e.target.value;
+    if (val < 75) {
+      qualityVal.textContent = `${val}% (High Compression)`;
+    } else if (val < 90) {
+      qualityVal.textContent = `${val}% (Balanced High)`;
+    } else {
+      qualityVal.textContent = `${val}% (Maximum Fidelity)`;
+    }
+  });
+
+  // Format Switcher
+  formatBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      formatBtns.forEach(b => {
+        b.classList.remove('bg-surface-white', 'text-on-surface', 'shadow-sm', 'font-bold');
+        b.classList.add('text-on-surface-variant', 'font-medium');
+      });
+      btn.classList.add('bg-surface-white', 'text-on-surface', 'shadow-sm', 'font-bold');
+      btn.classList.remove('text-on-surface-variant', 'font-medium');
+    });
+  });
+
+  // Primary Execution Simulated Render Flow
+  renderActionBtn.addEventListener('click', () => {
+    renderActionBtn.disabled = true;
+    renderActionBtn.classList.add('opacity-50');
+    completedOutputCard.classList.add('hidden');
+    processingCard.classList.remove('hidden');
+    processingCard.classList.add('flex');
+
+    setTimeout(() => {
+      processingCard.classList.add('hidden');
+      processingCard.classList.remove('flex');
+      completedOutputCard.classList.remove('hidden');
+      renderActionBtn.disabled = false;
+      renderActionBtn.classList.remove('opacity-50');
+      completedOutputCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 750);
+  });
+
+  resetToolBtn.addEventListener('click', () => {
+    completedOutputCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    textInput.value = 'EPISODE 05: SETUP TOUR';
+    canvasMainText.textContent = 'EPISODE 05: SETUP TOUR';
+  });
+</script></main></body></html>

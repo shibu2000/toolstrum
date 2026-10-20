@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-office": "#EEEDFF", "surface-container-low": "#f4f2ff", "secondary-fixed-dim": "#ddb7ff", "tertiary-fixed": "#acedff", "text-muted": "#64748B", "surface-pdf": "#FFF0EF", "surface-container-lowest": "#ffffff", "accent-rose": "#EC4899", "surface-ai": "#F4EAFE", "on-tertiary": "#ffffff", "surface-tint": "#4c42e9", "inverse-primary": "#c3c0ff", "surface-image": "#E7F9F1", "surface-archive": "#EEF2F6", "accent-emerald": "#10B981", "surface-variant": "#dfe0fc", "border-subtle": "#E2E8F0", "outline-variant": "#c7c4d8", "on-secondary-fixed-variant": "#6900b3", "surface-container-high": "#e6e6ff", "status-warning": "#F59E0B", "primary-container": "#625bff", "background-cloud": "#F7F8FC", "on-tertiary-fixed-variant": "#004e5c", "on-tertiary-fixed": "#001f26", "surface-audio": "#EAF2FF", "accent-coral": "#FF6B6B", "error-container": "#ffdad6", "primary-fixed": "#e2dfff", "on-secondary-container": "#fffbff", "secondary": "#8127cf", "surface-dim": "#d7d8f4", "surface-bright": "#fbf8ff", "on-background": "#171a2e", "status-success": "#16A34A", "accent-sky": "#0EA5E9", "inverse-surface": "#2c2f44", "surface-video": "#F5EAFF", "primary": "#483ee5", "primary-fixed-dim": "#c3c0ff", "surface-white": "#FFFFFF", "outline": "#777587", "secondary-container": "#9c48ea", "background": "#fbf8ff", "inverse-on-surface": "#f0efff", "on-primary-fixed": "#0e006a", "surface-developer": "#E8F7FF", "surface-container": "#edecff", "status-error": "#DC2626", "on-surface": "#171a2e", "tertiary": "#006476", "on-secondary": "#ffffff", "tertiary-fixed-dim": "#4cd7f6", "on-error-container": "#93000a", "surface-container-highest": "#dfe0fc", "on-primary-container": "#fefaff", "surface-productivity": "#FDEBF5", "on-secondary-fixed": "#2c0051", "surface-scanner": "#E6FAFD", "accent-teal": "#14B8A6", "on-error": "#ffffff", "on-tertiary-container": "#f5fcff", "surface-calculator": "#FFF7E2", "on-primary": "#ffffff", "surface-text": "#FFF1E7", "accent-amber": "#F59E0B", "on-primary-fixed-variant": "#311ed2", "tertiary-container": "#007f95", "accent-orange": "#F97316", "accent-blue": "#3B82F6", "surface-web": "#E5FAF6", "error": "#ba1a1a", "on-surface-variant": "#464555", "secondary-fixed": "#f0dbff", "surface": "#fbf8ff" }, borderRadius: { DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px" }, spacing: { "margin-sm": "1rem", margin: "1.25rem", "space-lg": "1.5rem", "space-md": "1rem", gutter: "1rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-xs": "0.25rem", "gutter-sm": "0.75rem" }, fontFamily: { "body-lg": ["Inter"], "label-sm": ["Inter"], "body-md": ["Inter"], "headline-md": ["Inter"], "headline-lg-mobile": ["Inter"], caption: ["Inter"], "title-sm": ["Inter"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "title-md": ["Inter"], "label-md": ["Inter"], "body-sm": ["Inter"] }, fontSize: { "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "label-sm": ["11px", { lineHeight: "14px", fontWeight: "500" }], "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "headline-lg-mobile": ["26px", { lineHeight: "34px", fontWeight: "700" }], caption: ["12px", { lineHeight: "16px", fontWeight: "400" }], "title-sm": ["14px", { lineHeight: "20px", fontWeight: "600" }], "headline-sm": ["18px", { lineHeight: "24px", fontWeight: "600" }], "headline-lg": ["30px", { lineHeight: "38px", fontWeight: "700" }], "title-md": ["16px", { lineHeight: "22px", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", fontWeight: "500" }], "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }] } } } }</script><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud font-body-md text-body-md text-on-surface antialiased flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-background-cloud/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(23,26,46,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0"><button aria-label="Go back" class="w-11 h-11 -ml-space-xs rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-surface-scanner text-tertiary font-label-sm text-label-sm tracking-wide uppercase font-semibold">Scanner Studio</span></div><h1 class="font-title-md text-title-md text-on-surface truncate tracking-tight">Document Scanner Workspace</h1></div></div><div class="flex items-center gap-space-xs shrink-0"><button aria-label="Favorite" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 rounded-full flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:bg-surface-variant transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><button aria-label="User profile" class="w-11 h-11 rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all" type="button"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></button></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-background-cloud pb-safe"><div class="flex flex-col w-full">
+<div class="px-margin pt-space-md pb-space-xl flex flex-col gap-space-lg">
+<!-- Top Metadata Badges & Description -->
+<section class="flex flex-col gap-space-sm">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-scanner text-tertiary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">crop_free</span>
+          Tool #87 · Scanner Studio
+        </span>
+<span class="inline-flex items-center px-2 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm font-medium">
+          4-Point Planar Homography
+        </span>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-surface-container-low text-accent-teal font-label-sm text-label-sm font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-accent-teal"></span>
+          Engine Ready
+        </span>
+</div>
+<div class="flex flex-col gap-0.5">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">Perspective Correction</h2>
+<p class="font-body-md text-body-md text-text-muted">
+          Straighten angled, skewed, or keystone-distorted document photos into flat, rectangular orthographic scans.
+        </p>
+</div>
+</section>
+<!-- Interactive Mesh Preview Canvas Card -->
+<section class="bg-surface-white rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Canvas Header Bar -->
+<div class="p-space-md bg-surface-white flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-2 min-w-0">
+<span class="w-2.5 h-2.5 rounded-full bg-accent-teal"></span>
+<span class="font-title-sm text-title-sm text-on-surface truncate">Keystone Mesh Viewport</span>
+</div>
+<div class="flex items-center gap-1 shrink-0">
+<span class="font-caption text-caption text-text-muted">Pitch: 35.2° Acute</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-scanner text-tertiary font-label-sm text-label-sm font-semibold">Mesh: Active</span>
+</div>
+</div>
+<!-- Live Interactive Viewport -->
+<div class="relative w-full aspect-[4/5] bg-surface-dim overflow-hidden select-none touch-none" id="viewportContainer">
+<!-- High-res angled document photo -->
+<img alt="Angled document sample" class="w-full h-full object-cover pointer-events-none" data-alt="High resolution photograph taken at an acute 35-degree angle showing a legal agreement contract resting diagonally on a dark textured walnut desk with subtle warm ambient studio lighting, exhibiting severe trapezoid keystone perspective distortion." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4Z6Jt5PBHX5JSTwvVIxqQN_3VeF1jbT8AR_LUb3r4c49nkUloloYEWCmVJZza98pkQGaHmncevO3GK-8wDWEq_gJsQ21PAJyalCDan8QN6UMEioMc4QgbI7V3g5nIV2Mc5mpvYUt1rZIYQdQlGgqPaJj4fV28HimdA8rtnqdq4DiyAJrxcC_tzgGVKzlGPKCzAoAoA7VmQ0eAtIUYjsDg82dLULPiZAw5bM5Z91d3Vy2Tny-JMy3fAA"/>
+<!-- Translucent dark scrim over skewed canvas for mesh contrast -->
+<div class="absolute inset-0 bg-on-surface/20 pointer-events-none"></div>
+<!-- SVG Projection Wireframe Overlay -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" viewbox="0 0 400 500">
+<!-- Translucent quadrilateral fill -->
+<polygon fill="rgba(20, 184, 166, 0.18)" id="quadFill" points="50,44 356,71 336,480 32,455" stroke="none"></polygon>
+<!-- Outer Homography Boundary -->
+<polygon fill="none" id="quadStroke" points="50,44 356,71 336,480 32,455" stroke="#14B8A6" stroke-dasharray="6,4" stroke-width="2.5"></polygon>
+<!-- Perspective Grid Guides -->
+<line stroke="rgba(20, 184, 166, 0.45)" stroke-width="1.5" x1="203" x2="184" y1="57" y2="467"></line>
+<line stroke="rgba(20, 184, 166, 0.45)" stroke-width="1.5" x1="41" x2="346" y1="249" y2="275"></line>
+<!-- Angle Readout Labels -->
+<rect fill="rgba(23, 26, 46, 0.85)" height="18" rx="4" width="46" x="56" y="52"></rect>
+<text fill="#acedff" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="79" y="65">84.2°</text>
+<rect fill="rgba(23, 26, 46, 0.85)" height="18" rx="4" width="46" x="296" y="78"></rect>
+<text fill="#acedff" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="319" y="91">93.8°</text>
+<rect fill="rgba(23, 26, 46, 0.85)" height="18" rx="4" width="46" x="278" y="445"></rect>
+<text fill="#acedff" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="301" y="458">88.6°</text>
+<rect fill="rgba(23, 26, 46, 0.85)" height="18" rx="4" width="46" x="42" y="420"></rect>
+<text fill="#acedff" font-family="Inter" font-size="10" font-weight="600" text-anchor="middle" x="65" y="433">93.4°</text>
+</svg>
+<!-- Vertex Handle 1: Top-Left (124, 88) -->
+<div class="absolute -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing flex flex-col items-center group" style="left: 12.5%; top: 8.8%;">
+<div class="w-8 h-8 rounded-full bg-surface-white/90 shadow-md flex items-center justify-center p-0.5">
+<div class="w-full h-full rounded-full bg-accent-teal flex items-center justify-center text-on-tertiary">
+<span class="w-2 h-2 rounded-full bg-surface-white"></span>
+</div>
+</div>
+<div class="mt-1 px-1.5 py-0.5 rounded bg-on-surface/90 text-surface-white font-label-sm text-label-sm font-mono shadow-sm">
+            TL [124, 88]
+          </div>
+</div>
+<!-- Vertex Handle 2: Top-Right (892, 142) with Magnifying Loupe Callout -->
+<div class="absolute -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing flex flex-col items-center group z-10" style="left: 89%; top: 14.2%;">
+<!-- Magnifying Corner Loupe Preview Box -->
+<div class="mb-2 w-16 h-16 rounded-xl bg-surface-white shadow-xl overflow-hidden flex flex-col items-center justify-center relative shadow-black/25">
+<div class="absolute inset-0 bg-surface-dim">
+<div class="w-full h-full bg-cover bg-center" data-alt="High magnification macro zoom on a crisp printed corner edge of black text document paper against a dark wood desktop texture." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBRJzsLp6KKZ2FOxmgbM4JoaWvwyGwiJf-LjfUQRYPJb2wGD-Ljjoj8jSjH1O8YDWNRAu3mp-3q30KObf30SJJKrRA-cJgdK8dQ9x2F5lYj-ht5YU-Z9DuZeyK-_dy8GoAq-UXxxZ9qIlIh7bABNJc2tsPOWkKIECvGgtJxuIv15hq7SBnLo17VOejQFG-ZR2EuPwlplpI9pV0HXPgITzsih6DPQMoOMJ422UP7rmBJxSOs6jUbi7xwFw')"></div>
+</div>
+<!-- Crosshairs in loupe -->
+<div class="absolute w-full h-0.5 bg-accent-teal/80"></div>
+<div class="absolute h-full w-0.5 bg-accent-teal/80"></div>
+<div class="absolute bottom-0.5 right-1 px-1 rounded bg-on-surface/80 text-surface-white font-label-sm text-label-sm font-mono text-[9px] leading-3">2.5×</div>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-white/90 shadow-md flex items-center justify-center p-0.5">
+<div class="w-full h-full rounded-full bg-accent-teal flex items-center justify-center text-on-tertiary">
+<span class="w-2 h-2 rounded-full bg-surface-white"></span>
+</div>
+</div>
+<div class="mt-1 px-1.5 py-0.5 rounded bg-on-surface/90 text-surface-white font-label-sm text-label-sm font-mono shadow-sm">
+            TR [892, 142]
+          </div>
+</div>
+<!-- Vertex Handle 3: Bottom-Right (840, 960) -->
+<div class="absolute -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing flex flex-col items-center group" style="left: 84%; top: 96%;">
+<div class="w-8 h-8 rounded-full bg-surface-white/90 shadow-md flex items-center justify-center p-0.5">
+<div class="w-full h-full rounded-full bg-accent-teal flex items-center justify-center text-on-tertiary">
+<span class="w-2 h-2 rounded-full bg-surface-white"></span>
+</div>
+</div>
+<div class="mt-1 px-1.5 py-0.5 rounded bg-on-surface/90 text-surface-white font-label-sm text-label-sm font-mono shadow-sm">
+            BR [840, 960]
+          </div>
+</div>
+<!-- Vertex Handle 4: Bottom-Left (80, 910) -->
+<div class="absolute -translate-x-1/2 -translate-y-1/2 cursor-grab active:cursor-grabbing flex flex-col items-center group" style="left: 8%; top: 91%;">
+<div class="w-8 h-8 rounded-full bg-surface-white/90 shadow-md flex items-center justify-center p-0.5">
+<div class="w-full h-full rounded-full bg-accent-teal flex items-center justify-center text-on-tertiary">
+<span class="w-2 h-2 rounded-full bg-surface-white"></span>
+</div>
+</div>
+<div class="mt-1 px-1.5 py-0.5 rounded bg-on-surface/90 text-surface-white font-label-sm text-label-sm font-mono shadow-sm">
+            BL [80, 910]
+          </div>
+</div>
+</div>
+<!-- Quick Canvas Toolbar -->
+<div class="p-space-sm bg-surface-container-low flex items-center justify-between gap-space-xs overflow-x-auto">
+<button class="min-h-[48px] px-3 rounded-lg bg-surface-scanner text-tertiary flex items-center gap-1.5 font-title-sm text-title-sm hover:opacity-90 active:scale-95 transition-all shrink-0" type="button">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+          Auto-Detect
+        </button>
+<button class="min-h-[48px] px-3 rounded-lg bg-surface-white text-on-surface flex items-center gap-1.5 font-label-md text-label-md hover:bg-surface-container active:scale-95 transition-all shadow-sm shrink-0" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">restart_alt</span>
+          Reset
+        </button>
+<button class="min-h-[48px] px-3 rounded-lg bg-surface-white text-on-surface flex items-center gap-1.5 font-label-md text-label-md hover:bg-surface-container active:scale-95 transition-all shadow-sm shrink-0" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">rotate_right</span>
+          Rotate 90°
+        </button>
+<button class="min-h-[48px] px-3 rounded-lg bg-surface-white text-accent-teal flex items-center gap-1.5 font-label-md text-label-md hover:bg-surface-container active:scale-95 transition-all shadow-sm shrink-0" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">loupe</span>
+          Loupe: On
+        </button>
+</div>
+</section>
+<!-- Rectification Parameters & Mode Settings -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-surface-scanner text-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface">Homography Engine Parameters</h3>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">v2.4 Core</span>
+</div>
+<!-- Interpolation Engine Selector -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-title-sm text-title-sm text-on-surface">Interpolation Resampling Method</label>
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="min-h-[48px] px-3 py-2 rounded-lg bg-primary text-on-primary font-title-sm text-title-sm flex items-center justify-center gap-2 shadow-sm text-left" type="button">
+<span class="material-symbols-outlined text-[18px]">blur_on</span>
+<span class="truncate">Bilinear Anti-Aliased</span>
+</button>
+<button class="min-h-[48px] px-3 py-2 rounded-lg bg-surface-container-low text-on-surface font-title-sm text-title-sm flex items-center justify-center gap-2 hover:bg-surface-container text-left" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">grain</span>
+<span class="truncate">Nearest Neighbor</span>
+</button>
+</div>
+</div>
+<!-- Target Aspect Ratio Segmented Control -->
+<div class="flex flex-col gap-space-xs">
+<label class="font-title-sm text-title-sm text-on-surface">Target Orthographic Ratio</label>
+<div class="flex flex-col gap-1.5">
+<div class="grid grid-cols-3 gap-space-xs">
+<button class="min-h-[48px] p-2 rounded-lg bg-surface-scanner text-tertiary font-title-sm text-title-sm flex flex-col items-center justify-center text-center" type="button">
+<span class="font-semibold text-caption text-caption">US Letter</span>
+<span class="font-label-sm text-label-sm text-text-muted">1:1.294</span>
+</button>
+<button class="min-h-[48px] p-2 rounded-lg bg-surface-container-low text-on-surface font-title-sm text-title-sm flex flex-col items-center justify-center text-center hover:bg-surface-container" type="button">
+<span class="font-semibold text-caption text-caption">ISO A4</span>
+<span class="font-label-sm text-label-sm text-text-muted">1:1.414</span>
+</button>
+<button class="min-h-[48px] p-2 rounded-lg bg-surface-container-low text-on-surface font-title-sm text-title-sm flex flex-col items-center justify-center text-center hover:bg-surface-container" type="button">
+<span class="font-semibold text-caption text-caption">Custom</span>
+<span class="font-label-sm text-label-sm text-text-muted">Freeform</span>
+</button>
+</div>
+<span class="font-caption text-caption text-text-muted">Preserves exact page proportions with zero geometric shear distortion.</span>
+</div>
+</div>
+<!-- Corner Snap Sensitivity Slider with Step Buttons -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<label class="font-title-sm text-title-sm text-on-surface">Corner Magnetism &amp; Snap Radius</label>
+<span class="font-label-md text-label-md text-tertiary font-semibold" id="snapRadiusLabel">18 px</span>
+</div>
+<div class="flex items-center gap-space-sm">
+<button aria-label="Decrease snap radius" class="w-12 h-12 rounded-lg bg-surface-container-low text-on-surface flex items-center justify-center hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">remove</span>
+</button>
+<div class="flex-1 px-1">
+<input class="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" max="48" min="4" oninput="document.getElementById('snapRadiusLabel').innerText = this.value + ' px'" type="range" value="18"/>
+</div>
+<button aria-label="Increase snap radius" class="w-12 h-12 rounded-lg bg-surface-container-low text-on-surface flex items-center justify-center hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Primary Action Button Section -->
+<section class="flex flex-col gap-space-xs">
+<button class="w-full min-h-[54px] rounded-xl bg-primary text-on-primary font-title-md text-title-md font-semibold flex items-center justify-center gap-2 shadow-lg shadow-primary/20 hover:opacity-95 active:scale-[0.99] transition-all" id="transformActionBtn" type="button">
+<span class="material-symbols-outlined text-[22px]">transform</span>
+        Correct Perspective &amp; Flatten
+      </button>
+<div class="flex items-center justify-center gap-1.5 text-center">
+<span class="material-symbols-outlined text-[15px] text-accent-emerald">verified_user</span>
+<span class="font-caption text-caption text-text-muted">Calculates planar projective matrix in local memory without quality loss</span>
+</div>
+</section>
+<!-- Before vs After Comparison Card -->
+<section class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-lg bg-surface-image text-accent-emerald flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">compare</span>
+</span>
+<h3 class="font-title-md text-title-md text-on-surface">Orthographic Inspection</h3>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-label-sm text-label-sm font-semibold">Homography 100%</span>
+</div>
+<!-- Dual Preview Comparison Split -->
+<div class="grid grid-cols-2 gap-space-sm">
+<!-- Before Viewport -->
+<div class="flex flex-col gap-1.5">
+<div class="relative w-full aspect-[3/4] rounded-lg bg-surface-dim overflow-hidden shadow-inner">
+<img alt="Before rectification skew view" class="w-full h-full object-cover" data-alt="Trapezoidal camera capture of an official printed contract taken at an oblique skew angle on a slate gray surface showing keystone perspective distortion and unaligned borders." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6iY5ZJi5VMtDOx1meKAJ7ySKlpsPragqFq7ZpI-VImrJSBGqkKri8lp-2MrPetzUtay77Hz-HWUy70_eqJHGVAidOTng_A5RNNIiUxn-Las9lpDqc4JWj96IVLlInzX0k6hRBohOq0o54PcY4UoZWfNqBfPkez_NGaFvZnE4fVy8rS82Ju0p52xrkgIIl47WrcnyIRahquW6Dtd-JZxj_cc76QCgtrCBmvczwg1QOrqx_KUwBdaqQKQ"/>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-on-surface/85 text-surface-white font-label-sm text-label-sm font-medium">
+              Skewed Original
+            </div>
+<div class="absolute top-2 right-2 w-6 h-6 rounded-full bg-status-warning/90 text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-[15px]">warning</span>
+</div>
+</div>
+<span class="font-caption text-caption text-text-muted text-center">Keystone Delta: 18.4°</span>
+</div>
+<!-- After Viewport -->
+<div class="flex flex-col gap-1.5">
+<div class="relative w-full aspect-[3/4] rounded-lg bg-surface-white overflow-hidden shadow-inner">
+<img alt="After rectification orthogonal view" class="w-full h-full object-cover" data-alt="Perfect rectangular document scan of an official agreement document with pin-sharp black type, crisp parallel borders, uniform clean white paper background, and full orthographic planar rectification." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrjfrfx2sWJg30sPe8ZHR383uWQKhNznIqltFoPAwI5S2TPPGlBV09SL4e7rdzjpK7u3jbdpcmX17z56Th-ZUG0d687DymZyOcEcfS10_fQ9slPEwb5RtYM1HeXggyjHSDNn70LfVbo6_Ni2rLu0pSlXGWPPl7dz3e7heCsV9UtU2OIpU7ZtEO0bY2qmef7pvFVU0o-BNja9eZOrh5pZ5cOEIPUWRslc6yZtJVGPxPoO8M1xuhUtubkg"/>
+<div class="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-accent-teal text-on-tertiary font-label-sm text-label-sm font-medium shadow-sm">
+              Rectified Ortho
+            </div>
+<div class="absolute top-2 right-2 w-6 h-6 rounded-full bg-status-success text-on-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[15px]">check</span>
+</div>
+</div>
+<span class="font-caption text-caption text-status-success text-center font-medium">Parallelism: 99.98%</span>
+</div>
+</div>
+<!-- File Output Metadata Row -->
+<div class="p-space-sm rounded-lg bg-surface-container-low flex flex-col gap-1">
+<div class="flex items-center justify-between min-w-0">
+<div class="flex items-center gap-2 min-w-0">
+<span class="material-symbols-outlined text-primary text-[20px]">image</span>
+<span class="font-title-sm text-title-sm text-on-surface truncate">Corrected_Agreement_Scan.png</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-surface-white text-tertiary font-label-sm text-label-sm font-semibold shrink-0">Lossless</span>
+</div>
+<div class="flex items-center gap-2 text-text-muted font-caption text-caption">
+<span>2480 × 3508 px</span>
+<span>•</span>
+<span>300 DPI</span>
+<span>•</span>
+<span>4.8 MB</span>
+</div>
+</div>
+<!-- Action Button Group -->
+<div class="flex flex-col gap-space-xs">
+<button class="w-full min-h-[48px] rounded-lg bg-primary text-on-primary font-title-sm text-title-sm font-semibold flex items-center justify-center gap-2 shadow-sm hover:opacity-95 active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[20px]">download</span>
+          Save Rectified Image
+        </button>
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="min-h-[48px] px-3 rounded-lg bg-surface-container-low text-on-surface font-title-sm text-title-sm flex items-center justify-center gap-1.5 hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">share</span>
+            Share Scan
+          </button>
+<button class="min-h-[48px] px-3 rounded-lg bg-surface-container-low text-on-surface font-title-sm text-title-sm flex items-center justify-center gap-1.5 hover:bg-surface-container active:scale-95 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-muted">add_photo_alternate</span>
+            Process Another
+          </button>
+</div>
+</div>
+</section>
+<!-- Technical Notice Banner -->
+<footer class="p-space-md rounded-xl bg-surface-container-low flex items-start gap-space-sm mb-space-sm">
+<span class="w-7 h-7 rounded-full bg-surface-white text-primary flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+<span class="material-symbols-outlined text-[16px]">info</span>
+</span>
+<div class="flex flex-col gap-0.5">
+<h4 class="font-title-sm text-title-sm text-on-surface">Non-Destructive Resampling</h4>
+<p class="font-caption text-caption text-text-muted leading-relaxed">
+          Planar homography mathematically resamples digital pixel matrices into rectangular geometry using high-order interpolation. Your source camera capture is preserved untouched in your gallery.
+        </p>
+</div>
+</footer>
+</div>
+</div>
+<script>
+  // Simple micro-interaction for user feedback on transformation action
+  document.getElementById('transformActionBtn')?.addEventListener('click', function() {
+    const originalText = this.innerHTML;
+    this.innerHTML = '<span class="material-symbols-outlined animate-spin text-[20px]">sync</span> Computing Projective Tensor...';
+    this.disabled = true;
+    setTimeout(() => {
+      this.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> Rectification Complete!';
+      this.classList.remove('bg-primary');
+      this.classList.add('bg-status-success');
+      setTimeout(() => {
+        this.innerHTML = originalText;
+        this.classList.remove('bg-status-success');
+        this.classList.add('bg-primary');
+        this.disabled = false;
+      }, 1500);
+    }, 900);
+  });
+</script></main></body></html>

@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "background-cloud": "#F7F8FC", "accent-orange": "#F97316", "surface-audio": "#EAF2FF", "inverse-surface": "#2c2f44", "surface-container-highest": "#dfe0fc", "tertiary-fixed-dim": "#4cd7f6", "on-tertiary": "#ffffff", "status-success": "#16A34A", "on-primary-fixed-variant": "#311ed2", "accent-sky": "#0EA5E9", "inverse-on-surface": "#f0efff", "error-container": "#ffdad6", "surface-container": "#edecff", "surface-variant": "#dfe0fc", "text-muted": "#64748B", "accent-amber": "#F59E0B", "error": "#ba1a1a", "status-error": "#DC2626", "surface": "#fbf8ff", "surface-video": "#F5EAFF", "surface-ai": "#F4EAFE", "on-tertiary-container": "#f5fcff", "primary-fixed-dim": "#c3c0ff", "secondary-fixed-dim": "#ddb7ff", "primary": "#483ee5", "background": "#fbf8ff", "tertiary": "#006476", "primary-container": "#625bff", "on-background": "#171a2e", "on-primary-fixed": "#0e006a", "on-primary": "#ffffff", "secondary-container": "#9c48ea", "accent-emerald": "#10B981", "on-surface": "#171a2e", "accent-coral": "#FF6B6B", "surface-scanner": "#E6FAFD", "secondary": "#8127cf", "status-warning": "#F59E0B", "surface-developer": "#E8F7FF", "surface-image": "#E7F9F1", "surface-calculator": "#FFF7E2", "surface-tint": "#4c42e9", "surface-container-low": "#f4f2ff", "on-surface-variant": "#464555", "on-primary-container": "#fefaff", "tertiary-fixed": "#acedff", "surface-dim": "#d7d8f4", "accent-teal": "#14B8A6", "on-error": "#ffffff", "accent-blue": "#3B82F6", "primary-fixed": "#e2dfff", "outline": "#777587", "inverse-primary": "#c3c0ff", "surface-office": "#EEEDFF", "surface-container-lowest": "#ffffff", "on-secondary-fixed-variant": "#6900b3", "on-tertiary-fixed-variant": "#004e5c", "tertiary-container": "#007f95", "surface-white": "#FFFFFF", "outline-variant": "#c7c4d8", "surface-web": "#E5FAF6", "surface-productivity": "#FDEBF5", "surface-archive": "#EEF2F6", "on-secondary-fixed": "#2c0051", "secondary-fixed": "#f0dbff", "on-secondary-container": "#fffbff", "surface-bright": "#fbf8ff", "surface-text": "#FFF1E7", "on-tertiary-fixed": "#001f26", "on-error-container": "#93000a", "on-secondary": "#ffffff", "surface-container-high": "#e6e6ff", "border-subtle": "#E2E8F0", "accent-rose": "#EC4899", "surface-pdf": "#FFF0EF" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "space-md": "1rem", "space-xl": "2rem", "gutter-sm": "0.75rem", "space-xs": "0.25rem", "margin-sm": "1rem", "gutter": "1rem", "space-lg": "1.5rem", "margin": "1.25rem", "space-sm": "0.5rem" }, fontFamily: { "caption": ["Inter"], "headline-md": ["Inter"], "body-md": ["Inter"], "title-sm": ["Inter"], "label-sm": ["Inter"], "headline-lg-mobile": ["Inter"], "headline-lg": ["Inter"], "body-lg": ["Inter"], "label-md": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"], "title-md": ["Inter"] }, fontSize: { "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "700" }], "headline-lg": ["30px", { "lineHeight": "38px", "fontWeight": "700" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }] } } } };</script><style>@layer base { html, body { width: 100vw; margin: 0; padding: 0; } body { overscroll-behavior: none; } .pb-safe { padding-bottom: env(safe-area-inset-bottom, 0px); } .pt-safe { padding-top: env(safe-area-inset-top, 0px); } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-background-cloud text-on-surface font-body-md text-body-md flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface-white/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><button aria-label="Go back" class="w-11 h-11 -ml-space-xs flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><div class="flex flex-col min-w-0"><div class="flex items-center gap-space-xs"><h1 class="font-title-md text-title-md text-on-surface truncate">Merge Pdf</h1><span class="inline-flex items-center px-1.5 py-0.5 rounded-full bg-surface-pdf text-accent-coral font-label-sm text-label-sm font-semibold tracking-wide flex-shrink-0">PDF</span></div><span class="font-caption text-caption text-text-muted truncate">PDF Studio Workspace</span></div></div><div class="flex items-center gap-space-xs flex-shrink-0"><button aria-label="Favorite tool" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-accent-coral hover:bg-surface-container active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[22px]">star</span></button><button aria-label="More options" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container active:scale-95 transition-all" type="button"><span class="material-symbols-outlined text-[22px]">more_vert</span></button><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-space-xs flex-shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 bg-background-cloud min-h-screen pb-safe"><div class="flex flex-col w-full pb-10">
+<div class="px-margin pt-space-md flex flex-col gap-space-lg">
+<!-- 1. Top Identity Header -->
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-surface-pdf text-accent-coral font-label-sm text-label-sm font-semibold tracking-wide shadow-sm">
+<span class="material-symbols-outlined text-[14px]">offline_bolt</span>
+          #15 · PDF Studio · Offline Ready
+        </span>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight mt-1">
+        Crop PDF
+      </h2>
+<p class="font-body-md text-body-md text-text-muted">
+        Trim margins, remove printer crop marks, or crop document pages to custom dimensions.
+      </p>
+</div>
+<!-- 2. Loaded Document Card -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-12 h-12 rounded-lg bg-surface-pdf text-accent-coral flex items-center justify-center flex-shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[28px]">picture_as_pdf</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-sm text-title-sm text-on-surface truncate font-semibold">
+            Research_Whitepaper_Draft.pdf
+          </span>
+<div class="flex items-center gap-space-xs text-text-muted font-caption text-caption mt-0.5">
+<span>8 pages</span>
+<span>•</span>
+<span>3.1 MB</span>
+<span>•</span>
+<span class="text-status-success font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[13px]">verified</span> Loaded
+            </span>
+</div>
+</div>
+</div>
+<button aria-label="Change document" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary active:scale-95 transition-transform flex-shrink-0" type="button">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+</button>
+</div>
+<!-- 3. Interactive Visual Crop Canvas Preview -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-md overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-accent-coral animate-pulse"></span>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Visual Crop Preview</span>
+</div>
+<div class="flex items-center gap-1.5">
+<button class="h-8 px-2.5 rounded-lg bg-surface-container-low text-primary hover:bg-surface-container font-label-md text-label-md flex items-center gap-1 active:scale-95 transition-all" id="fitScreenBtn" type="button">
+<span class="material-symbols-outlined text-[16px]">fit_screen</span>
+            Fit
+          </button>
+<button class="h-8 px-2.5 rounded-lg bg-surface-container-low text-accent-coral hover:bg-surface-pdf font-label-md text-label-md flex items-center gap-1 active:scale-95 transition-all" id="resetCropBtn" type="button">
+<span class="material-symbols-outlined text-[16px]">restart_alt</span>
+            Reset
+          </button>
+</div>
+</div>
+<!-- Preview Canvas Area -->
+<div class="relative w-full aspect-[4/5] bg-surface-archive rounded-xl flex items-center justify-center overflow-hidden shadow-inner select-none p-4" id="cropViewport">
+<!-- Rendered Page Surface Mockup -->
+<div class="relative w-full h-full bg-surface-white rounded shadow-md flex flex-col p-4 overflow-hidden pointer-events-none">
+<div class="flex items-center justify-between pb-2 border-b border-surface-container-high opacity-70">
+<div class="h-2.5 w-24 bg-surface-container-highest rounded"></div>
+<div class="h-2 w-8 bg-surface-container-highest rounded"></div>
+</div>
+<div class="mt-3 flex flex-col gap-2 opacity-60">
+<div class="h-4 w-3/4 bg-primary/20 rounded"></div>
+<div class="h-2.5 w-full bg-surface-container-highest rounded mt-1"></div>
+<div class="h-2.5 w-5/6 bg-surface-container-highest rounded"></div>
+<div class="h-2.5 w-4/5 bg-surface-container-highest rounded"></div>
+</div>
+<!-- Decorative page text blocks simulating whitepaper -->
+<div class="mt-4 grid grid-cols-2 gap-2 opacity-50">
+<div class="h-16 bg-surface-container-low rounded p-1.5 flex flex-col gap-1">
+<div class="h-2 w-12 bg-primary/30 rounded"></div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded"></div>
+<div class="h-1.5 w-4/5 bg-surface-container-highest rounded"></div>
+</div>
+<div class="h-16 bg-surface-container-low rounded p-1.5 flex flex-col gap-1">
+<div class="h-2 w-10 bg-accent-coral/30 rounded"></div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded"></div>
+<div class="h-1.5 w-3/4 bg-surface-container-highest rounded"></div>
+</div>
+</div>
+<div class="mt-auto pt-2 border-t border-surface-container-high flex justify-between items-center opacity-60">
+<span class="font-caption text-[10px] text-text-muted">Research Whitepaper Draft · Confident</span>
+<span class="font-caption text-[10px] text-text-muted">1 / 8</span>
+</div>
+</div>
+<!-- Interactive Crop Box Overlay with Cyan/Coral Dashed styling -->
+<div class="absolute inset-x-6 inset-y-8 rounded pointer-events-auto transition-[box-shadow]" id="cropBox" style="background: rgba(98, 91, 255, 0.05); box-shadow: 0 0 0 9999px rgba(23, 26, 46, 0.45); outline: 2px dashed #FF6B6B; outline-offset: -1px;">
+<!-- Active Grid Lines -->
+<div class="absolute inset-0 grid grid-cols-3 grid-rows-3 pointer-events-none opacity-40">
+<div class="border-r border-b border-accent-sky/70"></div>
+<div class="border-r border-b border-accent-sky/70"></div>
+<div class="border-b border-accent-sky/70"></div>
+<div class="border-r border-b border-accent-sky/70"></div>
+<div class="border-r border-b border-accent-sky/70"></div>
+<div class="border-b border-accent-sky/70"></div>
+<div class="border-r border-accent-sky/70"></div>
+<div class="border-r border-accent-sky/70"></div>
+<div></div>
+</div>
+<!-- 8 Interactive Resize Handles -->
+<!-- Top Left -->
+<div class="crop-handle absolute -top-2.5 -left-2.5 w-6 h-6 rounded-full bg-accent-coral flex items-center justify-center shadow-md active:scale-125 cursor-nwse-resize">
+<div class="w-2 h-2 rounded-full bg-surface-white"></div>
+</div>
+<!-- Top Center -->
+<div class="crop-handle absolute -top-2.5 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent-sky flex items-center justify-center shadow-md active:scale-125 cursor-ns-resize">
+<div class="w-2 h-2 rounded-full bg-surface-white"></div>
+</div>
+<!-- Top Right -->
+<div class="crop-handle absolute -top-2.5 -right-2.5 w-6 h-6 rounded-full bg-accent-coral flex items-center justify-center shadow-md active:scale-125 cursor-nesw-resize">
+<div class="w-2 h-2 rounded-full bg-surface-white"></div>
+</div>
+<!-- Middle Right -->
+<div class="crop-handle absolute top-1/2 -right-2.5 -translate-y-1/2 w-6 h-6 rounded-full bg-accent-sky flex items-center justify-center shadow-md active:scale-125 cursor-ew-resize">
+<div class="w-2 h-2 rounded-full bg-surface-white"></div>
+</div>
+<!-- Bottom Right -->
+<div class="crop-handle absolute -bottom-2.5 -right-2.5 w-6 h-6 rounded-full bg-accent-coral flex items-center justify-center shadow-md active:scale-125 cursor-nwse-resize">
+<div class="w-2 h-2 rounded-full bg-surface-white"></div>
+</div>
+<!-- Bottom Center -->
+<div class="crop-handle absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-accent-sky flex items-center justify-center shadow-md active:scale-125 cursor-ns-resize">
+<div class="w-2 h-2 rounded-full bg-surface-white"></div>
+</div>
+<!-- Bottom Left -->
+<div class="crop-handle absolute -bottom-2.5 -left-2.5 w-6 h-6 rounded-full bg-accent-coral flex items-center justify-center shadow-md active:scale-125 cursor-nesw-resize">
+<div class="w-2 h-2 rounded-full bg-surface-white"></div>
+</div>
+<!-- Middle Left -->
+<div class="crop-handle absolute top-1/2 -left-2.5 -translate-y-1/2 w-6 h-6 rounded-full bg-accent-sky flex items-center justify-center shadow-md active:scale-125 cursor-ew-resize">
+<div class="w-2 h-2 rounded-full bg-surface-white"></div>
+</div>
+</div>
+</div>
+<!-- Crop Dimension Overlay Badge Card -->
+<div class="bg-surface-container-low rounded-xl p-space-sm flex flex-col gap-1">
+<div class="flex items-center justify-between text-on-surface">
+<span class="font-title-sm text-title-sm font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">aspect_ratio</span>
+            W: <span id="cropWidthLabel">540</span> pt × H: <span id="cropHeightLabel">720</span> pt
+          </span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-primary font-medium">Standard A4/Letter Adjusted</span>
+</div>
+<div class="font-caption text-caption text-text-muted flex items-center gap-2 flex-wrap">
+<span>Trim Margins:</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-white text-on-surface">Top 36pt</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-white text-on-surface">Bottom 36pt</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-white text-on-surface">Left 36pt</span>
+<span class="px-1.5 py-0.2 rounded bg-surface-white text-on-surface">Right 36pt</span>
+</div>
+</div>
+<!-- Page Stepper Navigator -->
+<div class="flex items-center justify-between pt-1">
+<button class="h-10 px-3 rounded-lg bg-surface-container text-on-surface flex items-center gap-1 font-label-md text-label-md active:scale-95 transition-transform" id="prevPageBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+          Prev
+        </button>
+<span class="font-title-sm text-title-sm text-on-surface font-semibold tracking-wide">
+          Page <span id="activePageNum">1</span> of 8
+        </span>
+<button class="h-10 px-3 rounded-lg bg-surface-container text-on-surface flex items-center gap-1 font-label-md text-label-md active:scale-95 transition-transform" id="nextPageBtn" type="button">
+          Next
+          <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- 4. Crop Settings Card -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-space-lg">
+<!-- Section A: Presets -->
+<div class="flex flex-col gap-2.5">
+<label class="font-title-sm text-title-sm text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">crop</span>
+          Crop Presets
+        </label>
+<div class="grid grid-cols-2 gap-2">
+<button class="preset-btn px-3 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md text-left flex items-center gap-2 shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">magic_button</span>
+<span class="truncate">Auto-Detect Margins</span>
+</button>
+<button class="preset-btn px-3 py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md text-left flex items-center gap-2 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">content_cut</span>
+<span class="truncate">Remove Bleed</span>
+</button>
+<button class="preset-btn px-3 py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md text-left flex items-center gap-2 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">crop_square</span>
+<span class="truncate">Square (1:1)</span>
+</button>
+<button class="preset-btn px-3 py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md text-left flex items-center gap-2 transition-all" type="button">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+<span class="truncate">Custom Bounds</span>
+</button>
+</div>
+</div>
+<!-- Section B: Scope Radio Selection -->
+<div class="flex flex-col gap-2.5">
+<label class="font-title-sm text-title-sm text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">layers</span>
+          Apply Scope
+        </label>
+<div class="flex flex-col gap-2">
+<label class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="w-4 h-4 text-primary accent-primary cursor-pointer" name="crop_scope" type="radio" value="all"/>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-medium">Apply crop to All Pages</span>
+<span class="font-caption text-caption text-text-muted">Batch processes all 8 pages with matching crop box</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input class="w-4 h-4 text-primary accent-primary cursor-pointer" name="crop_scope" type="radio" value="current"/>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-medium">Current Page Only</span>
+<span class="font-caption text-caption text-text-muted">Affects only Page 1; keeps other 7 pages intact</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input class="w-4 h-4 text-primary accent-primary cursor-pointer" name="crop_scope" type="radio" value="range"/>
+<div class="flex flex-col flex-1">
+<span class="font-title-sm text-title-sm text-on-surface font-medium">Page Range</span>
+<span class="font-caption text-caption text-text-muted">Crop subset: e.g. 1-4, 7</span>
+</div>
+<input class="w-20 px-2 py-1 bg-surface-white text-on-surface font-label-md text-label-md rounded text-center outline-none focus:ring-1 focus:ring-primary shadow-inner" placeholder="1-4" type="text"/>
+</label>
+</div>
+</div>
+<!-- Section C: Aspect Ratio Toggle Switch -->
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Preserve original aspect ratio</span>
+<span class="font-caption text-caption text-text-muted">Prevents distortion during margin resizing</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="aspectRatioToggle" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</div>
+<!-- 5. Target Filename Setting -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-sm flex flex-col gap-2">
+<label class="font-title-sm text-title-sm text-on-surface font-semibold flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-[18px]">drive_file_rename_outline</span>
+        Target Output Name
+      </label>
+<div class="flex items-center gap-2 bg-surface-container-low rounded-lg px-3 py-2.5">
+<input class="bg-transparent text-on-surface font-body-md text-body-md w-full outline-none" id="targetFilenameInput" type="text" value="Research_Whitepaper_cropped.pdf"/>
+<span class="font-label-sm text-label-sm text-text-muted px-2 py-0.5 rounded bg-surface-container">PDF</span>
+</div>
+</div>
+<!-- 6. Primary Action Execution Trigger -->
+<div class="flex flex-col gap-2">
+<button class="w-full h-14 rounded-xl bg-primary-container text-on-primary font-headline-sm text-headline-sm flex items-center justify-center gap-2 shadow-md hover:bg-primary active:scale-[0.98] transition-all" id="applyCropBtn" type="button">
+<span class="material-symbols-outlined text-[24px]">crop</span>
+<span>Apply Crop to 8 Pages</span>
+</button>
+<p class="font-caption text-caption text-center text-text-muted flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-accent-emerald">security</span>
+        Zero upload · Real-time client sandbox engine
+      </p>
+</div>
+<!-- 7. Completed Output Card (Simulated interactive reveal or display) -->
+<div class="bg-surface-white rounded-xl p-space-md shadow-md flex flex-col gap-space-md" id="outputCard">
+<!-- Status Badge Header -->
+<div class="flex items-center justify-between pb-2">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-image text-accent-emerald flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface font-semibold">Margins Cropped Successfully</span>
+<span class="font-caption text-caption text-text-muted">Standard dimensions finalized</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-image text-accent-emerald font-semibold">Ready</span>
+</div>
+<!-- Output Summary Details -->
+<div class="bg-surface-container-low rounded-xl p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface">
+<span class="font-caption text-caption text-text-muted">Output Document</span>
+<span class="font-title-sm text-title-sm font-semibold truncate max-w-[200px]" id="outputDocName">Research_Whitepaper_cropped.pdf</span>
+</div>
+<div class="flex items-center justify-between text-on-surface">
+<span class="font-caption text-caption text-text-muted">Page Count &amp; Weight</span>
+<span class="font-body-md text-body-md font-medium">8 pages · <span class="text-accent-emerald font-semibold">2.7 MB</span> (-13%)</span>
+</div>
+<div class="flex items-center justify-between text-on-surface">
+<span class="font-caption text-caption text-text-muted">Target Resolution</span>
+<span class="font-body-md text-body-md font-medium">540 × 720 pt (Standardized)</span>
+</div>
+</div>
+<!-- Action Buttons 2x2 Grid -->
+<div class="grid grid-cols-2 gap-2.5 pt-1">
+<button class="h-11 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">visibility</span>
+          Open PDF
+        </button>
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-2 hover:bg-surface-container-high active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">share</span>
+          Share
+        </button>
+<button class="h-11 rounded-lg bg-surface-container text-on-surface font-label-md text-label-md font-semibold flex items-center justify-center gap-2 hover:bg-surface-container-high active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">save</span>
+          Save to My Files
+        </button>
+<button class="h-11 rounded-lg bg-surface-pdf text-accent-coral font-label-md text-label-md font-semibold flex items-center justify-center gap-2 hover:bg-surface-container active:scale-95 transition-transform" id="cropAnotherBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+          Crop Another
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  // Simple micro-interactions for preview navigation, presets, and button states
+  (function() {
+    let currentPage = 1;
+    const totalPages = 8;
+    const pageNumEl = document.getElementById('activePageNum');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    const resetBtn = document.getElementById('resetCropBtn');
+    const fitBtn = document.getElementById('fitScreenBtn');
+    const cropBox = document.getElementById('cropBox');
+    const applyBtn = document.getElementById('applyCropBtn');
+    const outputCard = document.getElementById('outputCard');
+    const cropAnotherBtn = document.getElementById('cropAnotherBtn');
+    const presetButtons = document.querySelectorAll('.preset-btn');
+    const filenameInput = document.getElementById('targetFilenameInput');
+    const outputDocName = document.getElementById('outputDocName');
+
+    if (prevBtn && nextBtn && pageNumEl) {
+      prevBtn.addEventListener('click', () => {
+        if (currentPage > 1) {
+          currentPage--;
+          pageNumEl.textContent = currentPage;
+        }
+      });
+      nextBtn.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+          currentPage++;
+          pageNumEl.textContent = currentPage;
+        }
+      });
+    }
+
+    if (resetBtn && cropBox) {
+      resetBtn.addEventListener('click', () => {
+        cropBox.style.inset = '0px';
+        cropBox.style.margin = '24px 16px';
+      });
+    }
+
+    if (fitBtn && cropBox) {
+      fitBtn.addEventListener('click', () => {
+        cropBox.style.inset = '0px';
+        cropBox.style.margin = '8px';
+      });
+    }
+
+    presetButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        presetButtons.forEach(b => {
+          b.className = 'preset-btn px-3 py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high font-label-md text-label-md text-left flex items-center gap-2 transition-all';
+        });
+        btn.className = 'preset-btn px-3 py-2.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md text-left flex items-center gap-2 shadow-sm transition-all';
+      });
+    });
+
+    if (filenameInput && outputDocName) {
+      filenameInput.addEventListener('input', (e) => {
+        outputDocName.textContent = e.target.value || 'Research_Whitepaper_cropped.pdf';
+      });
+    }
+
+    if (applyBtn && outputCard) {
+      applyBtn.addEventListener('click', () => {
+        applyBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span><span>Cropping in progress...</span>';
+        setTimeout(() => {
+          applyBtn.innerHTML = '<span class="material-symbols-outlined text-[24px]">done</span><span>Crop Applied!</span>';
+          outputCard.scrollIntoView({ behavior: 'smooth' });
+          setTimeout(() => {
+            applyBtn.innerHTML = '<span class="material-symbols-outlined text-[24px]">crop</span><span>Apply Crop to 8 Pages</span>';
+          }, 2000);
+        }, 650);
+      });
+    }
+
+    if (cropAnotherBtn) {
+      cropAnotherBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+  })();
+</script></main></body></html>
