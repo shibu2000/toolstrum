@@ -1,0 +1,127 @@
+const puppeteer = require('/Users/shibudhara11/Developer/toolstrum/video_output/node_modules/puppeteer-core');
+const fs = require('fs');
+const path = require('path');
+
+const OUT_PATH = '/Users/shibudhara11/Developer/toolstrum/video_output/perfect_toolstrum_logo.png';
+
+async function generate() {
+  const browser = await puppeteer.launch({
+    executablePath: '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser',
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=800,800']
+  });
+
+  const page = await browser.newPage();
+  await page.setViewport({ width: 512, height: 512, deviceScaleFactor: 2 });
+
+  // Pure SVG matching Toolstrum's official brand logo
+  const svgHtml = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8" />
+        <style>
+          * { margin: 0; padding: 0; box-sizing: border-box; }
+          html, body {
+            width: 512px;
+            height: 512px;
+            background: transparent !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+          }
+          svg {
+            width: 440px;
+            height: 440px;
+            filter: drop-shadow(0 20px 35px rgba(15, 23, 42, 0.55));
+          }
+        </style>
+      </head>
+      <body>
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="ts-grad-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1E1B4B" />
+              <stop offset="50%" stop-color="#0F172A" />
+              <stop offset="100%" stop-color="#020617" />
+            </linearGradient>
+
+            <linearGradient id="ts-grad-border" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#818CF8" stop-opacity="0.9" />
+              <stop offset="50%" stop-color="#C084FC" stop-opacity="0.6" />
+              <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.85" />
+            </linearGradient>
+
+            <linearGradient id="ts-t-left" x1="12" y1="16" x2="32" y2="28" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#6366F1" />
+              <stop offset="100%" stop-color="#4F46E5" />
+            </linearGradient>
+
+            <linearGradient id="ts-t-right" x1="32" y1="16" x2="52" y2="28" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#A855F7" />
+              <stop offset="100%" stop-color="#7C3AED" />
+            </linearGradient>
+
+            <linearGradient id="ts-t-stem" x1="32" y1="20" x2="32" y2="52" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#EC4899" />
+              <stop offset="35%" stop-color="#8B5CF6" />
+              <stop offset="75%" stop-color="#06B6D4" />
+              <stop offset="100%" stop-color="#10B981" />
+            </linearGradient>
+
+            <linearGradient id="ts-beam" x1="32" y1="18" x2="32" y2="48" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FFFFFF" />
+              <stop offset="55%" stop-color="#67E8F9" />
+              <stop offset="100%" stop-color="#34D399" />
+            </linearGradient>
+
+            <filter id="ts-glow" x="-8" y="-8" width="80" height="80" filterUnits="userSpaceOnUse">
+              <feGaussianBlur stdDeviation="2.5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+
+          <!-- Squircle Card -->
+          <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#ts-grad-bg)" stroke="url(#ts-grad-border)" stroke-width="1.6" />
+          
+          <!-- Inner Ambient Glow Refractions -->
+          <circle cx="32" cy="16" r="15" fill="#6366F1" opacity="0.35" filter="blur(7px)" />
+          <circle cx="32" cy="42" r="13" fill="#06B6D4" opacity="0.3" filter="blur(6px)" />
+
+          <!-- Main Harmonic Prism "T" -->
+          <g filter="url(#ts-glow)">
+            <!-- Left Wing -->
+            <path d="M12 18C12 15.7909 13.7909 14 16 14H31.5L30 24H16C13.7909 24 12 22.2091 12 20V18Z" fill="url(#ts-t-left)" />
+            <!-- Right Wing -->
+            <path d="M52 18C52 15.7909 50.2091 14 48 14H32.5L34 24H48C50.2091 24 52 22.2091 52 20V18Z" fill="url(#ts-t-right)" />
+            <!-- Central Bevel Crest -->
+            <path d="M26 14H38L35 24H29L26 14Z" fill="#E9D5FF" opacity="0.95" />
+            <!-- Vertical Spine -->
+            <path d="M27.5 22L36.5 22L34.5 46C34.5 48.2091 33.3 50 32 50C30.7 50 29.5 48.2091 29.5 46L27.5 22Z" fill="url(#ts-t-stem)" />
+            <!-- Central Resonant Beam -->
+            <line x1="32" y1="16" x2="32" y2="46" stroke="url(#ts-beam)" stroke-width="2.6" stroke-linecap="round" />
+            <!-- 3 Resonant Node Spheres -->
+            <circle cx="32" cy="20" r="1.8" fill="#FFFFFF" />
+            <circle cx="32" cy="30" r="1.4" fill="#FFFFFF" opacity="0.95" />
+            <circle cx="32" cy="40" r="1.2" fill="#E0F2FE" opacity="0.85" />
+          </g>
+        </svg>
+      </body>
+    </html>
+  `;
+
+  await page.setContent(svgHtml, { waitUntil: 'networkidle0' });
+  await page.screenshot({
+    path: OUT_PATH,
+    omitBackground: true
+  });
+
+  await browser.close();
+  console.log('✓ Generated perfect transparent logo at:', OUT_PATH);
+}
+
+generate().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

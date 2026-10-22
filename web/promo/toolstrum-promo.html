@@ -1,0 +1,395 @@
+<title>Toolstrum Teaser</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /*
+    Layout concept: a single-screen "demo capsule" — a fake browser window
+    auto-cycling through four real Toolstrum tools like a looping promo
+    reel, framed by the product's own brand gradient, with a marquee of
+    its 16 real studios and three figures that are themselves the pitch.
+  */
+  :root {
+    --accent-deep: #483EE5;
+    --accent: #625BFF;
+    --accent-2: #9C48EA;
+    --good: #10B981;
+    --bad: #EF4444;
+
+    --ink: #15132A;
+    --ink-soft: #4B4766;
+    --paper: #F6F5FC;
+    --surface: #FFFFFF;
+    --surface-2: #EEECFA;
+    --line: #DEDAF2;
+
+    --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+    --font-body: 'Manrope', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #ECE9FA;
+      --ink-soft: #AFA9D1;
+      --paper: #0B0A16;
+      --surface: #15132A;
+      --surface-2: #1D1A38;
+      --line: #2C2851;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #ECE9FA;
+    --ink-soft: #AFA9D1;
+    --paper: #0B0A16;
+    --surface: #15132A;
+    --surface-2: #1D1A38;
+    --line: #2C2851;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 48px;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; display: flex; flex-direction: column; gap: 56px; }
+
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+
+  /* ---------- Top bar ---------- */
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark {
+    width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--accent-deep), var(--accent-2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 800; color: #fff; font-size: 16px;
+  }
+  .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+  .offline-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 13px; border-radius: 999px;
+    background: var(--surface-2); border: 1px solid var(--line);
+    font-size: 12px; font-weight: 600; color: var(--ink-soft);
+  }
+  .offline-pill .dot {
+    width: 7px; height: 7px; border-radius: 50%; background: var(--good);
+    box-shadow: 0 0 0 0 rgba(16,185,129,.55); animation: pulse-dot 2s infinite;
+  }
+  @keyframes pulse-dot {
+    0% { box-shadow: 0 0 0 0 rgba(16,185,129,.5); }
+    70% { box-shadow: 0 0 0 7px rgba(16,185,129,0); }
+    100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { display: flex; flex-direction: column; gap: 18px; text-align: center; align-items: center; }
+  .hero h1 {
+    font-size: clamp(34px, 6vw, 58px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.04;
+    background: linear-gradient(100deg, var(--ink) 35%, var(--accent) 65%, var(--accent-2) 90%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p { font-size: clamp(15px, 2vw, 18px); color: var(--ink-soft); max-width: 46ch; line-height: 1.55; margin: 0; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+  .btn {
+    font-family: var(--font-body); font-weight: 700; font-size: 14px;
+    padding: 13px 24px; border-radius: 12px; text-decoration: none; cursor: pointer;
+    border: 1px solid transparent; transition: transform .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .btn-primary { background: linear-gradient(120deg, var(--accent-deep), var(--accent-2)); color: #fff; box-shadow: 0 10px 24px -10px rgba(98,91,255,.55); }
+  .btn-ghost { background: var(--surface); color: var(--ink); border-color: var(--line); }
+
+  /* ---------- Demo capsule (fake browser window) ---------- */
+  .demo-frame {
+    width: 100%; max-width: 760px; border-radius: 18px; overflow: hidden;
+    background: var(--surface); border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -30px rgba(72,62,229,.35);
+  }
+  .demo-chrome {
+    display: flex; align-items: center; gap: 8px; padding: 11px 14px;
+    background: var(--surface-2); border-bottom: 1px solid var(--line);
+  }
+  .demo-chrome .dot-win { width: 9px; height: 9px; border-radius: 50%; }
+  .demo-chrome .dot-win:nth-child(1) { background: #ef4444; }
+  .demo-chrome .dot-win:nth-child(2) { background: #f59e0b; }
+  .demo-chrome .dot-win:nth-child(3) { background: #10b981; }
+  .demo-url {
+    margin-left: 8px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+    padding: 4px 12px; flex: 1; max-width: 260px; text-align: center;
+  }
+  .demo-body { position: relative; min-height: 290px; padding: 26px; text-align: left; }
+  .scene { position: absolute; inset: 0; padding: 26px; opacity: 0; transition: opacity .5s ease; pointer-events: none; }
+  .scene.active { opacity: 1; pointer-events: auto; position: relative; }
+  .scene-label {
+    display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono);
+    font-size: 11px; color: var(--ink-soft); margin-bottom: 18px;
+  }
+  .tool-id { background: var(--surface-2); border-radius: 6px; padding: 2px 7px; font-weight: 600; color: var(--accent); }
+
+  /* Scene 1: Merge PDF */
+  .pdf-row { display: flex; align-items: center; justify-content: center; gap: 18px; height: 140px; }
+  .pdf-chip {
+    width: 72px; height: 94px; border-radius: 8px; background: var(--surface-2);
+    border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--ink-soft);
+    transition: transform 1.6s cubic-bezier(.22,1,.36,1);
+  }
+  .scene.active .pdf-a { transform: translateX(26px) rotate(-4deg); animation: snap-a 3.2s ease-in-out infinite; }
+  .scene.active .pdf-b { transform: translateX(-26px) rotate(4deg); animation: snap-b 3.2s ease-in-out infinite; }
+  @keyframes snap-a { 0%,20% { transform: translateX(0) rotate(0); } 55%,100% { transform: translateX(26px) rotate(-4deg); } }
+  @keyframes snap-b { 0%,20% { transform: translateX(0) rotate(0); } 55%,100% { transform: translateX(-26px) rotate(4deg); } }
+  .pdf-check {
+    width: 30px; height: 30px; border-radius: 50%; background: var(--good); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800;
+    opacity: 0; animation: check-in 3.2s ease-in-out infinite;
+  }
+  @keyframes check-in { 0%,60% { opacity: 0; transform: scale(.6); } 80%,100% { opacity: 1; transform: scale(1); } }
+
+  /* Scene 2: Image Compressor */
+  .img-compare { position: relative; height: 150px; border-radius: 10px; overflow: hidden; background: linear-gradient(135deg,#FDE68A,#FCA5A5); }
+  .img-after { position: absolute; inset: 0; background: linear-gradient(135deg,#A7F3D0,#93C5FD); clip-path: inset(0 var(--reveal,55%) 0 0); transition: clip-path .4s; }
+  .scene.active .img-after { animation: sweep 3.2s ease-in-out infinite; }
+  @keyframes sweep { 0% { clip-path: inset(0 100% 0 0); } 50% { clip-path: inset(0 0% 0 0); } 100% { clip-path: inset(0 100% 0 0); } }
+  .img-badge { position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,.65); color: #fff; font-family: var(--font-mono); font-size: 11px; padding: 4px 9px; border-radius: 6px; }
+  .img-badge.right { left: auto; right: 10px; }
+
+  /* Scene 3: QR Code Generator */
+  .qr-row { display: flex; align-items: center; justify-content: center; height: 150px; }
+  .qr-grid { display: grid; grid-template-columns: repeat(7,9px); grid-template-rows: repeat(7,9px); gap: 2px; }
+  .qr-grid i { background: var(--ink); opacity: 0; border-radius: 1px; }
+  .scene.active .qr-grid i { animation: qr-in .6s ease forwards; animation-delay: calc(var(--d, 0) * 35ms); }
+
+  /* Scene 4: JSON Formatter */
+  .json-box { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.7; background: var(--surface-2); border-radius: 10px; padding: 16px 18px; height: 150px; overflow: hidden; }
+  .json-key { color: var(--accent-2); }
+  .json-str { color: var(--good); }
+  .json-num { color: #F59E0B; }
+  .caret { display: inline-block; width: 7px; height: 14px; background: var(--ink); vertical-align: -2px; animation: blink 1s step-start infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .scene-dots { display: flex; gap: 6px; justify-content: center; margin-top: 16px; }
+  .scene-dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background .3s, width .3s; }
+  .scene-dots span.on { background: var(--accent); width: 18px; border-radius: 4px; }
+
+  /* ---------- Stat tiles ---------- */
+  .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px 18px; text-align: center; }
+  .stat .num { font-family: var(--font-display); font-weight: 800; font-size: clamp(26px,4vw,36px); font-variant-numeric: tabular-nums; }
+  .stat .label { font-size: 12.5px; color: var(--ink-soft); margin-top: 4px; font-weight: 600; }
+
+  /* ---------- Studio marquee ---------- */
+  .marquee-section h2 { font-size: 15px; font-weight: 700; color: var(--ink-soft); text-align: center; margin-bottom: 18px; letter-spacing: .01em; }
+  .marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .marquee-track { display: flex; gap: 12px; width: max-content; animation: scroll-left 34s linear infinite; }
+  @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .studio-chip {
+    display: flex; align-items: center; gap: 9px; flex-shrink: 0;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+    padding: 10px 16px; font-size: 13px; font-weight: 600; white-space: nowrap;
+  }
+  .studio-swatch { width: 9px; height: 9px; border-radius: 3px; flex-shrink: 0; }
+  .studio-range { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-soft); font-weight: 500; }
+
+  /* ---------- Compare table ---------- */
+  .compare { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .crow { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 10px; padding: 14px 18px; font-size: 13px; align-items: center; }
+  .crow + .crow { border-top: 1px solid var(--line); }
+  .crow.head { background: var(--surface-2); font-weight: 700; font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-soft); }
+  .crow .good-cell { color: var(--good); font-weight: 700; }
+  .crow .bad-cell { color: var(--ink-soft); }
+
+  /* ---------- Footer ---------- */
+  .footer { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; padding-top: 8px; border-top: 1px solid var(--line); }
+  .footer .url { font-family: var(--font-mono); font-size: 14px; color: var(--accent); font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .stats { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .stat { padding: 14px 8px; }
+    .crow { grid-template-columns: 1fr 1fr 1fr; font-size: 11.5px; padding: 11px 10px; }
+    .demo-body { min-height: 260px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">T</div>
+      <span class="brand-name">Toolstrum</span>
+    </div>
+    <span class="offline-pill"><span class="dot"></span> 100% Offline · No Uploads</span>
+  </div>
+
+  <section class="hero">
+    <h1>Your Everyday Toolkit</h1>
+    <p>490+ tools for PDFs, images, video, audio, code, and more — all running right in your browser. No uploads, no accounts, no cost.</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://toolstrum.vercel.app" target="_blank" rel="noopener">Try it free →</a>
+      <a class="btn btn-ghost" href="https://toolstrum.vercel.app" target="_blank" rel="noopener">See all tools</a>
+    </div>
+
+    <div class="demo-frame">
+      <div class="demo-chrome">
+        <span class="dot-win"></span><span class="dot-win"></span><span class="dot-win"></span>
+        <span class="demo-url" id="demoUrl">toolstrum.vercel.app/pdf/4</span>
+      </div>
+      <div class="demo-body">
+
+        <div class="scene active" data-url="toolstrum.vercel.app/pdf/4">
+          <div class="scene-label"><span class="tool-id">#4</span> Merge PDF — PDF Studio</div>
+          <div class="pdf-row">
+            <div class="pdf-chip pdf-a">report.pdf</div>
+            <div class="pdf-check">✓</div>
+            <div class="pdf-chip pdf-b">invoice.pdf</div>
+          </div>
+        </div>
+
+        <div class="scene" data-url="toolstrum.vercel.app/image/49">
+          <div class="scene-label"><span class="tool-id">#49</span> Image Compressor — Image Studio</div>
+          <div class="img-compare">
+            <div class="img-badge">4.8 MB</div>
+            <div class="img-after"></div>
+            <div class="img-badge right">620 KB</div>
+          </div>
+        </div>
+
+        <div class="scene" data-url="toolstrum.vercel.app/qr_security/351">
+          <div class="scene-label"><span class="tool-id">#351</span> QR Code Generator — QR, Barcode &amp; Security</div>
+          <div class="qr-row">
+            <div class="qr-grid" id="qrGrid"></div>
+          </div>
+        </div>
+
+        <div class="scene" data-url="toolstrum.vercel.app/developer/244">
+          <div class="scene-label"><span class="tool-id">#244</span> JSON Formatter — Developer Tools</div>
+          <div class="json-box">{<br>
+            &nbsp;&nbsp;<span class="json-key">"appName"</span>: <span class="json-str">"Toolstrum"</span>,<br>
+            &nbsp;&nbsp;<span class="json-key">"offline"</span>: <span class="json-num">true</span>,<br>
+            &nbsp;&nbsp;<span class="json-key">"tools"</span>: <span class="json-num">490</span><span class="caret"></span><br>
+            }
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="scene-dots" id="sceneDots"></div>
+  </section>
+
+  <section class="stats">
+    <div class="stat"><div class="num">490+</div><div class="label">Offline Tools</div></div>
+    <div class="stat"><div class="num">0</div><div class="label">File Uploads</div></div>
+    <div class="stat"><div class="num">$0</div><div class="label">Forever</div></div>
+  </section>
+
+  <section class="marquee-section">
+    <h2>16 studios, one workspace</h2>
+    <div class="marquee">
+      <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="compare">
+      <div class="crow head"><span>Feature</span><span>Toolstrum</span><span>Cloud tools</span></div>
+      <div class="crow"><span>File privacy</span><span class="good-cell">Never leaves your device</span><span class="bad-cell">Uploaded to a server</span></div>
+      <div class="crow"><span>Speed</span><span class="good-cell">Instant, local CPU</span><span class="bad-cell">Upload / download wait</span></div>
+      <div class="crow"><span>Pricing</span><span class="good-cell">Free, no limits</span><span class="bad-cell">Tiers &amp; paywalls</span></div>
+    </div>
+  </section>
+
+  <section class="footer">
+    <div class="brand"><div class="brand-mark">T</div><span class="brand-name">Toolstrum</span></div>
+    <span class="url">toolstrum.vercel.app</span>
+  </section>
+
+</div>
+
+<script>
+  (function () {
+    var studios = [
+      ['PDF Studio', '1–48', '#FF6B6B'],
+      ['Image Studio', '49–85', '#10B981'],
+      ['Document Scanner', '86–103', '#06B6D4'],
+      ['Video Studio', '104–128', '#A855F7'],
+      ['Audio Studio', '129–153', '#3B82F6'],
+      ['Office & Documents', '154–180', '#F97316'],
+      ['Archive & Files', '181–204', '#64748B'],
+      ['Text & Writing', '205–243', '#EC4899'],
+      ['Developer Tools', '244–300', '#0EA5E9'],
+      ['Calculators', '301–350', '#F59E0B'],
+      ['QR, Barcode & Security', '351–375', '#0D9488'],
+      ['Web & Internet', '376–400', '#14B8A6'],
+      ['Productivity & Education', '417–450', '#4F46E5'],
+      ['Accessibility & Display', '451–470', '#625BFF'],
+      ['Advanced & Experimental', '471–500', '#9333EA']
+    ];
+    var track = document.getElementById('marqueeTrack');
+    function chip(s) {
+      var el = document.createElement('div');
+      el.className = 'studio-chip';
+      el.innerHTML = '<span class="studio-swatch" style="background:' + s[2] + '"></span>' + s[0] + ' <span class="studio-range">#' + s[1] + '</span>';
+      return el;
+    }
+    studios.concat(studios).forEach(function (s) { track.appendChild(chip(s)); });
+
+    var qr = document.getElementById('qrGrid');
+    var pattern = [
+      1,1,1,0,1,1,1,
+      1,0,1,0,1,0,1,
+      1,1,1,0,1,1,1,
+      0,0,0,1,0,0,0,
+      1,1,1,0,1,0,1,
+      1,0,1,0,0,1,1,
+      1,1,1,0,1,0,1
+    ];
+    pattern.forEach(function (v, i) {
+      var cell = document.createElement('i');
+      if (v) { cell.style.setProperty('--d', i); } else { cell.style.background = 'transparent'; }
+      qr.appendChild(cell);
+    });
+
+    var scenes = Array.prototype.slice.call(document.querySelectorAll('.scene'));
+    var dotsWrap = document.getElementById('sceneDots');
+    var urlEl = document.getElementById('demoUrl');
+    scenes.forEach(function (_, i) {
+      var d = document.createElement('span');
+      if (i === 0) d.className = 'on';
+      dotsWrap.appendChild(d);
+    });
+    var dots = dotsWrap.children;
+    var current = 0;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function showScene(i) {
+      scenes[current].classList.remove('active');
+      dots[current].classList.remove('on');
+      current = i;
+      scenes[current].classList.add('active');
+      dots[current].classList.add('on');
+      urlEl.textContent = scenes[current].getAttribute('data-url');
+    }
+
+    if (!reduced) {
+      setInterval(function () { showScene((current + 1) % scenes.length); }, 3600);
+    }
+  })();
+</script>

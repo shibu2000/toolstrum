@@ -2154,7 +2154,7 @@ export const CANONICAL_TOOLS: ToolDefinition[] = [
       "scan",
       "word"
     ],
-    "status": "available",
+    "status": "coming_soon",
     "offlineCapable": true,
     "iconName": "Scan",
     "inputKind": "camera",
@@ -2175,7 +2175,7 @@ export const CANONICAL_TOOLS: ToolDefinition[] = [
       "scan",
       "excel"
     ],
-    "status": "available",
+    "status": "coming_soon",
     "offlineCapable": true,
     "iconName": "Scan",
     "inputKind": "camera",
