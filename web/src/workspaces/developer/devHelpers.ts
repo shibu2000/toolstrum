@@ -1,0 +1,906 @@
+// Toolstrum Developer Tools Pure Client-Side Engines & Helpers
+// 100% Offline • Zero External Dependencies • 100% Client-Side
+
+// ==========================================
+// 1. MD5 PURE CLIENT-SIDE ALGORITHM
+// ==========================================
+export function md5(string: string): string {
+  function rotateLeft(lValue: number, iShiftBits: number) {
+    return (lValue << iShiftBits) | (lValue >>> (32 - iShiftBits));
+  }
+  function addUnsigned(lX: number, lY: number) {
+    const lX8 = lX & 0x80000000;
+    const lY8 = lY & 0x80000000;
+    const lX4 = lX & 0x40000000;
+    const lY4 = lY & 0x40000000;
+    const lResult = (lX & 0x3fffffff) + (lY & 0x3fffffff);
+    if (lX4 & lY4) return lResult ^ 0x80000000 ^ lX8 ^ lY8;
+    if (lX4 | lY4) {
+      if (lResult & 0x40000000) return lResult ^ 0xc0000000 ^ lX8 ^ lY8;
+      return lResult ^ 0x40000000 ^ lX8 ^ lY8;
+    }
+    return lResult ^ lX8 ^ lY8;
+  }
+  function F(x: number, y: number, z: number) { return (x & y) | (~x & z); }
+  function G(x: number, y: number, z: number) { return (x & z) | (y & ~z); }
+  function H(x: number, y: number, z: number) { return x ^ y ^ z; }
+  function I(x: number, y: number, z: number) { return y ^ (x | ~z); }
+
+  function FF(a: number, b: number, c: number, d: number, x: number, s: number, ac: number) {
+    a = addUnsigned(a, addUnsigned(addUnsigned(F(b, c, d), x), ac));
+    return addUnsigned(rotateLeft(a, s), b);
+  }
+  function GG(a: number, b: number, c: number, d: number, x: number, s: number, ac: number) {
+    a = addUnsigned(a, addUnsigned(addUnsigned(G(b, c, d), x), ac));
+    return addUnsigned(rotateLeft(a, s), b);
+  }
+  function HH(a: number, b: number, c: number, d: number, x: number, s: number, ac: number) {
+    a = addUnsigned(a, addUnsigned(addUnsigned(H(b, c, d), x), ac));
+    return addUnsigned(rotateLeft(a, s), b);
+  }
+  function II(a: number, b: number, c: number, d: number, x: number, s: number, ac: number) {
+    a = addUnsigned(a, addUnsigned(addUnsigned(I(b, c, d), x), ac));
+    return addUnsigned(rotateLeft(a, s), b);
+  }
+
+  function convertToWordArray(str: string) {
+    let lWordCount;
+    const lMessageLength = str.length;
+    const lNumberOfWords_temp1 = lMessageLength + 8;
+    const lNumberOfWords_temp2 = (lNumberOfWords_temp1 - (lNumberOfWords_temp1 % 64)) / 64;
+    const lNumberOfWords = (lNumberOfWords_temp2 + 1) * 16;
+    const lWordArray = Array(lNumberOfWords - 1);
+    let lBytePosition = 0;
+    let lByteCount = 0;
+    while (lByteCount < lMessageLength) {
+      lWordCount = (lByteCount - (lByteCount % 4)) / 4;
+      lBytePosition = (lByteCount % 4) * 8;
+      lWordArray[lWordCount] = lWordArray[lWordCount] | (str.charCodeAt(lByteCount) << lBytePosition);
+      lByteCount++;
+    }
+    lWordCount = (lByteCount - (lByteCount % 4)) / 4;
+    lBytePosition = (lByteCount % 4) * 8;
+    lWordArray[lWordCount] = lWordArray[lWordCount] | (0x80 << lBytePosition);
+    lWordArray[lNumberOfWords - 2] = lMessageLength << 3;
+    lWordArray[lNumberOfWords - 1] = lMessageLength >>> 29;
+    return lWordArray;
+  }
+
+  function wordToHex(lValue: number) {
+    let WordToHexValue = '', WordToHexValue_temp = '', lByte, lCount;
+    for (lCount = 0; lCount <= 3; lCount++) {
+      lByte = (lValue >>> (lCount * 8)) & 255;
+      WordToHexValue_temp = '0' + lByte.toString(16);
+      WordToHexValue = WordToHexValue + WordToHexValue_temp.substr(WordToHexValue_temp.length - 2, 2);
+    }
+    return WordToHexValue;
+  }
+
+  const x = convertToWordArray(unescape(encodeURIComponent(string)));
+  let a = 0x67452301, b = 0xefcdab89, c = 0x98badcfe, d = 0x10325476;
+
+  for (let k = 0; k < x.length; k += 16) {
+    const AA = a, BB = b, CC = c, DD = d;
+    a = FF(a, b, c, d, x[k + 0], 7, 0xd76aa478);
+    d = FF(d, a, b, c, x[k + 1], 12, 0xe8c7b756);
+    c = FF(c, d, a, b, x[k + 2], 17, 0x242070db);
+    b = FF(b, c, d, a, x[k + 3], 22, 0xc1bdceee);
+    a = FF(a, b, c, d, x[k + 4], 7, 0xf57c0faf);
+    d = FF(d, a, b, c, x[k + 5], 12, 0x4787c62a);
+    c = FF(c, d, a, b, x[k + 6], 17, 0xa8304613);
+    b = FF(b, c, d, a, x[k + 7], 22, 0xfd469501);
+    a = FF(a, b, c, d, x[k + 8], 7, 0x698098d8);
+    d = FF(d, a, b, c, x[k + 9], 12, 0x8b44f7af);
+    c = FF(c, d, a, b, x[k + 10], 17, 0xffff5bb1);
+    b = FF(b, c, d, a, x[k + 11], 22, 0x895cd7be);
+    a = FF(a, b, c, d, x[k + 12], 7, 0x6b901122);
+    d = FF(d, a, b, c, x[k + 13], 12, 0xfd987193);
+    c = FF(c, d, a, b, x[k + 14], 17, 0xa679438e);
+    b = FF(b, c, d, a, x[k + 15], 22, 0x49b40821);
+
+    a = GG(a, b, c, d, x[k + 1], 5, 0xf61e2562);
+    d = GG(d, a, b, c, x[k + 6], 9, 0xc040b340);
+    c = GG(c, d, a, b, x[k + 11], 14, 0x265e5a51);
+    b = GG(b, c, d, a, x[k + 0], 20, 0xe9b6c7aa);
+    a = GG(a, b, c, d, x[k + 5], 5, 0xd62f105d);
+    d = GG(d, a, b, c, x[k + 10], 9, 0x02441453);
+    c = GG(c, d, a, b, x[k + 15], 14, 0xd8a1e681);
+    b = GG(b, c, d, a, x[k + 4], 20, 0xe7d3fbc8);
+    a = GG(a, b, c, d, x[k + 9], 5, 0x21e1cde6);
+    d = GG(d, a, b, c, x[k + 14], 9, 0xc33707d6);
+    c = GG(c, d, a, b, x[k + 3], 14, 0xf4d50d87);
+    b = GG(b, c, d, a, x[k + 8], 20, 0x455a14ed);
+    a = GG(a, b, c, d, x[k + 13], 5, 0xa9e3e905);
+    d = GG(d, a, b, c, x[k + 2], 9, 0xfcefa3f8);
+    c = GG(c, d, a, b, x[k + 7], 14, 0x676f02d9);
+    b = GG(b, c, d, a, x[k + 12], 20, 0x8d2a4c8a);
+
+    a = HH(a, b, c, d, x[k + 5], 4, 0xfffa3942);
+    d = HH(d, a, b, c, x[k + 8], 11, 0x8771f681);
+    c = HH(c, d, a, b, x[k + 11], 16, 0x6d9d6122);
+    b = HH(b, c, d, a, x[k + 14], 23, 0xfde5380c);
+    a = HH(a, b, c, d, x[k + 1], 4, 0xa4beea44);
+    d = HH(d, a, b, c, x[k + 4], 11, 0x4bdecfa9);
+    c = HH(c, d, a, b, x[k + 7], 16, 0xf6bb4b60);
+    b = HH(b, c, d, a, x[k + 10], 23, 0xbebfbc70);
+    a = HH(a, b, c, d, x[k + 13], 4, 0x289b7ec6);
+    d = HH(d, a, b, c, x[k + 0], 11, 0xeaa127fa);
+    c = HH(c, d, a, b, x[k + 3], 16, 0xd4ef3085);
+    b = HH(b, c, d, a, x[k + 6], 23, 0x04881d05);
+    a = HH(a, b, c, d, x[k + 9], 4, 0xd9d4d039);
+    d = HH(d, a, b, c, x[k + 12], 11, 0xe6db99e5);
+    c = HH(c, d, a, b, x[k + 15], 16, 0x1fa27cf8);
+    b = HH(b, c, d, a, x[k + 2], 23, 0xc4ac5665);
+
+    a = II(a, b, c, d, x[k + 0], 6, 0xf4292244);
+    d = II(d, a, b, c, x[k + 7], 10, 0x432aff97);
+    c = II(c, d, a, b, x[k + 14], 15, 0xab9423a7);
+    b = II(b, c, d, a, x[k + 5], 21, 0xfc93a039);
+    a = II(a, b, c, d, x[k + 12], 6, 0x655b59c3);
+    d = II(d, a, b, c, x[k + 3], 10, 0x8f0ccc92);
+    c = II(c, d, a, b, x[k + 10], 15, 0xffeff47d);
+    b = II(b, c, d, a, x[k + 1], 21, 0x85845dd1);
+    a = II(a, b, c, d, x[k + 8], 6, 0x6fa87e4f);
+    d = II(d, a, b, c, x[k + 15], 10, 0xfe2ce6e0);
+    c = II(c, d, a, b, x[k + 6], 15, 0xa3014314);
+    b = II(b, c, d, a, x[k + 13], 21, 0x4e0811a1);
+    a = II(a, b, c, d, x[k + 4], 6, 0xf7537e82);
+    d = II(d, a, b, c, x[k + 11], 10, 0xbd3af235);
+    c = II(c, d, a, b, x[k + 2], 15, 0x2ad7d2bb);
+    b = II(b, c, d, a, x[k + 9], 21, 0xeb86d391);
+
+    a = addUnsigned(a, AA);
+    b = addUnsigned(b, BB);
+    c = addUnsigned(c, CC);
+    d = addUnsigned(d, DD);
+  }
+  return (wordToHex(a) + wordToHex(b) + wordToHex(c) + wordToHex(d)).toLowerCase();
+}
+
+// ==========================================
+// 2. YAML ENGINES (PARSE, FORMAT, VALIDATE, JSON CONVERSIONS)
+// ==========================================
+export function parseYamlValue(str: string): any {
+  str = str.trim();
+  if (str === 'true' || str === 'True' || str === 'yes') return true;
+  if (str === 'false' || str === 'False' || str === 'no') return false;
+  if (str === 'null' || str === 'Null' || str === '~' || str === '') return null;
+  if (!isNaN(Number(str)) && str !== '') return Number(str);
+  if ((str.startsWith('"') && str.endsWith('"')) || (str.startsWith("'") && str.endsWith("'"))) {
+    return str.slice(1, -1);
+  }
+  return str;
+}
+
+export function yamlToJsonObject(text: string): { data?: any; error?: string } {
+  try {
+    const lines = text.split('\n');
+    const root: Record<string, any> = {};
+    const stack: { indent: number; node: any; key: string | null; isArray?: boolean }[] = [
+      { indent: -1, node: root, key: null },
+    ];
+
+    for (let idx = 0; idx < lines.length; idx++) {
+      const raw = lines[idx];
+      const stripped = raw.replace(/#.*$/, '');
+      if (!stripped.trim()) continue;
+
+      const indent = raw.search(/\S/);
+      const content = stripped.trim();
+
+      while (stack.length > 1 && indent <= stack[stack.length - 1].indent) {
+        stack.pop();
+      }
+      const current = stack[stack.length - 1];
+
+      if (content.startsWith('- ')) {
+        const rest = content.slice(2).trim();
+        let targetArr: any[] | null = null;
+        if (Array.isArray(current.node)) {
+          targetArr = current.node;
+        } else if (current.key && Array.isArray(current.node[current.key])) {
+          targetArr = current.node[current.key];
+        } else if (current.key) {
+          targetArr = [];
+          current.node[current.key] = targetArr;
+        }
+
+        if (!targetArr) {
+          targetArr = [];
+          if (current.key) current.node[current.key] = targetArr;
+          else current.node = targetArr;
+        }
+
+        if (rest.includes(':')) {
+          const colonIdx = rest.indexOf(':');
+          const k = rest.slice(0, colonIdx).trim().replace(/^['"]|['"]$/g, '');
+          const vPart = rest.slice(colonIdx + 1).trim();
+          const obj = { [k]: parseYamlValue(vPart) };
+          targetArr.push(obj);
+          stack.push({ indent, node: obj, key: k });
+        } else {
+          targetArr.push(parseYamlValue(rest));
+        }
+      } else if (content.includes(':')) {
+        const colonIdx = content.indexOf(':');
+        const key = content.slice(0, colonIdx).trim().replace(/^['"]|['"]$/g, '');
+        const valPart = content.slice(colonIdx + 1).trim();
+
+        if (valPart === '') {
+          const peek = lines.slice(idx + 1).find((l) => l.replace(/#.*$/, '').trim().length > 0);
+          const isNextList = peek ? peek.replace(/#.*$/, '').trim().startsWith('- ') : false;
+          const newContainer = isNextList ? [] : {};
+          if (Array.isArray(current.node)) {
+            current.node.push({ [key]: newContainer });
+          } else {
+            current.node[key] = newContainer;
+          }
+          stack.push({ indent, node: newContainer, key, isArray: isNextList });
+        } else {
+          const val = parseYamlValue(valPart);
+          if (Array.isArray(current.node)) {
+            current.node.push({ [key]: val });
+          } else {
+            current.node[key] = val;
+          }
+        }
+      }
+    }
+    return { data: root };
+  } catch (e: any) {
+    return { error: e.message || 'Malformed YAML syntax.' };
+  }
+}
+
+export function jsonToYaml(obj: any, indent = 0): string {
+  const spaces = ' '.repeat(indent);
+  if (obj === null || obj === undefined) return 'null';
+  if (typeof obj === 'string') {
+    return obj.includes('\n') || obj.includes(':') || obj.includes('#') ? JSON.stringify(obj) : obj;
+  }
+  if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj);
+  if (Array.isArray(obj)) {
+    if (obj.length === 0) return '[]';
+    return obj
+      .map((item) => {
+        if (typeof item === 'object' && item !== null) {
+          const nested = jsonToYaml(item, indent + 2).trim();
+          return `${spaces}- ${nested}`;
+        }
+        return `${spaces}- ${jsonToYaml(item, 0)}`;
+      })
+      .join('\n');
+  }
+  if (typeof obj === 'object') {
+    const keys = Object.keys(obj);
+    if (keys.length === 0) return '{}';
+    return keys
+      .map((k) => {
+        const v = obj[k];
+        if (typeof v === 'object' && v !== null) {
+          if (Array.isArray(v) && v.length === 0) return `${spaces}${k}: []`;
+          if (!Array.isArray(v) && Object.keys(v).length === 0) return `${spaces}${k}: {}`;
+          return `${spaces}${k}:\n${jsonToYaml(v, indent + 2)}`;
+        }
+        return `${spaces}${k}: ${jsonToYaml(v, 0)}`;
+      })
+      .join('\n');
+  }
+  return String(obj);
+}
+
+export function formatYaml(yamlStr: string, indentSize = 2): string {
+  const parsed = yamlToJsonObject(yamlStr);
+  if (parsed.error || !parsed.data) return yamlStr;
+  return jsonToYaml(parsed.data, 0);
+}
+
+export function validateYaml(yamlStr: string): { valid: boolean; error?: string; line?: number } {
+  if (!yamlStr.trim()) return { valid: false, error: 'YAML input is empty.' };
+  const lines = yamlStr.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (line.includes('\t')) {
+      return { valid: false, error: `Tabs are forbidden in YAML. Use spaces for indentation.`, line: i + 1 };
+    }
+    const stripped = line.replace(/#.*$/, '').trim();
+    if (stripped && stripped.includes(':') && !stripped.includes(': ') && !stripped.endsWith(':')) {
+      return { valid: false, error: `Missing space after colon in key-value mapping.`, line: i + 1 };
+    }
+  }
+  const parsed = yamlToJsonObject(yamlStr);
+  if (parsed.error) return { valid: false, error: parsed.error };
+  return { valid: true };
+}
+
+// ==========================================
+// 3. XML VALIDATOR
+// ==========================================
+export function validateXml(xmlStr: string): { valid: boolean; rootElement?: string; childCount?: number; error?: string } {
+  if (!xmlStr.trim()) return { valid: false, error: 'XML input is empty.' };
+  if (typeof window === 'undefined') return { valid: true };
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(xmlStr, 'application/xml');
+  const parserError = doc.querySelector('parsererror');
+  if (parserError) {
+    return { valid: false, error: parserError.textContent || 'XML syntax or closing tag error.' };
+  }
+  const root = doc.documentElement;
+  return {
+    valid: true,
+    rootElement: root.tagName,
+    childCount: root.children.length,
+  };
+}
+
+// ==========================================
+// 4. HTML FORMATTER & MINIFIER
+// ==========================================
+export function formatHtml(html: string, indent = 2): string {
+  const pad = ' '.repeat(indent);
+  let formatted = '';
+  let depth = 0;
+  // Clean newlines & spaces between tags
+  const tokens = html.replace(/>\s*</g, '><').match(/<[^>]+>|[^<]+/g) || [];
+
+  for (const token of tokens) {
+    if (token.startsWith('</')) {
+      depth = Math.max(0, depth - 1);
+      formatted += `${pad.repeat(depth)}${token}\n`;
+    } else if (token.startsWith('<') && !token.startsWith('<!') && !token.endsWith('/>')) {
+      const isVoid = /<(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)/i.test(token);
+      formatted += `${pad.repeat(depth)}${token}\n`;
+      if (!isVoid) depth++;
+    } else {
+      const text = token.trim();
+      if (text) formatted += `${pad.repeat(depth)}${text}\n`;
+    }
+  }
+  return formatted.trim();
+}
+
+export function minifyHtml(html: string): string {
+  return html
+    .replace(/<!--[\s\S]*?-->/g, '') // Strip comments
+    .replace(/>\s+</g, '><') // Collapse spaces between tags
+    .replace(/\s{2,}/g, ' ') // Collapse multiple spaces
+    .trim();
+}
+
+// ==========================================
+// 5. CSS FORMATTER & MINIFIER
+// ==========================================
+export function formatCss(css: string): string {
+  return css
+    .replace(/\s*([\{\};:])\s*/g, '$1')
+    .replace(/\{/g, ' {\n  ')
+    .replace(/;/g, ';\n  ')
+    .replace(/\s*\}/g, '\n}\n\n')
+    .trim();
+}
+
+export function minifyCss(css: string): string {
+  return css
+    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
+    .replace(/\s*([\{\};:,])\s*/g, '$1')
+    .replace(/;}/g, '}') // Remove trailing semicolons
+    .trim();
+}
+
+// ==========================================
+// 6. JS FORMATTER & MINIFIER
+// ==========================================
+export function formatJs(js: string): string {
+  let depth = 0;
+  const lines = js.split('\n');
+  const result: string[] = [];
+
+  for (const raw of lines) {
+    const trimmed = raw.trim();
+    if (!trimmed) continue;
+    if (trimmed.startsWith('}')) depth = Math.max(0, depth - 1);
+    result.push('  '.repeat(depth) + trimmed);
+    if (trimmed.endsWith('{')) depth++;
+  }
+  return result.join('\n');
+}
+
+export function minifyJs(js: string): string {
+  return js
+    .replace(/\/\*[\s\S]*?\*\//g, '') // Multi-line comments
+    .replace(/\/\/.*$/gm, '') // Single-line comments
+    .replace(/\s+/g, ' ') // Collapse spaces
+    .replace(/\s*([\{\}\(\)\[\]=;:,><+\-*\/])\s*/g, '$1')
+    .trim();
+}
+
+// ==========================================
+// 7. SQL FORMATTER, MINIFIER & EXPLAINER
+// ==========================================
+export function formatSql(sql: string): string {
+  const majorKeywords = [
+    'SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN',
+    'INNER JOIN', 'FULL JOIN', 'CROSS JOIN', 'ON', 'GROUP BY', 'ORDER BY',
+    'HAVING', 'LIMIT', 'OFFSET', 'UNION', 'UNION ALL', 'INSERT INTO', 'VALUES',
+    'UPDATE', 'SET', 'DELETE FROM'
+  ];
+  let formatted = sql.trim();
+  for (const kw of majorKeywords) {
+    const reg = new RegExp(`\\b${kw}\\b`, 'gi');
+    formatted = formatted.replace(reg, `\n${kw}`);
+  }
+  return formatted.trim();
+}
+
+export function minifySql(sql: string): string {
+  return sql
+    .replace(/--.*$/gm, '') // Line comments
+    .replace(/\/\*[\s\S]*?\*\//g, '') // Block comments
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+export interface SqlExplanation {
+  type: string;
+  tables: string[];
+  columns: string[];
+  filters: string[];
+  joins: string[];
+  grouping: string[];
+  sorting: string[];
+  limit: string;
+  summary: string;
+}
+
+export function explainSql(sql: string): SqlExplanation {
+  const clean = sql.replace(/\s+/g, ' ').trim();
+  let type = 'SELECT';
+  if (/^INSERT/i.test(clean)) type = 'INSERT';
+  else if (/^UPDATE/i.test(clean)) type = 'UPDATE';
+  else if (/^DELETE/i.test(clean)) type = 'DELETE';
+
+  const tables: string[] = [];
+  const fromMatch = clean.match(/FROM\s+([a-zA-Z0-9_,\s]+?)(?:WHERE|JOIN|GROUP|ORDER|LIMIT|$)/i);
+  if (fromMatch) {
+    tables.push(...fromMatch[1].split(',').map((t) => t.trim().split(/\s+/)[0]));
+  }
+
+  const joins: string[] = [];
+  const joinMatches = clean.matchAll(/(?:LEFT|RIGHT|INNER|FULL|CROSS)?\s*JOIN\s+([a-zA-Z0-9_]+)\s+ON\s+([^WHERE|GROUP|ORDER|LIMIT]+)/gi);
+  for (const jm of joinMatches) {
+    joins.push(`${jm[1]} (condition: ${jm[2].trim()})`);
+  }
+
+  const columns: string[] = [];
+  const selectMatch = clean.match(/SELECT\s+(.*?)\s+FROM/i);
+  if (selectMatch) {
+    columns.push(...selectMatch[1].split(',').map((c) => c.trim()));
+  }
+
+  const filters: string[] = [];
+  const whereMatch = clean.match(/WHERE\s+(.*?)(?:GROUP|ORDER|LIMIT|$)/i);
+  if (whereMatch) {
+    filters.push(whereMatch[1].trim());
+  }
+
+  const grouping: string[] = [];
+  const groupMatch = clean.match(/GROUP BY\s+(.*?)(?:HAVING|ORDER|LIMIT|$)/i);
+  if (groupMatch) {
+    grouping.push(...groupMatch[1].split(',').map((g) => g.trim()));
+  }
+
+  const sorting: string[] = [];
+  const orderMatch = clean.match(/ORDER BY\s+(.*?)(?:LIMIT|$)/i);
+  if (orderMatch) {
+    sorting.push(...orderMatch[1].split(',').map((o) => o.trim()));
+  }
+
+  const limitMatch = clean.match(/LIMIT\s+(\d+)(?:\s+OFFSET\s+(\d+))?/i);
+  const limit = limitMatch ? `${limitMatch[1]} rows${limitMatch[2] ? ` (offset ${limitMatch[2]})` : ''}` : 'No limit specified (returns all matches)';
+
+  const summary = `This ${type} query targets table(s) "${tables.join(', ') || 'unknown'}"${
+    filters.length ? ` filtered by [${filters.join(' AND ')}]` : ''
+  }${joins.length ? ` joined with ${joins.length} relation(s)` : ''}.`;
+
+  return { type, tables, columns, filters, joins, grouping, sorting, limit, summary };
+}
+
+// ==========================================
+// 8. REGEX EXPLAINER
+// ==========================================
+export interface RegexTokenExplanation {
+  token: string;
+  meaning: string;
+  category: 'anchor' | 'character' | 'quantifier' | 'group' | 'logic';
+}
+
+export function explainRegex(pattern: string): RegexTokenExplanation[] {
+  const tokens: RegexTokenExplanation[] = [];
+  let i = 0;
+
+  while (i < pattern.length) {
+    const char = pattern[i];
+
+    if (char === '^') {
+      tokens.push({ token: '^', meaning: 'Asserts the start of the string or line.', category: 'anchor' });
+      i++;
+    } else if (char === '$') {
+      tokens.push({ token: '$', meaning: 'Asserts the end of the string or line.', category: 'anchor' });
+      i++;
+    } else if (char === '\\') {
+      const next = pattern[i + 1] || '';
+      if (next === 'd') tokens.push({ token: '\\d', meaning: 'Matches any digit (equivalent to [0-9]).', category: 'character' });
+      else if (next === 'D') tokens.push({ token: '\\D', meaning: 'Matches any non-digit character.', category: 'character' });
+      else if (next === 'w') tokens.push({ token: '\\w', meaning: 'Matches any word character (letters, digits, underscore).', category: 'character' });
+      else if (next === 'W') tokens.push({ token: '\\W', meaning: 'Matches any non-word character.', category: 'character' });
+      else if (next === 's') tokens.push({ token: '\\s', meaning: 'Matches any whitespace character (space, tab, newline).', category: 'character' });
+      else if (next === 'S') tokens.push({ token: '\\S', meaning: 'Matches any non-whitespace character.', category: 'character' });
+      else if (next === 'b') tokens.push({ token: '\\b', meaning: 'Asserts a word boundary.', category: 'anchor' });
+      else tokens.push({ token: `\\${next}`, meaning: `Escaped literal character "${next}".`, category: 'character' });
+      i += 2;
+    } else if (char === '[') {
+      const end = pattern.indexOf(']', i);
+      if (end !== -1) {
+        const cls = pattern.slice(i, end + 1);
+        tokens.push({ token: cls, meaning: `Character class matching any character in ${cls}.`, category: 'character' });
+        i = end + 1;
+      } else {
+        tokens.push({ token: '[', meaning: 'Unclosed character class bracket.', category: 'character' });
+        i++;
+      }
+    } else if (char === '+' || char === '*' || char === '?') {
+      const desc = char === '+' ? 'Matches 1 or more times.' : char === '*' ? 'Matches 0 or more times.' : 'Matches 0 or 1 time (optional).';
+      tokens.push({ token: char, meaning: desc, category: 'quantifier' });
+      i++;
+    } else if (char === '{') {
+      const end = pattern.indexOf('}', i);
+      if (end !== -1) {
+        const q = pattern.slice(i, end + 1);
+        tokens.push({ token: q, meaning: `Quantifier matching ${q.slice(1, -1)} occurrences.`, category: 'quantifier' });
+        i = end + 1;
+      } else {
+        tokens.push({ token: '{', meaning: 'Literal bracket', category: 'character' });
+        i++;
+      }
+    } else if (char === '(') {
+      if (pattern.startsWith('(?:', i)) {
+        tokens.push({ token: '(?:...)', meaning: 'Non-capturing group.', category: 'group' });
+        i += 3;
+      } else {
+        tokens.push({ token: '(', meaning: 'Starts a capturing group.', category: 'group' });
+        i++;
+      }
+    } else if (char === ')') {
+      tokens.push({ token: ')', meaning: 'Ends a capturing group.', category: 'group' });
+      i++;
+    } else if (char === '|') {
+      tokens.push({ token: '|', meaning: 'Alternation (Boolean OR condition).', category: 'logic' });
+      i++;
+    } else if (char === '.') {
+      tokens.push({ token: '.', meaning: 'Wildcard: matches any single character except newline.', category: 'character' });
+      i++;
+    } else {
+      tokens.push({ token: char, meaning: `Literal character "${char}".`, category: 'character' });
+      i++;
+    }
+  }
+
+  return tokens;
+}
+
+// ==========================================
+// 9. ENCODERS & DECODERS (BASE64, URL, HTML ENTITIES)
+// ==========================================
+export function encodeBase64(text: string, urlSafe = false, noPadding = false): string {
+  let b64 = btoa(unescape(encodeURIComponent(text)));
+  if (urlSafe) {
+    b64 = b64.replace(/\+/g, '-').replace(/\//g, '_');
+  }
+  if (noPadding) {
+    b64 = b64.replace(/=+$/, '');
+  }
+  return b64;
+}
+
+export function decodeBase64(b64: string): { text?: string; error?: string } {
+  try {
+    let clean = b64.trim().replace(/-/g, '+').replace(/_/g, '/');
+    while (clean.length % 4) clean += '=';
+    const decoded = decodeURIComponent(escape(atob(clean)));
+    return { text: decoded };
+  } catch (e: any) {
+    return { error: 'Invalid Base64 string encoding.' };
+  }
+}
+
+export function encodeUrl(url: string, componentMode = false): string {
+  return componentMode ? encodeURIComponent(url) : encodeURI(url);
+}
+
+export function decodeUrl(url: string, plusAsSpace = true): { text?: string; error?: string } {
+  try {
+    const input = plusAsSpace ? url.replace(/\+/g, ' ') : url;
+    return { text: decodeURIComponent(input) };
+  } catch (e: any) {
+    return { error: 'Invalid URL percent-encoded sequence.' };
+  }
+}
+
+export function encodeHtmlEntities(text: string, mode: 'named' | 'decimal' | 'hex' = 'named'): string {
+  const map: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '©': '&copy;',
+    '®': '&reg;',
+    '™': '&trade;',
+    '€': '&euro;',
+    '£': '&pound;',
+    '¥': '&yen;',
+  };
+
+  if (mode === 'named') {
+    return text.replace(/[&<>"'©®™€£¥]/g, (c) => map[c] || `&#${c.charCodeAt(0)};`);
+  } else if (mode === 'decimal') {
+    return text.replace(/[^\w\s]/g, (c) => `&#${c.charCodeAt(0)};`);
+  } else {
+    return text.replace(/[^\w\s]/g, (c) => `&#x${c.charCodeAt(0).toString(16)};`);
+  }
+}
+
+export function decodeHtmlEntities(text: string): string {
+  if (typeof window !== 'undefined') {
+    const doc = new DOMParser().parseFromString(text, 'text/html');
+    return doc.documentElement.textContent || text;
+  }
+  return text
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&copy;/g, '©');
+}
+
+// ==========================================
+// 10. SECURITY TOOLS (JWT, UUID, ULID, HASHES, HMAC, PASSWORD, BCRYPT)
+// ==========================================
+export interface JwtDecoded {
+  header: any;
+  payload: any;
+  signature: string;
+  isValidStructure: boolean;
+  isExpired: boolean;
+  issuedAt?: string;
+  expiresAt?: string;
+  timeLeft?: string;
+  error?: string;
+}
+
+export function decodeJwt(jwtStr: string): JwtDecoded {
+  try {
+    const parts = jwtStr.trim().split('.');
+    if (parts.length < 2) return { header: null, payload: null, signature: '', isValidStructure: false, isExpired: false, error: 'JWT must have at least 2 segments separated by dots.' };
+
+    const header = JSON.parse(decodeURIComponent(escape(atob(parts[0].replace(/-/g, '+').replace(/_/g, '/')))));
+    const payload = JSON.parse(decodeURIComponent(escape(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')))));
+    const signature = parts[2] || '';
+
+    let isExpired = false;
+    let issuedAt: string | undefined;
+    let expiresAt: string | undefined;
+    let timeLeft: string | undefined;
+
+    if (payload.iat) {
+      issuedAt = new Date(payload.iat * 1000).toLocaleString();
+    }
+    if (payload.exp) {
+      const expDate = new Date(payload.exp * 1000);
+      expiresAt = expDate.toLocaleString();
+      const diffMs = expDate.getTime() - Date.now();
+      isExpired = diffMs < 0;
+      const absMinutes = Math.abs(Math.floor(diffMs / 60000));
+      timeLeft = isExpired ? `Expired ${absMinutes} minute(s) ago` : `Expires in ${absMinutes} minute(s)`;
+    }
+
+    return { header, payload, signature, isValidStructure: true, isExpired, issuedAt, expiresAt, timeLeft };
+  } catch (e: any) {
+    return { header: null, payload: null, signature: '', isValidStructure: false, isExpired: false, error: e.message || 'Invalid JWT' };
+  }
+}
+
+export function generateUuids(count = 5, uppercase = false, noHyphens = false): string[] {
+  const uuids: string[] = [];
+  for (let i = 0; i < count; i++) {
+    let id = crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+    if (noHyphens) id = id.replace(/-/g, '');
+    if (uppercase) id = id.toUpperCase();
+    uuids.push(id);
+  }
+  return uuids;
+}
+
+const CROCKFORD_BASE32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
+
+export function generateUlids(count = 5): { ulid: string; timestamp: Date }[] {
+  const result: { ulid: string; timestamp: Date }[] = [];
+  const now = Date.now();
+  for (let idx = 0; idx < count; idx++) {
+    let t = now + idx;
+    let timeStr = '';
+    for (let i = 9; i >= 0; i--) {
+      timeStr = CROCKFORD_BASE32[t % 32] + timeStr;
+      t = Math.floor(t / 32);
+    }
+    let randStr = '';
+    for (let i = 0; i < 16; i++) {
+      randStr += CROCKFORD_BASE32[Math.floor(Math.random() * 32)];
+    }
+    result.push({
+      ulid: timeStr + randStr,
+      timestamp: new Date(now + idx),
+    });
+  }
+  return result;
+}
+
+export async function computeHashes(text: string, uppercase = false): Promise<{ sha256: string; sha512: string; sha384: string; sha1: string; md5Hash: string }> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text);
+
+  const digestToHex = async (alg: string) => {
+    try {
+      const buf = await crypto.subtle.digest(alg, data);
+      let hex = Array.from(new Uint8Array(buf))
+        .map((b) => b.toString(16).padStart(2, '0'))
+        .join('');
+      return uppercase ? hex.toUpperCase() : hex;
+    } catch {
+      return 'N/A';
+    }
+  };
+
+  const [sha256, sha512, sha384, sha1] = await Promise.all([
+    digestToHex('SHA-256'),
+    digestToHex('SHA-512'),
+    digestToHex('SHA-384'),
+    digestToHex('SHA-1'),
+  ]);
+
+  const md5Hash = uppercase ? md5(text).toUpperCase() : md5(text);
+  return { sha256, sha512, sha384, sha1, md5Hash };
+}
+
+export async function computeHmac(message: string, secret: string, algorithm: 'SHA-256' | 'SHA-512' | 'SHA-384'): Promise<{ hex: string; base64: string }> {
+  const encoder = new TextEncoder();
+  const keyData = encoder.encode(secret);
+  const msgData = encoder.encode(message);
+
+  const key = await crypto.subtle.importKey(
+    'raw',
+    keyData,
+    { name: 'HMAC', hash: algorithm },
+    false,
+    ['sign']
+  );
+
+  const signature = await crypto.subtle.sign('HMAC', key, msgData);
+  const sigBytes = new Uint8Array(signature);
+  const hex = Array.from(sigBytes)
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+  let binary = '';
+  for (let i = 0; i < sigBytes.byteLength; i++) {
+    binary += String.fromCharCode(sigBytes[i]);
+  }
+  const base64 = btoa(binary);
+
+  return { hex, base64 };
+}
+
+export function generatePassword(
+  length = 16,
+  options = { upper: true, lower: true, numbers: true, symbols: true, noAmbiguous: false }
+): { password: string; strength: 'Weak' | 'Medium' | 'Strong' | 'Very Strong'; entropyBits: number } {
+  let chars = '';
+  if (options.upper) chars += options.noAmbiguous ? 'ABCDEFGHJKLMNPQRSTUVWXYZ' : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if (options.lower) chars += options.noAmbiguous ? 'abcdefghijkmnopqrstuvwxyz' : 'abcdefghijklmnopqrstuvwxyz';
+  if (options.numbers) chars += options.noAmbiguous ? '23456789' : '0123456789';
+  if (options.symbols) chars += '!@#$%^&*()_+~|}{[]:;?><,./-=';
+
+  if (!chars) chars = 'abcdefghijklmnopqrstuvwxyz';
+
+  const randomValues = new Uint32Array(length);
+  crypto.getRandomValues(randomValues);
+
+  let password = '';
+  for (let i = 0; i < length; i++) {
+    password += chars[randomValues[i] % chars.length];
+  }
+
+  const entropyBits = Math.round(length * Math.log2(chars.length));
+  let strength: 'Weak' | 'Medium' | 'Strong' | 'Very Strong' = 'Weak';
+  if (entropyBits >= 80) strength = 'Very Strong';
+  else if (entropyBits >= 60) strength = 'Strong';
+  else if (entropyBits >= 36) strength = 'Medium';
+
+  return { password, strength, entropyBits };
+}
+
+export function inspectBcrypt(hash: string): {
+  valid: boolean;
+  version?: string;
+  cost?: number;
+  iterations?: number;
+  salt?: string;
+  checksum?: string;
+  error?: string;
+} {
+  const match = hash.trim().match(/^\$(2a|2b|2y)\$(\d{2})\$([A-Za-z0-9\.\/]{22})([A-Za-z0-9\.\/]{31})$/);
+  if (!match) {
+    return { valid: false, error: 'Invalid Bcrypt hash format. Expected: $2a|2b|2y$rounds$salt22char...hash31char' };
+  }
+  const version = `$${match[1]}$`;
+  const cost = parseInt(match[2], 10);
+  const iterations = Math.pow(2, cost);
+  const salt = match[3];
+  const checksum = match[4];
+
+  return { valid: true, version, cost, iterations, salt, checksum };
+}
+
+// ==========================================
+// 11. COLOR CONVERTERS
+// ==========================================
+export function hexToRgb(hex: string): { r: number; g: number; b: number } | null {
+  const clean = hex.replace(/^#/, '');
+  if (clean.length === 3) {
+    return {
+      r: parseInt(clean[0] + clean[0], 16),
+      g: parseInt(clean[1] + clean[1], 16),
+      b: parseInt(clean[2] + clean[2], 16),
+    };
+  }
+  if (clean.length === 6) {
+    return {
+      r: parseInt(clean.slice(0, 2), 16),
+      g: parseInt(clean.slice(2, 4), 16),
+      b: parseInt(clean.slice(4, 6), 16),
+    };
+  }
+  return null;
+}
+
+export function rgbToHsl(r: number, g: number, b: number): { h: number; s: number; l: number } {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  let s = 0;
+  const l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+  return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+}
+
+export function rgbToHex(r: number, g: number, b: number): string {
+  const clamp = (v: number) => Math.max(0, Math.min(255, Math.round(v)));
+  return '#' + [clamp(r), clamp(g), clamp(b)].map((x) => x.toString(16).padStart(2, '0')).join('').toUpperCase();
+}

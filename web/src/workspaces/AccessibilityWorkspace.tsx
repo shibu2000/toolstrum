@@ -8,7 +8,6 @@ import {
   Sliders,
   Maximize2,
   Volume2,
-  ShieldCheck,
   Sun,
   Moon,
   Smartphone,
@@ -1113,34 +1112,7 @@ export const AccessibilityWorkspace: React.FC<AccessibilityWorkspaceProps> = ({
         </div>
       )}
 
-      {/* 464 — SCREEN RESOLUTION VIEWER */}
-      {toolId === 464 && (
-        <div className="grid grid-cols-1 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Screen Resolution Viewer</h3>
-            <div className="space-y-2.5 text-xs">
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
-                <span className="text-slate-500">Live Viewport Resolution</span>
-                <span className="font-bold font-mono text-slate-900 dark:text-white">{screenInfo.viewport}</span>
-              </div>
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
-                <span className="text-slate-500">Physical Monitor Resolution</span>
-                <span className="font-bold font-mono text-slate-900 dark:text-white">{screenInfo.screen}</span>
-              </div>
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
-                <span className="text-slate-500">Device Pixel Ratio (DPR)</span>
-                <span className="font-bold font-mono text-slate-900 dark:text-white">{screenInfo.dpr}x</span>
-              </div>
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
-                <span className="text-slate-500">Color Depth</span>
-                <span className="font-bold font-mono text-slate-900 dark:text-white">{screenInfo.colorDepth}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 465 — DEVICE INFORMATION */}
+      {/* 465 — DEVICE INFORMATION (consolidated: platform/cores/memory + battery + screen resolution) */}
       {toolId === 465 && (
         <div className="grid grid-cols-1 gap-6">
           <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
@@ -1174,77 +1146,27 @@ export const AccessibilityWorkspace: React.FC<AccessibilityWorkspaceProps> = ({
                   {deviceInfo.online ? 'Online' : 'Offline'}
                 </span>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 466 — BATTERY INFORMATION */}
-      {toolId === 466 && (
-        <div className="grid grid-cols-1 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <BatteryCharging className="w-4 h-4 text-indigo-500" /> Battery Information
-            </h3>
-            <div className="space-y-2.5 text-xs">
               <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
                 <span className="text-slate-500">Battery Level</span>
                 <span className="font-bold font-mono text-slate-900 dark:text-white">
-                  {batterySupported && batteryInfo ? `${batteryInfo.level}%` : 'Not supported in this browser'}
+                  {batterySupported && batteryInfo ? `${batteryInfo.level}% ${batteryInfo.charging ? '(Charging)' : ''}` : 'Not supported in this browser'}
                 </span>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
-                <span className="text-slate-500">Charging Status</span>
-                <span className="font-bold font-mono text-slate-900 dark:text-white">
-                  {batterySupported && batteryInfo ? (batteryInfo.charging ? 'Charging' : 'Not Charging') : 'Not supported in this browser'}
-                </span>
+                <span className="text-slate-500">Live Viewport Resolution</span>
+                <span className="font-bold font-mono text-slate-900 dark:text-white">{screenInfo.viewport}</span>
               </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 468 — APP PERMISSION GUIDE */}
-      {toolId === 468 && (
-        <div className="grid grid-cols-1 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-indigo-500" /> Browser Permission Guide
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              {[
-                { name: 'Microphone', why: 'Required by the Sound Level Meter and Speech-to-Text tools to analyze or transcribe audio.' },
-                { name: 'Camera', why: 'Required by the Magnifier, Document Scanner and QR Scanner tools to capture images.' },
-                { name: 'Storage / Persistent Storage', why: 'Lets Toolstrum keep your recent files and settings between sessions.' },
-                { name: 'Notifications', why: 'Used by Reminders & Attendance tools to alert you at the scheduled time.' },
-              ].map((p) => (
-                <div key={p.name} className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
-                  <p className="font-bold text-slate-800 dark:text-slate-200">{p.name}</p>
-                  <p className="text-slate-500 mt-1">{p.why}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 469 — OFFLINE REFERENCE LIBRARY */}
-      {toolId === 469 && (
-        <div className="grid grid-cols-1 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Offline Reference Library</h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
-                <p className="font-bold text-slate-800 dark:text-slate-200 mb-1">WCAG Contrast Minimums</p>
-                <p className="text-slate-500">Normal text: 4.5:1 · Large text: 3:1 · AAA: 7:1</p>
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
+                <span className="text-slate-500">Physical Monitor Resolution</span>
+                <span className="font-bold font-mono text-slate-900 dark:text-white">{screenInfo.screen}</span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
-                <p className="font-bold text-slate-800 dark:text-slate-200 mb-1">Common Keyboard Shortcuts</p>
-                <p className="text-slate-500">Tab: next element · Shift+Tab: previous · Space/Enter: activate</p>
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
+                <span className="text-slate-500">Device Pixel Ratio (DPR)</span>
+                <span className="font-bold font-mono text-slate-900 dark:text-white">{screenInfo.dpr}x</span>
               </div>
-              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800">
-                <p className="font-bold text-slate-800 dark:text-slate-200 mb-1">File Size Units</p>
-                <p className="text-slate-500">1 KB = 1024 B · 1 MB = 1024 KB · 1 GB = 1024 MB</p>
+              <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
+                <span className="text-slate-500">Color Depth</span>
+                <span className="font-bold font-mono text-slate-900 dark:text-white">{screenInfo.colorDepth}</span>
               </div>
             </div>
           </div>

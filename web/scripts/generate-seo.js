@@ -175,10 +175,12 @@ const run = async () => {
   // Extract WEB_TOOLS JSON
   const toolsStart = registryContent.indexOf('export const WEB_TOOLS: ToolDefinition[] = [');
   const toolsEnd = registryContent.indexOf('];\n\nexport function getToolById');
-  const toolsJsonStr = registryContent.substring(
+  let toolsJsonStr = registryContent.substring(
     toolsStart + 'export const WEB_TOOLS: ToolDefinition[] = '.length,
     toolsEnd + 1
   );
+  // Remove any trailing commas before closing brackets to ensure valid JSON
+  toolsJsonStr = toolsJsonStr.replace(/,\s*([\]}])/g, '$1');
   const tools = JSON.parse(toolsJsonStr);
 
   const studios = [

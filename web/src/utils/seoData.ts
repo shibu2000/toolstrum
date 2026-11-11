@@ -108,91 +108,80 @@ export function getToolSeoData(
     ];
   }
 
-  // Domain-specific FAQs
-  let categoryFaqs: SeoFaqItem[] = [];
+  // One genuinely studio-flavored question, kept to a single entry per
+  // category so it doesn't dominate what should be tool-specific content.
+  let categoryFaq: SeoFaqItem;
 
   switch (studio.id) {
     case 'pdf':
-      categoryFaqs = [
-        {
-          question: `Does ${tool.name} upload my PDF files to a remote server?`,
-          answer: `No. Unlike cloud-based PDF services, Toolstrum processes all PDF operations directly on your device. Your files never touch any external server.`,
-        },
-        {
-          question: `Can I use ${tool.name} for confidential documents and bank statements?`,
-          answer: `Yes, absolutely. Because the entire processing lifecycle is 100% offline and runs directly on your device, it is fully compliant with strict privacy and data confidentiality requirements.`,
-        },
-        {
-          question: `Is there a maximum file size limit for ${tool.name}?`,
-          answer: `Toolstrum does not enforce artificial server limits. All operations run directly on your device.`,
-        },
-      ];
+      categoryFaq = {
+        question: `Can I use ${tool.name} for confidential documents and bank statements?`,
+        answer: `Yes. Because the entire processing lifecycle is 100% offline and runs directly on your device, it's fully compliant with strict privacy and data confidentiality requirements.`,
+      };
       break;
 
     case 'image':
     case 'scanner':
-      categoryFaqs = [
-        {
-          question: `Does ${tool.name} reduce image quality?`,
-          answer: `Toolstrum uses high-fidelity offline processing algorithms to preserve optimal visual clarity while executing your requested transformations.`,
-        },
-        {
-          question: `Are my uploaded images or webcam scans stored anywhere?`,
-          answer: `Never. Toolstrum has zero cloud databases or servers. All processed files stay 100% private on your own device.`,
-        },
-      ];
+      categoryFaq = {
+        question: `Does ${tool.name} reduce image quality?`,
+        answer: `No. Toolstrum uses high-fidelity offline processing algorithms to preserve optimal visual clarity while executing your requested transformation.`,
+      };
       break;
 
     case 'developer':
     case 'qr_security':
-      categoryFaqs = [
-        {
-          question: `Are API keys, tokens, or passwords safe with ${tool.name}?`,
-          answer: `Yes. All hashes, encodings, QR generation, and formatters utilize Web Crypto (SubtleCrypto) running completely on your local CPU. No credentials or strings are ever logged or transmitted.`,
-        },
-        {
-          question: `Does ${tool.name} work completely offline without an internet connection?`,
-          answer: `Yes. Once Toolstrum is loaded into your browser, all utilities can execute even when your device is fully disconnected from Wi-Fi or cellular networks.`,
-        },
-      ];
+      categoryFaq = {
+        question: `Are API keys, tokens, or passwords safe with ${tool.name}?`,
+        answer: `Yes. Cryptographic operations use the browser's native Web Crypto API, running entirely on your local CPU. No credentials or strings are ever logged or transmitted.`,
+      };
       break;
 
     case 'calculators':
-      categoryFaqs = [
-        {
-          question: `How accurate are calculations produced by ${tool.name}?`,
-          answer: `Calculations are computed using high-precision IEEE 754 floating point arithmetic and industry-standard mathematical formulas to ensure dependable financial and scientific accuracy.`,
-        },
-      ];
+      categoryFaq = {
+        question: `How accurate are calculations produced by ${tool.name}?`,
+        answer: `Calculations use standard IEEE 754 floating point arithmetic and the same formulas used by professional financial and scientific tools.`,
+      };
       break;
 
     default:
-      categoryFaqs = [
-        {
-          question: `Is ${tool.name} completely free to use?`,
-          answer: `Yes. Toolstrum is 100% free with no subscriptions, paywalls, ads, watermarks, or account registration required.`,
-        },
-        {
-          question: `Do I need to install any browser extensions or software?`,
-          answer: `No installation required. ${tool.name} runs out of the box in any modern browser including Chrome, Firefox, Safari, Edge, and mobile browsers.`,
-        },
-      ];
+      categoryFaq = {
+        question: `Do I need to install anything to use ${tool.name}?`,
+        answer: `No. ${tool.name} runs directly in any modern browser — Chrome, Firefox, Safari, Edge, or mobile — with no extensions or software to install.`,
+      };
       break;
   }
 
-  // Base universal FAQs
-  const universalFaqs: SeoFaqItem[] = [
+  // What this specific input kind actually requires from the user —
+  // derived from the tool's own registry field, so it varies by tool
+  // rather than repeating the same line across an entire studio.
+  const inputRequirement: Record<ToolDefinition['inputKind'], string> = {
+    file: 'a single file from your device',
+    files: 'one or more files from your device',
+    text: 'text or code that you paste or type in',
+    form: 'the values you fill into the form fields',
+    interactive: 'just your on-screen adjustments — there is no file to provide',
+    camera: 'access to your device camera to capture an image',
+    audio: 'an audio file, or a live microphone recording',
+  };
+
+  // Every FAQ here is built from fields that are already unique per tool
+  // in the registry (name, description, inputKind), so no two tools show
+  // identical answers even within the same studio.
+  const faqs: SeoFaqItem[] = [
     {
-      question: `Is ${tool.name} free with no limits?`,
-      answer: `Yes! Toolstrum is completely free with no usage quotas, watermark restrictions, or hidden fees.`,
+      question: `What does ${tool.name} do?`,
+      answer: `${tool.description} It runs entirely in your browser, so nothing is uploaded to a server.`,
     },
     {
-      question: `How does Toolstrum protect my personal privacy?`,
-      answer: `Toolstrum is built on a 100% offline, privacy-first architecture. All computations run directly inside your browser on your device without any server file uploads or tracking.`,
+      question: `What do I need to use ${tool.name}?`,
+      answer: `Just ${inputRequirement[tool.inputKind] || 'your input'}. No account, software install, or ongoing internet connection is required once the page has loaded.`,
+    },
+    categoryFaq,
+    {
+      question: `Is ${tool.name} free, and does it store or track my data?`,
+      answer: `Yes, it's completely free with no limits. Because processing happens locally on your device, Toolstrum never sees, stores, or transmits your files or inputs.`,
     },
   ];
-
-  const faqs = [...categoryFaqs, ...universalFaqs];
 
   const features = [
     {

@@ -4,6 +4,7 @@ import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
 import { OmniSearchModal } from './components/layout/OmniSearchModal';
 import { StudioDashboard } from './components/studios/StudioDashboard';
+import { StudioOverviewScreen } from './components/studios/StudioOverviewScreen';
 import { ToolWorkspaceRouter } from './components/studios/ToolWorkspaceRouter';
 import { getToolsByStudio, getToolById, STUDIOS } from './data/webRegistry';
 import { StudioTheme } from './constants/tokens';
@@ -55,11 +56,6 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, [setActiveStudio, setActiveTool]);
 
-  // If a studio is active but no specific tool is active, pick first tool of studio
-  const currentToolId =
-    activeToolId ??
-    (activeStudioId ? getToolsByStudio(activeStudioId)[0]?.id ?? 1 : 1);
-
   // Sync browser URL & dynamic page meta tags
   useEffect(() => {
     if (activeStudioId === null && activeToolId === null) {
@@ -105,10 +101,19 @@ export default function App() {
         <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8 xl:p-10">
           {activeStudioId === null ? (
             <StudioDashboard />
+          ) : activeToolId === null ? (
+            <StudioOverviewScreen
+              studioId={activeStudioId}
+              onSelectTool={(id) => setActiveTool(id)}
+              onSelectStudio={(id) => {
+                setActiveStudio(id);
+                setActiveTool(null);
+              }}
+            />
           ) : (
             <ToolWorkspaceRouter
               studioId={activeStudioId}
-              toolId={currentToolId}
+              toolId={activeToolId}
               onSelectTool={(id) => setActiveTool(id)}
             />
           )}

@@ -72,34 +72,6 @@ export const ToolSeoSection: React.FC<ToolSeoSectionProps> = ({
 
   return (
     <section className="mt-12 pt-10 border-t border-slate-200 dark:border-slate-800 space-y-12">
-      {/* Breadcrumb Trail */}
-      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
-        <a
-          href="/"
-          onClick={(e) => {
-            if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-              e.preventDefault();
-              window.location.href = '/';
-            }
-          }}
-          className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-        >
-          Home
-        </a>
-        <span>/</span>
-        <a
-          href={getStudioUrl(studioId)}
-          onClick={(e) => handleStudioLinkClick(e, studioId)}
-          className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
-        >
-          {studio.name}
-        </a>
-        <span>/</span>
-        <span className="text-slate-900 dark:text-slate-200 font-medium truncate max-w-xs">
-          {tool.name}
-        </span>
-      </nav>
-
       {/* Header Info & Share */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>

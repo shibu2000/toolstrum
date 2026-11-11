@@ -15,6 +15,51 @@ import {
   Download,
 } from 'lucide-react';
 import { getToolById } from '../data/webRegistry';
+import {
+  YamlFormatterTool,
+  YamlValidatorTool,
+  YamlToJsonTool,
+  JsonToYamlTool,
+  XmlValidatorTool,
+  HtmlFormatterTool,
+  HtmlMinifierTool,
+  CssFormatterTool,
+  CssMinifierTool,
+  JsFormatterTool,
+  JsMinifierTool,
+  SqlFormatterTool,
+  SqlMinifierTool,
+  SqlQueryExplainerTool,
+} from './developer/CodeFormatterTools';
+import {
+  RegexTesterTool,
+  RegexExplainerTool,
+} from './developer/RegexTools';
+import {
+  Base64EncoderTool,
+  Base64DecoderTool,
+  UrlEncoderTool,
+  UrlDecoderTool,
+  HtmlEntityEncoderTool,
+  HtmlEntityDecoderTool,
+} from './developer/CodecTools';
+import {
+  JwtDecoderTool,
+  UuidGeneratorTool,
+  UlidGeneratorTool,
+  HashGeneratorTool,
+  HmacGeneratorTool,
+  PasswordGeneratorTool,
+  BcryptCheckerTool,
+} from './developer/SecurityTools';
+import {
+  ColorConverterTool,
+  GradientGeneratorTool,
+  BoxShadowTool,
+  BorderRadiusTool,
+  FlexboxPlaygroundTool,
+  GridGeneratorTool,
+} from './developer/CssTools';
 
 interface DeveloperWorkspaceProps {
   toolId: number;
@@ -25,24 +70,6 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
   toolId,
   accentColor = '#0EA5E9',
 }) => {
-  // Determine mode based on registry toolId:
-  const getInitialTab = () => {
-    if (toolId >= 244 && toolId <= 250) return 'json';
-    if (toolId >= 251 && toolId <= 264) return 'code';
-    if (toolId === 265 || toolId === 266) return 'regex';
-    if (toolId >= 267 && toolId <= 272) return 'codec';
-    if (toolId >= 273 && toolId <= 279) return 'security';
-    if (toolId >= 280 && toolId <= 285) return 'css';
-    if (toolId >= 286 && toolId <= 300) return 'system';
-    return 'json';
-  };
-
-  const [activeTab, setActiveTab] = useState<'json' | 'code' | 'regex' | 'codec' | 'security' | 'css' | 'system'>(getInitialTab);
-
-  useEffect(() => {
-    setActiveTab(getInitialTab());
-  }, [toolId]);
-
   // Common Notification State
   const [copied, setCopied] = useState(false);
   const handleCopyText = (text: string) => {
@@ -139,162 +166,6 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       return { value: undefined, error: e.message };
     }
   };
-
-  // ==========================================
-  // 2. CODE FORMATTERS (SQL, HTML, CSS, JS)
-  // ==========================================
-  const [codeInput, setCodeInput] = useState(
-    'SELECT u.id, u.name, o.total FROM users u JOIN orders o ON u.id = o.user_id WHERE o.status = "completed" ORDER BY o.total DESC;'
-  );
-  const [codeLang, setCodeLang] = useState<'sql' | 'html' | 'css'>('sql');
-  const [codeOutput, setCodeOutput] = useState('');
-  const [codeHasRun, setCodeHasRun] = useState(false);
-
-  const handleFormatCode = () => {
-    let formatted = codeInput.trim();
-    if (codeLang === 'sql') {
-      const keywords = ['SELECT', 'FROM', 'WHERE', 'JOIN', 'LEFT JOIN', 'INNER JOIN', 'ON', 'GROUP BY', 'ORDER BY', 'LIMIT', 'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM'];
-      keywords.forEach((kw) => {
-        const reg = new RegExp(`\\b${kw}\\b`, 'gi');
-        formatted = formatted.replace(reg, `\n${kw}`);
-      });
-      formatted = formatted.trim();
-    } else if (codeLang === 'html') {
-      formatted = codeInput.replace(/></g, '>\n<');
-    } else if (codeLang === 'css') {
-      formatted = codeInput.replace(/\{/g, ' {\n  ').replace(/;/g, ';\n  ').replace(/\}/g, '\n}\n');
-    }
-    setCodeOutput(formatted);
-    setCodeHasRun(true);
-  };
-
-  // ==========================================
-  // 3. REGEX TESTER
-  // ==========================================
-  const [regexPattern, setRegexPattern] = useState('[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}');
-  const [regexFlags, setRegexFlags] = useState('g');
-  const [regexText, setRegexText] = useState('Contact hello@toolstrum.app or support@toolstrum.app for assistance.');
-  const [regexMatches, setRegexMatches] = useState<string[]>([]);
-  const [regexHasRun, setRegexHasRun] = useState(false);
-  const [regexError, setRegexError] = useState('');
-
-  const handleTestRegex = () => {
-    setRegexError('');
-    try {
-      const reg = new RegExp(regexPattern, regexFlags);
-      const matches = Array.from(regexText.matchAll(reg)).map((m) => m[0]);
-      setRegexMatches(matches);
-      setRegexHasRun(true);
-    } catch (e: any) {
-      setRegexError(`Regex error: ${e.message}`);
-      setRegexHasRun(false);
-    }
-  };
-
-  // ==========================================
-  // 4. CODECS (BASE64, URL, HTML ENTITY)
-  // ==========================================
-  const [codecInput, setCodecInput] = useState('Toolstrum Offline Suite & Tools');
-  const [codecOutput, setCodecOutput] = useState('');
-  const [codecHasRun, setCodecHasRun] = useState(false);
-  const [codecError, setCodecError] = useState('');
-
-  const handleBase64Encode = () => {
-    setCodecError('');
-    try {
-      setCodecOutput(btoa(unescape(encodeURIComponent(codecInput))));
-      setCodecHasRun(true);
-    } catch (e: any) {
-      setCodecError(`Encoding error: ${e.message}`);
-    }
-  };
-
-  const handleBase64Decode = () => {
-    setCodecError('');
-    try {
-      setCodecOutput(decodeURIComponent(escape(atob(codecInput))));
-      setCodecHasRun(true);
-    } catch (e: any) {
-      setCodecError(`Decoding error: ${e.message}`);
-    }
-  };
-
-  const handleUrlEncode = () => {
-    setCodecError('');
-    setCodecOutput(encodeURIComponent(codecInput));
-    setCodecHasRun(true);
-  };
-
-  const handleUrlDecode = () => {
-    setCodecError('');
-    try {
-      setCodecOutput(decodeURIComponent(codecInput));
-      setCodecHasRun(true);
-    } catch (e: any) {
-      setCodecError(`URL decode error: ${e.message}`);
-    }
-  };
-
-  // ==========================================
-  // 5. SECURITY & TOKENS (JWT, HASH, UUID)
-  // ==========================================
-  const [jwtString, setJwtString] = useState(
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkFsaWNlIERldiIsImFkbWluIjp0cnVlLCJpYXQiOjE3MDQxNDQwMDB9.signature'
-  );
-  const [secOutput, setSecOutput] = useState('');
-  const [secHasRun, setSecHasRun] = useState(false);
-  const [secError, setSecError] = useState('');
-  const [hashAlg, setHashAlg] = useState<'SHA-256' | 'SHA-512' | 'SHA-1'>('SHA-256');
-
-  const handleDecodeJwt = () => {
-    setSecError('');
-    try {
-      const parts = jwtString.split('.');
-      if (parts.length < 2) throw new Error('JWT must have at least 2 segments separated by dots.');
-      const header = JSON.parse(atob(parts[0]));
-      const payload = JSON.parse(atob(parts[1]));
-      setSecOutput(JSON.stringify({ header, payload }, null, 2));
-      setSecHasRun(true);
-    } catch (e: any) {
-      setSecError(`Invalid JWT: ${e.message}`);
-    }
-  };
-
-  const handleGenerateHash = async () => {
-    setSecError('');
-    try {
-      const encoder = new TextEncoder();
-      const data = encoder.encode(codecInput || 'Toolstrum');
-      const hashBuf = await crypto.subtle.digest(hashAlg, data);
-      const hashHex = Array.from(new Uint8Array(hashBuf))
-        .map((b) => b.toString(16).padStart(2, '0'))
-        .join('');
-      setSecOutput(`${hashAlg} Checksum:\n${hashHex}`);
-      setSecHasRun(true);
-    } catch (e: any) {
-      setSecError(`Hash error: ${e.message}`);
-    }
-  };
-
-  const handleGenerateUuid = () => {
-    setSecError('');
-    const uuid = crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-      const r = (Math.random() * 16) | 0;
-      const v = c === 'x' ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
-    setSecOutput(uuid);
-    setSecHasRun(true);
-  };
-
-  // ==========================================
-  // 6. CSS GENERATORS (BOX SHADOW, BORDER RADIUS)
-  // ==========================================
-  const [shadowX, setShadowX] = useState(0);
-  const [shadowY, setShadowY] = useState(12);
-  const [shadowBlur, setShadowBlur] = useState(24);
-  const [shadowSpread, setShadowSpread] = useState(-4);
-  const [shadowColor, setShadowColor] = useState('rgba(0, 0, 0, 0.15)');
 
   // ==========================================
   // 7. SYSTEM & TIME (UNIX TIMESTAMP, HTTP CODES)
@@ -1146,448 +1017,59 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       })()}
 
       {/* ======================================================== */}
-      {/* TAB 2: CODE & SQL FORMATTERS */}
+      {/* 251-264: DEDICATED CODE & FORMATTER TOOLS */}
       {/* ======================================================== */}
-      {activeTab === 'code' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-slate-900 dark:text-white">
-                Code / Query Input
-              </label>
-              <div className="flex items-center gap-2">
-                <select
-                  value={codeLang}
-                  onChange={(e) => setCodeLang(e.target.value as any)}
-                  className="p-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-xs font-semibold uppercase"
-                >
-                  <option value="sql">SQL</option>
-                  <option value="html">HTML</option>
-                  <option value="css">CSS</option>
-                </select>
-                <button
-                  onClick={handleFormatCode}
-                  className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs"
-                >
-                  Format Code
-                </button>
-              </div>
-            </div>
-
-            <textarea
-              value={codeInput}
-              onChange={(e) => setCodeInput(e.target.value)}
-              rows={12}
-              className="w-full p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-slate-100 leading-relaxed"
-            />
-          </div>
-
-          <div className="space-y-4">
-            {codeHasRun && codeOutput ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
-                    Formatted {codeLang.toUpperCase()}
-                  </span>
-                  <button
-                    onClick={() => handleCopyText(codeOutput)}
-                    className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? 'Copied' : 'Copy'}</span>
-                  </button>
-                </div>
-                <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-slate-100 overflow-x-auto max-h-[360px] leading-relaxed">
-                  {codeOutput}
-                </pre>
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                  Select language and click Format Code. Your code stays 100% private on your device.
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {toolId === 251 && <YamlFormatterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 252 && <YamlValidatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 253 && <YamlToJsonTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 254 && <JsonToYamlTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 255 && <XmlValidatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 256 && <HtmlFormatterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 257 && <HtmlMinifierTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 258 && <CssFormatterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 259 && <CssMinifierTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 260 && <JsFormatterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 261 && <JsMinifierTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 262 && <SqlFormatterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 263 && <SqlMinifierTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 264 && <SqlQueryExplainerTool copied={copied} onCopy={handleCopyText} />}
 
       {/* ======================================================== */}
-      {/* TAB 3: REGEX TESTER */}
+      {/* 265-266: DEDICATED REGEX TOOLS */}
       {/* ======================================================== */}
-      {activeTab === 'regex' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <div>
-              <label className="text-xs font-bold text-slate-900 dark:text-white block mb-1">
-                Regular Expression Pattern & Flags
-              </label>
-              <div className="flex items-center gap-2">
-                <div className="flex-1 flex items-center px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs">
-                  <span className="text-slate-400 mr-1">/</span>
-                  <input
-                    type="text"
-                    value={regexPattern}
-                    onChange={(e) => setRegexPattern(e.target.value)}
-                    className="w-full bg-transparent focus:outline-none text-slate-900 dark:text-white"
-                  />
-                  <span className="text-slate-400 ml-1">/</span>
-                </div>
-                <input
-                  type="text"
-                  value={regexFlags}
-                  onChange={(e) => setRegexFlags(e.target.value)}
-                  className="w-16 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs text-center"
-                  placeholder="g, i"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="text-xs font-bold text-slate-900 dark:text-white block mb-1">
-                Test Target String
-              </label>
-              <textarea
-                value={regexText}
-                onChange={(e) => setRegexText(e.target.value)}
-                rows={5}
-                className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-white leading-relaxed"
-              />
-            </div>
-
-            <button
-              onClick={handleTestRegex}
-              className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-xs"
-            >
-              Test Regex Matches
-            </button>
-
-            {regexError && (
-              <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300 text-xs font-medium">
-                {regexError}
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            {regexHasRun ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
-                    Matches Found ({regexMatches.length})
-                  </span>
-                  {regexMatches.length > 0 && (
-                    <button
-                      onClick={() => handleCopyText(regexMatches.join('\n'))}
-                      className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5"
-                    >
-                      {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                      <span>Copy Matches</span>
-                    </button>
-                  )}
-                </div>
-
-                {regexMatches.length > 0 ? (
-                  <div className="space-y-2 max-h-[320px] overflow-y-auto">
-                    {regexMatches.map((m, i) => (
-                      <div key={i} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 font-mono text-xs text-slate-900 dark:text-white break-all">
-                        <span className="text-slate-400 text-[10px] mr-2">#{i + 1}</span>
-                        {m}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <p className="text-xs text-slate-500">No matches found for the given pattern.</p>
-                )}
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                  Configure pattern and click "Test Regex Matches". 100% Offline • 100% Secure.
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {toolId === 265 && <RegexTesterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 266 && <RegexExplainerTool copied={copied} onCopy={handleCopyText} />}
 
       {/* ======================================================== */}
-      {/* TAB 4: BASE64 & URL ENCODER/DECODER */}
+      {/* 267-272: DEDICATED CODEC TOOLS */}
       {/* ======================================================== */}
-      {activeTab === 'codec' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <label className="text-xs font-bold text-slate-900 dark:text-white block">
-              Source String / Text
-            </label>
-            <textarea
-              value={codecInput}
-              onChange={(e) => setCodecInput(e.target.value)}
-              rows={8}
-              className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-white"
-            />
-
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={handleBase64Encode}
-                className="py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs transition-colors"
-              >
-                Base64 Encode
-              </button>
-              <button
-                onClick={handleBase64Decode}
-                className="py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors"
-              >
-                Base64 Decode
-              </button>
-              <button
-                onClick={handleUrlEncode}
-                className="py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-semibold text-xs transition-colors"
-              >
-                URL Encode
-              </button>
-              <button
-                onClick={handleUrlDecode}
-                className="py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs transition-colors"
-              >
-                URL Decode
-              </button>
-            </div>
-
-            {codecError && (
-              <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300 text-xs font-medium">
-                {codecError}
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            {codecHasRun && codecOutput ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
-                    Codec Result
-                  </span>
-                  <button
-                    onClick={() => handleCopyText(codecOutput)}
-                    className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? 'Copied' : 'Copy Result'}</span>
-                  </button>
-                </div>
-                <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-white break-all whitespace-pre-wrap max-h-[320px] overflow-y-auto">
-                  {codecOutput}
-                </pre>
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                  Enter text and click an encode or decode action. 100% Offline • 100% Secure.
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {toolId === 267 && <Base64EncoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 268 && <Base64DecoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 269 && <UrlEncoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 270 && <UrlDecoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 271 && <HtmlEntityEncoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 272 && <HtmlEntityDecoderTool copied={copied} onCopy={handleCopyText} />}
 
       {/* ======================================================== */}
-      {/* TAB 5: SECURITY (JWT, HASH, UUID) */}
+      {/* 273-279: DEDICATED SECURITY & CRYPTO TOOLS */}
       {/* ======================================================== */}
-      {activeTab === 'security' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <div>
-              <label className="text-xs font-bold text-slate-900 dark:text-white block mb-1">
-                JWT Token String
-              </label>
-              <textarea
-                value={jwtString}
-                onChange={(e) => setJwtString(e.target.value)}
-                rows={4}
-                className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs"
-              />
-              <button
-                onClick={handleDecodeJwt}
-                className="w-full mt-2 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs"
-              >
-                Decode JWT Token
-              </button>
-            </div>
-
-            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5">
-                {(['SHA-256', 'SHA-512', 'SHA-1'] as const).map((a) => (
-                  <button
-                    key={a}
-                    onClick={() => setHashAlg(a)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${
-                      hashAlg === a ? 'bg-sky-600 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
-                    }`}
-                  >
-                    {a}
-                  </button>
-                ))}
-              </div>
-              <button
-                onClick={handleGenerateHash}
-                className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-semibold text-xs"
-              >
-                Compute Hash
-              </button>
-            </div>
-
-            <div className="pt-2">
-              <button
-                onClick={handleGenerateUuid}
-                className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs"
-              >
-                Generate UUID v4
-              </button>
-            </div>
-
-            {secError && (
-              <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">
-                {secError}
-              </div>
-            )}
-          </div>
-
-          <div className="space-y-4">
-            {secHasRun && secOutput ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
-                    Decoded / Output
-                  </span>
-                  <button
-                    onClick={() => handleCopyText(secOutput)}
-                    className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5"
-                  >
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>Copy</span>
-                  </button>
-                </div>
-                <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-white break-all whitespace-pre-wrap max-h-[320px] overflow-y-auto">
-                  {secOutput}
-                </pre>
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                  Select an action on the left. All cryptographic keys and hashes execute locally on your device.
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {toolId === 273 && <JwtDecoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 274 && <UuidGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 275 && <UlidGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 276 && <HashGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 277 && <HmacGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 278 && <PasswordGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 279 && <BcryptCheckerTool copied={copied} onCopy={handleCopyText} />}
 
       {/* ======================================================== */}
-      {/* TAB 6: CSS BOX SHADOW */}
+      {/* 280-285: DEDICATED CSS & DESIGN GENERATORS */}
       {/* ======================================================== */}
-      {activeTab === 'css' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              Shadow Parameters
-            </h3>
-
-            <div className="space-y-3 text-xs">
-              <div>
-                <div className="flex justify-between mb-1">
-                  <span>Horizontal Offset: {shadowX}px</span>
-                </div>
-                <input
-                  type="range"
-                  min="-50"
-                  max="50"
-                  value={shadowX}
-                  onChange={(e) => setShadowX(Number(e.target.value))}
-                  className="w-full accent-sky-600"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between mb-1">
-                  <span>Vertical Offset: {shadowY}px</span>
-                </div>
-                <input
-                  type="range"
-                  min="-50"
-                  max="50"
-                  value={shadowY}
-                  onChange={(e) => setShadowY(Number(e.target.value))}
-                  className="w-full accent-sky-600"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between mb-1">
-                  <span>Blur Radius: {shadowBlur}px</span>
-                </div>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={shadowBlur}
-                  onChange={(e) => setShadowBlur(Number(e.target.value))}
-                  className="w-full accent-sky-600"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between mb-1">
-                  <span>Spread Radius: {shadowSpread}px</span>
-                </div>
-                <input
-                  type="range"
-                  min="-20"
-                  max="50"
-                  value={shadowSpread}
-                  onChange={(e) => setShadowSpread(Number(e.target.value))}
-                  className="w-full accent-sky-600"
-                />
-              </div>
-            </div>
-
-            {/* Live Preview Element */}
-            <div className="pt-4 flex items-center justify-center p-8 bg-slate-50 dark:bg-slate-950 rounded-2xl">
-              <div
-                className="w-32 h-32 rounded-2xl bg-white dark:bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-700 dark:text-slate-200 transition-all"
-                style={{
-                  boxShadow: `${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColor}`,
-                }}
-              >
-                Preview Box
-              </div>
-            </div>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">
-                CSS Output
-              </span>
-              <button
-                onClick={() => handleCopyText(`box-shadow: ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColor};`)}
-                className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5"
-              >
-                {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>Copy CSS</span>
-              </button>
-            </div>
-
-            <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs text-slate-900 dark:text-white break-all">
-              {`box-shadow: ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColor};`}
-            </pre>
-          </div>
-        </div>
-      )}
+      {toolId === 280 && <ColorConverterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 281 && <GradientGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 282 && <BoxShadowTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 283 && <BorderRadiusTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 284 && <FlexboxPlaygroundTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 285 && <GridGeneratorTool copied={copied} onCopy={handleCopyText} />}
 
       {/* 286 — UNIX TIMESTAMP CONVERTER */}
       {toolId === 286 && (

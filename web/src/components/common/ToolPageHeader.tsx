@@ -3,6 +3,7 @@ import { ChevronRight, Star } from 'lucide-react';
 import { ToolDefinition, StudioId } from '../../types';
 import { StudioTheme } from '../../constants/tokens';
 import { useAppStore } from '../../store/useAppStore';
+import { getToolsByStudio } from '../../data/webRegistry';
 
 interface ToolPageHeaderProps {
   tool: ToolDefinition;
@@ -14,6 +15,7 @@ export const ToolPageHeader: React.FC<ToolPageHeaderProps> = ({ tool, studioId, 
   const { favoriteToolIds, toggleFavorite } = useAppStore();
   const theme = StudioTheme[studioId];
   const isFavorite = favoriteToolIds.includes(tool.id);
+  const studioToolCount = getToolsByStudio(studioId).length;
 
   return (
     <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -27,10 +29,16 @@ export const ToolPageHeader: React.FC<ToolPageHeaderProps> = ({ tool, studioId, 
         <ChevronRight className="w-3 h-3 shrink-0" />
         <button
           onClick={() => onSelectStudio(studioId)}
-          className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors cursor-pointer shrink-0 font-medium"
+          className="hover:text-slate-800 dark:hover:text-slate-200 transition-colors cursor-pointer shrink-0 font-medium inline-flex items-center gap-1.5"
           style={{ color: theme.accent }}
         >
           {theme.name}
+          <span
+            className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded-full"
+            style={{ backgroundColor: `${theme.accent}1A` }}
+          >
+            {studioToolCount}
+          </span>
         </button>
         <ChevronRight className="w-3 h-3 shrink-0" />
         <span className="font-semibold text-slate-800 dark:text-white truncate">{tool.name}</span>

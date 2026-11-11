@@ -119,7 +119,7 @@ export const ToolWorkspaceRouter: React.FC<ToolWorkspaceRouterProps> = ({
           tool={currentTool}
           studioId={studioId}
           onSelectTool={onSelectTool}
-          onSelectStudio={(id) => setActiveStudio(id)}
+          onSelectStudio={(id) => handleBreadcrumbSelect(id)}
         />
       )}
     </div>

@@ -25,7 +25,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 1,
     "name": "Images to PDF",
     "studioId": "pdf",
-    "description": "Images to PDF utility in PDF Studio.",
+    "description": "Combines one or more images into a single PDF document, one image per page.",
     "keywords": [
       "images to pdf",
       "pdf studio",
@@ -45,7 +45,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 2,
     "name": "Text to PDF",
     "studioId": "pdf",
-    "description": "Text to PDF utility in PDF Studio.",
+    "description": "Converts plain text into a formatted, downloadable PDF document.",
     "keywords": [
       "text to pdf",
       "pdf studio",
@@ -65,7 +65,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 3,
     "name": "Scan to PDF",
     "studioId": "pdf",
-    "description": "Scan to PDF utility in PDF Studio.",
+    "description": "Turns a camera-captured or scanned photo of a document into a clean PDF file.",
     "keywords": [
       "scan to pdf",
       "pdf studio",
@@ -85,7 +85,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 4,
     "name": "Merge PDF",
     "studioId": "pdf",
-    "description": "Merge PDF utility in PDF Studio.",
+    "description": "Combines multiple PDF files into a single document in the order you choose.",
     "keywords": [
       "merge pdf",
       "pdf studio",
@@ -105,7 +105,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 5,
     "name": "Split PDF",
     "studioId": "pdf",
-    "description": "Split PDF utility in PDF Studio.",
+    "description": "Breaks one PDF into separate files by page range or individual pages.",
     "keywords": [
       "split pdf",
       "pdf studio",
@@ -125,7 +125,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 6,
     "name": "Compress PDF",
     "studioId": "pdf",
-    "description": "Compress PDF utility in PDF Studio.",
+    "description": "Shrinks a PDF's file size by optimizing embedded images and content streams.",
     "keywords": [
       "compress pdf",
       "pdf studio",
@@ -145,7 +145,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 7,
     "name": "PDF to Images",
     "studioId": "pdf",
-    "description": "PDF to Images utility in PDF Studio.",
+    "description": "Exports every page of a PDF as a separate image file.",
     "keywords": [
       "pdf to images",
       "pdf studio",
@@ -165,7 +165,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 8,
     "name": "Images to JPG/PNG PDF",
     "studioId": "pdf",
-    "description": "Images to JPG/PNG PDF utility in PDF Studio.",
+    "description": "Builds a PDF from a batch of JPG or PNG images in one pass.",
     "keywords": [
       "images to jpg/png pdf",
       "pdf studio",
@@ -186,7 +186,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 9,
     "name": "Rotate PDF",
     "studioId": "pdf",
-    "description": "Rotate PDF utility in PDF Studio.",
+    "description": "Rotates one or all pages of a PDF by 90, 180, or 270 degrees.",
     "keywords": [
       "rotate pdf",
       "pdf studio",
@@ -206,7 +206,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 10,
     "name": "Reorder PDF Pages",
     "studioId": "pdf",
-    "description": "Reorder PDF Pages utility in PDF Studio.",
+    "description": "Lets you drag and drop to rearrange the page order of a PDF.",
     "keywords": [
       "reorder pdf pages",
       "pdf studio",
@@ -227,7 +227,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 11,
     "name": "Delete PDF Pages",
     "studioId": "pdf",
-    "description": "Delete PDF Pages utility in PDF Studio.",
+    "description": "Removes selected pages from a PDF and saves the rest as a new file.",
     "keywords": [
       "delete pdf pages",
       "pdf studio",
@@ -248,7 +248,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 12,
     "name": "Extract PDF Pages",
     "studioId": "pdf",
-    "description": "Extract PDF Pages utility in PDF Studio.",
+    "description": "Pulls out a chosen range of pages into a brand-new PDF.",
     "keywords": [
       "extract pdf pages",
       "pdf studio",
@@ -269,7 +269,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 13,
     "name": "Duplicate PDF Pages",
     "studioId": "pdf",
-    "description": "Duplicate PDF Pages utility in PDF Studio.",
+    "description": "Copies selected pages within a PDF, inserting the duplicates after the original.",
     "keywords": [
       "duplicate pdf pages",
       "pdf studio",
@@ -290,7 +290,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 14,
     "name": "Add PDF Pages",
     "studioId": "pdf",
-    "description": "Add PDF Pages utility in PDF Studio.",
+    "description": "Inserts blank or new pages into a PDF at a chosen position.",
     "keywords": [
       "add pdf pages",
       "pdf studio",
@@ -311,7 +311,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 15,
     "name": "Crop PDF",
     "studioId": "pdf",
-    "description": "Crop PDF utility in PDF Studio.",
+    "description": "Trims the visible margins of PDF pages to a custom crop box.",
     "keywords": [
       "crop pdf",
       "pdf studio",
@@ -331,7 +331,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 16,
     "name": "Resize PDF Pages",
     "studioId": "pdf",
-    "description": "Resize PDF Pages utility in PDF Studio.",
+    "description": "Scales PDF pages to a different paper size such as A4 or Letter.",
     "keywords": [
       "resize pdf pages",
       "pdf studio",
@@ -352,7 +352,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 17,
     "name": "Add Page Numbers",
     "studioId": "pdf",
-    "description": "Add Page Numbers utility in PDF Studio.",
+    "description": "Stamps sequential page numbers onto every page of a PDF.",
     "keywords": [
       "add page numbers",
       "pdf studio",
@@ -374,7 +374,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 18,
     "name": "Add Watermark",
     "studioId": "pdf",
-    "description": "Add Watermark utility in PDF Studio.",
+    "description": "Overlays a text or image watermark across every page of a PDF.",
     "keywords": [
       "add watermark",
       "pdf studio",
@@ -395,7 +395,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 19,
     "name": "Protect PDF",
     "studioId": "pdf",
-    "description": "Protect PDF utility in PDF Studio.",
+    "description": "Encrypts a PDF with a password so only authorized readers can open it.",
     "keywords": [
       "protect pdf",
       "pdf studio",
@@ -415,7 +415,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 20,
     "name": "Unlock PDF",
     "studioId": "pdf",
-    "description": "Unlock PDF utility in PDF Studio.",
+    "description": "Removes a known password from a protected PDF so it opens freely.",
     "keywords": [
       "unlock pdf",
       "pdf studio",
@@ -435,7 +435,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 21,
     "name": "PDF Permissions Editor",
     "studioId": "pdf",
-    "description": "PDF Permissions Editor utility in PDF Studio.",
+    "description": "Sets fine-grained permissions on a PDF, such as blocking printing or copying.",
     "keywords": [
       "pdf permissions editor",
       "pdf studio",
@@ -456,7 +456,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 22,
     "name": "PDF Metadata Editor",
     "studioId": "pdf",
-    "description": "PDF Metadata Editor utility in PDF Studio.",
+    "description": "Views and edits a PDF's title, author, subject, and keyword metadata.",
     "keywords": [
       "pdf metadata editor",
       "pdf studio",
@@ -477,7 +477,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 23,
     "name": "PDF Viewer",
     "studioId": "pdf",
-    "description": "PDF Viewer utility in PDF Studio.",
+    "description": "Opens and displays PDF files for reading directly in the browser.",
     "keywords": [
       "pdf viewer",
       "pdf studio",
@@ -497,7 +497,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 24,
     "name": "PDF Annotator",
     "studioId": "pdf",
-    "description": "PDF Annotator utility in PDF Studio.",
+    "description": "Adds highlights, sticky notes, and freehand markup on top of a PDF.",
     "keywords": [
       "pdf annotator",
       "pdf studio",
@@ -517,7 +517,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 25,
     "name": "PDF Signer",
     "studioId": "pdf",
-    "description": "PDF Signer utility in PDF Studio.",
+    "description": "Draws, types, or uploads a signature and places it onto a PDF page.",
     "keywords": [
       "pdf signer",
       "pdf studio",
@@ -537,7 +537,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 26,
     "name": "Fill PDF Forms",
     "studioId": "pdf",
-    "description": "Fill PDF Forms utility in PDF Studio.",
+    "description": "Lets you type answers directly into a PDF's fillable form fields.",
     "keywords": [
       "fill pdf forms",
       "pdf studio",
@@ -558,7 +558,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 27,
     "name": "PDF to Text",
     "studioId": "pdf",
-    "description": "PDF to Text utility in PDF Studio.",
+    "description": "Extracts the raw text content from a PDF for copying or reuse.",
     "keywords": [
       "pdf to text",
       "pdf studio",
@@ -578,7 +578,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 28,
     "name": "PDF to Word",
     "studioId": "pdf",
-    "description": "PDF to Word utility in PDF Studio.",
+    "description": "Converts a PDF's layout and text into an editable Word-compatible document.",
     "keywords": [
       "pdf to word",
       "pdf studio",
@@ -598,7 +598,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 29,
     "name": "PDF to Excel",
     "studioId": "pdf",
-    "description": "PDF to Excel utility in PDF Studio.",
+    "description": "Pulls tabular data out of a PDF into an editable spreadsheet.",
     "keywords": [
       "pdf to excel",
       "pdf studio",
@@ -618,7 +618,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 30,
     "name": "PDF to PowerPoint",
     "studioId": "pdf",
-    "description": "PDF to PowerPoint utility in PDF Studio.",
+    "description": "Turns each page of a PDF into a slide in a presentation file.",
     "keywords": [
       "pdf to powerpoint",
       "pdf studio",
@@ -638,7 +638,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 31,
     "name": "Word to PDF",
     "studioId": "pdf",
-    "description": "Word to PDF utility in PDF Studio.",
+    "description": "Converts a Word document into a fixed-layout PDF.",
     "keywords": [
       "word to pdf",
       "pdf studio",
@@ -658,7 +658,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 32,
     "name": "Excel to PDF",
     "studioId": "pdf",
-    "description": "Excel to PDF utility in PDF Studio.",
+    "description": "Converts a spreadsheet into a printable, fixed-layout PDF.",
     "keywords": [
       "excel to pdf",
       "pdf studio",
@@ -678,7 +678,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 33,
     "name": "PowerPoint to PDF",
     "studioId": "pdf",
-    "description": "PowerPoint to PDF utility in PDF Studio.",
+    "description": "Converts a slide deck into a shareable PDF.",
     "keywords": [
       "powerpoint to pdf",
       "pdf studio",
@@ -698,7 +698,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 34,
     "name": "HTML to PDF",
     "studioId": "pdf",
-    "description": "HTML to PDF utility in PDF Studio.",
+    "description": "Renders raw HTML markup into a downloadable PDF.",
     "keywords": [
       "html to pdf",
       "pdf studio",
@@ -718,7 +718,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 35,
     "name": "Webpage to PDF",
     "studioId": "pdf",
-    "description": "Webpage to PDF utility in PDF Studio.",
+    "description": "Captures a live webpage's content and saves it as a PDF.",
     "keywords": [
       "webpage to pdf",
       "pdf studio",
@@ -738,7 +738,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 36,
     "name": "PDF OCR",
     "studioId": "pdf",
-    "description": "PDF OCR utility in PDF Studio.",
+    "description": "Scans a PDF's page images and extracts the recognizable text underneath.",
     "keywords": [
       "pdf ocr",
       "pdf studio",
@@ -758,7 +758,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 37,
     "name": "PDF Compare",
     "studioId": "pdf",
-    "description": "PDF Compare utility in PDF Studio.",
+    "description": "Highlights the text differences between two versions of a PDF.",
     "keywords": [
       "pdf compare",
       "pdf studio",
@@ -778,7 +778,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 38,
     "name": "PDF Repair",
     "studioId": "pdf",
-    "description": "PDF Repair utility in PDF Studio.",
+    "description": "Attempts to recover and rebuild a corrupted or damaged PDF file.",
     "keywords": [
       "pdf repair",
       "pdf studio",
@@ -798,7 +798,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 39,
     "name": "PDF Flatten",
     "studioId": "pdf",
-    "description": "PDF Flatten utility in PDF Studio.",
+    "description": "Merges form fields, annotations, and layers into a single flat page image.",
     "keywords": [
       "pdf flatten",
       "pdf studio",
@@ -818,7 +818,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 40,
     "name": "PDF Booklet Maker",
     "studioId": "pdf",
-    "description": "PDF Booklet Maker utility in PDF Studio.",
+    "description": "Reorders and lays out PDF pages for double-sided booklet printing.",
     "keywords": [
       "pdf booklet maker",
       "pdf studio",
@@ -839,7 +839,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 41,
     "name": "PDF Print Optimizer",
     "studioId": "pdf",
-    "description": "PDF Print Optimizer utility in PDF Studio.",
+    "description": "Adjusts a PDF's color, margins, and resolution for cleaner physical printing.",
     "keywords": [
       "pdf print optimizer",
       "pdf studio",
@@ -860,7 +860,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 42,
     "name": "PDF to Markdown",
     "studioId": "pdf",
-    "description": "PDF to Markdown utility in PDF Studio.",
+    "description": "Converts a PDF's text structure into clean Markdown formatting.",
     "keywords": [
       "pdf to markdown",
       "pdf studio",
@@ -880,7 +880,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 43,
     "name": "PDF to JSON",
     "studioId": "pdf",
-    "description": "PDF to JSON utility in PDF Studio.",
+    "description": "Extracts a PDF's text and structure into a structured JSON object.",
     "keywords": [
       "pdf to json",
       "pdf studio",
@@ -900,7 +900,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 44,
     "name": "PDF Redaction",
     "studioId": "pdf",
-    "description": "PDF Redaction utility in PDF Studio.",
+    "description": "Permanently blacks out sensitive text or regions on a PDF page.",
     "keywords": [
       "pdf redaction",
       "pdf studio",
@@ -920,7 +920,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 45,
     "name": "PDF Page Labels",
     "studioId": "pdf",
-    "description": "PDF Page Labels utility in PDF Studio.",
+    "description": "Assigns custom page-numbering labels (like i, ii, iii or 1-a, 1-b) to PDF pages.",
     "keywords": [
       "pdf page labels",
       "pdf studio",
@@ -941,7 +941,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 46,
     "name": "PDF File Inspector",
     "studioId": "pdf",
-    "description": "PDF File Inspector utility in PDF Studio.",
+    "description": "Reports a PDF's page count, fonts, embedded objects, and file structure.",
     "keywords": [
       "pdf file inspector",
       "pdf studio",
@@ -962,7 +962,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 47,
     "name": "PDF Batch Processor",
     "studioId": "pdf",
-    "description": "PDF Batch Processor utility in PDF Studio.",
+    "description": "Applies the same operation, like compress or rotate, across many PDFs at once.",
     "keywords": [
       "pdf batch processor",
       "pdf studio",
@@ -983,7 +983,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 48,
     "name": "PDF Compare & Merge",
     "studioId": "pdf",
-    "description": "PDF Compare & Merge utility in PDF Studio.",
+    "description": "Compares two PDF versions and merges the accepted changes into one file.",
     "keywords": [
       "pdf compare & merge",
       "pdf studio",
@@ -1004,7 +1004,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 49,
     "name": "Image Compressor",
     "studioId": "image",
-    "description": "Image Compressor utility in Image Studio.",
+    "description": "Reduces an image's file size while preserving as much visual quality as possible.",
     "keywords": [
       "image compressor",
       "image studio",
@@ -1024,7 +1024,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 50,
     "name": "Image Resizer",
     "studioId": "image",
-    "description": "Image Resizer utility in Image Studio.",
+    "description": "Scales an image up or down to exact pixel dimensions or a percentage.",
     "keywords": [
       "image resizer",
       "image studio",
@@ -1044,7 +1044,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 51,
     "name": "Image Cropper",
     "studioId": "image",
-    "description": "Image Cropper utility in Image Studio.",
+    "description": "Trims an image down to a selected rectangular region.",
     "keywords": [
       "image cropper",
       "image studio",
@@ -1064,7 +1064,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 52,
     "name": "Image Rotator",
     "studioId": "image",
-    "description": "Image Rotator utility in Image Studio.",
+    "description": "Rotates or flips an image horizontally or vertically.",
     "keywords": [
       "image rotator",
       "image studio",
@@ -1084,7 +1084,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 53,
     "name": "Image Format Converter",
     "studioId": "image",
-    "description": "Image Format Converter utility in Image Studio.",
+    "description": "Converts an image between formats like JPG, PNG, and WebP.",
     "keywords": [
       "image format converter",
       "image studio",
@@ -1105,7 +1105,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 54,
     "name": "HEIC Converter",
     "studioId": "image",
-    "description": "HEIC Converter utility in Image Studio.",
+    "description": "Converts Apple's HEIC photo format into widely-supported JPG or PNG.",
     "keywords": [
       "heic converter",
       "image studio",
@@ -1126,7 +1126,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 55,
     "name": "Image to PDF",
     "studioId": "image",
-    "description": "Image to PDF utility in Image Studio.",
+    "description": "Places one or more images onto pages of a new PDF document.",
     "keywords": [
       "image to pdf",
       "image studio",
@@ -1146,7 +1146,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 56,
     "name": "PDF Page to Image",
     "studioId": "image",
-    "description": "PDF Page to Image utility in Image Studio.",
+    "description": "Renders a single PDF page as a standalone image file.",
     "keywords": [
       "pdf page to image",
       "image studio",
@@ -1167,7 +1167,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 57,
     "name": "Background Remover",
     "studioId": "image",
-    "description": "Background Remover utility in Image Studio.",
+    "description": "Automatically detects and removes the background behind the main subject of a photo.",
     "keywords": [
       "background remover",
       "image studio",
@@ -1188,7 +1188,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 58,
     "name": "Background Changer",
     "studioId": "image",
-    "description": "Background Changer utility in Image Studio.",
+    "description": "Replaces a photo's background with a solid color or a different image.",
     "keywords": [
       "background changer",
       "image studio",
@@ -1209,7 +1209,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 59,
     "name": "Image Watermark",
     "studioId": "image",
-    "description": "Image Watermark utility in Image Studio.",
+    "description": "Overlays a text or logo watermark onto a photo.",
     "keywords": [
       "image watermark",
       "image studio",
@@ -1229,7 +1229,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 60,
     "name": "Image Annotator",
     "studioId": "image",
-    "description": "Image Annotator utility in Image Studio.",
+    "description": "Draws arrows, shapes, and text callouts directly onto an image.",
     "keywords": [
       "image annotator",
       "image studio",
@@ -1249,7 +1249,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 61,
     "name": "Image Collage Maker",
     "studioId": "image",
-    "description": "Image Collage Maker utility in Image Studio.",
+    "description": "Arranges multiple photos into a single combined collage layout.",
     "keywords": [
       "image collage maker",
       "image studio",
@@ -1270,7 +1270,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 62,
     "name": "Image Merger",
     "studioId": "image",
-    "description": "Image Merger utility in Image Studio.",
+    "description": "Stitches two or more images together side by side or stacked.",
     "keywords": [
       "image merger",
       "image studio",
@@ -1290,7 +1290,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 63,
     "name": "Image Splitter",
     "studioId": "image",
-    "description": "Image Splitter utility in Image Studio.",
+    "description": "Cuts one image into a grid of smaller separate image tiles.",
     "keywords": [
       "image splitter",
       "image studio",
@@ -1310,7 +1310,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 64,
     "name": "Image Color Picker",
     "studioId": "image",
-    "description": "Image Color Picker utility in Image Studio.",
+    "description": "Samples the exact color under your cursor from an uploaded image.",
     "keywords": [
       "image color picker",
       "image studio",
@@ -1331,7 +1331,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 65,
     "name": "Image to Text (OCR)",
     "studioId": "image",
-    "description": "Image to Text (OCR) utility in Image Studio.",
+    "description": "Recognizes and extracts printed text from a photo or screenshot.",
     "keywords": [
       "image to text (ocr)",
       "image studio",
@@ -1352,7 +1352,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 66,
     "name": "Image Upscaler",
     "studioId": "image",
-    "description": "Image Upscaler utility in Image Studio.",
+    "description": "Enlarges an image's resolution while reconstructing sharper detail.",
     "keywords": [
       "image upscaler",
       "image studio",
@@ -1372,7 +1372,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 67,
     "name": "Photo Enhancer",
     "studioId": "image",
-    "description": "Photo Enhancer utility in Image Studio.",
+    "description": "Automatically adjusts brightness, contrast, and sharpness for a cleaner-looking photo.",
     "keywords": [
       "photo enhancer",
       "image studio",
@@ -1393,7 +1393,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 68,
     "name": "Blur Image",
     "studioId": "image",
-    "description": "Blur Image utility in Image Studio.",
+    "description": "Applies an adjustable blur effect over an entire image or a selected area.",
     "keywords": [
       "blur image",
       "image studio",
@@ -1413,7 +1413,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 69,
     "name": "Image Metadata Viewer",
     "studioId": "image",
-    "description": "Image Metadata Viewer utility in Image Studio.",
+    "description": "Displays an image's embedded EXIF data, like camera model and GPS location.",
     "keywords": [
       "image metadata viewer",
       "image studio",
@@ -1434,7 +1434,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 70,
     "name": "EXIF Remover",
     "studioId": "image",
-    "description": "EXIF Remover utility in Image Studio.",
+    "description": "Strips all embedded EXIF metadata from a photo before you share it.",
     "keywords": [
       "exif remover",
       "image studio",
@@ -1455,7 +1455,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 71,
     "name": "Image Metadata Editor",
     "studioId": "image",
-    "description": "Image Metadata Editor utility in Image Studio.",
+    "description": "Lets you view and rewrite an image's embedded EXIF metadata fields.",
     "keywords": [
       "image metadata editor",
       "image studio",
@@ -1476,7 +1476,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 72,
     "name": "Transparent PNG Maker",
     "studioId": "image",
-    "description": "Transparent PNG Maker utility in Image Studio.",
+    "description": "Converts a flat-background image into a PNG with a transparent background.",
     "keywords": [
       "transparent png maker",
       "image studio",
@@ -1498,7 +1498,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 73,
     "name": "Favicon Generator",
     "studioId": "image",
-    "description": "Favicon Generator utility in Image Studio.",
+    "description": "Produces a multi-resolution favicon.ico set from a single source image.",
     "keywords": [
       "favicon generator",
       "image studio",
@@ -1519,7 +1519,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 74,
     "name": "Thumbnail Maker",
     "studioId": "image",
-    "description": "Thumbnail Maker utility in Image Studio.",
+    "description": "Generates a small, cropped preview thumbnail from a larger image.",
     "keywords": [
       "thumbnail maker",
       "image studio",
@@ -1540,7 +1540,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 75,
     "name": "Passport Photo Maker",
     "studioId": "image",
-    "description": "Passport Photo Maker utility in Image Studio.",
+    "description": "Crops and sizes a photo to official passport photo dimensions.",
     "keywords": [
       "passport photo maker",
       "image studio",
@@ -1562,7 +1562,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 76,
     "name": "ID Photo Sheet Maker",
     "studioId": "image",
-    "description": "ID Photo Sheet Maker utility in Image Studio.",
+    "description": "Lays out multiple copies of an ID photo onto one printable sheet.",
     "keywords": [
       "id photo sheet maker",
       "image studio",
@@ -1584,7 +1584,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 77,
     "name": "Meme Generator",
     "studioId": "image",
-    "description": "Meme Generator utility in Image Studio.",
+    "description": "Adds bold top and bottom caption text onto an image in classic meme style.",
     "keywords": [
       "meme generator",
       "image studio",
@@ -1605,7 +1605,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 78,
     "name": "Color Palette Extractor",
     "studioId": "image",
-    "description": "Color Palette Extractor utility in Image Studio.",
+    "description": "Analyzes an image and pulls out its dominant color palette.",
     "keywords": [
       "color palette extractor",
       "image studio",
@@ -1627,7 +1627,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 79,
     "name": "Image Comparison",
     "studioId": "image",
-    "description": "Image Comparison utility in Image Studio.",
+    "description": "Shows two images side by side with a draggable slider to spot differences.",
     "keywords": [
       "image comparison",
       "image studio",
@@ -1647,7 +1647,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 80,
     "name": "Screenshot Stitcher",
     "studioId": "image",
-    "description": "Screenshot Stitcher utility in Image Studio.",
+    "description": "Joins multiple overlapping screenshots into one tall, continuous image.",
     "keywords": [
       "screenshot stitcher",
       "image studio",
@@ -1668,7 +1668,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 81,
     "name": "SVG Viewer",
     "studioId": "image",
-    "description": "SVG Viewer utility in Image Studio.",
+    "description": "Renders and displays an SVG vector file's contents.",
     "keywords": [
       "svg viewer",
       "image studio",
@@ -1689,7 +1689,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 82,
     "name": "SVG Optimizer",
     "studioId": "image",
-    "description": "SVG Optimizer utility in Image Studio.",
+    "description": "Strips redundant metadata and shrinks an SVG file's size without changing its look.",
     "keywords": [
       "svg optimizer",
       "image studio",
@@ -1710,7 +1710,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 83,
     "name": "SVG to PNG",
     "studioId": "image",
-    "description": "SVG to PNG utility in Image Studio.",
+    "description": "Rasterizes a vector SVG file into a PNG image at your chosen resolution.",
     "keywords": [
       "svg to png",
       "image studio",
@@ -1731,7 +1731,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 84,
     "name": "PNG to SVG",
     "studioId": "image",
-    "description": "PNG to SVG utility in Image Studio.",
+    "description": "Traces a PNG image into scalable vector SVG paths.",
     "keywords": [
       "png to svg",
       "image studio",
@@ -1752,7 +1752,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 85,
     "name": "Image Batch Processor",
     "studioId": "image",
-    "description": "Image Batch Processor utility in Image Studio.",
+    "description": "Applies the same resize, compress, or format change across many images at once.",
     "keywords": [
       "image batch processor",
       "image studio",
@@ -1773,7 +1773,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 86,
     "name": "Smart Document Scanner",
     "studioId": "scanner",
-    "description": "Smart Document Scanner utility in Document Scanner.",
+    "description": "Captures a photo of a paper document and automatically crops and straightens it.",
     "keywords": [
       "smart document scanner",
       "document scanner",
@@ -1794,7 +1794,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 87,
     "name": "Perspective Correction",
     "studioId": "scanner",
-    "description": "Perspective Correction utility in Document Scanner.",
+    "description": "Corrects the skewed angle of a photographed document so it looks flat and square.",
     "keywords": [
       "perspective correction",
       "document scanner",
@@ -1815,7 +1815,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 88,
     "name": "Auto-Crop Scanner",
     "studioId": "scanner",
-    "description": "Auto-Crop Scanner utility in Document Scanner.",
+    "description": "Detects a document's edges in a photo and crops tightly to its borders.",
     "keywords": [
       "auto-crop scanner",
       "document scanner",
@@ -1835,7 +1835,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 89,
     "name": "Scan Filters",
     "studioId": "scanner",
-    "description": "Scan Filters utility in Document Scanner.",
+    "description": "Applies black-and-white, grayscale, or enhanced-contrast filters to a scanned page.",
     "keywords": [
       "scan filters",
       "document scanner",
@@ -1856,7 +1856,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 90,
     "name": "Multi-Page Scanner",
     "studioId": "scanner",
-    "description": "Multi-Page Scanner utility in Document Scanner.",
+    "description": "Captures several pages in sequence and compiles them into one scanned set.",
     "keywords": [
       "multi-page scanner",
       "document scanner",
@@ -1876,7 +1876,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 91,
     "name": "ID Card Scanner",
     "studioId": "scanner",
-    "description": "ID Card Scanner utility in Document Scanner.",
+    "description": "Captures and crops a photo of an ID card to its exact edges.",
     "keywords": [
       "id card scanner",
       "document scanner",
@@ -1896,7 +1896,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 92,
     "name": "Receipt Scanner",
     "studioId": "scanner",
-    "description": "Receipt Scanner utility in Document Scanner.",
+    "description": "Captures a receipt photo and lays out its items, subtotal, tax, and total.",
     "keywords": [
       "receipt scanner",
       "document scanner",
@@ -1916,7 +1916,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 93,
     "name": "Business Card Scanner",
     "studioId": "scanner",
-    "description": "Business Card Scanner utility in Document Scanner.",
+    "description": "Captures a business card photo and extracts its printed contact fields.",
     "keywords": [
       "business card scanner",
       "document scanner",
@@ -1937,7 +1937,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 94,
     "name": "Handwriting OCR",
     "studioId": "scanner",
-    "description": "Handwriting OCR utility in Document Scanner.",
+    "description": "Attempts to recognize handwritten text from a captured image.",
     "keywords": [
       "handwriting ocr",
       "document scanner",
@@ -1958,7 +1958,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 95,
     "name": "OCR Language Selector",
     "studioId": "scanner",
-    "description": "OCR Language Selector utility in Document Scanner.",
+    "description": "Lets you choose which language's character set the scanner should recognize.",
     "keywords": [
       "ocr language selector",
       "document scanner",
@@ -1980,7 +1980,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 96,
     "name": "Searchable PDF Maker",
     "studioId": "scanner",
-    "description": "Searchable PDF Maker utility in Document Scanner.",
+    "description": "Combines a scanned page image with its OCR text layer into a searchable PDF.",
     "keywords": [
       "searchable pdf maker",
       "document scanner",
@@ -2002,7 +2002,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 97,
     "name": "Scan to Word",
     "studioId": "scanner",
-    "description": "Scan to Word utility in Document Scanner.",
+    "description": "Converts a scanned document's recognized text into an editable Word-style file.",
     "keywords": [
       "scan to word",
       "document scanner",
@@ -2023,7 +2023,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 98,
     "name": "Scan to Excel",
     "studioId": "scanner",
-    "description": "Scan to Excel utility in Document Scanner.",
+    "description": "Detects tabular data in a scanned document and exports it as a spreadsheet.",
     "keywords": [
       "scan to excel",
       "document scanner",
@@ -2044,7 +2044,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 99,
     "name": "Document Cleanup",
     "studioId": "scanner",
-    "description": "Document Cleanup utility in Document Scanner.",
+    "description": "Removes shadows, stray marks, and background noise from a scanned page.",
     "keywords": [
       "document cleanup",
       "document scanner",
@@ -2065,7 +2065,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 100,
     "name": "Scan History",
     "studioId": "scanner",
-    "description": "Scan History utility in Document Scanner.",
+    "description": "Keeps a browsable log of documents you've previously scanned in this session.",
     "keywords": [
       "scan history",
       "document scanner",
@@ -2086,7 +2086,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 101,
     "name": "Document Naming Assistant",
     "studioId": "scanner",
-    "description": "Document Naming Assistant utility in Document Scanner.",
+    "description": "Suggests a clean, consistent file name based on a scanned document's content.",
     "keywords": [
       "document naming assistant",
       "document scanner",
@@ -2108,7 +2108,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 102,
     "name": "Batch Scan Export",
     "studioId": "scanner",
-    "description": "Batch Scan Export utility in Document Scanner.",
+    "description": "Exports a whole batch of scanned pages together as a single file or archive.",
     "keywords": [
       "batch scan export",
       "document scanner",
@@ -2127,32 +2127,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 103,
-    "name": "Scan Quality Checker",
-    "studioId": "scanner",
-    "description": "Scan Quality Checker utility in Document Scanner.",
-    "keywords": [
-      "scan quality checker",
-      "document scanner",
-      "scanner",
-      "scan",
-      "quality",
-      "checker"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Scan",
-    "inputKind": "camera",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 104,
     "name": "Video Compressor",
     "studioId": "video",
-    "description": "Video Compressor utility in Video Studio.",
+    "description": "Reduces a video file's size by re-encoding it at a lower bitrate.",
     "keywords": [
       "video compressor",
       "video studio",
@@ -2172,7 +2150,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 105,
     "name": "Video Trimmer",
     "studioId": "video",
-    "description": "Video Trimmer utility in Video Studio.",
+    "description": "Cuts a video down to a selected start and end time.",
     "keywords": [
       "video trimmer",
       "video studio",
@@ -2192,7 +2170,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 106,
     "name": "Video Merger",
     "studioId": "video",
-    "description": "Video Merger utility in Video Studio.",
+    "description": "Joins multiple video clips together into one continuous file.",
     "keywords": [
       "video merger",
       "video studio",
@@ -2212,7 +2190,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 107,
     "name": "Video Cropper",
     "studioId": "video",
-    "description": "Video Cropper utility in Video Studio.",
+    "description": "Crops a video's frame to a smaller rectangular region.",
     "keywords": [
       "video cropper",
       "video studio",
@@ -2232,7 +2210,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 108,
     "name": "Video Rotator",
     "studioId": "video",
-    "description": "Video Rotator utility in Video Studio.",
+    "description": "Rotates a video by 90, 180, or 270 degrees.",
     "keywords": [
       "video rotator",
       "video studio",
@@ -2252,7 +2230,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 109,
     "name": "Video Format Converter",
     "studioId": "video",
-    "description": "Video Format Converter utility in Video Studio.",
+    "description": "Converts a video between formats like MP4, WebM, and MOV.",
     "keywords": [
       "video format converter",
       "video studio",
@@ -2273,7 +2251,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 110,
     "name": "Video to MP3",
     "studioId": "video",
-    "description": "Video to MP3 utility in Video Studio.",
+    "description": "Extracts the audio track from a video and saves it as an MP3.",
     "keywords": [
       "video to mp3",
       "video studio",
@@ -2293,7 +2271,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 111,
     "name": "Video to GIF",
     "studioId": "video",
-    "description": "Video to GIF utility in Video Studio.",
+    "description": "Converts a video clip into a looping animated GIF.",
     "keywords": [
       "video to gif",
       "video studio",
@@ -2313,7 +2291,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 112,
     "name": "Video to Images",
     "studioId": "video",
-    "description": "Video to Images utility in Video Studio.",
+    "description": "Extracts individual frames from a video as still images.",
     "keywords": [
       "video to images",
       "video studio",
@@ -2333,7 +2311,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 113,
     "name": "Video Speed Controller",
     "studioId": "video",
-    "description": "Video Speed Controller utility in Video Studio.",
+    "description": "Speeds up or slows down a video's playback and re-renders it at the new speed.",
     "keywords": [
       "video speed controller",
       "video studio",
@@ -2354,7 +2332,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 114,
     "name": "Video Mute",
     "studioId": "video",
-    "description": "Video Mute utility in Video Studio.",
+    "description": "Strips the audio track from a video, leaving the picture silent.",
     "keywords": [
       "video mute",
       "video studio",
@@ -2374,7 +2352,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 115,
     "name": "Video Watermark",
     "studioId": "video",
-    "description": "Video Watermark utility in Video Studio.",
+    "description": "Overlays a text or logo watermark onto a video.",
     "keywords": [
       "video watermark",
       "video studio",
@@ -2394,7 +2372,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 116,
     "name": "Subtitle Editor",
     "studioId": "video",
-    "description": "Subtitle Editor utility in Video Studio.",
+    "description": "Lets you write and time subtitle captions against a video's timeline.",
     "keywords": [
       "subtitle editor",
       "video studio",
@@ -2415,7 +2393,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 117,
     "name": "Subtitle Extractor",
     "studioId": "video",
-    "description": "Subtitle Extractor utility in Video Studio.",
+    "description": "Pulls an embedded subtitle track out of a video file as a standalone .srt.",
     "keywords": [
       "subtitle extractor",
       "video studio",
@@ -2436,7 +2414,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 118,
     "name": "Video Resolution Changer",
     "studioId": "video",
-    "description": "Video Resolution Changer utility in Video Studio.",
+    "description": "Re-encodes a video at a different resolution, such as 1080p or 720p.",
     "keywords": [
       "video resolution changer",
       "video studio",
@@ -2457,7 +2435,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 119,
     "name": "Video Frame Rate Converter",
     "studioId": "video",
-    "description": "Video Frame Rate Converter utility in Video Studio.",
+    "description": "Re-encodes a video at a different frame rate, such as 30fps or 60fps.",
     "keywords": [
       "video frame rate converter",
       "video studio",
@@ -2479,7 +2457,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 120,
     "name": "Video Metadata Viewer",
     "studioId": "video",
-    "description": "Video Metadata Viewer utility in Video Studio.",
+    "description": "Displays a video's resolution, duration, codec, and bitrate details.",
     "keywords": [
       "video metadata viewer",
       "video studio",
@@ -2500,7 +2478,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 121,
     "name": "Video Thumbnail Maker",
     "studioId": "video",
-    "description": "Video Thumbnail Maker utility in Video Studio.",
+    "description": "Captures a single frame from a video to use as its preview thumbnail.",
     "keywords": [
       "video thumbnail maker",
       "video studio",
@@ -2521,7 +2499,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 122,
     "name": "Video Stabilizer",
     "studioId": "video",
-    "description": "Video Stabilizer utility in Video Studio.",
+    "description": "Smooths out shaky camera movement in a video clip.",
     "keywords": [
       "video stabilizer",
       "video studio",
@@ -2541,7 +2519,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 123,
     "name": "Audio Replacement",
     "studioId": "video",
-    "description": "Audio Replacement utility in Video Studio.",
+    "description": "Swaps a video's existing audio track for a different one you provide.",
     "keywords": [
       "audio replacement",
       "video studio",
@@ -2562,7 +2540,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 124,
     "name": "Video to PDF Storyboard",
     "studioId": "video",
-    "description": "Video to PDF Storyboard utility in Video Studio.",
+    "description": "Extracts key frames from a video and lays them out as a printable PDF storyboard.",
     "keywords": [
       "video to pdf storyboard",
       "video studio",
@@ -2583,7 +2561,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 125,
     "name": "Screen Recorder",
     "studioId": "video",
-    "description": "Screen Recorder utility in Video Studio.",
+    "description": "Records your screen's activity directly into a downloadable video file.",
     "keywords": [
       "screen recorder",
       "video studio",
@@ -2604,7 +2582,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 126,
     "name": "Camera Recorder",
     "studioId": "video",
-    "description": "Camera Recorder utility in Video Studio.",
+    "description": "Records video from your device's camera directly in the browser.",
     "keywords": [
       "camera recorder",
       "video studio",
@@ -2625,7 +2603,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 127,
     "name": "Batch Video Converter",
     "studioId": "video",
-    "description": "Batch Video Converter utility in Video Studio.",
+    "description": "Converts a whole batch of video files to a new format in one pass.",
     "keywords": [
       "batch video converter",
       "video studio",
@@ -2646,7 +2624,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 128,
     "name": "Video Merge with Transitions",
     "studioId": "video",
-    "description": "Video Merge with Transitions utility in Video Studio.",
+    "description": "Joins multiple clips together with a smooth transition effect between each.",
     "keywords": [
       "video merge with transitions",
       "video studio",
@@ -2668,7 +2646,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 129,
     "name": "Audio Compressor",
     "studioId": "audio",
-    "description": "Audio Compressor utility in Audio Studio.",
+    "description": "Re-encodes an audio file at a lower bitrate to shrink its file size.",
     "keywords": [
       "audio compressor",
       "audio studio",
@@ -2688,7 +2666,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 130,
     "name": "Audio Converter",
     "studioId": "audio",
-    "description": "Audio Converter utility in Audio Studio.",
+    "description": "Converts an audio file between formats like MP3, WAV, and FLAC.",
     "keywords": [
       "audio converter",
       "audio studio",
@@ -2708,7 +2686,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 131,
     "name": "Audio Trimmer",
     "studioId": "audio",
-    "description": "Audio Trimmer utility in Audio Studio.",
+    "description": "Cuts an audio file down to a selected start and end time.",
     "keywords": [
       "audio trimmer",
       "audio studio",
@@ -2728,7 +2706,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 132,
     "name": "Audio Merger",
     "studioId": "audio",
-    "description": "Audio Merger utility in Audio Studio.",
+    "description": "Joins multiple audio clips together into one continuous track.",
     "keywords": [
       "audio merger",
       "audio studio",
@@ -2748,7 +2726,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 133,
     "name": "Audio Splitter",
     "studioId": "audio",
-    "description": "Audio Splitter utility in Audio Studio.",
+    "description": "Breaks a single audio file into several smaller clips.",
     "keywords": [
       "audio splitter",
       "audio studio",
@@ -2768,7 +2746,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 134,
     "name": "Audio Speed Changer",
     "studioId": "audio",
-    "description": "Audio Speed Changer utility in Audio Studio.",
+    "description": "Speeds up or slows down an audio track's playback.",
     "keywords": [
       "audio speed changer",
       "audio studio",
@@ -2789,7 +2767,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 135,
     "name": "Pitch Changer",
     "studioId": "audio",
-    "description": "Pitch Changer utility in Audio Studio.",
+    "description": "Shifts an audio track's pitch up or down without changing its speed.",
     "keywords": [
       "pitch changer",
       "audio studio",
@@ -2810,7 +2788,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 136,
     "name": "Volume Booster",
     "studioId": "audio",
-    "description": "Volume Booster utility in Audio Studio.",
+    "description": "Increases or decreases an audio track's overall loudness.",
     "keywords": [
       "volume booster",
       "audio studio",
@@ -2831,7 +2809,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 137,
     "name": "Audio Normalizer",
     "studioId": "audio",
-    "description": "Audio Normalizer utility in Audio Studio.",
+    "description": "Evens out an audio track's loudness to a consistent target level.",
     "keywords": [
       "audio normalizer",
       "audio studio",
@@ -2851,7 +2829,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 138,
     "name": "Audio Noise Reducer",
     "studioId": "audio",
-    "description": "Audio Noise Reducer utility in Audio Studio.",
+    "description": "Reduces constant background hiss or hum in an audio recording.",
     "keywords": [
       "audio noise reducer",
       "audio studio",
@@ -2872,7 +2850,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 139,
     "name": "Voice Recorder",
     "studioId": "audio",
-    "description": "Voice Recorder utility in Audio Studio.",
+    "description": "Records audio from your microphone directly in the browser.",
     "keywords": [
       "voice recorder",
       "audio studio",
@@ -2893,7 +2871,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 140,
     "name": "Audio to Text",
     "studioId": "audio",
-    "description": "Audio to Text utility in Audio Studio.",
+    "description": "Transcribes spoken words in an audio file into written text.",
     "keywords": [
       "audio to text",
       "audio studio",
@@ -2913,7 +2891,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 141,
     "name": "Text to Speech",
     "studioId": "audio",
-    "description": "Text to Speech utility in Audio Studio.",
+    "description": "Reads typed text aloud using your device's built-in voice synthesis.",
     "keywords": [
       "text to speech",
       "audio studio",
@@ -2934,7 +2912,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 142,
     "name": "Audio to WAV",
     "studioId": "audio",
-    "description": "Audio to WAV utility in Audio Studio.",
+    "description": "Converts an audio file into the uncompressed WAV format.",
     "keywords": [
       "audio to wav",
       "audio studio",
@@ -2954,7 +2932,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 143,
     "name": "Audio to MP3",
     "studioId": "audio",
-    "description": "Audio to MP3 utility in Audio Studio.",
+    "description": "Converts an audio file into the compressed MP3 format.",
     "keywords": [
       "audio to mp3",
       "audio studio",
@@ -2974,7 +2952,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 144,
     "name": "Video Audio Extractor",
     "studioId": "audio",
-    "description": "Video Audio Extractor utility in Audio Studio.",
+    "description": "Pulls the audio track out of a video file as a separate audio file.",
     "keywords": [
       "video audio extractor",
       "audio studio",
@@ -2995,7 +2973,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 145,
     "name": "Audio Metadata Editor",
     "studioId": "audio",
-    "description": "Audio Metadata Editor utility in Audio Studio.",
+    "description": "Edits an audio file's embedded title, artist, and album tag fields.",
     "keywords": [
       "audio metadata editor",
       "audio studio",
@@ -3016,7 +2994,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 146,
     "name": "Album Art Editor",
     "studioId": "audio",
-    "description": "Album Art Editor utility in Audio Studio.",
+    "description": "Attaches or replaces the cover image embedded in an audio file.",
     "keywords": [
       "album art editor",
       "audio studio",
@@ -3038,7 +3016,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 147,
     "name": "Audio Waveform Viewer",
     "studioId": "audio",
-    "description": "Audio Waveform Viewer utility in Audio Studio.",
+    "description": "Renders an audio file's amplitude as a visual waveform.",
     "keywords": [
       "audio waveform viewer",
       "audio studio",
@@ -3059,7 +3037,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 148,
     "name": "Silence Remover",
     "studioId": "audio",
-    "description": "Silence Remover utility in Audio Studio.",
+    "description": "Detects and cuts out silent gaps from an audio recording.",
     "keywords": [
       "silence remover",
       "audio studio",
@@ -3080,7 +3058,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 149,
     "name": "Voice Changer",
     "studioId": "audio",
-    "description": "Voice Changer utility in Audio Studio.",
+    "description": "Applies a pitch or tone effect to make a voice recording sound different.",
     "keywords": [
       "voice changer",
       "audio studio",
@@ -3101,7 +3079,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 150,
     "name": "Audio Channel Converter",
     "studioId": "audio",
-    "description": "Audio Channel Converter utility in Audio Studio.",
+    "description": "Converts an audio track between mono and stereo channel layouts.",
     "keywords": [
       "audio channel converter",
       "audio studio",
@@ -3122,7 +3100,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 151,
     "name": "Ringtone Maker",
     "studioId": "audio",
-    "description": "Ringtone Maker utility in Audio Studio.",
+    "description": "Trims a song down to a short clip formatted for use as a phone ringtone.",
     "keywords": [
       "ringtone maker",
       "audio studio",
@@ -3143,7 +3121,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 152,
     "name": "Audio Batch Converter",
     "studioId": "audio",
-    "description": "Audio Batch Converter utility in Audio Studio.",
+    "description": "Converts a whole batch of audio files to a new format in one pass.",
     "keywords": [
       "audio batch converter",
       "audio studio",
@@ -3164,7 +3142,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 153,
     "name": "Audio Joiner with Crossfade",
     "studioId": "audio",
-    "description": "Audio Joiner with Crossfade utility in Audio Studio.",
+    "description": "Joins audio clips together with a smooth fade between each one.",
     "keywords": [
       "audio joiner with crossfade",
       "audio studio",
@@ -3186,7 +3164,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 154,
     "name": "DOCX Viewer",
     "studioId": "office",
-    "description": "DOCX Viewer utility in Office & Documents.",
+    "description": "Opens and displays the contents of a .docx Word file.",
     "keywords": [
       "docx viewer",
       "office & documents",
@@ -3207,7 +3185,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 155,
     "name": "DOCX to TXT",
     "studioId": "office",
-    "description": "DOCX to TXT utility in Office & Documents.",
+    "description": "Extracts a Word document's plain text content.",
     "keywords": [
       "docx to txt",
       "office & documents",
@@ -3228,7 +3206,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 156,
     "name": "DOCX to HTML",
     "studioId": "office",
-    "description": "DOCX to HTML utility in Office & Documents.",
+    "description": "Converts a Word document's content into HTML markup.",
     "keywords": [
       "docx to html",
       "office & documents",
@@ -3249,7 +3227,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 157,
     "name": "DOCX to Markdown",
     "studioId": "office",
-    "description": "DOCX to Markdown utility in Office & Documents.",
+    "description": "Converts a Word document's structure into Markdown formatting.",
     "keywords": [
       "docx to markdown",
       "office & documents",
@@ -3270,7 +3248,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 158,
     "name": "TXT to DOCX",
     "studioId": "office",
-    "description": "TXT to DOCX utility in Office & Documents.",
+    "description": "Wraps plain text into a formatted Word-compatible document.",
     "keywords": [
       "txt to docx",
       "office & documents",
@@ -3291,7 +3269,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 159,
     "name": "Markdown to PDF",
     "studioId": "office",
-    "description": "Markdown to PDF utility in Office & Documents.",
+    "description": "Renders Markdown text into a formatted, downloadable PDF.",
     "keywords": [
       "markdown to pdf",
       "office & documents",
@@ -3312,7 +3290,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 160,
     "name": "Markdown to HTML",
     "studioId": "office",
-    "description": "Markdown to HTML utility in Office & Documents.",
+    "description": "Converts Markdown syntax into rendered HTML markup.",
     "keywords": [
       "markdown to html",
       "office & documents",
@@ -3333,7 +3311,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 161,
     "name": "HTML to Markdown",
     "studioId": "office",
-    "description": "HTML to Markdown utility in Office & Documents.",
+    "description": "Converts HTML markup back into clean Markdown syntax.",
     "keywords": [
       "html to markdown",
       "office & documents",
@@ -3354,7 +3332,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 162,
     "name": "Excel to CSV",
     "studioId": "office",
-    "description": "Excel to CSV utility in Office & Documents.",
+    "description": "Converts a spreadsheet's first sheet into plain comma-separated values.",
     "keywords": [
       "excel to csv",
       "office & documents",
@@ -3375,7 +3353,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 163,
     "name": "CSV to Excel",
     "studioId": "office",
-    "description": "CSV to Excel utility in Office & Documents.",
+    "description": "Converts a CSV file into a formatted spreadsheet.",
     "keywords": [
       "csv to excel",
       "office & documents",
@@ -3396,7 +3374,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 164,
     "name": "CSV Viewer",
     "studioId": "office",
-    "description": "CSV Viewer utility in Office & Documents.",
+    "description": "Displays a CSV file's rows and columns as a readable table.",
     "keywords": [
       "csv viewer",
       "office & documents",
@@ -3417,7 +3395,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 165,
     "name": "CSV Cleaner",
     "studioId": "office",
-    "description": "CSV Cleaner utility in Office & Documents.",
+    "description": "Trims whitespace, fixes quoting, and normalizes a messy CSV file.",
     "keywords": [
       "csv cleaner",
       "office & documents",
@@ -3438,7 +3416,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 166,
     "name": "CSV Deduplicator",
     "studioId": "office",
-    "description": "CSV Deduplicator utility in Office & Documents.",
+    "description": "Removes duplicate rows from a CSV file.",
     "keywords": [
       "csv deduplicator",
       "office & documents",
@@ -3459,7 +3437,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 167,
     "name": "CSV Merger",
     "studioId": "office",
-    "description": "CSV Merger utility in Office & Documents.",
+    "description": "Combines multiple CSV files that share the same columns into one.",
     "keywords": [
       "csv merger",
       "office & documents",
@@ -3480,7 +3458,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 168,
     "name": "CSV Splitter",
     "studioId": "office",
-    "description": "CSV Splitter utility in Office & Documents.",
+    "description": "Breaks a large CSV file into smaller chunks by row count.",
     "keywords": [
       "csv splitter",
       "office & documents",
@@ -3501,7 +3479,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 169,
     "name": "JSON to CSV",
     "studioId": "office",
-    "description": "JSON to CSV utility in Office & Documents.",
+    "description": "Flattens an array of JSON objects into comma-separated rows and columns.",
     "keywords": [
       "json to csv",
       "office & documents",
@@ -3522,7 +3500,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 170,
     "name": "CSV to JSON",
     "studioId": "office",
-    "description": "CSV to JSON utility in Office & Documents.",
+    "description": "Converts CSV rows and columns into an array of JSON objects.",
     "keywords": [
       "csv to json",
       "office & documents",
@@ -3543,7 +3521,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 171,
     "name": "XML to JSON",
     "studioId": "office",
-    "description": "XML to JSON utility in Office & Documents.",
+    "description": "Converts XML markup into an equivalent JSON structure.",
     "keywords": [
       "xml to json",
       "office & documents",
@@ -3564,7 +3542,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 172,
     "name": "JSON to XML",
     "studioId": "office",
-    "description": "JSON to XML utility in Office & Documents.",
+    "description": "Converts a JSON object into equivalent XML markup.",
     "keywords": [
       "json to xml",
       "office & documents",
@@ -3585,7 +3563,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 173,
     "name": "XML Formatter",
     "studioId": "office",
-    "description": "XML Formatter utility in Office & Documents.",
+    "description": "Indents and reformats XML markup for easier reading.",
     "keywords": [
       "xml formatter",
       "office & documents",
@@ -3606,7 +3584,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 174,
     "name": "Document Compare",
     "studioId": "office",
-    "description": "Document Compare utility in Office & Documents.",
+    "description": "Highlights the differences between two versions of a text document.",
     "keywords": [
       "document compare",
       "office & documents",
@@ -3627,7 +3605,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 175,
     "name": "Word Counter for Documents",
     "studioId": "office",
-    "description": "Word Counter for Documents utility in Office & Documents.",
+    "description": "Counts the words, characters, and paragraphs in an uploaded document.",
     "keywords": [
       "word counter for documents",
       "office & documents",
@@ -3650,7 +3628,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 176,
     "name": "Document Metadata Viewer",
     "studioId": "office",
-    "description": "Document Metadata Viewer utility in Office & Documents.",
+    "description": "Displays an uploaded document's title, author, and other embedded metadata.",
     "keywords": [
       "document metadata viewer",
       "office & documents",
@@ -3672,7 +3650,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 177,
     "name": "Presentation to Images",
     "studioId": "office",
-    "description": "Presentation to Images utility in Office & Documents.",
+    "description": "Exports every slide of a presentation as a separate image file.",
     "keywords": [
       "presentation to images",
       "office & documents",
@@ -3693,7 +3671,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 178,
     "name": "Text to DOCX",
     "studioId": "office",
-    "description": "Text to DOCX utility in Office & Documents.",
+    "description": "Wraps plain text into a downloadable .docx Word file.",
     "keywords": [
       "text to docx",
       "office & documents",
@@ -3714,7 +3692,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 179,
     "name": "Batch Document Converter",
     "studioId": "office",
-    "description": "Batch Document Converter utility in Office & Documents.",
+    "description": "Converts a whole batch of documents to a new format in one pass.",
     "keywords": [
       "batch document converter",
       "office & documents",
@@ -3736,7 +3714,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 180,
     "name": "Batch Document Converter",
     "studioId": "office",
-    "description": "Batch Document Converter utility in Office & Documents.",
+    "description": "Converts a whole batch of documents to a new format in one pass.",
     "keywords": [
       "batch document converter",
       "office & documents",
@@ -3758,7 +3736,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 181,
     "name": "ZIP Creator",
     "studioId": "archive",
-    "description": "ZIP Creator utility in Archive & Files.",
+    "description": "Compresses one or more files into a single .zip archive.",
     "keywords": [
       "zip creator",
       "archive & files",
@@ -3779,7 +3757,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 182,
     "name": "ZIP Extractor",
     "studioId": "archive",
-    "description": "ZIP Extractor utility in Archive & Files.",
+    "description": "Unpacks the contents of a .zip archive.",
     "keywords": [
       "zip extractor",
       "archive & files",
@@ -3800,7 +3778,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 183,
     "name": "7Z Extractor",
     "studioId": "archive",
-    "description": "7Z Extractor utility in Archive & Files.",
+    "description": "Unpacks the contents of a .7z archive.",
     "keywords": [
       "7z extractor",
       "archive & files",
@@ -3820,7 +3798,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 184,
     "name": "TAR Extractor",
     "studioId": "archive",
-    "description": "TAR Extractor utility in Archive & Files.",
+    "description": "Unpacks the contents of a .tar archive.",
     "keywords": [
       "tar extractor",
       "archive & files",
@@ -3841,7 +3819,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 185,
     "name": "GZIP Compressor/Extractor",
     "studioId": "archive",
-    "description": "GZIP Compressor/Extractor utility in Archive & Files.",
+    "description": "Compresses a file into .gz format or extracts an existing .gz file.",
     "keywords": [
       "gzip compressor/extractor",
       "archive & files",
@@ -3862,7 +3840,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 186,
     "name": "Archive File Inspector",
     "studioId": "archive",
-    "description": "Archive File Inspector utility in Archive & Files.",
+    "description": "Lists the files and folder structure inside an archive without extracting it.",
     "keywords": [
       "archive file inspector",
       "archive & files",
@@ -3883,7 +3861,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 187,
     "name": "Archive Password Protector",
     "studioId": "archive",
-    "description": "Archive Password Protector utility in Archive & Files.",
+    "description": "Adds a password to a .zip archive so it can't be opened without it.",
     "keywords": [
       "archive password protector",
       "archive & files",
@@ -3904,7 +3882,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 188,
     "name": "File Compressor",
     "studioId": "archive",
-    "description": "File Compressor utility in Archive & Files.",
+    "description": "Shrinks a file's size using general-purpose compression.",
     "keywords": [
       "file compressor",
       "archive & files",
@@ -3925,7 +3903,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 189,
     "name": "File Type Detector",
     "studioId": "archive",
-    "description": "File Type Detector utility in Archive & Files.",
+    "description": "Inspects a file's actual contents to identify its true file type.",
     "keywords": [
       "file type detector",
       "archive & files",
@@ -3947,7 +3925,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 190,
     "name": "File Size Analyzer",
     "studioId": "archive",
-    "description": "File Size Analyzer utility in Archive & Files.",
+    "description": "Reports a file's exact size and a breakdown of its contents by size.",
     "keywords": [
       "file size analyzer",
       "archive & files",
@@ -3969,7 +3947,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 191,
     "name": "Duplicate File Finder",
     "studioId": "archive",
-    "description": "Duplicate File Finder utility in Archive & Files.",
+    "description": "Compares a set of files by content to flag exact duplicates.",
     "keywords": [
       "duplicate file finder",
       "archive & files",
@@ -3988,32 +3966,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 192,
-    "name": "Bulk File Renamer",
-    "studioId": "archive",
-    "description": "Bulk File Renamer utility in Archive & Files.",
-    "keywords": [
-      "bulk file renamer",
-      "archive & files",
-      "archive",
-      "bulk",
-      "file",
-      "renamer"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Archive",
-    "inputKind": "file",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 193,
     "name": "File Checksum Generator",
     "studioId": "archive",
-    "description": "File Checksum Generator utility in Archive & Files.",
+    "description": "Computes a file's MD5, SHA-1, or SHA-256 checksum.",
     "keywords": [
       "file checksum generator",
       "archive & files",
@@ -4035,7 +3991,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 194,
     "name": "Checksum Verifier",
     "studioId": "archive",
-    "description": "Checksum Verifier utility in Archive & Files.",
+    "description": "Compares a file against a known checksum to confirm it hasn't been altered.",
     "keywords": [
       "checksum verifier",
       "archive & files",
@@ -4056,7 +4012,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 195,
     "name": "File Splitter",
     "studioId": "archive",
-    "description": "File Splitter utility in Archive & Files.",
+    "description": "Breaks a large file into smaller numbered chunks.",
     "keywords": [
       "file splitter",
       "archive & files",
@@ -4077,7 +4033,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 196,
     "name": "File Joiner",
     "studioId": "archive",
-    "description": "File Joiner utility in Archive & Files.",
+    "description": "Reassembles chunks created by a file splitter back into the original file.",
     "keywords": [
       "file joiner",
       "archive & files",
@@ -4098,7 +4054,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 197,
     "name": "MIME Type Inspector",
     "studioId": "archive",
-    "description": "MIME Type Inspector utility in Archive & Files.",
+    "description": "Determines a file's correct MIME type from its contents.",
     "keywords": [
       "mime type inspector",
       "archive & files",
@@ -4120,7 +4076,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 198,
     "name": "File Extension Converter",
     "studioId": "archive",
-    "description": "File Extension Converter utility in Archive & Files.",
+    "description": "Renames a file's extension while keeping its underlying format intact.",
     "keywords": [
       "file extension converter",
       "archive & files",
@@ -4142,7 +4098,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 199,
     "name": "Batch File Organizer",
     "studioId": "archive",
-    "description": "Batch File Organizer utility in Archive & Files.",
+    "description": "Sorts a batch of files into folders based on type, name, or date rules.",
     "keywords": [
       "batch file organizer",
       "archive & files",
@@ -4161,32 +4117,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 200,
-    "name": "Temporary File Cleaner",
-    "studioId": "archive",
-    "description": "Temporary File Cleaner utility in Archive & Files.",
-    "keywords": [
-      "temporary file cleaner",
-      "archive & files",
-      "archive",
-      "temporary",
-      "file",
-      "cleaner"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Archive",
-    "inputKind": "file",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 201,
     "name": "File Sharing Utility",
     "studioId": "archive",
-    "description": "File Sharing Utility utility in Archive & Files.",
+    "description": "Generates a local, shareable link or QR code for transferring a file.",
     "keywords": [
       "file sharing utility",
       "archive & files",
@@ -4208,7 +4142,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 202,
     "name": "Recent Files Manager",
     "studioId": "archive",
-    "description": "Recent Files Manager utility in Archive & Files.",
+    "description": "Lists the files you've recently processed in this app for quick reopening.",
     "keywords": [
       "recent files manager",
       "archive & files",
@@ -4230,7 +4164,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 203,
     "name": "Storage Usage Analyzer",
     "studioId": "archive",
-    "description": "Storage Usage Analyzer utility in Archive & Files.",
+    "description": "Reports how much of your browser's local storage this app is currently using.",
     "keywords": [
       "storage usage analyzer",
       "archive & files",
@@ -4252,7 +4186,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 204,
     "name": "Archive Converter",
     "studioId": "archive",
-    "description": "Archive Converter utility in Archive & Files.",
+    "description": "Converts an archive from one compression format into another.",
     "keywords": [
       "archive converter",
       "archive & files",
@@ -4269,116 +4203,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 205,
-    "name": "Word Counter",
-    "studioId": "text",
-    "description": "Word Counter utility in Text & Writing.",
-    "keywords": [
-      "word counter",
-      "text & writing",
-      "text",
-      "word",
-      "counter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": true
-  },
-  {
-    "id": 206,
-    "name": "Character Counter",
-    "studioId": "text",
-    "description": "Character Counter utility in Text & Writing.",
-    "keywords": [
-      "character counter",
-      "text & writing",
-      "text",
-      "character",
-      "counter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 207,
-    "name": "Sentence Counter",
-    "studioId": "text",
-    "description": "Sentence Counter utility in Text & Writing.",
-    "keywords": [
-      "sentence counter",
-      "text & writing",
-      "text",
-      "sentence",
-      "counter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 208,
-    "name": "Paragraph Counter",
-    "studioId": "text",
-    "description": "Paragraph Counter utility in Text & Writing.",
-    "keywords": [
-      "paragraph counter",
-      "text & writing",
-      "text",
-      "paragraph",
-      "counter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 209,
-    "name": "Reading Time Calculator",
-    "studioId": "text",
-    "description": "Reading Time Calculator utility in Text & Writing.",
-    "keywords": [
-      "reading time calculator",
-      "text & writing",
-      "text",
-      "reading",
-      "time",
-      "calculator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 210,
     "name": "Case Converter",
     "studioId": "text",
-    "description": "Case Converter utility in Text & Writing.",
+    "description": "Converts text between UPPERCASE, lowercase, Title Case, camelCase, and more.",
     "keywords": [
       "case converter",
       "text & writing",
@@ -4399,7 +4227,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 211,
     "name": "Remove Extra Spaces",
     "studioId": "text",
-    "description": "Remove Extra Spaces utility in Text & Writing.",
+    "description": "Collapses repeated spaces and trims stray whitespace from text.",
     "keywords": [
       "remove extra spaces",
       "text & writing",
@@ -4421,7 +4249,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 212,
     "name": "Remove Empty Lines",
     "studioId": "text",
-    "description": "Remove Empty Lines utility in Text & Writing.",
+    "description": "Deletes every blank line from a block of text.",
     "keywords": [
       "remove empty lines",
       "text & writing",
@@ -4443,7 +4271,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 213,
     "name": "Remove Duplicate Lines",
     "studioId": "text",
-    "description": "Remove Duplicate Lines utility in Text & Writing.",
+    "description": "Removes repeated lines, keeping only the first occurrence of each.",
     "keywords": [
       "remove duplicate lines",
       "text & writing",
@@ -4465,7 +4293,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 214,
     "name": "Sort Lines",
     "studioId": "text",
-    "description": "Sort Lines utility in Text & Writing.",
+    "description": "Sorts the lines of a text block alphabetically, ascending or descending.",
     "keywords": [
       "sort lines",
       "text & writing",
@@ -4486,7 +4314,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 215,
     "name": "Reverse Text",
     "studioId": "text",
-    "description": "Reverse Text utility in Text & Writing.",
+    "description": "Reverses the character order of a block of text.",
     "keywords": [
       "reverse text",
       "text & writing",
@@ -4506,7 +4334,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 216,
     "name": "Find & Replace",
     "studioId": "text",
-    "description": "Find & Replace utility in Text & Writing.",
+    "description": "Finds every occurrence of a word or phrase and replaces it with another.",
     "keywords": [
       "find & replace",
       "text & writing",
@@ -4527,7 +4355,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 217,
     "name": "Text Diff Checker",
     "studioId": "text",
-    "description": "Text Diff Checker utility in Text & Writing.",
+    "description": "Highlights the line-by-line differences between two blocks of text.",
     "keywords": [
       "text diff checker",
       "text & writing",
@@ -4548,7 +4376,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 218,
     "name": "Text Splitter",
     "studioId": "text",
-    "description": "Text Splitter utility in Text & Writing.",
+    "description": "Breaks a block of text apart using a chosen delimiter or line count.",
     "keywords": [
       "text splitter",
       "text & writing",
@@ -4568,7 +4396,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 219,
     "name": "Text Merger",
     "studioId": "text",
-    "description": "Text Merger utility in Text & Writing.",
+    "description": "Joins multiple blocks of text together with a chosen separator.",
     "keywords": [
       "text merger",
       "text & writing",
@@ -4588,7 +4416,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 220,
     "name": "Text Repeater",
     "studioId": "text",
-    "description": "Text Repeater utility in Text & Writing.",
+    "description": "Repeats a given block of text a chosen number of times.",
     "keywords": [
       "text repeater",
       "text & writing",
@@ -4608,7 +4436,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 221,
     "name": "Text to Slug",
     "studioId": "text",
-    "description": "Text to Slug utility in Text & Writing.",
+    "description": "Converts text into a clean, URL-friendly slug.",
     "keywords": [
       "text to slug",
       "text & writing",
@@ -4628,7 +4456,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 222,
     "name": "Slug to Text",
     "studioId": "text",
-    "description": "Slug to Text utility in Text & Writing.",
+    "description": "Converts a URL slug back into readable, spaced-out text.",
     "keywords": [
       "slug to text",
       "text & writing",
@@ -4648,7 +4476,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 223,
     "name": "URL Extractor",
     "studioId": "text",
-    "description": "URL Extractor utility in Text & Writing.",
+    "description": "Scans a block of text and pulls out every web link it contains.",
     "keywords": [
       "url extractor",
       "text & writing",
@@ -4669,7 +4497,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 224,
     "name": "Email Extractor",
     "studioId": "text",
-    "description": "Email Extractor utility in Text & Writing.",
+    "description": "Scans a block of text and pulls out every email address it contains.",
     "keywords": [
       "email extractor",
       "text & writing",
@@ -4690,7 +4518,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 225,
     "name": "Phone Number Extractor",
     "studioId": "text",
-    "description": "Phone Number Extractor utility in Text & Writing.",
+    "description": "Scans a block of text and pulls out every phone number it contains.",
     "keywords": [
       "phone number extractor",
       "text & writing",
@@ -4712,7 +4540,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 226,
     "name": "Text to ASCII",
     "studioId": "text",
-    "description": "Text to ASCII utility in Text & Writing.",
+    "description": "Converts each character of a text string into its numeric ASCII code.",
     "keywords": [
       "text to ascii",
       "text & writing",
@@ -4732,7 +4560,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 227,
     "name": "ASCII to Text",
     "studioId": "text",
-    "description": "ASCII to Text utility in Text & Writing.",
+    "description": "Converts a list of numeric ASCII codes back into readable text.",
     "keywords": [
       "ascii to text",
       "text & writing",
@@ -4752,7 +4580,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 228,
     "name": "Unicode Inspector",
     "studioId": "text",
-    "description": "Unicode Inspector utility in Text & Writing.",
+    "description": "Shows the Unicode code point and name behind each character you enter.",
     "keywords": [
       "unicode inspector",
       "text & writing",
@@ -4773,7 +4601,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 229,
     "name": "Text Encoder",
     "studioId": "text",
-    "description": "Text Encoder utility in Text & Writing.",
+    "description": "Encodes text using Base64, URL, or HTML entity encoding.",
     "keywords": [
       "text encoder",
       "text & writing",
@@ -4793,7 +4621,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 230,
     "name": "Text Decoder",
     "studioId": "text",
-    "description": "Text Decoder utility in Text & Writing.",
+    "description": "Decodes Base64, URL, or HTML-entity-encoded text back to plain text.",
     "keywords": [
       "text decoder",
       "text & writing",
@@ -4813,7 +4641,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 231,
     "name": "Lorem Ipsum Generator",
     "studioId": "text",
-    "description": "Lorem Ipsum Generator utility in Text & Writing.",
+    "description": "Generates placeholder Lorem Ipsum paragraphs for mockups and layouts.",
     "keywords": [
       "lorem ipsum generator",
       "text & writing",
@@ -4835,7 +4663,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 232,
     "name": "Random Text Generator",
     "studioId": "text",
-    "description": "Random Text Generator utility in Text & Writing.",
+    "description": "Generates randomized sample sentences for testing and placeholder content.",
     "keywords": [
       "random text generator",
       "text & writing",
@@ -4856,7 +4684,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 233,
     "name": "Name List Generator",
     "studioId": "text",
-    "description": "Name List Generator utility in Text & Writing.",
+    "description": "Generates a list of randomized sample full names for testing data.",
     "keywords": [
       "name list generator",
       "text & writing",
@@ -4878,7 +4706,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 234,
     "name": "Text Statistics",
     "studioId": "text",
-    "description": "Text Statistics utility in Text & Writing.",
+    "description": "Reports detailed word, character, sentence, and reading-time statistics for a text.",
     "keywords": [
       "text statistics",
       "text & writing",
@@ -4895,73 +4723,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 235,
-    "name": "Grammar Assistant",
-    "studioId": "text",
-    "description": "Grammar Assistant utility in Text & Writing.",
-    "keywords": [
-      "grammar assistant",
-      "text & writing",
-      "text",
-      "grammar",
-      "assistant"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 236,
-    "name": "Spell Checker",
-    "studioId": "text",
-    "description": "Spell Checker utility in Text & Writing.",
-    "keywords": [
-      "spell checker",
-      "text & writing",
-      "text",
-      "spell",
-      "checker"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 237,
-    "name": "Readability Analyzer",
-    "studioId": "text",
-    "description": "Readability Analyzer utility in Text & Writing.",
-    "keywords": [
-      "readability analyzer",
-      "text & writing",
-      "text",
-      "readability",
-      "analyzer"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 238,
     "name": "Markdown Editor",
     "studioId": "text",
-    "description": "Markdown Editor utility in Text & Writing.",
+    "description": "Edits Markdown text with a live, rendered preview alongside it.",
     "keywords": [
       "markdown editor",
       "text & writing",
@@ -4982,7 +4747,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 239,
     "name": "Markdown Table Generator",
     "studioId": "text",
-    "description": "Markdown Table Generator utility in Text & Writing.",
+    "description": "Generates a Markdown table template you can fill in and reuse.",
     "keywords": [
       "markdown table generator",
       "text & writing",
@@ -5004,7 +4769,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 240,
     "name": "Meeting Notes Formatter",
     "studioId": "text",
-    "description": "Meeting Notes Formatter utility in Text & Writing.",
+    "description": "Assembles attendees, agenda, and action items into a clean notes document.",
     "keywords": [
       "meeting notes formatter",
       "text & writing",
@@ -5026,7 +4791,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 241,
     "name": "Resume Text Formatter",
     "studioId": "text",
-    "description": "Resume Text Formatter utility in Text & Writing.",
+    "description": "Assembles your name, summary, experience, and skills into clean resume text.",
     "keywords": [
       "resume text formatter",
       "text & writing",
@@ -5044,32 +4809,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 242,
-    "name": "Email Draft Assistant",
-    "studioId": "text",
-    "description": "Email Draft Assistant utility in Text & Writing.",
-    "keywords": [
-      "email draft assistant",
-      "text & writing",
-      "text",
-      "email",
-      "draft",
-      "assistant"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Type",
-    "inputKind": "text",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 243,
     "name": "Bengali-English Text Helper",
     "studioId": "text",
-    "description": "Bengali-English Text Helper utility in Text & Writing.",
+    "description": "Transliterates Romanized Bengali ('Banglish') text into Bengali script.",
     "keywords": [
       "bengali-english text helper",
       "text & writing",
@@ -5090,7 +4833,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 244,
     "name": "JSON Formatter",
     "studioId": "developer",
-    "description": "JSON Formatter utility in Developer Tools.",
+    "description": "Beautifies a JSON string with consistent indentation and line breaks.",
     "keywords": [
       "json formatter",
       "developer tools",
@@ -5111,7 +4854,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 245,
     "name": "JSON Validator",
     "studioId": "developer",
-    "description": "JSON Validator utility in Developer Tools.",
+    "description": "Checks a JSON string for syntax errors and reports its structure if valid.",
     "keywords": [
       "json validator",
       "developer tools",
@@ -5132,7 +4875,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 246,
     "name": "JSON Minifier",
     "studioId": "developer",
-    "description": "JSON Minifier utility in Developer Tools.",
+    "description": "Strips all whitespace from JSON to produce the smallest possible string.",
     "keywords": [
       "json minifier",
       "developer tools",
@@ -5153,7 +4896,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 247,
     "name": "JSON Diff",
     "studioId": "developer",
-    "description": "JSON Diff utility in Developer Tools.",
+    "description": "Highlights the added, removed, and changed fields between two JSON objects.",
     "keywords": [
       "json diff",
       "developer tools",
@@ -5174,7 +4917,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 248,
     "name": "JSON Path Tester",
     "studioId": "developer",
-    "description": "JSON Path Tester utility in Developer Tools.",
+    "description": "Evaluates a dot/bracket path expression against a JSON object and shows the match.",
     "keywords": [
       "json path tester",
       "developer tools",
@@ -5196,7 +4939,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 249,
     "name": "JSON to TypeScript",
     "studioId": "developer",
-    "description": "JSON to TypeScript utility in Developer Tools.",
+    "description": "Generates a TypeScript interface from a sample JSON object's shape.",
     "keywords": [
       "json to typescript",
       "developer tools",
@@ -5217,7 +4960,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 250,
     "name": "JSON Schema Generator",
     "studioId": "developer",
-    "description": "JSON Schema Generator utility in Developer Tools.",
+    "description": "Infers a JSON Schema definition from a sample JSON object.",
     "keywords": [
       "json schema generator",
       "developer tools",
@@ -5239,7 +4982,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 251,
     "name": "YAML Formatter",
     "studioId": "developer",
-    "description": "YAML Formatter utility in Developer Tools.",
+    "description": "Reformats YAML with consistent indentation.",
     "keywords": [
       "yaml formatter",
       "developer tools",
@@ -5260,7 +5003,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 252,
     "name": "YAML Validator",
     "studioId": "developer",
-    "description": "YAML Validator utility in Developer Tools.",
+    "description": "Checks a YAML document for syntax errors.",
     "keywords": [
       "yaml validator",
       "developer tools",
@@ -5281,7 +5024,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 253,
     "name": "YAML to JSON",
     "studioId": "developer",
-    "description": "YAML to JSON utility in Developer Tools.",
+    "description": "Converts a YAML document into equivalent JSON.",
     "keywords": [
       "yaml to json",
       "developer tools",
@@ -5302,7 +5045,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 254,
     "name": "JSON to YAML",
     "studioId": "developer",
-    "description": "JSON to YAML utility in Developer Tools.",
+    "description": "Converts a JSON object into equivalent YAML.",
     "keywords": [
       "json to yaml",
       "developer tools",
@@ -5323,7 +5066,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 255,
     "name": "XML Validator",
     "studioId": "developer",
-    "description": "XML Validator utility in Developer Tools.",
+    "description": "Checks an XML document for well-formed syntax.",
     "keywords": [
       "xml validator",
       "developer tools",
@@ -5344,7 +5087,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 256,
     "name": "HTML Formatter",
     "studioId": "developer",
-    "description": "HTML Formatter utility in Developer Tools.",
+    "description": "Indents and reformats HTML markup for easier reading.",
     "keywords": [
       "html formatter",
       "developer tools",
@@ -5365,7 +5108,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 257,
     "name": "HTML Minifier",
     "studioId": "developer",
-    "description": "HTML Minifier utility in Developer Tools.",
+    "description": "Strips whitespace and comments from HTML to shrink its size.",
     "keywords": [
       "html minifier",
       "developer tools",
@@ -5386,7 +5129,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 258,
     "name": "CSS Formatter",
     "studioId": "developer",
-    "description": "CSS Formatter utility in Developer Tools.",
+    "description": "Indents and reformats CSS rules for easier reading.",
     "keywords": [
       "css formatter",
       "developer tools",
@@ -5407,7 +5150,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 259,
     "name": "CSS Minifier",
     "studioId": "developer",
-    "description": "CSS Minifier utility in Developer Tools.",
+    "description": "Strips whitespace and comments from CSS to shrink its size.",
     "keywords": [
       "css minifier",
       "developer tools",
@@ -5428,7 +5171,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 260,
     "name": "JavaScript Formatter",
     "studioId": "developer",
-    "description": "JavaScript Formatter utility in Developer Tools.",
+    "description": "Indents and reformats JavaScript code for easier reading.",
     "keywords": [
       "javascript formatter",
       "developer tools",
@@ -5449,7 +5192,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 261,
     "name": "JavaScript Minifier",
     "studioId": "developer",
-    "description": "JavaScript Minifier utility in Developer Tools.",
+    "description": "Strips whitespace and comments from JavaScript to shrink its size.",
     "keywords": [
       "javascript minifier",
       "developer tools",
@@ -5470,7 +5213,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 262,
     "name": "SQL Formatter",
     "studioId": "developer",
-    "description": "SQL Formatter utility in Developer Tools.",
+    "description": "Reformats a SQL query onto multiple lines with keyword-aligned indentation.",
     "keywords": [
       "sql formatter",
       "developer tools",
@@ -5491,7 +5234,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 263,
     "name": "SQL Minifier",
     "studioId": "developer",
-    "description": "SQL Minifier utility in Developer Tools.",
+    "description": "Collapses a SQL query onto a single compact line.",
     "keywords": [
       "sql minifier",
       "developer tools",
@@ -5512,7 +5255,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 264,
     "name": "SQL Query Explainer",
     "studioId": "developer",
-    "description": "SQL Query Explainer utility in Developer Tools.",
+    "description": "Breaks down a SQL query's clauses and explains what each one does.",
     "keywords": [
       "sql query explainer",
       "developer tools",
@@ -5534,7 +5277,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 265,
     "name": "Regex Tester",
     "studioId": "developer",
-    "description": "Regex Tester utility in Developer Tools.",
+    "description": "Tests a regular expression against sample text and highlights every match.",
     "keywords": [
       "regex tester",
       "developer tools",
@@ -5555,7 +5298,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 266,
     "name": "Regex Explainer",
     "studioId": "developer",
-    "description": "Regex Explainer utility in Developer Tools.",
+    "description": "Breaks a regular expression down token by token with a plain-English explanation.",
     "keywords": [
       "regex explainer",
       "developer tools",
@@ -5576,7 +5319,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 267,
     "name": "Base64 Encoder",
     "studioId": "developer",
-    "description": "Base64 Encoder utility in Developer Tools.",
+    "description": "Encodes text or data into Base64 format.",
     "keywords": [
       "base64 encoder",
       "developer tools",
@@ -5597,7 +5340,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 268,
     "name": "Base64 Decoder",
     "studioId": "developer",
-    "description": "Base64 Decoder utility in Developer Tools.",
+    "description": "Decodes a Base64 string back into its original text or data.",
     "keywords": [
       "base64 decoder",
       "developer tools",
@@ -5618,7 +5361,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 269,
     "name": "URL Encoder",
     "studioId": "developer",
-    "description": "URL Encoder utility in Developer Tools.",
+    "description": "Percent-encodes text so it's safe to use inside a URL.",
     "keywords": [
       "url encoder",
       "developer tools",
@@ -5639,7 +5382,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 270,
     "name": "URL Decoder",
     "studioId": "developer",
-    "description": "URL Decoder utility in Developer Tools.",
+    "description": "Decodes percent-encoded characters in a URL back into plain text.",
     "keywords": [
       "url decoder",
       "developer tools",
@@ -5660,7 +5403,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 271,
     "name": "HTML Entity Encoder",
     "studioId": "developer",
-    "description": "HTML Entity Encoder utility in Developer Tools.",
+    "description": "Converts special characters into their HTML entity equivalents.",
     "keywords": [
       "html entity encoder",
       "developer tools",
@@ -5682,7 +5425,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 272,
     "name": "HTML Entity Decoder",
     "studioId": "developer",
-    "description": "HTML Entity Decoder utility in Developer Tools.",
+    "description": "Converts HTML entities back into their original characters.",
     "keywords": [
       "html entity decoder",
       "developer tools",
@@ -5704,7 +5447,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 273,
     "name": "JWT Decoder",
     "studioId": "developer",
-    "description": "JWT Decoder utility in Developer Tools.",
+    "description": "Decodes a JSON Web Token's header and payload without verifying its signature.",
     "keywords": [
       "jwt decoder",
       "developer tools",
@@ -5725,7 +5468,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 274,
     "name": "UUID Generator",
     "studioId": "developer",
-    "description": "UUID Generator utility in Developer Tools.",
+    "description": "Generates random version-4 UUIDs.",
     "keywords": [
       "uuid generator",
       "developer tools",
@@ -5746,7 +5489,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 275,
     "name": "ULID Generator",
     "studioId": "developer",
-    "description": "ULID Generator utility in Developer Tools.",
+    "description": "Generates sortable, timestamp-based ULIDs.",
     "keywords": [
       "ulid generator",
       "developer tools",
@@ -5767,7 +5510,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 276,
     "name": "Hash Generator",
     "studioId": "developer",
-    "description": "Hash Generator utility in Developer Tools.",
+    "description": "Computes a SHA-256, SHA-1, or SHA-512 hash of text you enter.",
     "keywords": [
       "hash generator",
       "developer tools",
@@ -5788,7 +5531,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 277,
     "name": "HMAC Generator",
     "studioId": "developer",
-    "description": "HMAC Generator utility in Developer Tools.",
+    "description": "Computes an HMAC signature of a message using a secret key.",
     "keywords": [
       "hmac generator",
       "developer tools",
@@ -5809,7 +5552,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 278,
     "name": "Password Generator",
     "studioId": "developer",
-    "description": "Password Generator utility in Developer Tools.",
+    "description": "Generates a random password to your chosen length and character rules.",
     "keywords": [
       "password generator",
       "developer tools",
@@ -5830,7 +5573,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 279,
     "name": "Bcrypt Hash Checker",
     "studioId": "developer",
-    "description": "Bcrypt Hash Checker utility in Developer Tools.",
+    "description": "Checks whether a plain-text password matches a given bcrypt hash.",
     "keywords": [
       "bcrypt hash checker",
       "developer tools",
@@ -5852,7 +5595,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 280,
     "name": "Color Code Converter",
     "studioId": "developer",
-    "description": "Color Code Converter utility in Developer Tools.",
+    "description": "Converts a color between HEX, RGB, and HSL formats.",
     "keywords": [
       "color code converter",
       "developer tools",
@@ -5874,7 +5617,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 281,
     "name": "Gradient Generator",
     "studioId": "developer",
-    "description": "Gradient Generator utility in Developer Tools.",
+    "description": "Builds a CSS linear or radial gradient from colors you pick.",
     "keywords": [
       "gradient generator",
       "developer tools",
@@ -5895,7 +5638,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 282,
     "name": "Box Shadow Generator",
     "studioId": "developer",
-    "description": "Box Shadow Generator utility in Developer Tools.",
+    "description": "Builds a CSS box-shadow value from adjustable offset, blur, and color controls.",
     "keywords": [
       "box shadow generator",
       "developer tools",
@@ -5917,7 +5660,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 283,
     "name": "Border Radius Generator",
     "studioId": "developer",
-    "description": "Border Radius Generator utility in Developer Tools.",
+    "description": "Builds a CSS border-radius value with independent corner controls.",
     "keywords": [
       "border radius generator",
       "developer tools",
@@ -5939,7 +5682,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 284,
     "name": "Flexbox Playground",
     "studioId": "developer",
-    "description": "Flexbox Playground utility in Developer Tools.",
+    "description": "Lets you experiment with CSS flexbox properties and see the layout update live.",
     "keywords": [
       "flexbox playground",
       "developer tools",
@@ -5960,7 +5703,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 285,
     "name": "Grid Generator",
     "studioId": "developer",
-    "description": "Grid Generator utility in Developer Tools.",
+    "description": "Builds a CSS grid-template-columns/rows layout with adjustable tracks.",
     "keywords": [
       "grid generator",
       "developer tools",
@@ -5981,7 +5724,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 286,
     "name": "Unix Timestamp Converter",
     "studioId": "developer",
-    "description": "Unix Timestamp Converter utility in Developer Tools.",
+    "description": "Converts between Unix epoch timestamps and human-readable dates.",
     "keywords": [
       "unix timestamp converter",
       "developer tools",
@@ -6003,7 +5746,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 287,
     "name": "Cron Expression Helper",
     "studioId": "developer",
-    "description": "Cron Expression Helper utility in Developer Tools.",
+    "description": "Explains what a cron expression means and shows its next scheduled run times.",
     "keywords": [
       "cron expression helper",
       "developer tools",
@@ -6025,7 +5768,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 288,
     "name": "Diff & Patch Viewer",
     "studioId": "developer",
-    "description": "Diff & Patch Viewer utility in Developer Tools.",
+    "description": "Computes and displays a line-by-line diff between two text blocks.",
     "keywords": [
       "diff & patch viewer",
       "developer tools",
@@ -6047,7 +5790,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 289,
     "name": "URL Parser",
     "studioId": "developer",
-    "description": "URL Parser utility in Developer Tools.",
+    "description": "Breaks a URL down into its protocol, host, path, and query parameters.",
     "keywords": [
       "url parser",
       "developer tools",
@@ -6068,7 +5811,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 290,
     "name": "User-Agent Parser",
     "studioId": "developer",
-    "description": "User-Agent Parser utility in Developer Tools.",
+    "description": "Parses a browser's User-Agent string into browser, OS, and device details.",
     "keywords": [
       "user-agent parser",
       "developer tools",
@@ -6089,7 +5832,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 291,
     "name": "HTTP Status Code Reference",
     "studioId": "developer",
-    "description": "HTTP Status Code Reference utility in Developer Tools.",
+    "description": "A searchable reference of HTTP status codes and what each one means.",
     "keywords": [
       "http status code reference",
       "developer tools",
@@ -6112,7 +5855,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 292,
     "name": "MIME Type Reference",
     "studioId": "developer",
-    "description": "MIME Type Reference utility in Developer Tools.",
+    "description": "A searchable reference mapping file extensions to their MIME types.",
     "keywords": [
       "mime type reference",
       "developer tools",
@@ -6134,7 +5877,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 293,
     "name": "Markdown Code Formatter",
     "studioId": "developer",
-    "description": "Markdown Code Formatter utility in Developer Tools.",
+    "description": "Normalizes heading spacing, bullet markers, and blank lines in Markdown.",
     "keywords": [
       "markdown code formatter",
       "developer tools",
@@ -6156,7 +5899,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 294,
     "name": "SQL Insert Generator",
     "studioId": "developer",
-    "description": "SQL Insert Generator utility in Developer Tools.",
+    "description": "Generates SQL INSERT statements from a table name, columns, and row values.",
     "keywords": [
       "sql insert generator",
       "developer tools",
@@ -6178,7 +5921,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 295,
     "name": "Mock JSON Generator",
     "studioId": "developer",
-    "description": "Mock JSON Generator utility in Developer Tools.",
+    "description": "Generates sample JSON records from a schema you define.",
     "keywords": [
       "mock json generator",
       "developer tools",
@@ -6200,7 +5943,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 296,
     "name": "API Request Builder",
     "studioId": "developer",
-    "description": "API Request Builder utility in Developer Tools.",
+    "description": "Builds and sends an HTTP request with custom method, headers, and body.",
     "keywords": [
       "api request builder",
       "developer tools",
@@ -6222,7 +5965,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 297,
     "name": "cURL Converter",
     "studioId": "developer",
-    "description": "cURL Converter utility in Developer Tools.",
+    "description": "Converts between a cURL command and its method, URL, headers, and body.",
     "keywords": [
       "curl converter",
       "developer tools",
@@ -6243,7 +5986,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 298,
     "name": "QR Payload Inspector",
     "studioId": "developer",
-    "description": "QR Payload Inspector utility in Developer Tools.",
+    "description": "Parses a QR code's decoded text into its structured payload type.",
     "keywords": [
       "qr payload inspector",
       "developer tools",
@@ -6264,7 +6007,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 299,
     "name": "Certificate Inspector",
     "studioId": "developer",
-    "description": "Certificate Inspector utility in Developer Tools.",
+    "description": "Decodes a PEM certificate's subject, issuer, and validity dates.",
     "keywords": [
       "certificate inspector",
       "developer tools",
@@ -6285,7 +6028,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 300,
     "name": "IP Subnet Calculator",
     "studioId": "developer",
-    "description": "IP Subnet Calculator utility in Developer Tools.",
+    "description": "Computes the network address, broadcast address, and host range for an IP and subnet.",
     "keywords": [
       "ip subnet calculator",
       "developer tools",
@@ -6306,7 +6049,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 301,
     "name": "Standard Calculator",
     "studioId": "calculators",
-    "description": "Standard Calculator utility in Calculators.",
+    "description": "A basic calculator for everyday arithmetic.",
     "keywords": [
       "standard calculator",
       "calculators",
@@ -6327,7 +6070,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 302,
     "name": "Scientific Calculator",
     "studioId": "calculators",
-    "description": "Scientific Calculator utility in Calculators.",
+    "description": "A calculator with trigonometric, logarithmic, and exponential functions.",
     "keywords": [
       "scientific calculator",
       "calculators",
@@ -6348,7 +6091,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 303,
     "name": "Percentage Calculator",
     "studioId": "calculators",
-    "description": "Percentage Calculator utility in Calculators.",
+    "description": "Calculates percentages, percentage change, and percentage-of values.",
     "keywords": [
       "percentage calculator",
       "calculators",
@@ -6369,7 +6112,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 304,
     "name": "Discount Calculator",
     "studioId": "calculators",
-    "description": "Discount Calculator utility in Calculators.",
+    "description": "Calculates the discounted price and savings from an original price and percentage.",
     "keywords": [
       "discount calculator",
       "calculators",
@@ -6390,7 +6133,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 305,
     "name": "GST Calculator",
     "studioId": "calculators",
-    "description": "GST Calculator utility in Calculators.",
+    "description": "Calculates GST or sales tax and the tax-inclusive total on a price.",
     "keywords": [
       "gst calculator",
       "calculators",
@@ -6411,7 +6154,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 306,
     "name": "Income Tax Estimator",
     "studioId": "calculators",
-    "description": "Income Tax Estimator utility in Calculators.",
+    "description": "Estimates income tax owed using simplified progressive tax brackets.",
     "keywords": [
       "income tax estimator",
       "calculators",
@@ -6433,7 +6176,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 307,
     "name": "EMI Calculator",
     "studioId": "calculators",
-    "description": "EMI Calculator utility in Calculators.",
+    "description": "Calculates a loan's monthly installment, total interest, and total repayment.",
     "keywords": [
       "emi calculator",
       "calculators",
@@ -6454,7 +6197,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 308,
     "name": "Interest Calculator",
     "studioId": "calculators",
-    "description": "Interest Calculator utility in Calculators.",
+    "description": "Calculates simple and compound interest on a principal amount.",
     "keywords": [
       "interest calculator",
       "calculators",
@@ -6475,7 +6218,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 309,
     "name": "Investment Return Calculator",
     "studioId": "calculators",
-    "description": "Investment Return Calculator utility in Calculators.",
+    "description": "Projects a lump-sum investment's future value at a given return rate.",
     "keywords": [
       "investment return calculator",
       "calculators",
@@ -6497,7 +6240,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 310,
     "name": "SIP Calculator",
     "studioId": "calculators",
-    "description": "SIP Calculator utility in Calculators.",
+    "description": "Projects the future value of regular monthly investment contributions.",
     "keywords": [
       "sip calculator",
       "calculators",
@@ -6518,7 +6261,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 311,
     "name": "Inflation Calculator",
     "studioId": "calculators",
-    "description": "Inflation Calculator utility in Calculators.",
+    "description": "Calculates an amount's future cost or today's purchasing power under inflation.",
     "keywords": [
       "inflation calculator",
       "calculators",
@@ -6539,7 +6282,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 312,
     "name": "Age Calculator",
     "studioId": "calculators",
-    "description": "Age Calculator utility in Calculators.",
+    "description": "Calculates exact age in years, months, and days from a birth date.",
     "keywords": [
       "age calculator",
       "calculators",
@@ -6560,7 +6303,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 313,
     "name": "Date Difference Calculator",
     "studioId": "calculators",
-    "description": "Date Difference Calculator utility in Calculators.",
+    "description": "Calculates the number of days, weeks, or months between two dates.",
     "keywords": [
       "date difference calculator",
       "calculators",
@@ -6582,7 +6325,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 314,
     "name": "Date Add/Subtract",
     "studioId": "calculators",
-    "description": "Date Add/Subtract utility in Calculators.",
+    "description": "Adds or subtracts a number of days, months, or years from a date.",
     "keywords": [
       "date add/subtract",
       "calculators",
@@ -6603,7 +6346,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 315,
     "name": "Time Duration Calculator",
     "studioId": "calculators",
-    "description": "Time Duration Calculator utility in Calculators.",
+    "description": "Calculates the elapsed time between two clock times.",
     "keywords": [
       "time duration calculator",
       "calculators",
@@ -6625,7 +6368,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 316,
     "name": "Work Hours Calculator",
     "studioId": "calculators",
-    "description": "Work Hours Calculator utility in Calculators.",
+    "description": "Calculates total hours worked from clock-in and clock-out times.",
     "keywords": [
       "work hours calculator",
       "calculators",
@@ -6647,7 +6390,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 317,
     "name": "Salary Calculator",
     "studioId": "calculators",
-    "description": "Salary Calculator utility in Calculators.",
+    "description": "Breaks an annual salary down into monthly, weekly, and hourly pay.",
     "keywords": [
       "salary calculator",
       "calculators",
@@ -6668,7 +6411,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 318,
     "name": "Overtime Calculator",
     "studioId": "calculators",
-    "description": "Overtime Calculator utility in Calculators.",
+    "description": "Calculates regular and overtime pay from an hourly rate and hours worked.",
     "keywords": [
       "overtime calculator",
       "calculators",
@@ -6689,7 +6432,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 319,
     "name": "Unit Converter",
     "studioId": "calculators",
-    "description": "Unit Converter utility in Calculators.",
+    "description": "Converts values across length, weight, temperature, and other unit categories.",
     "keywords": [
       "unit converter",
       "calculators",
@@ -6707,179 +6450,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 320,
-    "name": "Length Converter",
-    "studioId": "calculators",
-    "description": "Length Converter utility in Calculators.",
-    "keywords": [
-      "length converter",
-      "calculators",
-      "calculators",
-      "length",
-      "converter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Calculator",
-    "inputKind": "form",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 321,
-    "name": "Weight Converter",
-    "studioId": "calculators",
-    "description": "Weight Converter utility in Calculators.",
-    "keywords": [
-      "weight converter",
-      "calculators",
-      "calculators",
-      "weight",
-      "converter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Calculator",
-    "inputKind": "form",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 322,
-    "name": "Temperature Converter",
-    "studioId": "calculators",
-    "description": "Temperature Converter utility in Calculators.",
-    "keywords": [
-      "temperature converter",
-      "calculators",
-      "calculators",
-      "temperature",
-      "converter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Calculator",
-    "inputKind": "form",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 323,
-    "name": "Area Converter",
-    "studioId": "calculators",
-    "description": "Area Converter utility in Calculators.",
-    "keywords": [
-      "area converter",
-      "calculators",
-      "calculators",
-      "area",
-      "converter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Calculator",
-    "inputKind": "form",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 324,
-    "name": "Volume Converter",
-    "studioId": "calculators",
-    "description": "Volume Converter utility in Calculators.",
-    "keywords": [
-      "volume converter",
-      "calculators",
-      "calculators",
-      "volume",
-      "converter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Calculator",
-    "inputKind": "form",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 325,
-    "name": "Speed Converter",
-    "studioId": "calculators",
-    "description": "Speed Converter utility in Calculators.",
-    "keywords": [
-      "speed converter",
-      "calculators",
-      "calculators",
-      "speed",
-      "converter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Calculator",
-    "inputKind": "form",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 326,
-    "name": "Pressure Converter",
-    "studioId": "calculators",
-    "description": "Pressure Converter utility in Calculators.",
-    "keywords": [
-      "pressure converter",
-      "calculators",
-      "calculators",
-      "pressure",
-      "converter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Calculator",
-    "inputKind": "form",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 327,
-    "name": "Data Storage Converter",
-    "studioId": "calculators",
-    "description": "Data Storage Converter utility in Calculators.",
-    "keywords": [
-      "data storage converter",
-      "calculators",
-      "calculators",
-      "data",
-      "storage",
-      "converter"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Calculator",
-    "inputKind": "form",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 328,
     "name": "Number System Converter",
     "studioId": "calculators",
-    "description": "Number System Converter utility in Calculators.",
+    "description": "Converts a number between binary, octal, decimal, and hexadecimal.",
     "keywords": [
       "number system converter",
       "calculators",
@@ -6901,7 +6475,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 329,
     "name": "Fraction Calculator",
     "studioId": "calculators",
-    "description": "Fraction Calculator utility in Calculators.",
+    "description": "Adds, subtracts, multiplies, or divides fractions and simplifies the result.",
     "keywords": [
       "fraction calculator",
       "calculators",
@@ -6922,7 +6496,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 330,
     "name": "Ratio Calculator",
     "studioId": "calculators",
-    "description": "Ratio Calculator utility in Calculators.",
+    "description": "Simplifies a ratio or solves for a missing value in a proportion.",
     "keywords": [
       "ratio calculator",
       "calculators",
@@ -6943,7 +6517,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 331,
     "name": "Average Calculator",
     "studioId": "calculators",
-    "description": "Average Calculator utility in Calculators.",
+    "description": "Calculates the mean, median, and mode of a list of numbers.",
     "keywords": [
       "average calculator",
       "calculators",
@@ -6964,7 +6538,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 332,
     "name": "Probability Calculator",
     "studioId": "calculators",
-    "description": "Probability Calculator utility in Calculators.",
+    "description": "Calculates the probability of simple and combined events.",
     "keywords": [
       "probability calculator",
       "calculators",
@@ -6985,7 +6559,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 333,
     "name": "BMI Calculator",
     "studioId": "calculators",
-    "description": "BMI Calculator utility in Calculators.",
+    "description": "Calculates Body Mass Index from height and weight, with its healthy-range category.",
     "keywords": [
       "bmi calculator",
       "calculators",
@@ -7006,7 +6580,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 334,
     "name": "Calorie Estimator",
     "studioId": "calculators",
-    "description": "Calorie Estimator utility in Calculators.",
+    "description": "Estimates daily calorie needs from your age, weight, height, and activity level.",
     "keywords": [
       "calorie estimator",
       "calculators",
@@ -7027,7 +6601,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 335,
     "name": "Fuel Cost Calculator",
     "studioId": "calculators",
-    "description": "Fuel Cost Calculator utility in Calculators.",
+    "description": "Calculates a trip's fuel cost from distance, fuel efficiency, and fuel price.",
     "keywords": [
       "fuel cost calculator",
       "calculators",
@@ -7049,7 +6623,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 336,
     "name": "Mileage Calculator",
     "studioId": "calculators",
-    "description": "Mileage Calculator utility in Calculators.",
+    "description": "Calculates a vehicle's fuel efficiency from distance traveled and fuel used.",
     "keywords": [
       "mileage calculator",
       "calculators",
@@ -7070,7 +6644,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 337,
     "name": "Electricity Bill Estimator",
     "studioId": "calculators",
-    "description": "Electricity Bill Estimator utility in Calculators.",
+    "description": "Estimates an electricity bill from appliance wattage, hours used, and rate.",
     "keywords": [
       "electricity bill estimator",
       "calculators",
@@ -7092,7 +6666,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 338,
     "name": "Tip Calculator",
     "studioId": "calculators",
-    "description": "Tip Calculator utility in Calculators.",
+    "description": "Calculates a tip amount and per-person split for a restaurant bill.",
     "keywords": [
       "tip calculator",
       "calculators",
@@ -7113,7 +6687,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 339,
     "name": "Bill Splitter",
     "studioId": "calculators",
-    "description": "Bill Splitter utility in Calculators.",
+    "description": "Splits a total bill evenly across a group, including tax and tip.",
     "keywords": [
       "bill splitter",
       "calculators",
@@ -7134,7 +6708,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 340,
     "name": "Number to Words",
     "studioId": "calculators",
-    "description": "Number to Words utility in Calculators.",
+    "description": "Spells out a numeric value in plain English words.",
     "keywords": [
       "number to words",
       "calculators",
@@ -7155,7 +6729,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 341,
     "name": "Roman Numeral Converter",
     "studioId": "calculators",
-    "description": "Roman Numeral Converter utility in Calculators.",
+    "description": "Converts between Arabic numbers and Roman numerals.",
     "keywords": [
       "roman numeral converter",
       "calculators",
@@ -7177,7 +6751,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 342,
     "name": "Random Number Generator",
     "studioId": "calculators",
-    "description": "Random Number Generator utility in Calculators.",
+    "description": "Generates a random number within a minimum and maximum range.",
     "keywords": [
       "random number generator",
       "calculators",
@@ -7199,7 +6773,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 343,
     "name": "Dice Roller",
     "studioId": "calculators",
-    "description": "Dice Roller utility in Calculators.",
+    "description": "Simulates rolling one or more dice with a chosen number of sides.",
     "keywords": [
       "dice roller",
       "calculators",
@@ -7220,7 +6794,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 344,
     "name": "Stopwatch",
     "studioId": "calculators",
-    "description": "Stopwatch utility in Calculators.",
+    "description": "A stopwatch with lap timing, running entirely in the browser.",
     "keywords": [
       "stopwatch",
       "calculators",
@@ -7239,7 +6813,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 345,
     "name": "Timer",
     "studioId": "calculators",
-    "description": "Timer utility in Calculators.",
+    "description": "A countdown timer that alerts you when the time runs out.",
     "keywords": [
       "timer",
       "calculators",
@@ -7258,7 +6832,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 346,
     "name": "Alarm & Reminder",
     "studioId": "calculators",
-    "description": "Alarm & Reminder utility in Calculators.",
+    "description": "Sets a one-time or recurring alarm with a browser notification.",
     "keywords": [
       "alarm & reminder",
       "calculators",
@@ -7279,7 +6853,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 347,
     "name": "World Clock",
     "studioId": "calculators",
-    "description": "World Clock utility in Calculators.",
+    "description": "Shows the current time across multiple cities and time zones at once.",
     "keywords": [
       "world clock",
       "calculators",
@@ -7300,7 +6874,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 348,
     "name": "Calendar Week Calculator",
     "studioId": "calculators",
-    "description": "Calendar Week Calculator utility in Calculators.",
+    "description": "Calculates the ISO week number for any given date.",
     "keywords": [
       "calendar week calculator",
       "calculators",
@@ -7322,7 +6896,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 349,
     "name": "Unit Price Comparator",
     "studioId": "calculators",
-    "description": "Unit Price Comparator utility in Calculators.",
+    "description": "Compares two products' price-per-unit to find the better value.",
     "keywords": [
       "unit price comparator",
       "calculators",
@@ -7344,7 +6918,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 350,
     "name": "Break-Even Calculator",
     "studioId": "calculators",
-    "description": "Break-Even Calculator utility in Calculators.",
+    "description": "Calculates how many units must be sold to cover fixed and variable costs.",
     "keywords": [
       "break-even calculator",
       "calculators",
@@ -7365,7 +6939,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 351,
     "name": "QR Code Generator",
     "studioId": "qr_security",
-    "description": "QR Code Generator utility in QR, Barcode & Security.",
+    "description": "Generates a scannable QR code from any text or link you enter.",
     "keywords": [
       "qr code generator",
       "qr, barcode & security",
@@ -7386,7 +6960,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 352,
     "name": "QR Code Scanner",
     "studioId": "qr_security",
-    "description": "QR Code Scanner utility in QR, Barcode & Security.",
+    "description": "Scans a QR code using your device camera and decodes its content.",
     "keywords": [
       "qr code scanner",
       "qr, barcode & security",
@@ -7404,178 +6978,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": true
   },
   {
-    "id": 353,
-    "name": "Wi-Fi QR Generator",
-    "studioId": "qr_security",
-    "description": "Wi-Fi QR Generator utility in QR, Barcode & Security.",
-    "keywords": [
-      "wi-fi qr generator",
-      "qr, barcode & security",
-      "qr_security",
-      "wi-fi",
-      "generator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "QrCode",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 354,
-    "name": "Contact QR Generator",
-    "studioId": "qr_security",
-    "description": "Contact QR Generator utility in QR, Barcode & Security.",
-    "keywords": [
-      "contact qr generator",
-      "qr, barcode & security",
-      "qr_security",
-      "contact",
-      "generator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "QrCode",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 355,
-    "name": "URL QR Generator",
-    "studioId": "qr_security",
-    "description": "URL QR Generator utility in QR, Barcode & Security.",
-    "keywords": [
-      "url qr generator",
-      "qr, barcode & security",
-      "qr_security",
-      "url",
-      "generator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "QrCode",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 356,
-    "name": "Text QR Generator",
-    "studioId": "qr_security",
-    "description": "Text QR Generator utility in QR, Barcode & Security.",
-    "keywords": [
-      "text qr generator",
-      "qr, barcode & security",
-      "qr_security",
-      "text",
-      "generator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "QrCode",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 357,
-    "name": "Email QR Generator",
-    "studioId": "qr_security",
-    "description": "Email QR Generator utility in QR, Barcode & Security.",
-    "keywords": [
-      "email qr generator",
-      "qr, barcode & security",
-      "qr_security",
-      "email",
-      "generator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "QrCode",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 358,
-    "name": "Phone QR Generator",
-    "studioId": "qr_security",
-    "description": "Phone QR Generator utility in QR, Barcode & Security.",
-    "keywords": [
-      "phone qr generator",
-      "qr, barcode & security",
-      "qr_security",
-      "phone",
-      "generator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "QrCode",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 359,
-    "name": "SMS QR Generator",
-    "studioId": "qr_security",
-    "description": "SMS QR Generator utility in QR, Barcode & Security.",
-    "keywords": [
-      "sms qr generator",
-      "qr, barcode & security",
-      "qr_security",
-      "sms",
-      "generator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "QrCode",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 360,
-    "name": "vCard Generator",
-    "studioId": "qr_security",
-    "description": "vCard Generator utility in QR, Barcode & Security.",
-    "keywords": [
-      "vcard generator",
-      "qr, barcode & security",
-      "qr_security",
-      "vcard",
-      "generator"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "QrCode",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 361,
     "name": "Barcode Generator",
     "studioId": "qr_security",
-    "description": "Barcode Generator utility in QR, Barcode & Security.",
+    "description": "Generates a 1D barcode, such as CODE128 or EAN-13, from a value you enter.",
     "keywords": [
       "barcode generator",
       "qr, barcode & security",
@@ -7596,7 +7002,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 362,
     "name": "Barcode Scanner",
     "studioId": "qr_security",
-    "description": "Barcode Scanner utility in QR, Barcode & Security.",
+    "description": "Scans a 1D barcode using your device camera and decodes its value.",
     "keywords": [
       "barcode scanner",
       "qr, barcode & security",
@@ -7617,7 +7023,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 363,
     "name": "QR Code Customizer",
     "studioId": "qr_security",
-    "description": "QR Code Customizer utility in QR, Barcode & Security.",
+    "description": "Generates a QR code with a custom foreground color, background, and embedded logo.",
     "keywords": [
       "qr code customizer",
       "qr, barcode & security",
@@ -7638,7 +7044,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 364,
     "name": "QR Code Batch Generator",
     "studioId": "qr_security",
-    "description": "QR Code Batch Generator utility in QR, Barcode & Security.",
+    "description": "Generates many QR codes at once from a list of values.",
     "keywords": [
       "qr code batch generator",
       "qr, barcode & security",
@@ -7660,7 +7066,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 365,
     "name": "QR Code Reader History",
     "studioId": "qr_security",
-    "description": "QR Code Reader History utility in QR, Barcode & Security.",
+    "description": "Keeps a log of QR codes you've scanned in this session.",
     "keywords": [
       "qr code reader history",
       "qr, barcode & security",
@@ -7682,7 +7088,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 366,
     "name": "URL Safety Checker",
     "studioId": "qr_security",
-    "description": "URL Safety Checker utility in QR, Barcode & Security.",
+    "description": "Inspects a URL's structure for common phishing and shortener red flags.",
     "keywords": [
       "url safety checker",
       "qr, barcode & security",
@@ -7704,7 +7110,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 367,
     "name": "Password Strength Checker",
     "studioId": "qr_security",
-    "description": "Password Strength Checker utility in QR, Barcode & Security.",
+    "description": "Scores a password's strength and flags common weaknesses.",
     "keywords": [
       "password strength checker",
       "qr, barcode & security",
@@ -7726,7 +7132,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 368,
     "name": "Random Password Generator",
     "studioId": "qr_security",
-    "description": "Random Password Generator utility in QR, Barcode & Security.",
+    "description": "Generates a strong random password to your chosen length and character rules.",
     "keywords": [
       "random password generator",
       "qr, barcode & security",
@@ -7748,7 +7154,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 369,
     "name": "Passphrase Generator",
     "studioId": "qr_security",
-    "description": "Passphrase Generator utility in QR, Barcode & Security.",
+    "description": "Generates a memorable multi-word passphrase from a word list.",
     "keywords": [
       "passphrase generator",
       "qr, barcode & security",
@@ -7769,7 +7175,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 370,
     "name": "Secure Notes",
     "studioId": "qr_security",
-    "description": "Secure Notes utility in QR, Barcode & Security.",
+    "description": "Stores short private notes locally in your browser, never synced anywhere.",
     "keywords": [
       "secure notes",
       "qr, barcode & security",
@@ -7790,7 +7196,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 371,
     "name": "Secret Redactor",
     "studioId": "qr_security",
-    "description": "Secret Redactor utility in QR, Barcode & Security.",
+    "description": "Finds and masks patterns that look like API keys, tokens, or credentials in text.",
     "keywords": [
       "secret redactor",
       "qr, barcode & security",
@@ -7811,7 +7217,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 372,
     "name": "File Hash Verifier",
     "studioId": "qr_security",
-    "description": "File Hash Verifier utility in QR, Barcode & Security.",
+    "description": "Computes a file's hash and compares it against an expected value.",
     "keywords": [
       "file hash verifier",
       "qr, barcode & security",
@@ -7833,7 +7239,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 373,
     "name": "Text Hash Generator",
     "studioId": "qr_security",
-    "description": "Text Hash Generator utility in QR, Barcode & Security.",
+    "description": "Computes a SHA-256 or SHA-1 hash of a block of text.",
     "keywords": [
       "text hash generator",
       "qr, barcode & security",
@@ -7855,7 +7261,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 374,
     "name": "TOTP Authenticator",
     "studioId": "qr_security",
-    "description": "TOTP Authenticator utility in QR, Barcode & Security.",
+    "description": "Generates time-based one-time passcodes from a shared secret key.",
     "keywords": [
       "totp authenticator",
       "qr, barcode & security",
@@ -7876,7 +7282,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 375,
     "name": "Privacy Metadata Cleaner",
     "studioId": "qr_security",
-    "description": "Privacy Metadata Cleaner utility in QR, Barcode & Security.",
+    "description": "Strips identifying metadata, like EXIF or document author fields, from a file.",
     "keywords": [
       "privacy metadata cleaner",
       "qr, barcode & security",
@@ -7898,7 +7304,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 376,
     "name": "URL Shortener",
     "studioId": "web",
-    "description": "URL Shortener utility in Web & Internet.",
+    "description": "Creates a shortened alias link that redirects to a longer URL.",
     "keywords": [
       "url shortener",
       "web & internet",
@@ -7919,7 +7325,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 377,
     "name": "URL Expander",
     "studioId": "web",
-    "description": "URL Expander utility in Web & Internet.",
+    "description": "Reveals the final destination URL behind a shortened link.",
     "keywords": [
       "url expander",
       "web & internet",
@@ -7940,7 +7346,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 378,
     "name": "Website QR Generator",
     "studioId": "web",
-    "description": "Website QR Generator utility in Web & Internet.",
+    "description": "Generates a QR code that opens a specific website when scanned.",
     "keywords": [
       "website qr generator",
       "web & internet",
@@ -7961,7 +7367,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 379,
     "name": "Website Metadata Viewer",
     "studioId": "web",
-    "description": "Website Metadata Viewer utility in Web & Internet.",
+    "description": "Fetches and displays a webpage's title, description, and meta tags.",
     "keywords": [
       "website metadata viewer",
       "web & internet",
@@ -7983,7 +7389,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 380,
     "name": "HTML Previewer",
     "studioId": "web",
-    "description": "HTML Previewer utility in Web & Internet.",
+    "description": "Renders raw HTML markup as a live preview as you type.",
     "keywords": [
       "html previewer",
       "web & internet",
@@ -8004,7 +7410,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 381,
     "name": "Open Graph Preview",
     "studioId": "web",
-    "description": "Open Graph Preview utility in Web & Internet.",
+    "description": "Shows how a webpage's link preview card will look when shared on social media.",
     "keywords": [
       "open graph preview",
       "web & internet",
@@ -8026,7 +7432,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 382,
     "name": "Robots.txt Viewer",
     "studioId": "web",
-    "description": "Robots.txt Viewer utility in Web & Internet.",
+    "description": "Fetches and displays a website's robots.txt crawler rules.",
     "keywords": [
       "robots.txt viewer",
       "web & internet",
@@ -8047,7 +7453,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 383,
     "name": "Sitemap Viewer",
     "studioId": "web",
-    "description": "Sitemap Viewer utility in Web & Internet.",
+    "description": "Fetches and displays the URLs listed in a website's XML sitemap.",
     "keywords": [
       "sitemap viewer",
       "web & internet",
@@ -8068,7 +7474,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 384,
     "name": "DNS Lookup",
     "studioId": "web",
-    "description": "DNS Lookup utility in Web & Internet.",
+    "description": "Looks up a domain's DNS records, such as A, MX, and TXT entries.",
     "keywords": [
       "dns lookup",
       "web & internet",
@@ -8089,7 +7495,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 385,
     "name": "Public IP Checker",
     "studioId": "web",
-    "description": "Public IP Checker utility in Web & Internet.",
+    "description": "Shows the public IP address your device is currently browsing from.",
     "keywords": [
       "public ip checker",
       "web & internet",
@@ -8110,7 +7516,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 386,
     "name": "IP Information Lookup",
     "studioId": "web",
-    "description": "IP Information Lookup utility in Web & Internet.",
+    "description": "Looks up the approximate location and network details for an IP address.",
     "keywords": [
       "ip information lookup",
       "web & internet",
@@ -8131,7 +7537,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 387,
     "name": "Internet Speed Test",
     "studioId": "web",
-    "description": "Internet Speed Test utility in Web & Internet.",
+    "description": "Measures your current connection's download and upload speed.",
     "keywords": [
       "internet speed test",
       "web & internet",
@@ -8153,7 +7559,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 388,
     "name": "Network Latency Checker",
     "studioId": "web",
-    "description": "Network Latency Checker utility in Web & Internet.",
+    "description": "Measures round-trip response time to a given host.",
     "keywords": [
       "network latency checker",
       "web & internet",
@@ -8175,7 +7581,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 389,
     "name": "HTTP Header Inspector",
     "studioId": "web",
-    "description": "HTTP Header Inspector utility in Web & Internet.",
+    "description": "Fetches a URL and lists all of its HTTP response headers.",
     "keywords": [
       "http header inspector",
       "web & internet",
@@ -8197,7 +7603,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 390,
     "name": "SSL Certificate Checker",
     "studioId": "web",
-    "description": "SSL Certificate Checker utility in Web & Internet.",
+    "description": "Fetches a website's SSL certificate and reports its validity and expiry date.",
     "keywords": [
       "ssl certificate checker",
       "web & internet",
@@ -8219,7 +7625,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 391,
     "name": "Website Availability Checker",
     "studioId": "web",
-    "description": "Website Availability Checker utility in Web & Internet.",
+    "description": "Checks whether a website is currently reachable and reports its response status.",
     "keywords": [
       "website availability checker",
       "web & internet",
@@ -8241,7 +7647,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 392,
     "name": "Link Extractor",
     "studioId": "web",
-    "description": "Link Extractor utility in Web & Internet.",
+    "description": "Scans a block of HTML or text and lists every hyperlink found.",
     "keywords": [
       "link extractor",
       "web & internet",
@@ -8262,7 +7668,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 393,
     "name": "Meta Tag Generator",
     "studioId": "web",
-    "description": "Meta Tag Generator utility in Web & Internet.",
+    "description": "Builds SEO meta tags, like title and description, for a webpage.",
     "keywords": [
       "meta tag generator",
       "web & internet",
@@ -8284,7 +7690,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 394,
     "name": "Sitemap Generator",
     "studioId": "web",
-    "description": "Sitemap Generator utility in Web & Internet.",
+    "description": "Builds an XML sitemap file from a list of page URLs.",
     "keywords": [
       "sitemap generator",
       "web & internet",
@@ -8305,7 +7711,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 395,
     "name": "URL Validator",
     "studioId": "web",
-    "description": "URL Validator utility in Web & Internet.",
+    "description": "Checks whether a string is a well-formed, valid URL.",
     "keywords": [
       "url validator",
       "web & internet",
@@ -8326,7 +7732,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 396,
     "name": "Data URI Generator",
     "studioId": "web",
-    "description": "Data URI Generator utility in Web & Internet.",
+    "description": "Encodes a file as a Base64 data: URI you can embed directly in code.",
     "keywords": [
       "data uri generator",
       "web & internet",
@@ -8348,7 +7754,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 397,
     "name": "QR Link Preview",
     "studioId": "web",
-    "description": "QR Link Preview utility in Web & Internet.",
+    "description": "Scans a QR code and previews the destination link before you open it.",
     "keywords": [
       "qr link preview",
       "web & internet",
@@ -8369,7 +7775,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 398,
     "name": "Webpage Screenshot",
     "studioId": "web",
-    "description": "Webpage Screenshot utility in Web & Internet.",
+    "description": "Captures a full-page screenshot of a given URL.",
     "keywords": [
       "webpage screenshot",
       "web & internet",
@@ -8390,7 +7796,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 399,
     "name": "Webpage to Markdown",
     "studioId": "web",
-    "description": "Webpage to Markdown utility in Web & Internet.",
+    "description": "Converts a webpage's readable content into clean Markdown.",
     "keywords": [
       "webpage to markdown",
       "web & internet",
@@ -8411,7 +7817,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 400,
     "name": "Website Word Counter",
     "studioId": "web",
-    "description": "Website Word Counter utility in Web & Internet.",
+    "description": "Fetches a webpage and counts the words in its visible text content.",
     "keywords": [
       "website word counter",
       "web & internet",
@@ -8433,7 +7839,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 401,
     "name": "AI Utility Assistant",
     "studioId": "ai",
-    "description": "AI Utility Assistant utility in AI Studio.",
+    "description": "A conversational assistant that helps you find the right tool for your task.",
     "keywords": [
       "ai utility assistant",
       "ai studio",
@@ -8454,7 +7860,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 402,
     "name": "AI PDF Assistant",
     "studioId": "ai",
-    "description": "AI PDF Assistant utility in AI Studio.",
+    "description": "An assistant that answers questions about the content of an uploaded PDF.",
     "keywords": [
       "ai pdf assistant",
       "ai studio",
@@ -8475,7 +7881,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 403,
     "name": "AI Document Extractor",
     "studioId": "ai",
-    "description": "AI Document Extractor utility in AI Studio.",
+    "description": "An assistant that pulls structured fields out of an uploaded document.",
     "keywords": [
       "ai document extractor",
       "ai studio",
@@ -8496,7 +7902,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 404,
     "name": "AI Writing Assistant",
     "studioId": "ai",
-    "description": "AI Writing Assistant utility in AI Studio.",
+    "description": "An assistant that helps draft, rewrite, and polish written text.",
     "keywords": [
       "ai writing assistant",
       "ai studio",
@@ -8517,7 +7923,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 405,
     "name": "AI Image Assistant",
     "studioId": "ai",
-    "description": "AI Image Assistant utility in AI Studio.",
+    "description": "An assistant that answers questions about the content of an uploaded image.",
     "keywords": [
       "ai image assistant",
       "ai studio",
@@ -8538,7 +7944,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 406,
     "name": "AI Translator",
     "studioId": "ai",
-    "description": "AI Translator utility in AI Studio.",
+    "description": "Translates text between languages.",
     "keywords": [
       "ai translator",
       "ai studio",
@@ -8558,7 +7964,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 407,
     "name": "AI Voice Assistant",
     "studioId": "ai",
-    "description": "AI Voice Assistant utility in AI Studio.",
+    "description": "A voice-driven assistant you can talk to using your microphone.",
     "keywords": [
       "ai voice assistant",
       "ai studio",
@@ -8579,7 +7985,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 408,
     "name": "AI Image-to-Text",
     "studioId": "ai",
-    "description": "AI Image-to-Text utility in AI Studio.",
+    "description": "Generates a written description of what's shown in an uploaded image.",
     "keywords": [
       "ai image-to-text",
       "ai studio",
@@ -8599,7 +8005,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 409,
     "name": "AI Resume Builder",
     "studioId": "ai",
-    "description": "AI Resume Builder utility in AI Studio.",
+    "description": "An assistant that helps draft a resume from your work history.",
     "keywords": [
       "ai resume builder",
       "ai studio",
@@ -8620,7 +8026,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 410,
     "name": "AI Code Assistant",
     "studioId": "ai",
-    "description": "AI Code Assistant utility in AI Studio.",
+    "description": "An assistant that explains, reviews, or helps write code.",
     "keywords": [
       "ai code assistant",
       "ai studio",
@@ -8641,7 +8047,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 411,
     "name": "AI Email Assistant",
     "studioId": "ai",
-    "description": "AI Email Assistant utility in AI Studio.",
+    "description": "An assistant that drafts emails from a short description of what you need to say.",
     "keywords": [
       "ai email assistant",
       "ai studio",
@@ -8662,7 +8068,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 412,
     "name": "AI Meeting Summarizer",
     "studioId": "ai",
-    "description": "AI Meeting Summarizer utility in AI Studio.",
+    "description": "Summarizes a meeting transcript into key points and action items.",
     "keywords": [
       "ai meeting summarizer",
       "ai studio",
@@ -8683,7 +8089,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 413,
     "name": "AI Study Assistant",
     "studioId": "ai",
-    "description": "AI Study Assistant utility in AI Studio.",
+    "description": "An assistant that helps explain concepts and quiz you on study material.",
     "keywords": [
       "ai study assistant",
       "ai studio",
@@ -8704,7 +8110,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 414,
     "name": "AI Smart Tool Router",
     "studioId": "ai",
-    "description": "AI Smart Tool Router utility in AI Studio.",
+    "description": "Reads what you're trying to do and suggests the matching tool in the catalog.",
     "keywords": [
       "ai smart tool router",
       "ai studio",
@@ -8726,7 +8132,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 415,
     "name": "AI Document Comparison",
     "studioId": "ai",
-    "description": "AI Document Comparison utility in AI Studio.",
+    "description": "Uses AI to summarize the substantive differences between two documents.",
     "keywords": [
       "ai document comparison",
       "ai studio",
@@ -8747,7 +8153,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 416,
     "name": "AI Data Analyst",
     "studioId": "ai",
-    "description": "AI Data Analyst utility in AI Studio.",
+    "description": "An assistant that answers questions about a dataset you upload.",
     "keywords": [
       "ai data analyst",
       "ai studio",
@@ -8768,7 +8174,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 417,
     "name": "Notes App",
     "studioId": "productivity",
-    "description": "Notes App utility in Productivity & Education.",
+    "description": "A simple notes app for jotting down and organizing short pieces of text.",
     "keywords": [
       "notes app",
       "productivity & education",
@@ -8789,7 +8195,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 418,
     "name": "Checklist Maker",
     "studioId": "productivity",
-    "description": "Checklist Maker utility in Productivity & Education.",
+    "description": "Builds a checklist of items you can tick off as you complete them.",
     "keywords": [
       "checklist maker",
       "productivity & education",
@@ -8810,7 +8216,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 419,
     "name": "To-Do List",
     "studioId": "productivity",
-    "description": "To-Do List utility in Productivity & Education.",
+    "description": "A to-do list for tracking tasks with due dates and completion status.",
     "keywords": [
       "to-do list",
       "productivity & education",
@@ -8831,7 +8237,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 420,
     "name": "Habit Tracker",
     "studioId": "productivity",
-    "description": "Habit Tracker utility in Productivity & Education.",
+    "description": "Tracks daily habit streaks and completion history.",
     "keywords": [
       "habit tracker",
       "productivity & education",
@@ -8852,7 +8258,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 421,
     "name": "Expense Splitter",
     "studioId": "productivity",
-    "description": "Expense Splitter utility in Productivity & Education.",
+    "description": "Splits a shared group expense fairly across participants.",
     "keywords": [
       "expense splitter",
       "productivity & education",
@@ -8873,7 +8279,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 422,
     "name": "Personal Expense Tracker",
     "studioId": "productivity",
-    "description": "Personal Expense Tracker utility in Productivity & Education.",
+    "description": "Logs personal expenses by category and totals your spending.",
     "keywords": [
       "personal expense tracker",
       "productivity & education",
@@ -8895,7 +8301,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 423,
     "name": "Budget Planner",
     "studioId": "productivity",
-    "description": "Budget Planner utility in Productivity & Education.",
+    "description": "Plans a monthly budget across income and expense categories.",
     "keywords": [
       "budget planner",
       "productivity & education",
@@ -8916,7 +8322,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 424,
     "name": "Invoice Generator",
     "studioId": "productivity",
-    "description": "Invoice Generator utility in Productivity & Education.",
+    "description": "Builds a professional invoice from line items, client details, and totals.",
     "keywords": [
       "invoice generator",
       "productivity & education",
@@ -8937,7 +8343,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 425,
     "name": "Receipt Generator",
     "studioId": "productivity",
-    "description": "Receipt Generator utility in Productivity & Education.",
+    "description": "Builds a simple receipt document from item and payment details.",
     "keywords": [
       "receipt generator",
       "productivity & education",
@@ -8958,7 +8364,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 426,
     "name": "Quotation Generator",
     "studioId": "productivity",
-    "description": "Quotation Generator utility in Productivity & Education.",
+    "description": "Builds a price quotation document from line items and terms.",
     "keywords": [
       "quotation generator",
       "productivity & education",
@@ -8979,7 +8385,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 427,
     "name": "Business Card Maker",
     "studioId": "productivity",
-    "description": "Business Card Maker utility in Productivity & Education.",
+    "description": "Designs a printable business card from your name, title, and contact details.",
     "keywords": [
       "business card maker",
       "productivity & education",
@@ -9001,7 +8407,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 428,
     "name": "Resume PDF Maker",
     "studioId": "productivity",
-    "description": "Resume PDF Maker utility in Productivity & Education.",
+    "description": "Builds a formatted, downloadable resume PDF from your details.",
     "keywords": [
       "resume pdf maker",
       "productivity & education",
@@ -9023,7 +8429,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 429,
     "name": "Cover Letter Generator",
     "studioId": "productivity",
-    "description": "Cover Letter Generator utility in Productivity & Education.",
+    "description": "Builds a formatted cover letter from your details and the role you're applying for.",
     "keywords": [
       "cover letter generator",
       "productivity & education",
@@ -9045,7 +8451,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 430,
     "name": "Timetable Maker",
     "studioId": "productivity",
-    "description": "Timetable Maker utility in Productivity & Education.",
+    "description": "Builds a weekly schedule grid of classes, shifts, or events.",
     "keywords": [
       "timetable maker",
       "productivity & education",
@@ -9066,7 +8472,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 431,
     "name": "Flashcard Maker",
     "studioId": "productivity",
-    "description": "Flashcard Maker utility in Productivity & Education.",
+    "description": "Builds a deck of question-and-answer flashcards for studying.",
     "keywords": [
       "flashcard maker",
       "productivity & education",
@@ -9087,7 +8493,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 432,
     "name": "Quiz Generator",
     "studioId": "productivity",
-    "description": "Quiz Generator utility in Productivity & Education.",
+    "description": "Builds a multiple-choice quiz from questions and answers you provide.",
     "keywords": [
       "quiz generator",
       "productivity & education",
@@ -9105,114 +8511,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 433,
-    "name": "Unit Conversion Reference",
-    "studioId": "productivity",
-    "description": "Unit Conversion Reference utility in Productivity & Education.",
-    "keywords": [
-      "unit conversion reference",
-      "productivity & education",
-      "productivity",
-      "unit",
-      "conversion",
-      "reference"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 434,
-    "name": "Dictionary",
-    "studioId": "productivity",
-    "description": "Dictionary utility in Productivity & Education.",
-    "keywords": [
-      "dictionary",
-      "productivity & education",
-      "productivity"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 435,
-    "name": "Synonym Finder",
-    "studioId": "productivity",
-    "description": "Synonym Finder utility in Productivity & Education.",
-    "keywords": [
-      "synonym finder",
-      "productivity & education",
-      "productivity",
-      "synonym",
-      "finder"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 436,
-    "name": "Antonym Finder",
-    "studioId": "productivity",
-    "description": "Antonym Finder utility in Productivity & Education.",
-    "keywords": [
-      "antonym finder",
-      "productivity & education",
-      "productivity",
-      "antonym",
-      "finder"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 437,
-    "name": "Word Pronunciation",
-    "studioId": "productivity",
-    "description": "Word Pronunciation utility in Productivity & Education.",
-    "keywords": [
-      "word pronunciation",
-      "productivity & education",
-      "productivity",
-      "word",
-      "pronunciation"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 438,
     "name": "Text Reader",
     "studioId": "productivity",
-    "description": "Text Reader utility in Productivity & Education.",
+    "description": "Reads a block of typed or pasted text aloud using speech synthesis.",
     "keywords": [
       "text reader",
       "productivity & education",
@@ -9230,53 +8532,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 439,
-    "name": "QR Contact Card",
-    "studioId": "productivity",
-    "description": "QR Contact Card utility in Productivity & Education.",
-    "keywords": [
-      "qr contact card",
-      "productivity & education",
-      "productivity",
-      "contact",
-      "card"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 440,
-    "name": "Barcode Inventory List",
-    "studioId": "productivity",
-    "description": "Barcode Inventory List utility in Productivity & Education.",
-    "keywords": [
-      "barcode inventory list",
-      "productivity & education",
-      "productivity",
-      "barcode",
-      "inventory",
-      "list"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 441,
     "name": "Document Expiry Reminder",
     "studioId": "productivity",
-    "description": "Document Expiry Reminder utility in Productivity & Education.",
+    "description": "Tracks a document's expiry date and reminds you before it lapses.",
     "keywords": [
       "document expiry reminder",
       "productivity & education",
@@ -9298,7 +8557,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 442,
     "name": "Birthday Reminder",
     "studioId": "productivity",
-    "description": "Birthday Reminder utility in Productivity & Education.",
+    "description": "Tracks birthdays and reminds you as each one approaches.",
     "keywords": [
       "birthday reminder",
       "productivity & education",
@@ -9316,32 +8575,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 443,
-    "name": "World Holiday Calendar",
-    "studioId": "productivity",
-    "description": "World Holiday Calendar utility in Productivity & Education.",
-    "keywords": [
-      "world holiday calendar",
-      "productivity & education",
-      "productivity",
-      "world",
-      "holiday",
-      "calendar"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 444,
     "name": "Calendar Event Calculator",
     "studioId": "productivity",
-    "description": "Calendar Event Calculator utility in Productivity & Education.",
+    "description": "Calculates the date a set number of days before or after an event.",
     "keywords": [
       "calendar event calculator",
       "productivity & education",
@@ -9360,31 +8597,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 445,
-    "name": "Focus Timer",
-    "studioId": "productivity",
-    "description": "Focus Timer utility in Productivity & Education.",
-    "keywords": [
-      "focus timer",
-      "productivity & education",
-      "productivity",
-      "focus",
-      "timer"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 446,
     "name": "Pomodoro Timer",
     "studioId": "productivity",
-    "description": "Pomodoro Timer utility in Productivity & Education.",
+    "description": "Runs repeating focus and break intervals using the Pomodoro technique.",
     "keywords": [
       "pomodoro timer",
       "productivity & education",
@@ -9402,32 +8618,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": true
   },
   {
-    "id": 447,
-    "name": "Random Decision Picker",
-    "studioId": "productivity",
-    "description": "Random Decision Picker utility in Productivity & Education.",
-    "keywords": [
-      "random decision picker",
-      "productivity & education",
-      "productivity",
-      "random",
-      "decision",
-      "picker"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "CheckSquare",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 448,
     "name": "Wheel of Names",
     "studioId": "productivity",
-    "description": "Wheel of Names utility in Productivity & Education.",
+    "description": "Spins an animated wheel to randomly pick one name from a list.",
     "keywords": [
       "wheel of names",
       "productivity & education",
@@ -9448,7 +8642,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 449,
     "name": "QR Attendance Generator",
     "studioId": "productivity",
-    "description": "QR Attendance Generator utility in Productivity & Education.",
+    "description": "Generates a QR code that marks attendance when scanned.",
     "keywords": [
       "qr attendance generator",
       "productivity & education",
@@ -9469,7 +8663,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 450,
     "name": "QR Attendance Scanner",
     "studioId": "productivity",
-    "description": "QR Attendance Scanner utility in Productivity & Education.",
+    "description": "Scans an attendance QR code and logs the check-in.",
     "keywords": [
       "qr attendance scanner",
       "productivity & education",
@@ -9490,7 +8684,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 451,
     "name": "Magnifier",
     "studioId": "accessibility",
-    "description": "Magnifier utility in Accessibility & Device.",
+    "description": "Uses your device camera as a live magnifying glass for small print.",
     "keywords": [
       "magnifier",
       "accessibility & device",
@@ -9509,7 +8703,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 452,
     "name": "Flashlight",
     "studioId": "accessibility",
-    "description": "Flashlight utility in Accessibility & Device.",
+    "description": "Turns your screen into a bright white light source for low-light situations.",
     "keywords": [
       "flashlight",
       "accessibility & device",
@@ -9530,7 +8724,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 453,
     "name": "Screen Color Picker",
     "studioId": "accessibility",
-    "description": "Screen Color Picker utility in Accessibility & Device.",
+    "description": "Lets you pick a color and shows its hex and RGB values.",
     "keywords": [
       "screen color picker",
       "accessibility & device",
@@ -9552,7 +8746,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 454,
     "name": "Text Size Preview",
     "studioId": "accessibility",
-    "description": "Text Size Preview utility in Accessibility & Device.",
+    "description": "Lets you preview text at different font sizes and line spacing.",
     "keywords": [
       "text size preview",
       "accessibility & device",
@@ -9574,7 +8768,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 455,
     "name": "Contrast Checker",
     "studioId": "accessibility",
-    "description": "Contrast Checker utility in Accessibility & Device.",
+    "description": "Calculates the WCAG contrast ratio between two colors and whether it passes.",
     "keywords": [
       "contrast checker",
       "accessibility & device",
@@ -9595,7 +8789,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 456,
     "name": "Color Blindness Simulator",
     "studioId": "accessibility",
-    "description": "Color Blindness Simulator utility in Accessibility & Device.",
+    "description": "Simulates how colors appear under different types of color blindness.",
     "keywords": [
       "color blindness simulator",
       "accessibility & device",
@@ -9617,7 +8811,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 457,
     "name": "Speech-to-Text",
     "studioId": "accessibility",
-    "description": "Speech-to-Text utility in Accessibility & Device.",
+    "description": "Transcribes your spoken words into text live, using your microphone.",
     "keywords": [
       "speech-to-text",
       "accessibility & device",
@@ -9636,7 +8830,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 458,
     "name": "Text-to-Speech Reader",
     "studioId": "accessibility",
-    "description": "Text-to-Speech Reader utility in Accessibility & Device.",
+    "description": "Reads typed or pasted text aloud using your device's voice engine.",
     "keywords": [
       "text-to-speech reader",
       "accessibility & device",
@@ -9657,7 +8851,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 459,
     "name": "Large Text Reader",
     "studioId": "accessibility",
-    "description": "Large Text Reader utility in Accessibility & Device.",
+    "description": "Displays pasted text back in large, high-legibility type for easier reading.",
     "keywords": [
       "large text reader",
       "accessibility & device",
@@ -9679,7 +8873,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 460,
     "name": "Document Read-Aloud",
     "studioId": "accessibility",
-    "description": "Document Read-Aloud utility in Accessibility & Device.",
+    "description": "Reads an uploaded or pasted document's text aloud from start to finish.",
     "keywords": [
       "document read-aloud",
       "accessibility & device",
@@ -9700,7 +8894,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 461,
     "name": "Image Description Assistant",
     "studioId": "accessibility",
-    "description": "Image Description Assistant utility in Accessibility & Device.",
+    "description": "Generates a written description of what's shown in an uploaded image.",
     "keywords": [
       "image description assistant",
       "accessibility & device",
@@ -9722,7 +8916,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 462,
     "name": "Haptic Timer",
     "studioId": "accessibility",
-    "description": "Haptic Timer utility in Accessibility & Device.",
+    "description": "Counts down silently and vibrates your device when the time is up.",
     "keywords": [
       "haptic timer",
       "accessibility & device",
@@ -9744,7 +8938,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 463,
     "name": "Sound Level Meter",
     "studioId": "accessibility",
-    "description": "Sound Level Meter utility in Accessibility & Device.",
+    "description": "Measures ambient sound level in decibels using your microphone.",
     "keywords": [
       "sound level meter",
       "accessibility & device",
@@ -9763,32 +8957,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 464,
-    "name": "Screen Resolution Viewer",
-    "studioId": "accessibility",
-    "description": "Screen Resolution Viewer utility in Accessibility & Device.",
-    "keywords": [
-      "screen resolution viewer",
-      "accessibility & device",
-      "accessibility",
-      "screen",
-      "resolution",
-      "viewer"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Smartphone",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 465,
     "name": "Device Information",
     "studioId": "accessibility",
-    "description": "Device Information utility in Accessibility & Device.",
+    "description": "Displays your device's platform, language, CPU cores, and other details.",
     "keywords": [
       "device information",
       "accessibility & device",
@@ -9806,73 +8978,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 466,
-    "name": "Battery Information",
-    "studioId": "accessibility",
-    "description": "Battery Information utility in Accessibility & Device.",
-    "keywords": [
-      "battery information",
-      "accessibility & device",
-      "accessibility",
-      "battery",
-      "information"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Smartphone",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 468,
-    "name": "App Permission Guide",
-    "studioId": "accessibility",
-    "description": "App Permission Guide utility in Accessibility & Device.",
-    "keywords": [
-      "app permission guide",
-      "accessibility & device",
-      "accessibility",
-      "permission",
-      "guide"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Smartphone",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 469,
-    "name": "Offline Reference Library",
-    "studioId": "accessibility",
-    "description": "Offline Reference Library utility in Accessibility & Device.",
-    "keywords": [
-      "offline reference library",
-      "accessibility & device",
-      "accessibility",
-      "reference",
-      "library"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Smartphone",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 470,
     "name": "Emergency Information Card",
     "studioId": "accessibility",
-    "description": "Emergency Information Card utility in Accessibility & Device.",
+    "description": "Stores key medical and emergency contact details locally for quick access.",
     "keywords": [
       "emergency information card",
       "accessibility & device",
@@ -9894,7 +9003,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 471,
     "name": "QR-Based File Transfer",
     "studioId": "advanced",
-    "description": "QR-Based File Transfer utility in Advanced & Experimental.",
+    "description": "Encodes a small file's data into a QR code for transfer without a network.",
     "keywords": [
       "qr-based file transfer",
       "advanced & experimental",
@@ -9916,7 +9025,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 472,
     "name": "Local Wi-Fi File Transfer",
     "studioId": "advanced",
-    "description": "Local Wi-Fi File Transfer utility in Advanced & Experimental.",
+    "description": "Transfers a file between devices on the same local network.",
     "keywords": [
       "local wi-fi file transfer",
       "advanced & experimental",
@@ -9939,7 +9048,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 473,
     "name": "LAN Device Discovery",
     "studioId": "advanced",
-    "description": "LAN Device Discovery utility in Advanced & Experimental.",
+    "description": "Lists other devices reachable on your local network.",
     "keywords": [
       "lan device discovery",
       "advanced & experimental",
@@ -9961,7 +9070,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 474,
     "name": "Text Diff with Highlights",
     "studioId": "advanced",
-    "description": "Text Diff with Highlights utility in Advanced & Experimental.",
+    "description": "Highlights word-level differences between two blocks of text.",
     "keywords": [
       "text diff with highlights",
       "advanced & experimental",
@@ -9984,7 +9093,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 475,
     "name": "Spreadsheet Formula Helper",
     "studioId": "advanced",
-    "description": "Spreadsheet Formula Helper utility in Advanced & Experimental.",
+    "description": "Looks up spreadsheet formula syntax and explains what each one does.",
     "keywords": [
       "spreadsheet formula helper",
       "advanced & experimental",
@@ -10006,7 +9115,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 476,
     "name": "Formula Generator",
     "studioId": "advanced",
-    "description": "Formula Generator utility in Advanced & Experimental.",
+    "description": "Builds a spreadsheet formula from a plain-language description of what you need.",
     "keywords": [
       "formula generator",
       "advanced & experimental",
@@ -10027,7 +9136,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 477,
     "name": "CSV Chart Generator",
     "studioId": "advanced",
-    "description": "CSV Chart Generator utility in Advanced & Experimental.",
+    "description": "Builds a chart directly from the columns of an uploaded CSV file.",
     "keywords": [
       "csv chart generator",
       "advanced & experimental",
@@ -10049,7 +9158,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 478,
     "name": "Data Cleaning Assistant",
     "studioId": "advanced",
-    "description": "Data Cleaning Assistant utility in Advanced & Experimental.",
+    "description": "Finds and fixes inconsistent spacing, casing, and duplicate rows in tabular data.",
     "keywords": [
       "data cleaning assistant",
       "advanced & experimental",
@@ -10071,7 +9180,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 479,
     "name": "Table Extractor",
     "studioId": "advanced",
-    "description": "Table Extractor utility in Advanced & Experimental.",
+    "description": "Detects and extracts tabular data from pasted text or markdown.",
     "keywords": [
       "table extractor",
       "advanced & experimental",
@@ -10089,31 +9198,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 480,
-    "name": "Document Classification",
-    "studioId": "advanced",
-    "description": "Document Classification utility in Advanced & Experimental.",
-    "keywords": [
-      "document classification",
-      "advanced & experimental",
-      "advanced",
-      "document",
-      "classification"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 481,
     "name": "Smart File Renamer",
     "studioId": "advanced",
-    "description": "Smart File Renamer utility in Advanced & Experimental.",
+    "description": "Renames a batch of files using a pattern based on their content or metadata.",
     "keywords": [
       "smart file renamer",
       "advanced & experimental",
@@ -10135,7 +9223,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 482,
     "name": "Smart File Search",
     "studioId": "advanced",
-    "description": "Smart File Search utility in Advanced & Experimental.",
+    "description": "Searches across a batch of files for text matches, including inside documents.",
     "keywords": [
       "smart file search",
       "advanced & experimental",
@@ -10157,7 +9245,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 483,
     "name": "Document Redaction Assistant",
     "studioId": "advanced",
-    "description": "Document Redaction Assistant utility in Advanced & Experimental.",
+    "description": "Finds and blacks out text matching sensitive patterns, like card numbers, in a document.",
     "keywords": [
       "document redaction assistant",
       "advanced & experimental",
@@ -10179,7 +9267,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 484,
     "name": "Form Data Extractor",
     "studioId": "advanced",
-    "description": "Form Data Extractor utility in Advanced & Experimental.",
+    "description": "Extracts key-value pairs from a scanned or pasted form's text.",
     "keywords": [
       "form data extractor",
       "advanced & experimental",
@@ -10201,7 +9289,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 485,
     "name": "Image Similarity Finder",
     "studioId": "advanced",
-    "description": "Image Similarity Finder utility in Advanced & Experimental.",
+    "description": "Compares images against each other to flag likely duplicates or near-matches.",
     "keywords": [
       "image similarity finder",
       "advanced & experimental",
@@ -10223,7 +9311,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 486,
     "name": "PDF Portfolio Organizer",
     "studioId": "advanced",
-    "description": "PDF Portfolio Organizer utility in Advanced & Experimental.",
+    "description": "Groups and reorders multiple PDFs into one organized portfolio file.",
     "keywords": [
       "pdf portfolio organizer",
       "advanced & experimental",
@@ -10245,7 +9333,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 487,
     "name": "Batch Watermark Studio",
     "studioId": "advanced",
-    "description": "Batch Watermark Studio utility in Advanced & Experimental.",
+    "description": "Applies the same watermark across a whole batch of images or PDFs at once.",
     "keywords": [
       "batch watermark studio",
       "advanced & experimental",
@@ -10267,7 +9355,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 488,
     "name": "Batch OCR Processor",
     "studioId": "advanced",
-    "description": "Batch OCR Processor utility in Advanced & Experimental.",
+    "description": "Runs text recognition across a whole batch of scanned images at once.",
     "keywords": [
       "batch ocr processor",
       "advanced & experimental",
@@ -10289,7 +9377,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 489,
     "name": "Batch Image Conversion",
     "studioId": "advanced",
-    "description": "Batch Image Conversion utility in Advanced & Experimental.",
+    "description": "Converts a whole batch of images to a new format in one pass.",
     "keywords": [
       "batch image conversion",
       "advanced & experimental",
@@ -10311,7 +9399,7 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "id": 490,
     "name": "Batch PDF Conversion",
     "studioId": "advanced",
-    "description": "Batch PDF Conversion utility in Advanced & Experimental.",
+    "description": "Converts a whole batch of PDFs to another format in one pass.",
     "keywords": [
       "batch pdf conversion",
       "advanced & experimental",
@@ -10330,32 +9418,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 491,
-    "name": "Smart Compression Advisor",
-    "studioId": "advanced",
-    "description": "Smart Compression Advisor utility in Advanced & Experimental.",
-    "keywords": [
-      "smart compression advisor",
-      "advanced & experimental",
-      "advanced",
-      "smart",
-      "compression",
-      "advisor"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 492,
     "name": "File Quality Inspector",
     "studioId": "advanced",
-    "description": "File Quality Inspector utility in Advanced & Experimental.",
+    "description": "Checks a file for corruption, low resolution, or other quality issues before use.",
     "keywords": [
       "file quality inspector",
       "advanced & experimental",
@@ -10374,32 +9440,10 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
-    "id": 493,
-    "name": "Offline Tool Packs",
-    "studioId": "advanced",
-    "description": "Offline Tool Packs utility in Advanced & Experimental.",
-    "keywords": [
-      "offline tool packs",
-      "advanced & experimental",
-      "advanced",
-      "offline",
-      "tool",
-      "packs"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
     "id": 494,
     "name": "Workflow Builder",
     "studioId": "advanced",
-    "description": "Workflow Builder utility in Advanced & Experimental.",
+    "description": "Chains multiple tools together into a repeatable multi-step workflow.",
     "keywords": [
       "workflow builder",
       "advanced & experimental",
@@ -10408,135 +9452,6 @@ export const WEB_TOOLS: ToolDefinition[] = [
       "builder"
     ],
     "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 495,
-    "name": "Favorite Tool Shortcuts",
-    "studioId": "advanced",
-    "description": "Favorite Tool Shortcuts utility in Advanced & Experimental.",
-    "keywords": [
-      "favorite tool shortcuts",
-      "advanced & experimental",
-      "advanced",
-      "favorite",
-      "tool",
-      "shortcuts"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 496,
-    "name": "Custom Tool Collections",
-    "studioId": "advanced",
-    "description": "Custom Tool Collections utility in Advanced & Experimental.",
-    "keywords": [
-      "custom tool collections",
-      "advanced & experimental",
-      "advanced",
-      "custom",
-      "tool",
-      "collections"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 497,
-    "name": "Processing Queue",
-    "studioId": "advanced",
-    "description": "Processing Queue utility in Advanced & Experimental.",
-    "keywords": [
-      "processing queue",
-      "advanced & experimental",
-      "advanced",
-      "processing",
-      "queue"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 498,
-    "name": "Output History",
-    "studioId": "advanced",
-    "description": "Output History utility in Advanced & Experimental.",
-    "keywords": [
-      "output history",
-      "advanced & experimental",
-      "advanced",
-      "output",
-      "history"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 499,
-    "name": "Storage Cleanup Suggestions",
-    "studioId": "advanced",
-    "description": "Storage Cleanup Suggestions utility in Advanced & Experimental.",
-    "keywords": [
-      "storage cleanup suggestions",
-      "advanced & experimental",
-      "advanced",
-      "storage",
-      "cleanup",
-      "suggestions"
-    ],
-    "status": "available",
-    "offlineCapable": true,
-    "iconName": "Cpu",
-    "inputKind": "interactive",
-    "outputKinds": [
-      "output"
-    ],
-    "isPopular": false
-  },
-  {
-    "id": 500,
-    "name": "Universal Share-to-Tool",
-    "studioId": "advanced",
-    "description": "Universal Share-to-Tool utility in Advanced & Experimental.",
-    "keywords": [
-      "universal share-to-tool",
-      "advanced & experimental",
-      "advanced",
-      "universal",
-      "share-to-tool"
-    ],
-    "status": "coming_soon",
     "offlineCapable": true,
     "iconName": "Cpu",
     "inputKind": "interactive",

@@ -50,6 +50,7 @@ export const StudioDashboard: React.FC = () => {
 
   const handleOpenStudio = (studioId: StudioId) => {
     setActiveStudio(studioId);
+    setActiveTool(null);
   };
 
   const handleLaunchTool = (toolId: number, studioId: StudioId) => {

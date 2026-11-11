@@ -15,6 +15,43 @@ import {
   Percent,
 } from 'lucide-react';
 import { getToolById } from '../data/webRegistry';
+import {
+  StandardCalculatorTool,
+  ScientificCalculatorTool,
+  FractionCalculatorTool,
+  RatioCalculatorTool,
+  AverageCalculatorTool,
+  ProbabilityCalculatorTool,
+} from './calculators/MathTools';
+import {
+  AgeCalculatorTool,
+  DateDifferenceTool,
+  DateAddSubtractTool,
+  TimeDurationTool,
+  WorkHoursTool,
+  CalendarWeekTool,
+} from './calculators/DateTimeTools';
+import {
+  FuelCostCalculatorTool,
+  MileageCalculatorTool,
+  ElectricityBillTool,
+} from './calculators/CostUtilityTools';
+import {
+  BmiCalculatorTool,
+  CalorieEstimatorTool,
+} from './calculators/HealthTools';
+import {
+  NumberToWordsTool,
+  RomanNumeralTool,
+  RandomNumberGeneratorTool,
+  DiceRollerTool,
+} from './calculators/NumberDiceTools';
+import {
+  StopwatchTool,
+  CountdownTimerTool,
+  AlarmReminderTool,
+  WorldClockTool,
+} from './calculators/ClockTools';
 
 interface CalculatorsWorkspaceProps {
   toolId: number;
@@ -25,6 +62,12 @@ export const CalculatorsWorkspace: React.FC<CalculatorsWorkspaceProps> = ({
   toolId,
   accentColor = '#F59E0B',
 }) => {
+  const [copied, setCopied] = useState(false);
+  const handleCopyText = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
   // Determine mode based on toolId:
   const getInitialTab = () => {
     if (toolId === 301 || toolId === 302 || toolId === 329 || toolId === 330 || toolId === 331 || toolId === 332) {
@@ -483,10 +526,8 @@ export const CalculatorsWorkspace: React.FC<CalculatorsWorkspaceProps> = ({
   // ==========================================
   const [numSysInput, setNumSysInput] = useState('255');
   const [numSysBase, setNumSysBase] = useState<2 | 8 | 10 | 16>(10);
-  const [numSysError, setNumSysError] = useState('');
 
   const convertNumberSystems = () => {
-    setNumSysError('');
     try {
       const decimal = parseInt(numSysInput, numSysBase);
       if (isNaN(decimal)) throw new Error(`"${numSysInput}" is not valid in base ${numSysBase}.`);
@@ -495,10 +536,10 @@ export const CalculatorsWorkspace: React.FC<CalculatorsWorkspaceProps> = ({
         octal: decimal.toString(8),
         decimal: decimal.toString(10),
         hex: decimal.toString(16).toUpperCase(),
+        error: '',
       };
     } catch (e: any) {
-      setNumSysError(e.message);
-      return null;
+      return { binary: '', octal: '', decimal: '', hex: '', error: e.message };
     }
   };
 
@@ -790,20 +831,6 @@ export const CalculatorsWorkspace: React.FC<CalculatorsWorkspaceProps> = ({
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}.${centis.toString().padStart(2, '0')}`;
   };
 
-  useEffect(() => {
-    const lockedCategoryMap: Record<number, keyof typeof UNIT_OPTIONS> = {
-      320: 'length', 321: 'weight', 322: 'temp', 323: 'area',
-      324: 'volume', 325: 'speed', 326: 'pressure', 327: 'storage',
-    };
-    const locked = lockedCategoryMap[toolId];
-    if (locked) {
-      setUnitCategory(locked);
-      const [f, t] = DEFAULT_UNITS[locked];
-      setFromUnit(f);
-      setToUnit(t);
-    }
-  }, [toolId]);
-
   const currentToolDef = getToolById(toolId);
 
   return (
@@ -824,139 +851,14 @@ export const CalculatorsWorkspace: React.FC<CalculatorsWorkspaceProps> = ({
       </div>
 
       {/* ======================================================== */}
-      {/* TAB 1: STANDARD & SCIENTIFIC CALCULATOR KEYPAD */}
+      {/* 301, 302, 329-332: DEDICATED MATH TOOLS */}
       {/* ======================================================== */}
-      {activeTab === 'math' && (
-        <div className="max-w-md mx-auto p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-4">
-          {/* Display */}
-          <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-right">
-            <div className="text-xs text-slate-400 font-mono h-4">
-              {calcMemory !== null && calcOp ? `${calcMemory} ${calcOp}` : ''}
-            </div>
-            <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white font-mono truncate">
-              {calcDisplay}
-            </div>
-          </div>
-
-          {/* Scientific Row */}
-          <div className="grid grid-cols-6 gap-2">
-            {[
-              { label: '√', fn: () => handleScientific('sqrt') },
-              { label: 'sin', fn: () => handleScientific('sin') },
-              { label: 'cos', fn: () => handleScientific('cos') },
-              { label: 'tan', fn: () => handleScientific('tan') },
-              { label: 'log', fn: () => handleScientific('log') },
-              { label: '±', fn: () => handleScientific('neg') },
-            ].map((btn, i) => (
-              <button
-                key={i}
-                onClick={btn.fn}
-                className="py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-bold transition-all"
-              >
-                {btn.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Keypad */}
-          <div className="grid grid-cols-4 gap-2.5 text-base font-bold">
-            <button
-              onClick={handleClear}
-              className="py-3 rounded-2xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 transition-all"
-            >
-              C
-            </button>
-            <button
-              onClick={() => handleOp('^')}
-              className="py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-all font-mono"
-            >
-              xʸ
-            </button>
-            <button
-              onClick={() => {
-                const val = parseFloat(calcDisplay) / 100;
-                setCalcDisplay(String(val));
-              }}
-              className="py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 transition-all"
-            >
-              %
-            </button>
-            <button
-              onClick={() => handleOp('÷')}
-              className="py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white transition-all text-lg"
-            >
-              ÷
-            </button>
-
-            {['7', '8', '9'].map((d) => (
-              <button
-                key={d}
-                onClick={() => handleDigit(d)}
-                className="py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/80 dark:hover:bg-slate-750 text-slate-900 dark:text-white transition-all shadow-2xs"
-              >
-                {d}
-              </button>
-            ))}
-            <button
-              onClick={() => handleOp('×')}
-              className="py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white transition-all text-lg"
-            >
-              ×
-            </button>
-
-            {['4', '5', '6'].map((d) => (
-              <button
-                key={d}
-                onClick={() => handleDigit(d)}
-                className="py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/80 dark:hover:bg-slate-750 text-slate-900 dark:text-white transition-all shadow-2xs"
-              >
-                {d}
-              </button>
-            ))}
-            <button
-              onClick={() => handleOp('−')}
-              className="py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white transition-all text-lg"
-            >
-              −
-            </button>
-
-            {['1', '2', '3'].map((d) => (
-              <button
-                key={d}
-                onClick={() => handleDigit(d)}
-                className="py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/80 dark:hover:bg-slate-750 text-slate-900 dark:text-white transition-all shadow-2xs"
-              >
-                {d}
-              </button>
-            ))}
-            <button
-              onClick={() => handleOp('+')}
-              className="py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white transition-all text-lg"
-            >
-              +
-            </button>
-
-            <button
-              onClick={() => handleDigit('0')}
-              className="col-span-2 py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/80 dark:hover:bg-slate-750 text-slate-900 dark:text-white transition-all shadow-2xs"
-            >
-              0
-            </button>
-            <button
-              onClick={handleDecimal}
-              className="py-3 rounded-2xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white transition-all"
-            >
-              .
-            </button>
-            <button
-              onClick={handleEquals}
-              className="py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white transition-all text-lg font-black"
-            >
-              =
-            </button>
-          </div>
-        </div>
-      )}
+      {toolId === 301 && <StandardCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 302 && <ScientificCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 329 && <FractionCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 330 && <RatioCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 331 && <AverageCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 332 && <ProbabilityCalculatorTool copied={copied} onCopy={handleCopyText} />}
 
       {/* 303 — PERCENTAGE CALCULATOR */}
       {toolId === 303 && (
@@ -1464,314 +1366,94 @@ export const CalculatorsWorkspace: React.FC<CalculatorsWorkspaceProps> = ({
       )}
 
       {/* ======================================================== */}
-      {/* TAB 3: AGE & DATE DIFFERENCE CALCULATOR */}
+      {/* 312-316, 348: DEDICATED DATE & TIME TOOLS */}
       {/* ======================================================== */}
-      {activeTab === 'date' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              Dates
-            </h3>
+      {toolId === 312 && <AgeCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 313 && <DateDifferenceTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 314 && <DateAddSubtractTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 315 && <TimeDurationTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 316 && <WorkHoursTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 348 && <CalendarWeekTool copied={copied} onCopy={handleCopyText} />}
 
-            <div className="space-y-3">
-              <div>
-                <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                  Start Date / Birthday
-                </label>
-                <input
-                  type="date"
-                  value={birthDate}
-                  onChange={(e) => setBirthDate(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-semibold"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                  Target / End Date
-                </label>
-                <input
-                  type="date"
-                  value={targetDate}
-                  onChange={(e) => setTargetDate(e.target.value)}
-                  className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-semibold"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Age Result */}
-          {calculateAge() && (
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-emerald-500/30 shadow-md space-y-5">
-              <div>
-                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-                  Precise Age
-                </span>
-                <div className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mt-1">
-                  {calculateAge()?.years} Years
-                </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  {calculateAge()?.months} Months, {calculateAge()?.days} Days
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">Total Days</span>
-                  <p className="font-bold text-slate-900 dark:text-white text-sm mt-0.5">
-                    {calculateAge()?.totalDays.toLocaleString()} days
-                  </p>
-                </div>
-                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">Total Weeks</span>
-                  <p className="font-bold text-slate-900 dark:text-white text-sm mt-0.5">
-                    {calculateAge()?.totalWeeks.toLocaleString()} weeks
-                  </p>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* 319 — GENERAL UNIT CONVERTER (any category) */}
+      {/* 319 — UNIT CONVERTER (covers length/weight/temp/area/volume/speed/pressure/storage via category picker) */}
       {toolId === 319 && renderUnitConverter('Unit Converter')}
 
-      {/* 320 — LENGTH CONVERTER */}
-      {toolId === 320 && renderUnitConverter('Length Converter', 'length')}
-
-      {/* 321 — WEIGHT CONVERTER */}
-      {toolId === 321 && renderUnitConverter('Weight Converter', 'weight')}
-
-      {/* 322 — TEMPERATURE CONVERTER */}
-      {toolId === 322 && renderUnitConverter('Temperature Converter', 'temp')}
-
-      {/* 323 — AREA CONVERTER */}
-      {toolId === 323 && renderUnitConverter('Area Converter', 'area')}
-
-      {/* 324 — VOLUME CONVERTER */}
-      {toolId === 324 && renderUnitConverter('Volume Converter', 'volume')}
-
-      {/* 325 — SPEED CONVERTER */}
-      {toolId === 325 && renderUnitConverter('Speed Converter', 'speed')}
-
-      {/* 326 — PRESSURE CONVERTER */}
-      {toolId === 326 && renderUnitConverter('Pressure Converter', 'pressure')}
-
-      {/* 327 — DATA STORAGE CONVERTER */}
-      {toolId === 327 && renderUnitConverter('Data Storage Converter', 'storage')}
-
       {/* 328 — NUMBER SYSTEM CONVERTER */}
-      {toolId === 328 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">Number System Converter</h3>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Input Value</label>
-              <input
-                type="text"
-                value={numSysInput}
-                onChange={(e) => setNumSysInput(e.target.value)}
-                className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-mono text-xs font-bold"
-              />
-            </div>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Input Base</label>
-              <div className="grid grid-cols-4 gap-2">
-                {([2, 8, 10, 16] as const).map((base) => (
-                  <button
-                    key={base}
-                    onClick={() => setNumSysBase(base)}
-                    className={`py-2 rounded-lg text-xs font-bold ${numSysBase === base ? 'bg-amber-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}
-                  >
-                    {base === 2 ? 'Binary' : base === 8 ? 'Octal' : base === 10 ? 'Decimal' : 'Hex'}
-                  </button>
-                ))}
-              </div>
-            </div>
-            {numSysError && <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">{numSysError}</div>}
-          </div>
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-amber-500/30 shadow-md space-y-2.5 text-xs">
-            {(() => {
-              const result = convertNumberSystems();
-              if (!result) return <p className="text-slate-500">Enter a valid number for the selected base.</p>;
-              return (
-                <>
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between"><span className="text-slate-500">Binary</span><span className="font-bold font-mono text-slate-900 dark:text-white">{result.binary}</span></div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between"><span className="text-slate-500">Octal</span><span className="font-bold font-mono text-slate-900 dark:text-white">{result.octal}</span></div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between"><span className="text-slate-500">Decimal</span><span className="font-bold font-mono text-slate-900 dark:text-white">{result.decimal}</span></div>
-                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between"><span className="text-slate-500">Hexadecimal</span><span className="font-bold font-mono text-slate-900 dark:text-white">{result.hex}</span></div>
-                </>
-              );
-            })()}
-          </div>
-        </div>
-      )}
-
-      {/* ======================================================== */}
-      {/* TAB 5: BMI & HEALTH */}
-      {/* ======================================================== */}
-      {activeTab === 'health' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              Body Dimensions
-            </h3>
-
-            <div className="space-y-3">
+      {toolId === 328 && (() => {
+        const numSysResult = convertNumberSystems();
+        return (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Number System Converter</h3>
               <div>
-                <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                  Weight (kg)
-                </label>
+                <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Input Value</label>
                 <input
-                  type="number"
-                  value={weightKg}
-                  onChange={(e) => setWeightKg(Number(e.target.value))}
-                  className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-bold"
+                  type="text"
+                  value={numSysInput}
+                  onChange={(e) => setNumSysInput(e.target.value)}
+                  className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-mono text-xs font-bold"
                 />
               </div>
-
               <div>
-                <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                  Height (cm)
-                </label>
-                <input
-                  type="number"
-                  value={heightCm}
-                  onChange={(e) => setHeightCm(Number(e.target.value))}
-                  className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-xs font-bold"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* BMI Result Card */}
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-emerald-500/30 shadow-md space-y-5">
-            <div>
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                Body Mass Index (BMI)
-              </span>
-              <div className="text-4xl sm:text-5xl font-black text-slate-900 dark:text-white mt-1">
-                {calculateBmi().bmi}
-              </div>
-              <p className={`text-sm font-bold mt-1 ${calculateBmi().color}`}>
-                {calculateBmi().category}
-              </p>
-            </div>
-
-            <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs">
-              <span className="text-[10px] uppercase font-bold text-slate-400">Healthy Weight For Your Height</span>
-              <p className="font-semibold text-slate-800 dark:text-slate-200 mt-0.5">
-                {calculateBmi().healthyRange}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ======================================================== */}
-      {/* TAB 6: NUMBER TO WORDS & ROMAN NUMERALS */}
-      {/* ======================================================== */}
-      {activeTab === 'convert' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              Number Input
-            </h3>
-
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                Enter an integer number
-              </label>
-              <input
-                type="number"
-                value={numInput}
-                onChange={(e) => setNumInput(Number(e.target.value))}
-                className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white text-sm font-bold"
-              />
-            </div>
-          </div>
-
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <div>
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                In Plain English Words
-              </span>
-              <p className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-1 leading-snug">
-                {numberToWords(numInput)}
-              </p>
-            </div>
-
-            <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
-                Roman Numeral
-              </span>
-              <p className="text-2xl font-black font-mono text-amber-600 dark:text-amber-400 mt-1">
-                {numberToRoman(numInput)}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ======================================================== */}
-      {/* TAB 7: STOPWATCH */}
-      {/* ======================================================== */}
-      {activeTab === 'stopwatch' && (
-        <div className="max-w-md mx-auto p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg text-center space-y-6">
-          <div>
-            <span className="text-5xl sm:text-6xl font-black font-mono text-slate-900 dark:text-white select-none">
-              {formatStopwatch(stopwatchTime)}
-            </span>
-          </div>
-
-          <div className="flex items-center justify-center gap-3">
-            <button
-              onClick={() => setIsSwRunning(!isSwRunning)}
-              className={`px-6 py-3 rounded-2xl font-bold text-sm text-white shadow-md flex items-center gap-2 transition-all ${
-                isSwRunning
-                  ? 'bg-rose-500 hover:bg-rose-600'
-                  : 'bg-emerald-600 hover:bg-emerald-700'
-              }`}
-            >
-              {isSwRunning ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-              <span>{isSwRunning ? 'Pause' : 'Start'}</span>
-            </button>
-
-            <button
-              onClick={() => {
-                setIsSwRunning(false);
-                setStopwatchTime(0);
-                setLaps([]);
-              }}
-              className="p-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300"
-              title="Reset Stopwatch"
-            >
-              <RotateCcw className="w-4 h-4" />
-            </button>
-
-            {isSwRunning && (
-              <button
-                onClick={() => setLaps([stopwatchTime, ...laps])}
-                className="px-4 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs"
-              >
-                Lap
-              </button>
-            )}
-          </div>
-
-          {laps.length > 0 && (
-            <div className="max-h-40 overflow-y-auto space-y-1 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
-              {laps.map((lap, i) => (
-                <div key={i} className="flex justify-between px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 font-mono">
-                  <span>Lap {laps.length - i}</span>
-                  <span className="font-bold">{formatStopwatch(lap)}</span>
+                <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Input Base</label>
+                <div className="grid grid-cols-4 gap-2">
+                  {([2, 8, 10, 16] as const).map((base) => (
+                    <button
+                      key={base}
+                      onClick={() => setNumSysBase(base)}
+                      className={`py-2 rounded-lg text-xs font-bold ${numSysBase === base ? 'bg-amber-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'}`}
+                    >
+                      {base === 2 ? 'Binary' : base === 8 ? 'Octal' : base === 10 ? 'Decimal' : 'Hex'}
+                    </button>
+                  ))}
                 </div>
-              ))}
+              </div>
+              {numSysResult.error && <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">{numSysResult.error}</div>}
             </div>
-          )}
-        </div>
-      )}
+            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-amber-500/30 shadow-md space-y-2.5 text-xs">
+              {numSysResult.error ? (
+                <p className="text-slate-500">Enter a valid number for the selected base.</p>
+              ) : (
+                <>
+                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between"><span className="text-slate-500">Binary</span><span className="font-bold font-mono text-slate-900 dark:text-white">{numSysResult.binary}</span></div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between"><span className="text-slate-500">Octal</span><span className="font-bold font-mono text-slate-900 dark:text-white">{numSysResult.octal}</span></div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between"><span className="text-slate-500">Decimal</span><span className="font-bold font-mono text-slate-900 dark:text-white">{numSysResult.decimal}</span></div>
+                  <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between"><span className="text-slate-500">Hexadecimal</span><span className="font-bold font-mono text-slate-900 dark:text-white">{numSysResult.hex}</span></div>
+                </>
+              )}
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* ======================================================== */}
+      {/* 335-337: DEDICATED COST & UTILITY TOOLS */}
+      {/* ======================================================== */}
+      {toolId === 335 && <FuelCostCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 336 && <MileageCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 337 && <ElectricityBillTool copied={copied} onCopy={handleCopyText} />}
+
+      {/* ======================================================== */}
+      {/* 333-334: DEDICATED HEALTH & FITNESS TOOLS */}
+      {/* ======================================================== */}
+      {toolId === 333 && <BmiCalculatorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 334 && <CalorieEstimatorTool copied={copied} onCopy={handleCopyText} />}
+
+      {/* ======================================================== */}
+      {/* 340-343: DEDICATED NUMBER, ROMAN & DICE TOOLS */}
+      {/* ======================================================== */}
+      {toolId === 340 && <NumberToWordsTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 341 && <RomanNumeralTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 342 && <RandomNumberGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 343 && <DiceRollerTool copied={copied} onCopy={handleCopyText} />}
+
+      {/* ======================================================== */}
+      {/* 344-347: DEDICATED STOPWATCH, TIMER & CLOCK TOOLS */}
+      {/* ======================================================== */}
+      {toolId === 344 && <StopwatchTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 345 && <CountdownTimerTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 346 && <AlarmReminderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 347 && <WorldClockTool copied={copied} onCopy={handleCopyText} />}
     </div>
   );
 };
