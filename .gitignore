@@ -10,6 +10,8 @@ dist/
 dist-ssr/
 build/
 web-build/
+*.apk
+releases/
 
 # Expo / React Native
 .expo/
