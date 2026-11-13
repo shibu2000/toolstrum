@@ -739,46 +739,48 @@ def generate_soundtrack():
         wf.writeframes(audio_frames)
     print(f"Soundtrack successfully rendered: {AUDIO_FILE}")
 
+def render_frame_worker(idx):
+    frame_path = os.path.join(FRAMES_DIR, f"frame_{idx:04d}.jpg")
+    if idx < 135:
+        frame = render_scene_1(idx)
+    elif idx < 285:
+        frame = render_scene_2(idx)
+    elif idx < 435:
+        frame = render_scene_3(idx)
+    elif idx < 585:
+        frame = render_scene_4(idx)
+    elif idx < 720:
+        frame = render_scene_5(idx)
+    else:
+        frame = render_scene_6(idx)
+        
+    frame.save(frame_path, "JPEG", quality=95)
+    return idx
+
 # ==============================================================
 # MAIN ENGINE
 # ==============================================================
 def main():
+    import multiprocessing
     print(f"Starting Toolstrum Product Demo Rendering ({TOTAL_FRAMES} frames @ {FPS} fps)...")
     
     # 1. Synthesize Audio
     generate_soundtrack()
     
-    # 2. Render video frames (re-render Scene 6 with fixed transparent logo)
-    for idx in range(TOTAL_FRAMES):
-        frame_path = os.path.join(FRAMES_DIR, f"frame_{idx:04d}.jpg")
-        
-        # Only re-render if missing or Scene 6
-        if os.path.exists(frame_path) and idx < 720:
-            continue
-            
-        if idx < 135:
-            frame = render_scene_1(idx)
-        elif idx < 285:
-            frame = render_scene_2(idx)
-        elif idx < 435:
-            frame = render_scene_3(idx)
-        elif idx < 585:
-            frame = render_scene_4(idx)
-        elif idx < 720:
-            frame = render_scene_5(idx)
-        else:
-            frame = render_scene_6(idx)
-            
-        frame.save(frame_path, "JPEG", quality=95)
-        
-        if (idx + 1) % 30 == 0 or idx == TOTAL_FRAMES - 1:
-            print(f"Rendering: Frame {idx + 1}/{TOTAL_FRAMES} ({((idx + 1)/TOTAL_FRAMES)*100:.1f}%)")
+    # 2. Render video frames in parallel across all CPU cores
+    cpu_cores = multiprocessing.cpu_count()
+    print(f"Parallel rendering {TOTAL_FRAMES} frames using {cpu_cores} cores...")
+    with multiprocessing.Pool(cpu_cores) as pool:
+        for done_count, _ in enumerate(pool.imap_unordered(render_frame_worker, range(TOTAL_FRAMES)), 1):
+            if done_count % 60 == 0 or done_count == TOTAL_FRAMES:
+                print(f"Rendering: {done_count}/{TOTAL_FRAMES} ({done_count*100/TOTAL_FRAMES:.1f}%)")
             
     print("All 900 high-definition frames rendered!")
     
     # Save preview frames for artifact presentation
     preview_indices = [60, 210, 360, 510, 650, 810]
-    artifact_dir = "/Users/shibudhara11/.gemini/antigravity-cli/brain/2d0ec898-15c8-473c-bf51-16b0ea1d40c2"
+    artifact_dir = "/Users/shibudhara11/.gemini/antigravity-cli/brain/53f6d735-0d67-4617-8954-c2e7bcdf2d63"
+    os.makedirs(artifact_dir, exist_ok=True)
     scene_names = ["scene1_hero.jpg", "scene2_pdf.jpg", "scene3_image.jpg", "scene4_code.jpg", "scene5_offline.jpg", "scene6_logo.jpg"]
     for p_idx, s_name in zip(preview_indices, scene_names):
         src = os.path.join(FRAMES_DIR, f"frame_{p_idx:04d}.jpg")

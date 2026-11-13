@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { StudioId, ManagedFile } from '../types';
+import { parseCurrentRoute } from '../utils/seo';
 
 interface AppState {
   activeStudioId: StudioId | null;
@@ -67,9 +68,11 @@ const getInitialSidebarCollapsed = (): boolean => {
   }
 };
 
+const initialRoute = parseCurrentRoute();
+
 export const useAppStore = create<AppState>((set, get) => ({
-  activeStudioId: null,
-  activeToolId: null,
+  activeStudioId: initialRoute.studioId,
+  activeToolId: initialRoute.toolId,
   searchQuery: '',
   isOmniSearchOpen: false,
   isSidebarCollapsed: getInitialSidebarCollapsed(),

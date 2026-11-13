@@ -13,6 +13,7 @@ import {
   Check,
   AlertTriangle,
   Clock,
+  Trash2,
 } from 'lucide-react';
 
 interface ToolProps {
@@ -96,19 +97,32 @@ export const TextReaderTool: React.FC<ToolProps> = () => {
 // 441 — DOCUMENT EXPIRY REMINDER
 // ========================================================
 export const DocumentExpiryTool: React.FC<ToolProps> = () => {
-  const [docs, setDocs] = useState<{ id: string; name: string; expiry: string }[]>([
-    { id: '1', name: 'Passport', expiry: '2028-04-12' },
-    { id: '2', name: "Driver's License", expiry: '2026-12-30' },
-    { id: '3', name: 'Domain Registration', expiry: '2027-02-14' },
-  ]);
+  const [docs, setDocs] = useState<{ id: string; name: string; expiry: string }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_doc_expiry');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [name, setName] = useState('');
   const [expiry, setExpiry] = useState('');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_doc_expiry', JSON.stringify(docs));
+    } catch {}
+  }, [docs]);
 
   const addDoc = () => {
     if (!name.trim() || !expiry) return;
     setDocs([...docs, { id: Date.now().toString(), name: name.trim(), expiry }]);
     setName('');
     setExpiry('');
+  };
+
+  const deleteDoc = (id: string) => {
+    setDocs((prev) => prev.filter((d) => d.id !== id));
   };
 
   const getDaysLeft = (dateStr: string) => {
@@ -119,14 +133,19 @@ export const DocumentExpiryTool: React.FC<ToolProps> = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-5">
-      <h3 className="text-sm font-bold text-slate-900 dark:text-white">Document Expiry Tracker</h3>
+      <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white">Document Expiry Tracker</h3>
+        {docs.length > 0 && (
+          <span className="text-xs text-slate-500">{docs.length} tracked</span>
+        )}
+      </div>
 
       <div className="flex gap-2">
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="Document name (e.g. Visa, Insurance)..."
+          placeholder="Document name (e.g. Visa, Insurance, License)..."
           className="flex-1 p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border text-xs"
         />
         <input
@@ -137,7 +156,7 @@ export const DocumentExpiryTool: React.FC<ToolProps> = () => {
         />
         <button
           onClick={addDoc}
-          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs"
+          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shrink-0 cursor-pointer"
         >
           Track
         </button>
@@ -149,24 +168,40 @@ export const DocumentExpiryTool: React.FC<ToolProps> = () => {
           const isUrgent = daysLeft <= 60;
           return (
             <div key={d.id} className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 flex justify-between items-center text-xs">
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white block">{d.name}</span>
+              <div className="truncate mr-3">
+                <span className="font-bold text-slate-900 dark:text-white block truncate">{d.name}</span>
                 <span className="text-[10px] text-slate-400">Expires: {d.expiry}</span>
               </div>
-              <span
-                className={`px-3 py-1 rounded-full font-bold text-xs ${
-                  daysLeft < 0
-                    ? 'bg-rose-500/10 text-rose-600'
-                    : isUrgent
-                    ? 'bg-amber-500/10 text-amber-600'
-                    : 'bg-emerald-500/10 text-emerald-600'
-                }`}
-              >
-                {daysLeft < 0 ? 'Expired' : `${daysLeft} days left`}
-              </span>
+              <div className="flex items-center gap-2 shrink-0">
+                <span
+                  className={`px-3 py-1 rounded-full font-bold text-xs ${
+                    daysLeft < 0
+                      ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400'
+                      : isUrgent
+                      ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+                      : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                  }`}
+                >
+                  {daysLeft < 0 ? 'Expired' : `${daysLeft} days left`}
+                </span>
+                <button
+                  onClick={() => deleteDoc(d.id)}
+                  className="p-1 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                  title="Delete document"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           );
         })}
+        {docs.length === 0 && (
+          <div className="p-8 text-center text-slate-400 text-xs">
+            <Clock className="w-8 h-8 mx-auto mb-2 opacity-40 text-pink-500" />
+            <p className="font-semibold text-slate-600 dark:text-slate-300">No documents tracked yet</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Enter passport, license, visa, or renewal dates above to track expiration countdowns.</p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -176,18 +211,32 @@ export const DocumentExpiryTool: React.FC<ToolProps> = () => {
 // 442 — BIRTHDAY REMINDER
 // ========================================================
 export const BirthdayReminderTool: React.FC<ToolProps> = () => {
-  const [birthdays, setBirthdays] = useState<{ id: string; name: string; bday: string }[]>([
-    { id: '1', name: 'Emma Watson', bday: '1990-04-15' },
-    { id: '2', name: 'David Miller', bday: '1995-11-20' },
-  ]);
+  const [birthdays, setBirthdays] = useState<{ id: string; name: string; bday: string }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_birthdays');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [name, setName] = useState('');
   const [bday, setBday] = useState('');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_birthdays', JSON.stringify(birthdays));
+    } catch {}
+  }, [birthdays]);
 
   const addBirthday = () => {
     if (!name.trim() || !bday) return;
     setBirthdays([...birthdays, { id: Date.now().toString(), name: name.trim(), bday }]);
     setName('');
     setBday('');
+  };
+
+  const deleteBirthday = (id: string) => {
+    setBirthdays((prev) => prev.filter((b) => b.id !== id));
   };
 
   const getDaysUntil = (bdayStr: string) => {
@@ -202,9 +251,14 @@ export const BirthdayReminderTool: React.FC<ToolProps> = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-5">
-      <div className="flex items-center gap-2">
-        <Gift className="w-5 h-5 text-pink-500" />
-        <h3 className="text-sm font-bold text-slate-900 dark:text-white">Birthday Tracker</h3>
+      <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center gap-2">
+          <Gift className="w-5 h-5 text-pink-500" />
+          <h3 className="text-sm font-bold text-slate-900 dark:text-white">Birthday Tracker</h3>
+        </div>
+        {birthdays.length > 0 && (
+          <span className="text-xs text-slate-500">{birthdays.length} saved</span>
+        )}
       </div>
 
       <div className="flex gap-2">
@@ -223,7 +277,7 @@ export const BirthdayReminderTool: React.FC<ToolProps> = () => {
         />
         <button
           onClick={addBirthday}
-          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs"
+          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shrink-0 cursor-pointer"
         >
           Add
         </button>
@@ -234,16 +288,32 @@ export const BirthdayReminderTool: React.FC<ToolProps> = () => {
           const days = getDaysUntil(b.bday);
           return (
             <div key={b.id} className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 flex justify-between items-center text-xs">
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white block">{b.name}</span>
+              <div className="truncate mr-3">
+                <span className="font-bold text-slate-900 dark:text-white block truncate">{b.name}</span>
                 <span className="text-[10px] text-slate-400">Born: {b.bday}</span>
               </div>
-              <span className="px-3 py-1 rounded-full bg-pink-500/10 text-pink-600 dark:text-pink-400 font-bold text-xs">
-                In {days} days
-              </span>
+              <div className="flex items-center gap-2 shrink-0">
+                <span className="px-3 py-1 rounded-full bg-pink-500/10 text-pink-600 dark:text-pink-400 font-bold text-xs">
+                  In {days} days
+                </span>
+                <button
+                  onClick={() => deleteBirthday(b.id)}
+                  className="p-1 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                  title="Delete birthday"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           );
         })}
+        {birthdays.length === 0 && (
+          <div className="p-8 text-center text-slate-400 text-xs">
+            <Gift className="w-8 h-8 mx-auto mb-2 opacity-40 text-pink-500" />
+            <p className="font-semibold text-slate-600 dark:text-slate-300">No birthdays added yet</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Add a friend or family member's birthdate above to calculate upcoming celebrations.</p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -253,8 +323,27 @@ export const BirthdayReminderTool: React.FC<ToolProps> = () => {
 // 444 — CALENDAR EVENT CALCULATOR
 // ========================================================
 export const CalendarEventCalculatorTool: React.FC<ToolProps> = () => {
-  const [eventDate, setEventDate] = useState('2026-12-31');
-  const [eventName, setEventName] = useState("New Year's Eve 2027");
+  const [eventDate, setEventDate] = useState(() => {
+    try {
+      return localStorage.getItem('toolstrum_calendar_event_date') || new Date().toISOString().split('T')[0];
+    } catch {
+      return new Date().toISOString().split('T')[0];
+    }
+  });
+  const [eventName, setEventName] = useState(() => {
+    try {
+      return localStorage.getItem('toolstrum_calendar_event_name') || '';
+    } catch {
+      return '';
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_calendar_event_date', eventDate);
+      localStorage.setItem('toolstrum_calendar_event_name', eventName);
+    } catch {}
+  }, [eventDate, eventName]);
 
   const target = new Date(eventDate);
   const now = new Date();
@@ -270,6 +359,7 @@ export const CalendarEventCalculatorTool: React.FC<ToolProps> = () => {
           type="text"
           value={eventName}
           onChange={(e) => setEventName(e.target.value)}
+          placeholder="e.g. Vacation, Wedding, Launch..."
           className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border text-center font-bold text-sm"
         />
       </div>
@@ -289,7 +379,7 @@ export const CalendarEventCalculatorTool: React.FC<ToolProps> = () => {
         <div className="text-4xl font-black text-slate-900 dark:text-white font-mono">
           {diffDays} Days
         </div>
-        <p className="text-xs text-slate-500 font-semibold">{eventName}</p>
+        <p className="text-xs text-slate-500 font-semibold">{eventName || 'Event countdown'}</p>
       </div>
     </div>
   );
@@ -299,12 +389,22 @@ export const CalendarEventCalculatorTool: React.FC<ToolProps> = () => {
 // 449 — QR ATTENDANCE GENERATOR
 // ========================================================
 export const QrAttendanceGeneratorTool: React.FC<ToolProps> = () => {
-  const [eventTitle, setEventTitle] = useState('Computer Science Lecture 101');
+  const [eventTitle, setEventTitle] = useState(() => {
+    try {
+      return localStorage.getItem('toolstrum_qr_session_title') || '';
+    } catch {
+      return '';
+    }
+  });
   const [sessionCode] = useState(() => Math.random().toString(36).substring(2, 8).toUpperCase());
   const [qrUrl, setQrUrl] = useState('');
 
   useEffect(() => {
-    const payload = JSON.stringify({ event: eventTitle, code: sessionCode, time: Date.now() });
+    try {
+      localStorage.setItem('toolstrum_qr_session_title', eventTitle);
+    } catch {}
+    const title = eventTitle || 'Class Session / Event';
+    const payload = JSON.stringify({ event: title, code: sessionCode, time: Date.now() });
     QRCode.toDataURL(payload, { width: 280, margin: 2 }, (err, url) => {
       if (!err) setQrUrl(url);
     });
@@ -324,6 +424,7 @@ export const QrAttendanceGeneratorTool: React.FC<ToolProps> = () => {
           type="text"
           value={eventTitle}
           onChange={(e) => setEventTitle(e.target.value)}
+          placeholder="e.g. Physics 101 Lecture..."
           className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border text-center font-bold text-xs"
         />
       </div>
@@ -343,11 +444,21 @@ export const QrAttendanceGeneratorTool: React.FC<ToolProps> = () => {
 // 450 — QR ATTENDANCE SCANNER
 // ========================================================
 export const QrAttendanceScannerTool: React.FC<ToolProps> = () => {
-  const [attendees, setAttendees] = useState<{ id: string; name: string; time: string }[]>([
-    { id: '1', name: 'Jordan Smith', time: '09:02 AM' },
-    { id: '2', name: 'Taylor Swift', time: '09:04 AM' },
-  ]);
+  const [attendees, setAttendees] = useState<{ id: string; name: string; time: string }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_attendance_roster');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [attendeeName, setAttendeeName] = useState('');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_attendance_roster', JSON.stringify(attendees));
+    } catch {}
+  }, [attendees]);
 
   const checkIn = () => {
     if (!attendeeName.trim()) return;
@@ -358,6 +469,14 @@ export const QrAttendanceScannerTool: React.FC<ToolProps> = () => {
     setAttendeeName('');
   };
 
+  const deleteAttendee = (id: string) => {
+    setAttendees((prev) => prev.filter((a) => a.id !== id));
+  };
+
+  const clearAll = () => {
+    setAttendees([]);
+  };
+
   return (
     <div className="max-w-xl mx-auto p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-5">
       <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -365,6 +484,15 @@ export const QrAttendanceScannerTool: React.FC<ToolProps> = () => {
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">Attendance Sign-In Log</h3>
           <span className="text-xs text-slate-500">{attendees.length} checked in today</span>
         </div>
+        {attendees.length > 0 && (
+          <button
+            onClick={clearAll}
+            className="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center gap-1.5 cursor-pointer"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            <span>Clear Roster</span>
+          </button>
+        )}
       </div>
 
       <div className="flex gap-2">
@@ -378,7 +506,7 @@ export const QrAttendanceScannerTool: React.FC<ToolProps> = () => {
         />
         <button
           onClick={checkIn}
-          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs"
+          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shrink-0 cursor-pointer"
         >
           Check In
         </button>
@@ -388,9 +516,25 @@ export const QrAttendanceScannerTool: React.FC<ToolProps> = () => {
         {attendees.map((a) => (
           <div key={a.id} className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 flex justify-between items-center text-xs">
             <span className="font-bold text-slate-900 dark:text-white">{a.name}</span>
-            <span className="font-mono text-slate-400 text-[10px]">{a.time}</span>
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-slate-400 text-[10px]">{a.time}</span>
+              <button
+                onClick={() => deleteAttendee(a.id)}
+                className="p-1 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                title="Remove attendee"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         ))}
+        {attendees.length === 0 && (
+          <div className="p-8 text-center text-slate-400 text-xs">
+            <Scan className="w-8 h-8 mx-auto mb-2 opacity-40 text-pink-500" />
+            <p className="font-semibold text-slate-600 dark:text-slate-300">No attendees checked in yet</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Enter attendee names above to log check-in arrival times.</p>
+          </div>
+        )}
       </div>
     </div>
   );

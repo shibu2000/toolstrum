@@ -49,3 +49,6 @@ pnpm-debug.log*
 # Local AI assistant config (not part of the application)
 .claude/
 CLAUDE.md
+
+# Intermediate video frames
+video_output/real_frames/

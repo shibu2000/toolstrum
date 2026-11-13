@@ -13,6 +13,8 @@ import {
   History,
   FileText,
   Sliders,
+  Trash2,
+  Plus,
 } from 'lucide-react';
 import { generateCode128Svg } from './securityHelpers';
 
@@ -474,11 +476,34 @@ export const QrBatchGeneratorTool: React.FC<ToolProps> = () => {
 // 365 — QR CODE READER HISTORY
 // ========================================================
 export const QrHistoryTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
-  const [history, setHistory] = useState<{ id: string; content: string; time: string }[]>([
-    { id: '1', content: 'https://toolstrum.vercel.app', time: 'Just now' },
-    { id: '2', content: 'WIFI:S:MyNetwork;T:WPA;P:pass123;;', time: '5 mins ago' },
-    { id: '3', content: 'BEGIN:VCARD\nFN:Toolstrum Dev\nEND:VCARD', time: 'Yesterday' },
-  ]);
+  const [history, setHistory] = useState<{ id: string; content: string; time: string }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_qr_history');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [newEntry, setNewEntry] = useState('');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_qr_history', JSON.stringify(history));
+    } catch {}
+  }, [history]);
+
+  const addEntry = () => {
+    if (!newEntry.trim()) return;
+    setHistory([
+      { id: Date.now().toString(), content: newEntry.trim(), time: 'Just now' },
+      ...history,
+    ]);
+    setNewEntry('');
+  };
+
+  const deleteItem = (id: string) => {
+    setHistory((prev) => prev.filter((item) => item.id !== id));
+  };
 
   const clearHistory = () => setHistory([]);
 
@@ -487,16 +512,33 @@ export const QrHistoryTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
       <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
         <div>
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">QR Scan & Generation Log</h3>
-          <p className="text-xs text-slate-500">Stored safely in your local browser session</p>
+          <p className="text-xs text-slate-500">Stored safely in your local browser storage</p>
         </div>
         {history.length > 0 && (
           <button
             onClick={clearHistory}
-            className="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-950/40 text-xs font-bold"
+            className="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400 text-xs font-bold cursor-pointer transition-colors"
           >
             Clear History
           </button>
         )}
+      </div>
+
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={newEntry}
+          onChange={(e) => setNewEntry(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && addEntry()}
+          placeholder="Log a QR link or payload..."
+          className="flex-1 p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border text-xs"
+        />
+        <button
+          onClick={addEntry}
+          className="px-4 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs shrink-0 cursor-pointer shadow-xs"
+        >
+          Add Log
+        </button>
       </div>
 
       {history.length > 0 ? (
@@ -512,15 +554,24 @@ export const QrHistoryTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
                   {item.content}
                 </span>
               </div>
-              {onCopy && (
+              <div className="flex items-center gap-2 shrink-0">
+                {onCopy && (
+                  <button
+                    onClick={() => onCopy(item.content)}
+                    className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-900 text-xs font-semibold flex items-center gap-1 shadow-2xs cursor-pointer"
+                  >
+                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                    <span>Copy</span>
+                  </button>
+                )}
                 <button
-                  onClick={() => onCopy(item.content)}
-                  className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-900 text-xs font-semibold flex items-center gap-1 shadow-2xs"
+                  onClick={() => deleteItem(item.id)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                  title="Delete log entry"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                  <span>Copy</span>
+                  <Trash2 className="w-3.5 h-3.5" />
                 </button>
-              )}
+              </div>
             </div>
           ))}
         </div>

@@ -239,7 +239,7 @@ export const RandomNumberGeneratorTool: React.FC<ToolProps> = ({ copied, onCopy 
   const [count, setCount] = useState(5);
   const [unique, setUnique] = useState(true);
   const [sort, setSort] = useState(false);
-  const [results, setResults] = useState<number[]>([14, 27, 42, 68, 89]);
+  const [results, setResults] = useState<number[]>([]);
 
   const generateNumbers = () => {
     if (min >= max) return;
@@ -347,16 +347,22 @@ export const RandomNumberGeneratorTool: React.FC<ToolProps> = ({ copied, onCopy 
           )}
         </div>
 
-        <div className="flex flex-wrap gap-2.5">
-          {results.map((n, i) => (
-            <div
-              key={i}
-              className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl font-black font-mono shadow-xs"
-            >
-              {n}
-            </div>
-          ))}
-        </div>
+        {results.length > 0 ? (
+          <div className="flex flex-wrap gap-2.5">
+            {results.map((n, i) => (
+              <div
+                key={i}
+                className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl font-black font-mono shadow-xs"
+              >
+                {n}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="p-8 text-center text-slate-400 text-xs">
+            Click "Generate Numbers" to produce random values.
+          </div>
+        )}
       </div>
     </div>
   );
@@ -369,7 +375,7 @@ export const DiceRollerTool: React.FC<ToolProps> = () => {
   const [diceType, setDiceType] = useState<number>(6); // d6
   const [diceCount, setDiceCount] = useState<number>(3);
   const [modifier, setModifier] = useState<number>(0);
-  const [rolls, setRolls] = useState<number[]>([4, 6, 2]);
+  const [rolls, setRolls] = useState<number[]>([]);
 
   const rollDice = () => {
     const newRolls: number[] = [];
@@ -379,7 +385,7 @@ export const DiceRollerTool: React.FC<ToolProps> = () => {
     setRolls(newRolls);
   };
 
-  const sum = rolls.reduce((acc, v) => acc + v, 0) + modifier;
+  const sum = rolls.length > 0 ? rolls.reduce((acc, v) => acc + v, 0) + modifier : 0;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
@@ -391,7 +397,7 @@ export const DiceRollerTool: React.FC<ToolProps> = () => {
             <button
               key={d}
               onClick={() => setDiceType(d)}
-              className={`py-2 rounded-xl text-xs font-black font-mono ${
+              className={`py-2 rounded-xl text-xs font-black font-mono cursor-pointer ${
                 diceType === d ? 'bg-amber-500 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'
               }`}
             >
@@ -425,7 +431,7 @@ export const DiceRollerTool: React.FC<ToolProps> = () => {
 
         <button
           onClick={rollDice}
-          className="w-full py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all"
+          className="w-full py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer"
         >
           <Dices className="w-5 h-5" /> Roll {diceCount}d{diceType} {modifier !== 0 ? (modifier > 0 ? `+${modifier}` : modifier) : ''}
         </button>
@@ -436,28 +442,36 @@ export const DiceRollerTool: React.FC<ToolProps> = () => {
           <span className="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">
             Total Score
           </span>
-          <span className="text-xs font-mono text-slate-400">
-            {rolls.join(' + ')} {modifier !== 0 && (modifier > 0 ? `+ ${modifier}` : `- ${Math.abs(modifier)}`)}
-          </span>
+          {rolls.length > 0 && (
+            <span className="text-xs font-mono text-slate-400">
+              {rolls.join(' + ')} {modifier !== 0 && (modifier > 0 ? `+ ${modifier}` : `- ${Math.abs(modifier)}`)}
+            </span>
+          )}
         </div>
 
         <div className="text-5xl font-black text-amber-600 dark:text-amber-400 font-mono">
-          {sum}
+          {rolls.length > 0 ? sum : '—'}
         </div>
 
         {/* Dice visual tokens */}
         <div className="space-y-2">
           <span className="text-xs text-slate-400 font-bold uppercase">Individual Rolls:</span>
-          <div className="flex flex-wrap gap-2.5">
-            {rolls.map((r, i) => (
-              <div
-                key={i}
-                className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-lg font-black font-mono text-slate-900 dark:text-white"
-              >
-                {r}
-              </div>
-            ))}
-          </div>
+          {rolls.length > 0 ? (
+            <div className="flex flex-wrap gap-2.5">
+              {rolls.map((r, i) => (
+                <div
+                  key={i}
+                  className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-lg font-black font-mono text-slate-900 dark:text-white"
+                >
+                  {r}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="p-4 text-center text-slate-400 text-xs">
+              Roll the dice to see individual results.
+            </div>
+          )}
         </div>
       </div>
     </div>

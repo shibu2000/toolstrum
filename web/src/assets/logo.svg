@@ -1,58 +1,80 @@
 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stopColor="#1E1B4B" />
-      <stop offset="60%" stopColor="#0F172A" />
-      <stop offset="100%" stopColor="#020617" />
+    <!-- Premium Squircle Gradient -->
+    <linearGradient id="ts-grad-bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E1B4B" />
+      <stop offset="50%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#090D16" />
     </linearGradient>
 
-    <linearGradient id="edge" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stopColor="#818CF8" stopOpacity="0.8" />
-      <stop offset="50%" stopColor="#C084FC" stopOpacity="0.4" />
-      <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.7" />
+    <!-- Edge Highlight Glow -->
+    <linearGradient id="ts-grad-border" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#818CF8" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#A855F7" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.7" />
     </linearGradient>
 
-    <linearGradient id="t-left" x1="12" y1="16" x2="32" y2="28" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stopColor="#6366F1" />
-      <stop offset="100%" stopColor="#4F46E5" />
+    <!-- Top Wing Left -->
+    <linearGradient id="ts-t-left" x1="12" y1="16" x2="32" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366F1" />
+      <stop offset="100%" stop-color="#4F46E5" />
     </linearGradient>
 
-    <linearGradient id="t-right" x1="32" y1="16" x2="52" y2="28" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stopColor="#A855F7" />
-      <stop offset="100%" stopColor="#7C3AED" />
+    <!-- Top Wing Right -->
+    <linearGradient id="ts-t-right" x1="32" y1="16" x2="52" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#A855F7" />
+      <stop offset="100%" stop-color="#7C3AED" />
     </linearGradient>
 
-    <linearGradient id="t-stem" x1="32" y1="20" x2="32" y2="52" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stopColor="#EC4899" />
-      <stop offset="35%" stopColor="#8B5CF6" />
-      <stop offset="75%" stopColor="#06B6D4" />
-      <stop offset="100%" stopColor="#10B981" />
+    <!-- Prismatic Vertical Stem -->
+    <linearGradient id="ts-t-stem" x1="32" y1="20" x2="32" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EC4899" />
+      <stop offset="40%" stop-color="#8B5CF6" />
+      <stop offset="80%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#10B981" />
     </linearGradient>
 
-    <linearGradient id="beam" x1="32" y1="16" x2="32" y2="48" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stopColor="#FFFFFF" />
-      <stop offset="60%" stopColor="#67E8F9" />
-      <stop offset="100%" stopColor="#34D399" />
+    <!-- Core Harmonic Beam -->
+    <linearGradient id="ts-beam" x1="32" y1="18" x2="32" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+      <stop offset="50%" stop-color="#67E8F9" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#A7F3D0" stop-opacity="0.5" />
     </linearGradient>
 
-    <filter id="glow" x="4" y="6" width="56" height="56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-      <feGaussianBlur stdDeviation="3.5" result="blur" />
+    <!-- Ambient Glow Filter -->
+    <filter id="ts-glow" x="4" y="6" width="56" height="56" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="3" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
   </defs>
 
-  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bg)" stroke="url(#edge)" stroke-width="1.5" />
-  <circle cx="32" cy="14" r="16" fill="#818CF8" opacity="0.3" filter="blur(8px)" />
-  <circle cx="32" cy="42" r="14" fill="#06B6D4" opacity="0.25" filter="blur(7px)" />
+  <!-- Squircle Container -->
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#ts-grad-bg)" stroke="url(#ts-grad-border)" stroke-width="1.8" />
+  
+  <!-- Subtle Ambient Refraction Spots -->
+  <circle cx="32" cy="14" r="14" fill="#6366F1" opacity="0.3" filter="blur(8px)" />
+  <circle cx="32" cy="40" r="12" fill="#06B6D4" opacity="0.25" filter="blur(6px)" />
 
-  <g filter="url(#glow)">
-    <path d="M12 18C12 15.7909 13.7909 14 16 14H31.5L30 24H16C13.7909 24 12 22.2091 12 20V18Z" fill="url(#t-left)" />
-    <path d="M52 18C52 15.7909 50.2091 14 48 14H32.5L34 24H48C50.2091 24 52 22.2091 52 20V18Z" fill="url(#t-right)" />
-    <path d="M26 14H38L35 24H29L26 14Z" fill="#E9D5FF" opacity="0.9" />
-    <path d="M27.5 22L36.5 22L34.5 46C34.5 48.2091 33.3 50 32 50C30.7 50 29.5 48.2091 29.5 46L27.5 22Z" fill="url(#t-stem)" />
-    <line x1="32" y1="16" x2="32" y2="46" stroke="url(#beam)" stroke-width="2.5" stroke-linecap="round" />
+  <!-- The Iconic Toolstrum "T" Symbol -->
+  <g filter="url(#ts-glow)">
+    <!-- Left Crossbar Wing -->
+    <path d="M12 18C12 15.7909 13.7909 14 16 14H31.5L30 24H16C13.7909 24 12 22.2091 12 20V18Z" fill="url(#ts-t-left)" />
+
+    <!-- Right Crossbar Wing -->
+    <path d="M52 18C52 15.7909 50.2091 14 48 14H32.5L34 24H48C50.2091 24 52 22.2091 52 20V18Z" fill="url(#ts-t-right)" />
+
+    <!-- Center Prismatic Crest -->
+    <path d="M26 14H38L35 24H29L26 14Z" fill="#C084FC" opacity="0.9" />
+
+    <!-- Vertical T-Spine Pillar -->
+    <path d="M27.5 22L36.5 22L34.5 46C34.5 48.2091 33.3 50 32 50C30.7 50 29.5 48.2091 29.5 46L27.5 22Z" fill="url(#ts-t-stem)" />
+
+    <!-- Central Resonant Chord / Laser Beam -->
+    <line x1="32" y1="16" x2="32" y2="46" stroke="url(#ts-beam)" stroke-width="2.5" stroke-linecap="round" />
+
+    <!-- Precision Resonance Nodes -->
     <circle cx="32" cy="20" r="1.8" fill="#FFFFFF" />
-    <circle cx="32" cy="30" r="1.4" fill="#FFFFFF" opacity="0.9" />
-    <circle cx="32" cy="40" r="1.2" fill="#E0F2FE" opacity="0.8" />
+    <circle cx="32" cy="30" r="1.4" fill="#E0E7FF" opacity="0.95" />
+    <circle cx="32" cy="40" r="1.2" fill="#CFFAFE" opacity="0.85" />
   </g>
 </svg>

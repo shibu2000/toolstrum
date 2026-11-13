@@ -1,11 +1,11 @@
 {
-  "name": "Toolstrum — 490+ Free Offline Tools",
+  "name": "Toolstrum — 389+ Free Offline Tools",
   "short_name": "Toolstrum",
-  "description": "490+ everyday offline utilities in one unified browser workspace. 100% private with zero cloud uploads.",
+  "description": "389+ everyday offline utilities in one unified browser workspace. 100% private with zero cloud uploads.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#625BFF",
+  "theme_color": "#4F46E5",
   "icons": [
     {
       "src": "/favicon.svg",

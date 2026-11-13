@@ -607,11 +607,24 @@ export const FileSharingUtilityTool: React.FC<ToolProps> = ({ copied, onCopy }) 
 // 202 — RECENT FILES MANAGER
 // ========================================================
 export const RecentFilesManagerTool: React.FC<ToolProps> = () => {
-  const [recentFiles, setRecentFiles] = useState<{ id: string; name: string; size: string; timestamp: string }[]>([
-    { id: '1', name: 'presentation_assets.zip', size: '4.2 MB', timestamp: '10 minutes ago' },
-    { id: '2', name: 'financial_report_q3.pdf', size: '1.1 MB', timestamp: '1 hour ago' },
-    { id: '3', name: 'app_backup_2026.tar.gz', size: '14.8 MB', timestamp: 'Yesterday' },
-  ]);
+  const [recentFiles, setRecentFiles] = useState<{ id: string; name: string; size: string; timestamp: string }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_recent_files');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_recent_files', JSON.stringify(recentFiles));
+    } catch {}
+  }, [recentFiles]);
+
+  const deleteRecentFile = (id: string) => {
+    setRecentFiles((prev) => prev.filter((item) => item.id !== id));
+  };
 
   const handleClearHistory = () => {
     setRecentFiles([]);
@@ -657,6 +670,13 @@ export const RecentFilesManagerTool: React.FC<ToolProps> = () => {
               <div className="flex items-center gap-3 shrink-0">
                 <span className="font-mono text-slate-400 text-[11px]">{item.size}</span>
                 <span className="text-[11px] text-slate-400">{item.timestamp}</span>
+                <button
+                  onClick={() => deleteRecentFile(item.id)}
+                  className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                  title="Remove from history"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
           ))}

@@ -25,16 +25,20 @@ interface ToolProps {
 // ========================================================
 export const NotesAppTool: React.FC<ToolProps> = () => {
   const [notes, setNotes] = useState<{ id: string; title: string; body: string; date: string }[]>(() => {
-    const saved = localStorage.getItem('toolstrum_notes');
-    return saved
-      ? JSON.parse(saved)
-      : [{ id: '1', title: 'Product Ideas', body: 'Build 100% offline utilities for privacy.', date: 'Today' }];
+    try {
+      const saved = localStorage.getItem('toolstrum_notes');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
-  const [activeId, setActiveId] = useState<string>(notes[0]?.id || '1');
+  const [activeId, setActiveId] = useState<string>(notes[0]?.id || '');
   const activeNote = notes.find((n) => n.id === activeId) || notes[0];
 
   useEffect(() => {
-    localStorage.setItem('toolstrum_notes', JSON.stringify(notes));
+    try {
+      localStorage.setItem('toolstrum_notes', JSON.stringify(notes));
+    } catch {}
   }, [notes]);
 
   const addNote = () => {
@@ -51,7 +55,11 @@ export const NotesAppTool: React.FC<ToolProps> = () => {
   const deleteNote = (id: string) => {
     const remaining = notes.filter((n) => n.id !== id);
     setNotes(remaining);
-    if (remaining.length) setActiveId(remaining[0].id);
+    if (remaining.length) {
+      setActiveId(remaining[0].id);
+    } else {
+      setActiveId('');
+    }
   };
 
   const updateActive = (field: 'title' | 'body', val: string) => {
@@ -70,7 +78,8 @@ export const NotesAppTool: React.FC<ToolProps> = () => {
           </span>
           <button
             onClick={addNote}
-            className="p-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white shadow-xs"
+            className="p-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white shadow-xs cursor-pointer"
+            title="Create new note"
           >
             <Plus className="w-4 h-4" />
           </button>
@@ -91,24 +100,29 @@ export const NotesAppTool: React.FC<ToolProps> = () => {
                 <span className="truncate block font-semibold">{n.title || 'Untitled'}</span>
                 <span className="text-[10px] text-slate-400">{n.date}</span>
               </div>
-              {notes.length > 1 && (
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteNote(n.id);
-                  }}
-                  className="text-slate-400 hover:text-rose-500"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
-              )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteNote(n.id);
+                }}
+                className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                title="Delete note"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
             </div>
           ))}
+          {notes.length === 0 && (
+            <div className="p-6 text-center text-slate-400 text-xs">
+              <p className="font-semibold text-slate-500 dark:text-slate-400">No notes saved</p>
+              <p className="text-[11px] text-slate-400 mt-1">Click the + button above to start your first note.</p>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Note Editor */}
-      {activeNote && (
+      {activeNote ? (
         <div className="md:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
           <input
             type="text"
@@ -125,6 +139,19 @@ export const NotesAppTool: React.FC<ToolProps> = () => {
             placeholder="Write notes here..."
           />
         </div>
+      ) : (
+        <div className="md:col-span-2 p-12 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-col items-center justify-center text-center space-y-3">
+          <FileText className="w-10 h-10 text-pink-500 opacity-40" />
+          <h4 className="text-sm font-bold text-slate-700 dark:text-slate-300">No Note Selected</h4>
+          <p className="text-xs text-slate-400 max-w-xs">Create your first private offline note to begin writing.</p>
+          <button
+            onClick={addNote}
+            className="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs flex items-center gap-1.5 cursor-pointer shadow-xs"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Create Note</span>
+          </button>
+        </div>
       )}
     </div>
   );
@@ -134,13 +161,21 @@ export const NotesAppTool: React.FC<ToolProps> = () => {
 // 418 — CHECKLIST MAKER
 // ========================================================
 export const ChecklistMakerTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
-  const [items, setItems] = useState<{ id: string; text: string; done: boolean }[]>([
-    { id: '1', text: 'Prepare release build', done: true },
-    { id: '2', text: 'Run unit & regression tests', done: true },
-    { id: '3', text: 'Update changelog documentation', done: false },
-    { id: '4', text: 'Deploy to production server', done: false },
-  ]);
+  const [items, setItems] = useState<{ id: string; text: string; done: boolean }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_checklist');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [newItem, setNewItem] = useState('');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_checklist', JSON.stringify(items));
+    } catch {}
+  }, [items]);
 
   const addItem = () => {
     if (!newItem.trim()) return;
@@ -150,6 +185,14 @@ export const ChecklistMakerTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
 
   const toggle = (id: string) => {
     setItems(items.map((it) => (it.id === id ? { ...it, done: !it.done } : it)));
+  };
+
+  const deleteItem = (id: string) => {
+    setItems(items.filter((x) => x.id !== id));
+  };
+
+  const clearAll = () => {
+    setItems([]);
   };
 
   const completedCount = items.filter((i) => i.done).length;
@@ -162,7 +205,17 @@ export const ChecklistMakerTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">Checklist Maker</h3>
           <span className="text-xs text-slate-500">{completedCount} of {items.length} completed</span>
         </div>
-        <div className="text-sm font-black font-mono text-pink-600 dark:text-pink-400">{progress}%</div>
+        <div className="flex items-center gap-3">
+          {items.length > 0 && (
+            <button
+              onClick={clearAll}
+              className="px-2.5 py-1 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-[11px] font-bold cursor-pointer"
+            >
+              Clear All
+            </button>
+          )}
+          <div className="text-sm font-black font-mono text-pink-600 dark:text-pink-400">{progress}%</div>
+        </div>
       </div>
 
       {/* Progress Bar */}
@@ -184,7 +237,7 @@ export const ChecklistMakerTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
         />
         <button
           onClick={addItem}
-          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold shadow-xs"
+          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold shadow-xs cursor-pointer"
         >
           Add
         </button>
@@ -201,25 +254,33 @@ export const ChecklistMakerTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
                 : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white'
             }`}
           >
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5 truncate mr-2">
               {it.done ? (
                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
               ) : (
                 <Circle className="w-4 h-4 text-slate-400 shrink-0" />
               )}
-              <span>{it.text}</span>
+              <span className="truncate">{it.text}</span>
             </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setItems(items.filter((x) => x.id !== it.id));
+                deleteItem(it.id);
               }}
-              className="text-slate-400 hover:text-rose-500"
+              className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shrink-0 cursor-pointer"
+              title="Delete item"
             >
               <Trash2 className="w-3.5 h-3.5" />
             </button>
           </div>
         ))}
+        {items.length === 0 && (
+          <div className="p-8 text-center text-slate-400 text-xs">
+            <CheckSquare className="w-8 h-8 mx-auto mb-2 opacity-40 text-pink-500" />
+            <p className="font-semibold text-slate-600 dark:text-slate-300">Your checklist is empty</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Add items above to start tracking milestones and progress.</p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -229,13 +290,23 @@ export const ChecklistMakerTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
 // 419 — TO-DO LIST (WITH DUE DATES & PRIORITIES)
 // ========================================================
 export const TodoListTool: React.FC<ToolProps> = () => {
-  const [tasks, setTasks] = useState<{ id: string; title: string; due: string; priority: 'low' | 'med' | 'high'; done: boolean }[]>([
-    { id: '1', title: 'Submit quarterly budget review', due: '2026-11-15', priority: 'high', done: false },
-    { id: '2', title: 'Refactor audio trimming engine', due: '2026-11-18', priority: 'med', done: true },
-  ]);
+  const [tasks, setTasks] = useState<{ id: string; title: string; due: string; priority: 'low' | 'med' | 'high'; done: boolean }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_todo_tasks');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [title, setTitle] = useState('');
   const [due, setDue] = useState(new Date().toISOString().split('T')[0]);
   const [priority, setPriority] = useState<'low' | 'med' | 'high'>('med');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_todo_tasks', JSON.stringify(tasks));
+    } catch {}
+  }, [tasks]);
 
   const addTask = () => {
     if (!title.trim()) return;
@@ -247,15 +318,27 @@ export const TodoListTool: React.FC<ToolProps> = () => {
     setTasks(tasks.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
   };
 
+  const deleteTask = (id: string) => {
+    setTasks((prev) => prev.filter((t) => t.id !== id));
+  };
+
   return (
     <div className="max-w-2xl mx-auto p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-5">
-      <h3 className="text-sm font-bold text-slate-900 dark:text-white">To-Do Task Manager</h3>
+      <div className="flex justify-between items-center pb-2 border-b border-slate-100 dark:border-slate-800">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white">To-Do Task Manager</h3>
+        {tasks.length > 0 && (
+          <span className="text-xs text-slate-500">
+            {tasks.filter((t) => t.done).length} / {tasks.length} done
+          </span>
+        )}
+      </div>
 
       <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-3">
         <input
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && addTask()}
           className="w-full p-2.5 rounded-xl bg-white dark:bg-slate-900 border text-xs font-bold"
           placeholder="Task title..."
         />
@@ -271,7 +354,7 @@ export const TodoListTool: React.FC<ToolProps> = () => {
               <button
                 key={p}
                 onClick={() => setPriority(p)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase cursor-pointer ${
                   priority === p ? 'bg-pink-500 text-white' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400'
                 }`}
               >
@@ -281,7 +364,7 @@ export const TodoListTool: React.FC<ToolProps> = () => {
           </div>
           <button
             onClick={addTask}
-            className="ml-auto px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs"
+            className="ml-auto px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs cursor-pointer"
           >
             Add Task
           </button>
@@ -299,32 +382,51 @@ export const TodoListTool: React.FC<ToolProps> = () => {
                 : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white'
             }`}
           >
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 truncate mr-2">
               <input
                 type="checkbox"
                 checked={t.done}
                 onChange={() => {}}
-                className="rounded accent-pink-500 w-4 h-4"
+                className="rounded accent-pink-500 w-4 h-4 shrink-0"
               />
-              <div>
-                <span className="font-bold block">{t.title}</span>
+              <div className="truncate">
+                <span className="font-bold block truncate">{t.title}</span>
                 <span className="text-[10px] text-slate-400">Due: {t.due}</span>
               </div>
             </div>
 
-            <span
-              className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                t.priority === 'high'
-                  ? 'bg-rose-500/10 text-rose-600'
-                  : t.priority === 'med'
-                  ? 'bg-amber-500/10 text-amber-600'
-                  : 'bg-emerald-500/10 text-emerald-600'
-              }`}
-            >
-              {t.priority}
-            </span>
+            <div className="flex items-center gap-2 shrink-0">
+              <span
+                className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                  t.priority === 'high'
+                    ? 'bg-rose-500/10 text-rose-600'
+                    : t.priority === 'med'
+                    ? 'bg-amber-500/10 text-amber-600'
+                    : 'bg-emerald-500/10 text-emerald-600'
+                }`}
+              >
+                {t.priority}
+              </span>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteTask(t.id);
+                }}
+                className="p-1 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                title="Delete task"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         ))}
+        {tasks.length === 0 && (
+          <div className="p-8 text-center text-slate-400 text-xs">
+            <ListTodo className="w-8 h-8 mx-auto mb-2 opacity-40 text-pink-500" />
+            <p className="font-semibold text-slate-600 dark:text-slate-300">No tasks on your to-do list</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Enter a task title and due date above to stay organized.</p>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -335,12 +437,21 @@ export const TodoListTool: React.FC<ToolProps> = () => {
 // ========================================================
 export const HabitTrackerTool: React.FC<ToolProps> = () => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  const [habits, setHabits] = useState([
-    { id: '1', name: 'Drink 2L Water', days: [true, true, true, true, false, false, false] },
-    { id: '2', name: '30-Min Workout', days: [true, true, false, true, false, false, false] },
-    { id: '3', name: 'Read 20 Pages', days: [true, true, true, true, true, false, false] },
-  ]);
+  const [habits, setHabits] = useState<{ id: string; name: string; days: boolean[] }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_habits');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [newHabit, setNewHabit] = useState('');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_habits', JSON.stringify(habits));
+    } catch {}
+  }, [habits]);
 
   const toggleDay = (habitId: string, dayIndex: number) => {
     setHabits(
@@ -362,6 +473,10 @@ export const HabitTrackerTool: React.FC<ToolProps> = () => {
     setNewHabit('');
   };
 
+  const deleteHabit = (id: string) => {
+    setHabits((prev) => prev.filter((h) => h.id !== id));
+  };
+
   return (
     <div className="max-w-3xl mx-auto p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-6">
       <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -369,6 +484,9 @@ export const HabitTrackerTool: React.FC<ToolProps> = () => {
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">Weekly Habit Tracker</h3>
           <p className="text-xs text-slate-500">Tick daily completed habits to build streaks</p>
         </div>
+        {habits.length > 0 && (
+          <span className="text-xs text-slate-500">{habits.length} habits tracked</span>
+        )}
       </div>
 
       <div className="flex gap-2">
@@ -382,7 +500,7 @@ export const HabitTrackerTool: React.FC<ToolProps> = () => {
         />
         <button
           onClick={addHabit}
-          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs"
+          className="px-4 py-2.5 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shrink-0 cursor-pointer"
         >
           Add Habit
         </button>
@@ -396,30 +514,46 @@ export const HabitTrackerTool: React.FC<ToolProps> = () => {
               key={h.id}
               className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
             >
-              <div className="flex items-center gap-2">
-                <Flame className={`w-4 h-4 ${streak >= 5 ? 'text-amber-500' : 'text-slate-400'}`} />
-                <span className="font-bold text-slate-900 dark:text-white">{h.name}</span>
-                <span className="text-[10px] text-slate-400">({streak}/7 days)</span>
+              <div className="flex items-center gap-2 truncate mr-2">
+                <Flame className={`w-4 h-4 shrink-0 ${streak >= 5 ? 'text-amber-500' : 'text-slate-400'}`} />
+                <span className="font-bold text-slate-900 dark:text-white truncate">{h.name}</span>
+                <span className="text-[10px] text-slate-400 shrink-0">({streak}/7 days)</span>
               </div>
 
-              <div className="flex gap-1.5 self-center sm:self-auto">
-                {days.map((d, i) => (
-                  <button
-                    key={d}
-                    onClick={() => toggleDay(h.id, i)}
-                    className={`w-8 h-8 rounded-xl font-bold flex items-center justify-center text-[10px] transition-all ${
-                      h.days[i]
-                        ? 'bg-emerald-500 text-white shadow-xs'
-                        : 'bg-white dark:bg-slate-900 text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-emerald-500'
-                    }`}
-                  >
-                    {d[0]}
-                  </button>
-                ))}
+              <div className="flex items-center gap-2 self-center sm:self-auto shrink-0">
+                <div className="flex gap-1.5">
+                  {days.map((d, i) => (
+                    <button
+                      key={d}
+                      onClick={() => toggleDay(h.id, i)}
+                      className={`w-8 h-8 rounded-xl font-bold flex items-center justify-center text-[10px] transition-all cursor-pointer ${
+                        h.days[i]
+                          ? 'bg-emerald-500 text-white shadow-xs'
+                          : 'bg-white dark:bg-slate-900 text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-emerald-500'
+                      }`}
+                    >
+                      {d[0]}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  onClick={() => deleteHabit(h.id)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors ml-1 cursor-pointer"
+                  title="Delete habit"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
               </div>
             </div>
           );
         })}
+        {habits.length === 0 && (
+          <div className="p-8 text-center text-slate-400 text-xs">
+            <Flame className="w-8 h-8 mx-auto mb-2 opacity-40 text-amber-500" />
+            <p className="font-semibold text-slate-600 dark:text-slate-300">No habits tracked yet</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Add a daily habit above (e.g. "Read 20 mins" or "Drink 2L Water") to start building streaks.</p>
+          </div>
+        )}
       </div>
     </div>
   );

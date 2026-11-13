@@ -121,10 +121,22 @@ export const ProductivityWorkspace: React.FC<ProductivityWorkspaceProps> = ({
   // ==========================================
   // 448: ANIMATED WHEEL OF NAMES
   // ==========================================
-  const [namesText, setNamesText] = useState('Emma\nLiam\nOlivia\nNoah\nAva\nEthan\nSophia\nLucas');
+  const [namesText, setNamesText] = useState(() => {
+    try {
+      return localStorage.getItem('toolstrum_wheel_names') || '';
+    } catch {
+      return '';
+    }
+  });
   const [rotation, setRotation] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
   const [winnerName, setWinnerName] = useState<string | null>(null);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_wheel_names', namesText);
+    } catch {}
+  }, [namesText]);
 
   const parsedNames = namesText
     .split('\n')
@@ -321,16 +333,27 @@ export const ProductivityWorkspace: React.FC<ProductivityWorkspaceProps> = ({
                     const shuffled = [...parsedNames].sort(() => Math.random() - 0.5);
                     setNamesText(shuffled.join('\n'));
                   }}
-                  className="flex-1 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs"
+                  disabled={parsedNames.length < 2}
+                  className="flex-1 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 disabled:opacity-40 text-slate-700 dark:text-slate-300 font-bold text-xs cursor-pointer"
                 >
                   Shuffle List
                 </button>
                 <button
                   onClick={() => setNamesText('Alice\nBob\nCharlie\nDiana\nEvan\nFiona')}
-                  className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 text-xs"
+                  className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-400 text-xs font-semibold cursor-pointer"
+                  title="Load sample names"
                 >
-                  Reset
+                  Load Samples
                 </button>
+                {namesText && (
+                  <button
+                    onClick={() => setNamesText('')}
+                    className="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-semibold cursor-pointer"
+                    title="Clear names"
+                  >
+                    Clear
+                  </button>
+                )}
               </div>
 
               {winnerName && (

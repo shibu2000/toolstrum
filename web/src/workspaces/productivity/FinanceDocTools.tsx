@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   DollarSign,
   Receipt,
@@ -98,20 +98,37 @@ export const ExpenseSplitterTool: React.FC<ToolProps> = () => {
 // 422 — PERSONAL EXPENSE TRACKER
 // ========================================================
 export const PersonalExpenseTrackerTool: React.FC<ToolProps> = () => {
-  const [expenses, setExpenses] = useState<{ id: string; category: string; desc: string; amount: number }[]>([
-    { id: '1', category: 'Food & Dining', desc: 'Grocery Store', amount: 84.5 },
-    { id: '2', category: 'Utilities', desc: 'Internet Bill', amount: 65.0 },
-    { id: '3', category: 'Transport', desc: 'Fuel / Gas', amount: 45.0 },
-  ]);
+  const [expenses, setExpenses] = useState<{ id: string; category: string; desc: string; amount: number }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_expenses');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [category, setCategory] = useState('Food & Dining');
   const [desc, setDesc] = useState('');
   const [amount, setAmount] = useState<number>(0);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_expenses', JSON.stringify(expenses));
+    } catch {}
+  }, [expenses]);
 
   const addExpense = () => {
     if (!desc.trim() || amount <= 0) return;
     setExpenses([...expenses, { id: Date.now().toString(), category, desc: desc.trim(), amount }]);
     setDesc('');
     setAmount(0);
+  };
+
+  const deleteExpense = (id: string) => {
+    setExpenses((prev) => prev.filter((x) => x.id !== id));
+  };
+
+  const clearAll = () => {
+    setExpenses([]);
   };
 
   const total = expenses.reduce((acc, e) => acc + e.amount, 0);
@@ -162,7 +179,7 @@ export const PersonalExpenseTrackerTool: React.FC<ToolProps> = () => {
 
         <button
           onClick={addExpense}
-          className="w-full py-3 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-sm shadow-md"
+          className="w-full py-3 rounded-2xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-sm shadow-md cursor-pointer"
         >
           Add Expense
         </button>
@@ -173,26 +190,47 @@ export const PersonalExpenseTrackerTool: React.FC<ToolProps> = () => {
           <span className="text-xs font-bold text-pink-600 dark:text-pink-400 uppercase tracking-wider">
             Total Spending
           </span>
-          <span className="text-3xl font-black font-mono text-slate-900 dark:text-white">
-            ${total.toFixed(2)}
-          </span>
+          <div className="flex items-center gap-3">
+            {expenses.length > 0 && (
+              <button
+                onClick={clearAll}
+                className="text-[11px] font-bold text-rose-500 hover:text-rose-600 cursor-pointer"
+              >
+                Clear All
+              </button>
+            )}
+            <span className="text-3xl font-black font-mono text-slate-900 dark:text-white">
+              ${total.toFixed(2)}
+            </span>
+          </div>
         </div>
 
         <div className="space-y-2 max-h-[280px] overflow-y-auto">
           {expenses.map((e) => (
             <div key={e.id} className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 flex justify-between items-center text-xs">
-              <div>
-                <span className="font-bold text-slate-900 dark:text-white block">{e.desc}</span>
+              <div className="truncate mr-2">
+                <span className="font-bold text-slate-900 dark:text-white block truncate">{e.desc}</span>
                 <span className="text-[10px] text-slate-400">{e.category}</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <span className="font-mono font-bold text-pink-600 dark:text-pink-400">${e.amount.toFixed(2)}</span>
-                <button onClick={() => setExpenses(expenses.filter((x) => x.id !== e.id))} className="text-slate-400 hover:text-rose-500">
+                <button
+                  onClick={() => deleteExpense(e.id)}
+                  className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                  title="Delete expense"
+                >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
           ))}
+          {expenses.length === 0 && (
+            <div className="p-8 text-center text-slate-400 text-xs">
+              <DollarSign className="w-8 h-8 mx-auto mb-2 opacity-40 text-pink-500" />
+              <p className="font-semibold text-slate-600 dark:text-slate-300">No expenses logged</p>
+              <p className="text-[11px] text-slate-400 mt-0.5">Use the form on the left to track personal expenses.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -292,13 +330,73 @@ export const BudgetPlannerTool: React.FC<ToolProps> = () => {
 // 424 — INVOICE GENERATOR
 // ========================================================
 export const InvoiceGeneratorTool: React.FC<ToolProps> = () => {
-  const [invoiceNo, setInvoiceNo] = useState('INV-2026-001');
-  const [client, setClient] = useState('Acme Corporation');
-  const [items, setItems] = useState([
-    { desc: 'Web App Development', qty: 40, rate: 75 },
-    { desc: 'UI/UX Design & Prototyping', qty: 15, rate: 60 },
-  ]);
-  const [taxPct, setTaxPct] = useState(10);
+  const [invoiceNo, setInvoiceNo] = useState(() => {
+    try {
+      return localStorage.getItem('toolstrum_invoice_no') || 'INV-2026-001';
+    } catch {
+      return 'INV-2026-001';
+    }
+  });
+  const [client, setClient] = useState(() => {
+    try {
+      return localStorage.getItem('toolstrum_invoice_client') || '';
+    } catch {
+      return '';
+    }
+  });
+  const [items, setItems] = useState<{ id: string; desc: string; qty: number; rate: number }[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_invoice_items');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [taxPct, setTaxPct] = useState(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_invoice_tax');
+      return saved !== null ? Number(saved) : 10;
+    } catch {
+      return 10;
+    }
+  });
+
+  const [newDesc, setNewDesc] = useState('');
+  const [newQty, setNewQty] = useState<number>(1);
+  const [newRate, setNewRate] = useState<number>(50);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_invoice_no', invoiceNo);
+      localStorage.setItem('toolstrum_invoice_client', client);
+      localStorage.setItem('toolstrum_invoice_items', JSON.stringify(items));
+      localStorage.setItem('toolstrum_invoice_tax', String(taxPct));
+    } catch {}
+  }, [invoiceNo, client, items, taxPct]);
+
+  const addItem = () => {
+    if (!newDesc.trim() || newQty <= 0 || newRate < 0) return;
+    setItems([
+      ...items,
+      {
+        id: Date.now().toString(),
+        desc: newDesc.trim(),
+        qty: Number(newQty),
+        rate: Number(newRate),
+      },
+    ]);
+    setNewDesc('');
+    setNewQty(1);
+    setNewRate(50);
+  };
+
+  const deleteItem = (id: string) => {
+    setItems((prev) => prev.filter((it) => it.id !== id));
+  };
+
+  const clearAll = () => {
+    setItems([]);
+  };
 
   const subtotal = items.reduce((acc, it) => acc + it.qty * it.rate, 0);
   const tax = subtotal * (taxPct / 100);
@@ -313,7 +411,7 @@ export const InvoiceGeneratorTool: React.FC<ToolProps> = () => {
         </div>
         <button
           onClick={() => window.print()}
-          className="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md"
+          className="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md cursor-pointer"
         >
           <Printer className="w-4 h-4" /> Print / Save PDF
         </button>
@@ -326,7 +424,8 @@ export const InvoiceGeneratorTool: React.FC<ToolProps> = () => {
             type="text"
             value={client}
             onChange={(e) => setClient(e.target.value)}
-            className="w-full p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border font-bold"
+            placeholder="Client or Company Name..."
+            className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border font-bold text-xs"
           />
         </div>
         <div>
@@ -335,21 +434,87 @@ export const InvoiceGeneratorTool: React.FC<ToolProps> = () => {
             type="text"
             value={invoiceNo}
             onChange={(e) => setInvoiceNo(e.target.value)}
-            className="w-full p-2 rounded-xl bg-slate-50 dark:bg-slate-800 border font-mono font-bold"
+            placeholder="INV-001"
+            className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border font-mono font-bold text-xs"
           />
         </div>
       </div>
 
+      {/* Add Line Item Form */}
+      <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+        <span className="text-xs font-bold text-slate-700 dark:text-slate-300 block">Add Line Item</span>
+        <div className="grid grid-cols-1 sm:grid-cols-12 gap-2">
+          <input
+            type="text"
+            value={newDesc}
+            onChange={(e) => setNewDesc(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && addItem()}
+            placeholder="Service or Product description..."
+            className="sm:col-span-6 p-2 rounded-xl bg-white dark:bg-slate-900 border text-xs font-medium"
+          />
+          <input
+            type="number"
+            min="1"
+            value={newQty}
+            onChange={(e) => setNewQty(Number(e.target.value))}
+            placeholder="Qty"
+            className="sm:col-span-2 p-2 rounded-xl bg-white dark:bg-slate-900 border text-xs font-mono text-center"
+          />
+          <input
+            type="number"
+            min="0"
+            step="0.01"
+            value={newRate}
+            onChange={(e) => setNewRate(Number(e.target.value))}
+            placeholder="Rate ($)"
+            className="sm:col-span-2 p-2 rounded-xl bg-white dark:bg-slate-900 border text-xs font-mono text-right"
+          />
+          <button
+            onClick={addItem}
+            className="sm:col-span-2 py-2 px-3 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs flex items-center justify-center gap-1 cursor-pointer shadow-xs"
+          >
+            <Plus className="w-3.5 h-3.5" />
+            <span>Add</span>
+          </button>
+        </div>
+      </div>
+
       <div className="space-y-2">
-        <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Line Items</span>
-        {items.map((it, idx) => (
-          <div key={idx} className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 flex justify-between items-center text-xs">
-            <span className="font-bold text-slate-900 dark:text-white">{it.desc}</span>
-            <span className="font-mono text-slate-600 dark:text-slate-300">
-              {it.qty} × ${it.rate} = <b className="text-slate-900 dark:text-white">${it.qty * it.rate}</b>
-            </span>
+        <div className="flex justify-between items-center">
+          <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">Line Items ({items.length})</span>
+          {items.length > 0 && (
+            <button
+              onClick={clearAll}
+              className="text-[11px] font-bold text-rose-500 hover:text-rose-600 cursor-pointer"
+            >
+              Clear All
+            </button>
+          )}
+        </div>
+        {items.map((it) => (
+          <div key={it.id} className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 flex justify-between items-center text-xs">
+            <span className="font-bold text-slate-900 dark:text-white truncate mr-2">{it.desc}</span>
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="font-mono text-slate-600 dark:text-slate-300 text-xs">
+                {it.qty} × ${it.rate.toFixed(2)} = <b className="text-slate-900 dark:text-white">${(it.qty * it.rate).toFixed(2)}</b>
+              </span>
+              <button
+                onClick={() => deleteItem(it.id)}
+                className="p-1 rounded text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer"
+                title="Remove item"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         ))}
+        {items.length === 0 && (
+          <div className="p-8 text-center text-slate-400 text-xs border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl">
+            <Receipt className="w-8 h-8 mx-auto mb-2 opacity-40 text-pink-500" />
+            <p className="font-semibold text-slate-600 dark:text-slate-300">No line items added yet</p>
+            <p className="text-[11px] text-slate-400 mt-0.5">Use the form above to add billable services or items.</p>
+          </div>
+        )}
       </div>
 
       <div className="pt-4 border-t border-slate-100 dark:border-slate-800 text-xs space-y-1.5 text-right font-mono">
@@ -357,8 +522,18 @@ export const InvoiceGeneratorTool: React.FC<ToolProps> = () => {
           <span className="text-slate-400">Subtotal:</span>
           <span className="font-bold text-slate-900 dark:text-white">${subtotal.toFixed(2)}</span>
         </div>
-        <div className="flex justify-between">
-          <span className="text-slate-400">Tax ({taxPct}%):</span>
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-1 text-slate-400">
+            <span>Tax (%):</span>
+            <input
+              type="number"
+              min="0"
+              max="100"
+              value={taxPct}
+              onChange={(e) => setTaxPct(Number(e.target.value))}
+              className="w-14 p-1 rounded-lg bg-slate-50 dark:bg-slate-800 border text-xs font-mono text-right"
+            />
+          </div>
           <span>${tax.toFixed(2)}</span>
         </div>
         <div className="flex justify-between text-base font-black text-pink-600 dark:text-pink-400 pt-2 border-t">

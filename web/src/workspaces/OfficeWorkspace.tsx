@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FileSpreadsheet,
   Table,
@@ -153,13 +153,30 @@ export const OfficeWorkspace: React.FC<OfficeWorkspaceProps> = ({
   // ==========================================
   // TAB 3: SPREADSHEET & CSV STUDIO (162-171)
   // ==========================================
-  const [csvHeaders, setCsvHeaders] = useState<string[]>(['Name', 'Department', 'Location', 'Status']);
-  const [csvRows, setCsvRows] = useState<string[][]>([
-    ['Sarah Jenkins', 'Engineering', 'New York', 'Active'],
-    ['Alex Rivera', 'Product Design', 'London', 'Active'],
-    ['Jordan Lee', 'Operations', 'Tokyo', 'Pending'],
-  ]);
+  const [csvHeaders, setCsvHeaders] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_csv_headers');
+      return saved ? JSON.parse(saved) : ['Name', 'Department', 'Location', 'Status'];
+    } catch {
+      return ['Name', 'Department', 'Location', 'Status'];
+    }
+  });
+  const [csvRows, setCsvRows] = useState<string[][]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_csv_rows');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [newRowData, setNewRowData] = useState<string[]>(['', '', '', '']);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_csv_headers', JSON.stringify(csvHeaders));
+      localStorage.setItem('toolstrum_csv_rows', JSON.stringify(csvRows));
+    } catch {}
+  }, [csvHeaders, csvRows]);
 
   // CSV <-> JSON Converter
   const [jsonInput, setJsonInput] = useState('');
@@ -609,6 +626,15 @@ export const OfficeWorkspace: React.FC<OfficeWorkspaceProps> = ({
               </h3>
 
               <div className="flex items-center gap-2">
+                {csvRows.length > 0 && (
+                  <button
+                    onClick={() => setCsvRows([])}
+                    className="px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/50 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-semibold text-rose-600 dark:text-rose-400 cursor-pointer flex items-center gap-1"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                    <span>Clear Table</span>
+                  </button>
+                )}
                 <button
                   onClick={handleDeduplicateCsv}
                   className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 cursor-pointer"
@@ -671,6 +697,13 @@ export const OfficeWorkspace: React.FC<OfficeWorkspaceProps> = ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                  {csvRows.length === 0 && (
+                    <tr>
+                      <td colSpan={csvHeaders.length + 1} className="p-8 text-center text-slate-400 text-xs">
+                        Spreadsheet table is currently empty. Add values below or merge a CSV file.
+                      </td>
+                    </tr>
+                  )}
                   {csvRows.map((row, rIdx) => (
                     <tr key={rIdx} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30">
                       {row.map((cell, cIdx) => (

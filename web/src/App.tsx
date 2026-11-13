@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAppStore } from './store/useAppStore';
 import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
@@ -6,6 +6,7 @@ import { OmniSearchModal } from './components/layout/OmniSearchModal';
 import { StudioDashboard } from './components/studios/StudioDashboard';
 import { StudioOverviewScreen } from './components/studios/StudioOverviewScreen';
 import { ToolWorkspaceRouter } from './components/studios/ToolWorkspaceRouter';
+import { SplashScreen } from './components/common/SplashScreen';
 import { getToolsByStudio, getToolById, STUDIOS } from './data/webRegistry';
 import { StudioTheme } from './constants/tokens';
 import {
@@ -26,6 +27,28 @@ export default function App() {
     isDarkMode,
   } = useAppStore();
 
+  const [showSplash, setShowSplash] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  // Splash screen transition timer
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.search.includes('splash=hold')) {
+      return;
+    }
+    const fadeTimer = setTimeout(() => {
+      setIsFadingOut(true);
+    }, 450);
+
+    const removeTimer = setTimeout(() => {
+      setShowSplash(false);
+    }, 950);
+
+    return () => {
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+    };
+  }, []);
+
   // Dark mode class sync
   useEffect(() => {
     if (isDarkMode) {
@@ -35,17 +58,8 @@ export default function App() {
     }
   }, [isDarkMode]);
 
-  // Initial URL sync and popstate listener
+  // Popstate listener for back/forward navigation
   useEffect(() => {
-    const route = parseCurrentRoute();
-    if (route.type === 'tool' && route.toolId) {
-      setActiveStudio(route.studioId);
-      setActiveTool(route.toolId);
-    } else if (route.type === 'studio' && route.studioId) {
-      setActiveStudio(route.studioId);
-      setActiveTool(null);
-    }
-
     const handlePopState = () => {
       const current = parseCurrentRoute();
       setActiveStudio(current.studioId);
@@ -122,6 +136,9 @@ export default function App() {
 
       {/* Global Cmd+K Command Palette */}
       <OmniSearchModal />
+
+      {/* Loading Splash Screen */}
+      {showSplash && <SplashScreen isFadingOut={isFadingOut} />}
     </div>
   );
 }

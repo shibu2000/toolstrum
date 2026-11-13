@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import {
   Briefcase,
@@ -310,15 +310,22 @@ ${applicant}`;
 export const TimetableMakerTool: React.FC<ToolProps> = () => {
   const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
   const times = ['09:00', '11:00', '13:00', '15:00'];
-  const [schedule, setSchedule] = useState<Record<string, string>>({
-    'Mon-09:00': 'Algorithms & Data Structures',
-    'Tue-11:00': 'Database Architecture',
-    'Wed-13:00': 'UI/UX Design Lab',
-    'Thu-09:00': 'Distributed Systems',
-    'Fri-15:00': 'Project Showcase',
+  const [schedule, setSchedule] = useState<Record<string, string>>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_timetable');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
   });
   const [selectedCell, setSelectedCell] = useState<string | null>(null);
   const [cellText, setCellText] = useState('');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_timetable', JSON.stringify(schedule));
+    } catch {}
+  }, [schedule]);
 
   const handleCellClick = (key: string) => {
     setSelectedCell(key);
@@ -327,26 +334,61 @@ export const TimetableMakerTool: React.FC<ToolProps> = () => {
 
   const handleSaveCell = () => {
     if (!selectedCell) return;
-    setSchedule((prev) => ({
-      ...prev,
-      [selectedCell]: cellText.trim(),
-    }));
+    setSchedule((prev) => {
+      const next = { ...prev };
+      if (cellText.trim()) {
+        next[selectedCell] = cellText.trim();
+      } else {
+        delete next[selectedCell];
+      }
+      return next;
+    });
     setSelectedCell(null);
   };
+
+  const handleClearCell = () => {
+    if (!selectedCell) return;
+    setSchedule((prev) => {
+      const next = { ...prev };
+      delete next[selectedCell];
+      return next;
+    });
+    setSelectedCell(null);
+  };
+
+  const handleClearSchedule = () => {
+    setSchedule({});
+    setSelectedCell(null);
+  };
+
+  const entriesCount = Object.keys(schedule).filter((k) => schedule[k]).length;
 
   return (
     <div className="max-w-4xl mx-auto p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-lg space-y-4">
       <div className="flex justify-between items-center pb-3 border-b border-slate-100 dark:border-slate-800">
         <div>
           <h3 className="text-sm font-bold text-slate-900 dark:text-white">Weekly Schedule Grid</h3>
-          <p className="text-xs text-slate-500">Click any time cell below to edit or assign classes/events</p>
+          <p className="text-xs text-slate-500">
+            {entriesCount > 0 ? `${entriesCount} slots scheduled` : 'Click any time cell below to assign classes or events'}
+          </p>
         </div>
-        <button
-          onClick={() => window.print()}
-          className="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md cursor-pointer"
-        >
-          <Printer className="w-4 h-4" /> Print Timetable
-        </button>
+        <div className="flex items-center gap-2">
+          {entriesCount > 0 && (
+            <button
+              onClick={handleClearSchedule}
+              className="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center gap-1.5 cursor-pointer"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Clear Schedule</span>
+            </button>
+          )}
+          <button
+            onClick={() => window.print()}
+            className="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs flex items-center gap-1.5 shadow-md cursor-pointer"
+          >
+            <Printer className="w-4 h-4" /> Print Timetable
+          </button>
+        </div>
       </div>
 
       {selectedCell && (
@@ -369,9 +411,19 @@ export const TimetableMakerTool: React.FC<ToolProps> = () => {
           >
             Save
           </button>
+          {schedule[selectedCell] && (
+            <button
+              onClick={handleClearCell}
+              className="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 font-bold text-xs flex items-center gap-1 cursor-pointer"
+              title="Delete this slot entry"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Clear Slot</span>
+            </button>
+          )}
           <button
             onClick={() => setSelectedCell(null)}
-            className="px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-xs"
+            className="px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold text-xs cursor-pointer"
           >
             Cancel
           </button>
@@ -458,10 +510,23 @@ const PRESET_DECKS: Record<string, { q: string; a: string }[]> = {
 };
 
 export const FlashcardMakerTool: React.FC<ToolProps> = () => {
-  const [cards, setCards] = useState<Flashcard[]>(DEFAULT_FLASHCARDS);
+  const [cards, setCards] = useState<Flashcard[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_flashcards');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [activeMode, setActiveMode] = useState<'study' | 'builder' | 'bulk'>('study');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_flashcards', JSON.stringify(cards));
+    } catch {}
+  }, [cards]);
 
   // Builder states
   const [newQuestion, setNewQuestion] = useState('');
@@ -1055,8 +1120,21 @@ const PRESET_QUIZZES: Record<string, QuizQuestion[]> = {
 };
 
 export const QuizGeneratorTool: React.FC<ToolProps> = () => {
-  const [questions, setQuestions] = useState<QuizQuestion[]>(DEFAULT_QUIZ_QUESTIONS);
+  const [questions, setQuestions] = useState<QuizQuestion[]>(() => {
+    try {
+      const saved = localStorage.getItem('toolstrum_quiz_questions');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
   const [activeTab, setActiveTab] = useState<'play' | 'create' | 'bulk' | 'results'>('play');
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('toolstrum_quiz_questions', JSON.stringify(questions));
+    } catch {}
+  }, [questions]);
 
   // Quiz play state
   const [currentQ, setCurrentQ] = useState(0);
