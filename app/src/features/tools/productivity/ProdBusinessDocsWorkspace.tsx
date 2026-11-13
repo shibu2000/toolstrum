@@ -49,6 +49,30 @@ export const ProdBusinessDocsWorkspace: React.FC<ProdBusinessDocsWorkspaceProps>
   const [taxPercent, setTaxPercent] = useState('0');
   const [discountVal, setDiscountVal] = useState('0');
   const [items, setItems] = useState<{ description: string; quantity: number; unitPrice: number }[]>([]);
+  const [newDesc, setNewDesc] = useState('');
+  const [newQty, setNewQty] = useState('1');
+  const [newUnitPrice, setNewUnitPrice] = useState('');
+
+  const addLineItem = () => {
+    const q = parseInt(newQty, 10) || 1;
+    const p = parseFloat(newUnitPrice);
+    if (!newDesc.trim() || isNaN(p) || p <= 0) {
+      Alert.alert('Invalid Line Item', 'Please enter a description and valid positive unit price.');
+      return;
+    }
+    setItems([...items, { description: newDesc.trim(), quantity: q, unitPrice: p }]);
+    setNewDesc('');
+    setNewQty('1');
+    setNewUnitPrice('');
+  };
+
+  const deleteLineItem = (idx: number) => {
+    setItems(items.filter((_, i) => i !== idx));
+  };
+
+  const clearAllItems = () => {
+    setItems([]);
+  };
 
   // Business Card / vCard state
   const [vCard, setVCard] = useState<VCardContact>({
@@ -221,6 +245,76 @@ export const ProdBusinessDocsWorkspace: React.FC<ProdBusinessDocsWorkspaceProps>
                     keyboardType="numeric"
                   />
                 </View>
+              </View>
+
+              <Text style={styles.subheading}>Add Document Line Item</Text>
+              <TextInput
+                style={styles.input}
+                value={newDesc}
+                onChangeText={setNewDesc}
+                placeholder="Item Description (e.g. Design Consulting)"
+              />
+              <View style={styles.row}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.label}>Quantity</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={newQty}
+                    onChangeText={setNewQty}
+                    keyboardType="numeric"
+                    placeholder="1"
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.label}>Unit Price ($)</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={newUnitPrice}
+                    onChangeText={setNewUnitPrice}
+                    keyboardType="numeric"
+                    placeholder="150.00"
+                  />
+                </View>
+              </View>
+              <PrimaryButton
+                title="Add Line Item"
+                icon="Plus"
+                onPress={addLineItem}
+              />
+
+              <View style={styles.itemsSection}>
+                <View style={styles.sectionHeaderRow}>
+                  <Text style={styles.subheading}>Document Items ({items.length})</Text>
+                  {items.length > 0 && (
+                    <TouchableOpacity onPress={clearAllItems} style={styles.clearAllBtn}>
+                      <Text style={styles.clearAllText}>Clear Items</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+                {items.length === 0 ? (
+                  <Text style={styles.emptyItemsText}>No items added yet. Add a line item above.</Text>
+                ) : (
+                  items.map((item, idx) => (
+                    <View key={idx} style={styles.itemRow}>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.itemDesc}>{item.description}</Text>
+                        <Text style={styles.itemMeta}>
+                          {item.quantity} x ${item.unitPrice.toFixed(2)}
+                        </Text>
+                      </View>
+                      <Text style={styles.itemTotal}>
+                        ${(item.quantity * item.unitPrice).toFixed(2)}
+                      </Text>
+                      <TouchableOpacity
+                        onPress={() => deleteLineItem(idx)}
+                        style={styles.deleteBtn}
+                        accessibilityLabel="Delete item"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
+                    </View>
+                  ))
+                )}
               </View>
             </View>
 
@@ -508,5 +602,73 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     gap: 8,
+  },
+  subheading: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#9D174D',
+    marginTop: Spacing.sm,
+    marginBottom: 6,
+  },
+  itemsSection: {
+    marginTop: Spacing.md,
+    paddingTop: Spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: '#FCE7F3',
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  clearAllBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#FEE2E2',
+    borderRadius: Radius.sm,
+  },
+  clearAllText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#DC2626',
+  },
+  emptyItemsText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    color: '#94A3B8',
+    paddingVertical: 6,
+  },
+  itemRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FDF2F8',
+    padding: 8,
+    borderRadius: Radius.sm,
+    marginBottom: 6,
+    borderWidth: 1,
+    borderColor: '#FCE7F3',
+    gap: 8,
+  },
+  itemDesc: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#1E293B',
+  },
+  itemMeta: {
+    fontSize: 11,
+    color: '#64748B',
+    marginTop: 2,
+  },
+  itemTotal: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#831843',
+    marginRight: 4,
+  },
+  deleteBtn: {
+    padding: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

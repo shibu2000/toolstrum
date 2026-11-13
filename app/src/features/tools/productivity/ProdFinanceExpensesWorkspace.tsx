@@ -56,6 +56,9 @@ export const ProdFinanceExpensesWorkspace: React.FC<ProdFinanceExpensesWorkspace
   // Budget Planner state
   const [monthlyIncome, setMonthlyIncome] = useState('0');
   const [budgetCategories, setBudgetCategories] = useState<BudgetCategory[]>([]);
+  const [newCatName, setNewCatName] = useState('');
+  const [newCatBudget, setNewCatBudget] = useState('');
+  const [newCatSpent, setNewCatSpent] = useState('');
 
   // Splitter engine
   const splitResult = calculateExpenseSplit(splitExpenses);
@@ -83,6 +86,14 @@ export const ProdFinanceExpensesWorkspace: React.FC<ProdFinanceExpensesWorkspace
     setNewSplitAmount('');
   };
 
+  const deleteSplitExpense = (idx: number) => {
+    setSplitExpenses(splitExpenses.filter((_, i) => i !== idx));
+  };
+
+  const clearAllSplitExpenses = () => {
+    setSplitExpenses([]);
+  };
+
   // Personal expense engine
   const expSummary = summarizePersonalExpenses(personalExpenses);
 
@@ -98,7 +109,7 @@ export const ProdFinanceExpensesWorkspace: React.FC<ProdFinanceExpensesWorkspace
         category: newExpCategory,
         description: newExpDesc.trim(),
         amount: amt,
-        date: 'Just now',
+        date: new Date().toLocaleDateString([], { month: 'short', day: 'numeric' }),
       },
       ...personalExpenses,
     ]);
@@ -106,9 +117,41 @@ export const ProdFinanceExpensesWorkspace: React.FC<ProdFinanceExpensesWorkspace
     setNewExpAmount('');
   };
 
+  const deletePersonalExpense = (idx: number) => {
+    setPersonalExpenses(personalExpenses.filter((_, i) => i !== idx));
+  };
+
+  const clearAllPersonalExpenses = () => {
+    setPersonalExpenses([]);
+  };
+
   // Budget planner engine
   const incomeNum = parseFloat(monthlyIncome) || 0;
   const budgetResult = calculateMonthlyBudget(incomeNum, budgetCategories);
+
+  const addBudgetCategory = () => {
+    const b = parseFloat(newCatBudget);
+    const s = parseFloat(newCatSpent) || 0;
+    if (!newCatName.trim() || isNaN(b) || b <= 0) {
+      Alert.alert('Invalid Category', 'Please enter category name and valid budget limit.');
+      return;
+    }
+    setBudgetCategories([
+      ...budgetCategories,
+      { name: newCatName.trim(), budget: b, spent: s },
+    ]);
+    setNewCatName('');
+    setNewCatBudget('');
+    setNewCatSpent('');
+  };
+
+  const deleteBudgetCategory = (idx: number) => {
+    setBudgetCategories(budgetCategories.filter((_, i) => i !== idx));
+  };
+
+  const clearAllBudgetCategories = () => {
+    setBudgetCategories([]);
+  };
 
   return (
     <View style={styles.container}>
@@ -197,13 +240,33 @@ export const ProdFinanceExpensesWorkspace: React.FC<ProdFinanceExpensesWorkspace
               />
 
               <View style={styles.loggedSection}>
-                <Text style={styles.subheading}>Logged Expenses ({splitExpenses.length})</Text>
-                {splitExpenses.map((e, idx) => (
-                  <View key={idx} style={styles.logRow}>
-                    <Text style={styles.logPayer}>{e.payer} paid ${e.amount.toFixed(2)}</Text>
-                    <Text style={styles.logParts}>Split: {e.participants.join(', ')}</Text>
-                  </View>
-                ))}
+                <View style={styles.sectionHeaderRow}>
+                  <Text style={styles.subheading}>Logged Expenses ({splitExpenses.length})</Text>
+                  {splitExpenses.length > 0 && (
+                    <TouchableOpacity onPress={clearAllSplitExpenses} style={styles.clearAllBtn}>
+                      <Text style={styles.clearAllText}>Clear All</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+                {splitExpenses.length === 0 ? (
+                  <Text style={styles.emptyItemsText}>No group expenses logged yet. Add a bill above.</Text>
+                ) : (
+                  splitExpenses.map((e, idx) => (
+                    <View key={idx} style={styles.logRow}>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.logPayer}>{e.payer} paid ${e.amount.toFixed(2)}</Text>
+                        <Text style={styles.logParts}>Split: {e.participants.join(', ')}</Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => deleteSplitExpense(idx)}
+                        style={styles.deleteBtn}
+                        accessibilityLabel="Delete bill"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
+                    </View>
+                  ))
+                )}
               </View>
             </View>
 
@@ -285,6 +348,37 @@ export const ProdFinanceExpensesWorkspace: React.FC<ProdFinanceExpensesWorkspace
                 icon="DollarSign"
                 onPress={addPersonalExpense}
               />
+
+              <View style={styles.loggedSection}>
+                <View style={styles.sectionHeaderRow}>
+                  <Text style={styles.subheading}>Logged Expenses ({personalExpenses.length})</Text>
+                  {personalExpenses.length > 0 && (
+                    <TouchableOpacity onPress={clearAllPersonalExpenses} style={styles.clearAllBtn}>
+                      <Text style={styles.clearAllText}>Clear All</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+                {personalExpenses.length === 0 ? (
+                  <Text style={styles.emptyItemsText}>No expenses logged yet. Record your first expense above.</Text>
+                ) : (
+                  personalExpenses.map((exp, idx) => (
+                    <View key={idx} style={styles.logRow}>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.logPayer}>{exp.description}</Text>
+                        <Text style={styles.logParts}>{exp.category} • {exp.date}</Text>
+                      </View>
+                      <Text style={styles.logAmount}>${exp.amount.toFixed(2)}</Text>
+                      <TouchableOpacity
+                        onPress={() => deletePersonalExpense(idx)}
+                        style={styles.deleteBtn}
+                        accessibilityLabel="Delete expense"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
+                    </View>
+                  ))
+                )}
+              </View>
             </View>
 
             <ProductivityResultCard
@@ -318,30 +412,87 @@ export const ProdFinanceExpensesWorkspace: React.FC<ProdFinanceExpensesWorkspace
                 placeholder="3500"
               />
 
-              <Text style={styles.subheading}>Allocated Categories</Text>
-              {budgetCategories.map((cat, idx) => {
-                const isOver = cat.spent > cat.budget;
-                const ratio = cat.budget > 0 ? Math.min(100, Math.round((cat.spent / cat.budget) * 100)) : 0;
-                return (
-                  <View key={idx} style={styles.budgetRow}>
-                    <View style={styles.budgetHeader}>
-                      <Text style={styles.catName}>{cat.name}</Text>
-                      <Text style={[styles.catAmt, isOver && styles.catAmtOver]}>
-                        ${cat.spent} / ${cat.budget} ({ratio}%)
-                      </Text>
-                    </View>
-                    <View style={styles.budgetBarBg}>
-                      <View
-                        style={[
-                          styles.budgetBarFill,
-                          { width: `${ratio}%` },
-                          isOver && styles.budgetBarFillOver,
-                        ]}
-                      />
-                    </View>
-                  </View>
-                );
-              })}
+              <Text style={styles.subheading}>Add Budget Category</Text>
+              <TextInput
+                style={styles.input}
+                value={newCatName}
+                onChangeText={setNewCatName}
+                placeholder="Category Name (e.g. Groceries)"
+              />
+              <View style={styles.row}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.label}>Budget Limit ($)</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={newCatBudget}
+                    onChangeText={setNewCatBudget}
+                    keyboardType="numeric"
+                    placeholder="400"
+                  />
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.label}>Spent ($)</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={newCatSpent}
+                    onChangeText={setNewCatSpent}
+                    keyboardType="numeric"
+                    placeholder="120"
+                  />
+                </View>
+              </View>
+              <PrimaryButton
+                title="Add Category"
+                icon="Plus"
+                onPress={addBudgetCategory}
+              />
+
+              <View style={styles.loggedSection}>
+                <View style={styles.sectionHeaderRow}>
+                  <Text style={styles.subheading}>Allocated Categories ({budgetCategories.length})</Text>
+                  {budgetCategories.length > 0 && (
+                    <TouchableOpacity onPress={clearAllBudgetCategories} style={styles.clearAllBtn}>
+                      <Text style={styles.clearAllText}>Clear All</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+                {budgetCategories.length === 0 ? (
+                  <Text style={styles.emptyItemsText}>No budget categories configured yet.</Text>
+                ) : (
+                  budgetCategories.map((cat, idx) => {
+                    const isOver = cat.spent > cat.budget;
+                    const ratio = cat.budget > 0 ? Math.min(100, Math.round((cat.spent / cat.budget) * 100)) : 0;
+                    return (
+                      <View key={idx} style={styles.budgetRow}>
+                        <View style={styles.budgetHeader}>
+                          <Text style={styles.catName}>{cat.name}</Text>
+                          <View style={styles.budgetRightHeader}>
+                            <Text style={[styles.catAmt, isOver && styles.catAmtOver]}>
+                              ${cat.spent} / ${cat.budget} ({ratio}%)
+                            </Text>
+                            <TouchableOpacity
+                              onPress={() => deleteBudgetCategory(idx)}
+                              style={styles.deleteBtnSmall}
+                              accessibilityLabel="Delete category"
+                            >
+                              <AppIcon name="Trash2" size={14} color="#DC2626" />
+                            </TouchableOpacity>
+                          </View>
+                        </View>
+                        <View style={styles.budgetBarBg}>
+                          <View
+                            style={[
+                              styles.budgetBarFill,
+                              { width: `${ratio}%` },
+                              isOver && styles.budgetBarFillOver,
+                            ]}
+                          />
+                        </View>
+                      </View>
+                    );
+                  })
+                )}
+              </View>
             </View>
 
             <ProductivityResultCard
@@ -471,12 +622,15 @@ const styles = StyleSheet.create({
     borderTopColor: '#FCE7F3',
   },
   logRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
     backgroundColor: '#FDF2F8',
     padding: 8,
     borderRadius: Radius.sm,
     marginBottom: 6,
     borderWidth: 1,
     borderColor: '#FCE7F3',
+    gap: 8,
   },
   logPayer: {
     fontSize: 13,
@@ -545,5 +699,49 @@ const styles = StyleSheet.create({
   },
   budgetBarFillOver: {
     backgroundColor: '#DC2626',
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  clearAllBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#FEE2E2',
+    borderRadius: Radius.sm,
+  },
+  clearAllText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#DC2626',
+  },
+  emptyItemsText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    color: '#94A3B8',
+    paddingVertical: 6,
+  },
+  deleteBtn: {
+    padding: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteBtnSmall: {
+    padding: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logAmount: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: '#831843',
+    marginRight: 6,
+  },
+  budgetRightHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
 });

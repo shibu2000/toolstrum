@@ -31,6 +31,16 @@ interface ChecklistItem {
   checked: boolean;
 }
 
+interface NoteItem {
+  id: string;
+  title: string;
+  content: string;
+  tag: string;
+  wordCount: number;
+  charCount: number;
+  date: string;
+}
+
 interface TodoItem {
   id: string;
   title: string;
@@ -59,7 +69,7 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
   const [noteTitle, setNoteTitle] = useState('');
   const [noteContent, setNoteContent] = useState('');
   const [noteTag, setNoteTag] = useState('Work');
-  const [savedNotes, setSavedNotes] = useState<string[]>([]);
+  const [savedNotes, setSavedNotes] = useState<NoteItem[]>([]);
 
   // Checklist state
   const [checkItems, setCheckItems] = useState<ChecklistItem[]>([]);
@@ -83,9 +93,25 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
       Alert.alert('Missing Title', 'Please enter a note title.');
       return;
     }
-    const summary = `${noteTitle} [${noteTag}] - ${wordCount} words`;
-    setSavedNotes([summary, ...savedNotes]);
+    const newNote: NoteItem = {
+      id: Date.now().toString(),
+      title: noteTitle.trim(),
+      content: noteContent,
+      tag: noteTag,
+      wordCount,
+      charCount,
+      date: new Date().toLocaleDateString([], { month: 'short', day: 'numeric' }),
+    };
+    setSavedNotes([newNote, ...savedNotes]);
     Alert.alert('Note Saved', `Saved "${noteTitle}" to local offline memory.`);
+  };
+
+  const deleteNote = (id: string) => {
+    setSavedNotes(savedNotes.filter((n) => n.id !== id));
+  };
+
+  const clearAllNotes = () => {
+    setSavedNotes([]);
   };
 
   // Checklist helpers
@@ -98,6 +124,18 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
         item.id === id ? { ...item, checked: !item.checked } : item
       )
     );
+  };
+
+  const deleteCheckItem = (id: string) => {
+    setCheckItems(checkItems.filter((i) => i.id !== id));
+  };
+
+  const clearAllCheckItems = () => {
+    setCheckItems([]);
+  };
+
+  const clearCompletedCheckItems = () => {
+    setCheckItems(checkItems.filter((i) => !i.checked));
   };
 
   const addCheckItem = () => {
@@ -134,6 +172,18 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
     );
   };
 
+  const deleteTodo = (id: string) => {
+    setTodos(todos.filter((t) => t.id !== id));
+  };
+
+  const clearAllTodos = () => {
+    setTodos([]);
+  };
+
+  const clearCompletedTodos = () => {
+    setTodos(todos.filter((t) => !t.done));
+  };
+
   const addTodo = () => {
     if (!newTodoTitle.trim()) return;
     setTodos([
@@ -164,6 +214,14 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
         };
       })
     );
+  };
+
+  const deleteHabit = (id: string) => {
+    setHabits(habits.filter((h) => h.id !== id));
+  };
+
+  const clearAllHabits = () => {
+    setHabits([]);
   };
 
   const addHabit = () => {
@@ -273,6 +331,49 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
                 icon="Save"
                 onPress={handleSaveNote}
               />
+
+              {savedNotes.length > 0 && (
+                <View style={styles.savedSection}>
+                  <View style={styles.savedHeader}>
+                    <Text style={styles.subheading}>Saved Notes ({savedNotes.length})</Text>
+                    <TouchableOpacity onPress={clearAllNotes} style={styles.clearAllBtn}>
+                      <Text style={styles.clearAllText}>Clear All</Text>
+                    </TouchableOpacity>
+                  </View>
+                  {savedNotes.map((note) => (
+                    <View key={note.id} style={styles.savedNoteCard}>
+                      <TouchableOpacity
+                        style={{ flex: 1 }}
+                        onPress={() => {
+                          setNoteTitle(note.title);
+                          setNoteContent(note.content);
+                          setNoteTag(note.tag);
+                        }}
+                      >
+                        <View style={styles.savedNoteRow}>
+                          <Text style={styles.savedNoteTitle}>{note.title}</Text>
+                          <View style={styles.tagBadge}>
+                            <Text style={styles.tagBadgeText}>{note.tag}</Text>
+                          </View>
+                        </View>
+                        <Text numberOfLines={2} style={styles.savedNotePreview}>
+                          {note.content || '(Empty content)'}
+                        </Text>
+                        <Text style={styles.savedNoteMeta}>
+                          {note.wordCount} words • {note.date} (tap to edit)
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.deleteBtn}
+                        onPress={() => deleteNote(note.id)}
+                        accessibilityLabel="Delete Note"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+                </View>
+              )}
             </View>
 
             <ProductivityResultCard
@@ -319,32 +420,44 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
               </View>
 
               <View style={styles.itemsList}>
-                {checkItems.map((item) => (
-                  <TouchableOpacity
-                    key={item.id}
-                    style={styles.checkItemRow}
-                    onPress={() => toggleCheck(item.id)}
-                  >
-                    <View
-                      style={[
-                        styles.checkBox,
-                        item.checked && styles.checkBoxChecked,
-                      ]}
-                    >
-                      {item.checked && (
-                        <AppIcon name="Check" size={12} color="#FFFFFF" />
-                      )}
+                {checkItems.length === 0 ? (
+                  <Text style={styles.emptyItemsText}>No items in checklist. Add an item or load a template above.</Text>
+                ) : (
+                  checkItems.map((item) => (
+                    <View key={item.id} style={styles.checkItemRow}>
+                      <TouchableOpacity
+                        style={styles.checkLeftCol}
+                        onPress={() => toggleCheck(item.id)}
+                      >
+                        <View
+                          style={[
+                            styles.checkBox,
+                            item.checked && styles.checkBoxChecked,
+                          ]}
+                        >
+                          {item.checked && (
+                            <AppIcon name="Check" size={12} color="#FFFFFF" />
+                          )}
+                        </View>
+                        <Text
+                          style={[
+                            styles.checkItemText,
+                            item.checked && styles.checkItemTextDone,
+                          ]}
+                        >
+                          {item.text}
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.deleteBtn}
+                        onPress={() => deleteCheckItem(item.id)}
+                        accessibilityLabel="Delete item"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
                     </View>
-                    <Text
-                      style={[
-                        styles.checkItemText,
-                        item.checked && styles.checkItemTextDone,
-                      ]}
-                    >
-                      {item.text}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+                  ))
+                )}
               </View>
 
               <View style={styles.addItemRow}>
@@ -358,6 +471,25 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
                   <AppIcon name="Plus" size={20} color="#FFFFFF" />
                 </TouchableOpacity>
               </View>
+
+              {checkItems.length > 0 && (
+                <View style={styles.checkActionsRow}>
+                  {checkedCount > 0 && (
+                    <TouchableOpacity
+                      style={styles.actionPillBtn}
+                      onPress={clearCompletedCheckItems}
+                    >
+                      <Text style={styles.actionPillText}>Clear Completed</Text>
+                    </TouchableOpacity>
+                  )}
+                  <TouchableOpacity
+                    style={[styles.actionPillBtn, styles.actionPillDanger]}
+                    onPress={clearAllCheckItems}
+                  >
+                    <Text style={styles.actionPillDangerText}>Clear All</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
 
             <ProductivityResultCard
@@ -419,47 +551,80 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
               </View>
 
               <View style={styles.itemsList}>
-                {todos.map((todo) => (
-                  <TouchableOpacity
-                    key={todo.id}
-                    style={styles.todoItemRow}
-                    onPress={() => toggleTodo(todo.id)}
-                  >
-                    <View
-                      style={[
-                        styles.checkBox,
-                        todo.done && styles.checkBoxChecked,
-                      ]}
-                    >
-                      {todo.done && (
-                        <AppIcon name="Check" size={12} color="#FFFFFF" />
-                      )}
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      <Text
-                        style={[
-                          styles.todoTitle,
-                          todo.done && styles.checkItemTextDone,
-                        ]}
+                {todos.length === 0 ? (
+                  <Text style={styles.emptyItemsText}>No active tasks. Add a task above.</Text>
+                ) : (
+                  todos.map((todo) => (
+                    <View key={todo.id} style={styles.todoItemRow}>
+                      <TouchableOpacity
+                        style={styles.todoLeftCol}
+                        onPress={() => toggleTodo(todo.id)}
                       >
-                        {todo.title}
-                      </Text>
-                      <Text style={styles.todoMeta}>
-                        Due: {todo.dueDate} • Priority: {todo.priority}
-                      </Text>
+                        <View
+                          style={[
+                            styles.checkBox,
+                            todo.done && styles.checkBoxChecked,
+                          ]}
+                        >
+                          {todo.done && (
+                            <AppIcon name="Check" size={12} color="#FFFFFF" />
+                          )}
+                        </View>
+                        <View style={{ flex: 1 }}>
+                          <Text
+                            style={[
+                              styles.todoTitle,
+                              todo.done && styles.checkItemTextDone,
+                            ]}
+                          >
+                            {todo.title}
+                          </Text>
+                          <Text style={styles.todoMeta}>
+                            Due: {todo.dueDate} • Priority: {todo.priority}
+                          </Text>
+                        </View>
+                      </TouchableOpacity>
+                      <View style={styles.todoRightCol}>
+                        <View
+                          style={[
+                            styles.priorityTag,
+                            todo.priority === 'High' && styles.priorityHigh,
+                            todo.priority === 'Medium' && styles.priorityMed,
+                          ]}
+                        >
+                          <Text style={styles.priorityTagText}>{todo.priority}</Text>
+                        </View>
+                        <TouchableOpacity
+                          style={styles.deleteBtn}
+                          onPress={() => deleteTodo(todo.id)}
+                          accessibilityLabel="Delete task"
+                        >
+                          <AppIcon name="Trash2" size={16} color="#DC2626" />
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                    <View
-                      style={[
-                        styles.priorityTag,
-                        todo.priority === 'High' && styles.priorityHigh,
-                        todo.priority === 'Medium' && styles.priorityMed,
-                      ]}
-                    >
-                      <Text style={styles.priorityTagText}>{todo.priority}</Text>
-                    </View>
-                  </TouchableOpacity>
-                ))}
+                  ))
+                )}
               </View>
+
+              {todos.length > 0 && (
+                <View style={styles.checkActionsRow}>
+                  {todos.some((t) => t.done) && (
+                    <TouchableOpacity
+                      style={styles.actionPillBtn}
+                      onPress={clearCompletedTodos}
+                    >
+                      <Text style={styles.actionPillText}>Clear Completed</Text>
+                    </TouchableOpacity>
+                  )}
+                  <TouchableOpacity
+                    style={[styles.actionPillBtn, styles.actionPillDanger]}
+                    onPress={clearAllTodos}
+                  >
+                    <Text style={styles.actionPillDangerText}>Clear All</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
 
             <ProductivityResultCard
@@ -497,38 +662,62 @@ export const ProdNotesTasksWorkspace: React.FC<ProdNotesTasksWorkspaceProps> = (
               </View>
 
               <View style={styles.itemsList}>
-                {habits.map((habit) => (
-                  <View key={habit.id} style={styles.habitRow}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.habitName}>{habit.name}</Text>
-                      <Text style={styles.habitStreak}>
-                        🔥 {habit.streak} Day Streak (Best: {habit.bestStreak})
-                      </Text>
+                {habits.length === 0 ? (
+                  <Text style={styles.emptyItemsText}>No tracked habits yet. Add your first habit above.</Text>
+                ) : (
+                  habits.map((habit) => (
+                    <View key={habit.id} style={styles.habitRow}>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.habitName}>{habit.name}</Text>
+                        <Text style={styles.habitStreak}>
+                          🔥 {habit.streak} Day Streak (Best: {habit.bestStreak})
+                        </Text>
+                      </View>
+                      <View style={styles.habitActionsRow}>
+                        <TouchableOpacity
+                          style={[
+                            styles.habitToggleBtn,
+                            habit.completedToday && styles.habitToggleBtnDone,
+                          ]}
+                          onPress={() => toggleHabit(habit.id)}
+                        >
+                          <AppIcon
+                            name={habit.completedToday ? 'Check' : 'Circle'}
+                            size={16}
+                            color={habit.completedToday ? '#FFFFFF' : '#BE185D'}
+                          />
+                          <Text
+                            style={[
+                              styles.habitToggleText,
+                              habit.completedToday && styles.habitToggleTextDone,
+                            ]}
+                          >
+                            {habit.completedToday ? 'Done Today' : 'Mark Done'}
+                          </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.deleteBtn}
+                          onPress={() => deleteHabit(habit.id)}
+                          accessibilityLabel="Delete habit"
+                        >
+                          <AppIcon name="Trash2" size={16} color="#DC2626" />
+                        </TouchableOpacity>
+                      </View>
                     </View>
-                    <TouchableOpacity
-                      style={[
-                        styles.habitToggleBtn,
-                        habit.completedToday && styles.habitToggleBtnDone,
-                      ]}
-                      onPress={() => toggleHabit(habit.id)}
-                    >
-                      <AppIcon
-                        name={habit.completedToday ? 'Check' : 'Circle'}
-                        size={16}
-                        color={habit.completedToday ? '#FFFFFF' : '#BE185D'}
-                      />
-                      <Text
-                        style={[
-                          styles.habitToggleText,
-                          habit.completedToday && styles.habitToggleTextDone,
-                        ]}
-                      >
-                        {habit.completedToday ? 'Done Today' : 'Mark Done'}
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                ))}
+                  ))
+                )}
               </View>
+
+              {habits.length > 0 && (
+                <View style={styles.checkActionsRow}>
+                  <TouchableOpacity
+                    style={[styles.actionPillBtn, styles.actionPillDanger]}
+                    onPress={clearAllHabits}
+                  >
+                    <Text style={styles.actionPillDangerText}>Clear All Habits</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
 
             <ProductivityResultCard
@@ -850,5 +1039,135 @@ const styles = StyleSheet.create({
   },
   habitToggleTextDone: {
     color: '#FFFFFF',
+  },
+  savedSection: {
+    marginTop: Spacing.md,
+    paddingTop: Spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: '#FCE7F3',
+  },
+  savedHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Spacing.sm,
+  },
+  subheading: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#831843',
+  },
+  clearAllBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#FEE2E2',
+    borderRadius: Radius.sm,
+  },
+  clearAllText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#DC2626',
+  },
+  savedNoteCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FDF2F8',
+    padding: Spacing.sm,
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    borderColor: '#FCE7F3',
+    marginBottom: 6,
+    gap: 8,
+  },
+  savedNoteRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 2,
+  },
+  savedNoteTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#831843',
+    flex: 1,
+  },
+  tagBadge: {
+    backgroundColor: '#FCE7F3',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: Radius.full,
+  },
+  tagBadgeText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#BE185D',
+  },
+  savedNotePreview: {
+    fontSize: 12,
+    color: '#475569',
+    marginBottom: 2,
+  },
+  savedNoteMeta: {
+    fontSize: 10,
+    color: '#94A3B8',
+  },
+  deleteBtn: {
+    padding: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyItemsText: {
+    fontSize: 13,
+    fontStyle: 'italic',
+    color: '#94A3B8',
+    paddingVertical: 8,
+    textAlign: 'center',
+  },
+  checkLeftCol: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  checkActionsRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 8,
+    marginTop: 8,
+  },
+  actionPillBtn: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: Radius.full,
+    backgroundColor: '#F1F5F9',
+  },
+  actionPillText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#475569',
+  },
+  actionPillDanger: {
+    backgroundColor: '#FEE2E2',
+  },
+  actionPillDangerText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#DC2626',
+  },
+  todoLeftCol: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  todoRightCol: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  habitActionsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
 });

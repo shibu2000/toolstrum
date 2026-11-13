@@ -6,6 +6,12 @@
     "scheme": "toolstrum",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "primaryColor": "#4F46E5",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0F172A"
+    },
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,

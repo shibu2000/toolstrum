@@ -54,6 +54,12 @@ interface AttendeeRecord {
   timestamp: string;
 }
 
+interface SavedBirthday {
+  id: string;
+  name: string;
+  birthdate: string;
+}
+
 export const ProdRemindersAttendanceWorkspace: React.FC<ProdRemindersAttendanceWorkspaceProps> = ({
   initialToolId = 439,
   onBack,
@@ -88,6 +94,7 @@ export const ProdRemindersAttendanceWorkspace: React.FC<ProdRemindersAttendanceW
   // Birthday reminder state
   const [birthdayName, setBirthdayName] = useState('');
   const [birthdateStr, setBirthdateStr] = useState('');
+  const [savedBirthdays, setSavedBirthdays] = useState<SavedBirthday[]>([]);
 
   // QR Attendance Generator state
   const [sessionTitle, setSessionTitle] = useState('');
@@ -118,6 +125,14 @@ export const ProdRemindersAttendanceWorkspace: React.FC<ProdRemindersAttendanceW
     setNewItemName('');
   };
 
+  const deleteInventoryItem = (id: string) => {
+    setInventory(inventory.filter((i) => i.id !== id));
+  };
+
+  const clearAllInventory = () => {
+    setInventory([]);
+  };
+
   const addDoc = () => {
     if (!newDocTitle.trim()) return;
     setDocs([
@@ -130,6 +145,47 @@ export const ProdRemindersAttendanceWorkspace: React.FC<ProdRemindersAttendanceW
       },
     ]);
     setNewDocTitle('');
+  };
+
+  const deleteDoc = (id: string) => {
+    setDocs(docs.filter((d) => d.id !== id));
+  };
+
+  const clearAllDocs = () => {
+    setDocs([]);
+  };
+
+  const addBirthday = () => {
+    if (!birthdayName.trim() || !birthdateStr.trim()) {
+      Alert.alert('Missing Fields', 'Please enter a name and birthdate (YYYY-MM-DD).');
+      return;
+    }
+    setSavedBirthdays([
+      ...savedBirthdays,
+      {
+        id: Date.now().toString(),
+        name: birthdayName.trim(),
+        birthdate: birthdateStr.trim(),
+      },
+    ]);
+    setBirthdayName('');
+    setBirthdateStr('');
+  };
+
+  const deleteBirthday = (id: string) => {
+    setSavedBirthdays(savedBirthdays.filter((b) => b.id !== id));
+  };
+
+  const clearAllBirthdays = () => {
+    setSavedBirthdays([]);
+  };
+
+  const deleteAttendee = (id: string) => {
+    setAttendeeRoster(attendeeRoster.filter((a) => a.id !== id));
+  };
+
+  const clearAllAttendees = () => {
+    setAttendeeRoster([]);
   };
 
   const checkDocStatus = (expStr: string) => {
@@ -324,23 +380,41 @@ export const ProdRemindersAttendanceWorkspace: React.FC<ProdRemindersAttendanceW
                 </TouchableOpacity>
               </View>
 
-              <Text style={styles.subheading}>Tracked SKUs ({inventory.length})</Text>
-              {inventory.map((item) => {
-                const isLow = item.quantity <= 5;
-                return (
-                  <View key={item.id} style={styles.invRow}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.invName}>{item.name}</Text>
-                      <Text style={styles.invSku}>{item.sku} • ${item.unitPrice.toFixed(2)} each</Text>
+              <View style={styles.sectionHeaderRow}>
+                <Text style={styles.subheading}>Tracked SKUs ({inventory.length})</Text>
+                {inventory.length > 0 && (
+                  <TouchableOpacity onPress={clearAllInventory} style={styles.clearAllBtn}>
+                    <Text style={styles.clearAllText}>Clear All</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+              {inventory.length === 0 ? (
+                <Text style={styles.emptyItemsText}>No SKUs tracked yet. Add an item above.</Text>
+              ) : (
+                inventory.map((item) => {
+                  const isLow = item.quantity <= 5;
+                  return (
+                    <View key={item.id} style={styles.invRow}>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.invName}>{item.name}</Text>
+                        <Text style={styles.invSku}>{item.sku} • ${item.unitPrice.toFixed(2)} each</Text>
+                      </View>
+                      <View style={[styles.qtyBadge, isLow && styles.qtyBadgeLow]}>
+                        <Text style={[styles.qtyText, isLow && styles.qtyTextLow]}>
+                          {item.quantity} in Stock {isLow ? '⚠️ LOW' : ''}
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => deleteInventoryItem(item.id)}
+                        style={styles.deleteBtn}
+                        accessibilityLabel="Delete SKU"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
                     </View>
-                    <View style={[styles.qtyBadge, isLow && styles.qtyBadgeLow]}>
-                      <Text style={[styles.qtyText, isLow && styles.qtyTextLow]}>
-                        {item.quantity} in Stock {isLow ? '⚠️ LOW' : ''}
-                      </Text>
-                    </View>
-                  </View>
-                );
-              })}
+                  );
+                })
+              )}
             </View>
 
             <ProductivityResultCard
@@ -383,23 +457,41 @@ export const ProdRemindersAttendanceWorkspace: React.FC<ProdRemindersAttendanceW
                 </TouchableOpacity>
               </View>
 
-              <Text style={styles.subheading}>Monitored Documents</Text>
-              {docs.map((doc) => {
-                const status = checkDocStatus(doc.expiryDate);
-                return (
-                  <View key={doc.id} style={styles.docRow}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.docTitle}>{doc.title}</Text>
-                      <Text style={styles.docMeta}>Expires: {doc.expiryDate}</Text>
+              <View style={styles.sectionHeaderRow}>
+                <Text style={styles.subheading}>Monitored Documents ({docs.length})</Text>
+                {docs.length > 0 && (
+                  <TouchableOpacity onPress={clearAllDocs} style={styles.clearAllBtn}>
+                    <Text style={styles.clearAllText}>Clear All</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+              {docs.length === 0 ? (
+                <Text style={styles.emptyItemsText}>No documents monitored yet. Add a document above.</Text>
+              ) : (
+                docs.map((doc) => {
+                  const status = checkDocStatus(doc.expiryDate);
+                  return (
+                    <View key={doc.id} style={styles.docRow}>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.docTitle}>{doc.title}</Text>
+                        <Text style={styles.docMeta}>Expires: {doc.expiryDate}</Text>
+                      </View>
+                      <View style={[styles.statusBadge, { borderColor: status.color }]}>
+                        <Text style={[styles.statusText, { color: status.color }]}>
+                          {status.label} ({status.days}d)
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => deleteDoc(doc.id)}
+                        style={styles.deleteBtn}
+                        accessibilityLabel="Delete document"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
                     </View>
-                    <View style={[styles.statusBadge, { borderColor: status.color }]}>
-                      <Text style={[styles.statusText, { color: status.color }]}>
-                        {status.label} ({status.days}d)
-                      </Text>
-                    </View>
-                  </View>
-                );
-              })}
+                  );
+                })
+              )}
             </View>
 
             <ProductivityResultCard
@@ -440,21 +532,98 @@ export const ProdRemindersAttendanceWorkspace: React.FC<ProdRemindersAttendanceW
                 placeholderTextColor={Colors.textTertiary}
                 onChangeText={setBirthdateStr}
               />
+              <PrimaryButton
+                title="Add Birthday"
+                icon="Plus"
+                onPress={addBirthday}
+              />
+
+              <View style={styles.sectionHeaderRow}>
+                <Text style={styles.subheading}>Saved Birthdays ({savedBirthdays.length})</Text>
+                {savedBirthdays.length > 0 && (
+                  <TouchableOpacity onPress={clearAllBirthdays} style={styles.clearAllBtn}>
+                    <Text style={styles.clearAllText}>Clear All</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+              {savedBirthdays.length === 0 ? (
+                <Text style={styles.emptyItemsText}>No birthdays saved yet. Enter contact details above.</Text>
+              ) : (
+                savedBirthdays.map((b) => {
+                  const bAnalysis = analyzeBirthday(b.birthdate);
+                  return (
+                    <View key={b.id} style={styles.docRow}>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.docTitle}>{b.name}</Text>
+                        <Text style={styles.docMeta}>
+                          {b.birthdate} • ♊ {bAnalysis.zodiacSign} • Next turning {bAnalysis.age + 1}
+                        </Text>
+                      </View>
+                      <View style={[styles.statusBadge, { borderColor: '#DB2777' }]}>
+                        <Text style={[styles.statusText, { color: '#DB2777' }]}>
+                          {bAnalysis.daysUntilNext}d left
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        onPress={() => deleteBirthday(b.id)}
+                        style={styles.deleteBtn}
+                        accessibilityLabel="Delete birthday"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
+                    </View>
+                  );
+                })
+              )}
             </View>
 
             <ProductivityResultCard
-              title={birthdayName ? `Birthday for ${birthdayName}` : 'Birthday & Milestone'}
+              title={
+                savedBirthdays.length > 0
+                  ? `Upcoming: ${savedBirthdays[0].name}`
+                  : birthdayName
+                  ? `Birthday for ${birthdayName}`
+                  : 'Birthday & Milestone'
+              }
               badge="Milestone Analysis"
-              primaryValue={birthdateStr ? `${birthdayAnalysis.daysUntilNext} Days Until Next Birthday` : 'Enter a birthdate above'}
-              primarySubtext={birthdateStr ? `Turning ${birthdayAnalysis.age + 1} on a ${birthdayAnalysis.dayOfWeekNext}` : 'Offline Zodiac & Milestone Analysis'}
-              details={birthdateStr ? `Birthday Profile:\n• Current Age: ${birthdayAnalysis.age} years old\n• Next Milestone: ${birthdayAnalysis.age + 1} years\n• Astrological Zodiac Sign: ♊ ${birthdayAnalysis.zodiacSign}\n• Countdown: ${birthdayAnalysis.daysUntilNext} calendar days remaining` : 'Enter a valid birthdate to calculate zodiac, milestone age, and countdown.'}
+              primaryValue={
+                savedBirthdays.length > 0
+                  ? `${analyzeBirthday(savedBirthdays[0].birthdate).daysUntilNext} Days Until Next Birthday`
+                  : birthdateStr
+                  ? `${birthdayAnalysis.daysUntilNext} Days Until Next Birthday`
+                  : 'Enter a birthdate above'
+              }
+              primarySubtext={
+                savedBirthdays.length > 0
+                  ? `${savedBirthdays[0].name} turning ${analyzeBirthday(savedBirthdays[0].birthdate).age + 1} on a ${analyzeBirthday(savedBirthdays[0].birthdate).dayOfWeekNext}`
+                  : birthdateStr
+                  ? `Turning ${birthdayAnalysis.age + 1} on a ${birthdayAnalysis.dayOfWeekNext}`
+                  : 'Offline Zodiac & Milestone Analysis'
+              }
+              details={
+                savedBirthdays.length > 0
+                  ? savedBirthdays
+                      .map((b) => {
+                        const a = analyzeBirthday(b.birthdate);
+                        return `• ${b.name}: ${a.daysUntilNext} days left (Turning ${a.age + 1}, ${a.zodiacSign})`;
+                      })
+                      .join('\n')
+                  : birthdateStr
+                  ? `Birthday Profile:\n• Current Age: ${birthdayAnalysis.age} years old\n• Next Milestone: ${birthdayAnalysis.age + 1} years\n• Astrological Zodiac Sign: ♊ ${birthdayAnalysis.zodiacSign}\n• Countdown: ${birthdayAnalysis.daysUntilNext} calendar days remaining`
+                  : 'Enter a valid birthdate to calculate zodiac, milestone age, and countdown.'
+              }
               metadata={[
-                { label: 'Current Age', value: birthdateStr ? `${birthdayAnalysis.age} yrs` : '—' },
-                { label: 'Days Left', value: birthdateStr ? `${birthdayAnalysis.daysUntilNext}` : '—' },
-                { label: 'Zodiac', value: birthdateStr ? birthdayAnalysis.zodiacSign : '—' },
-                { label: 'Day of Week', value: birthdateStr ? birthdayAnalysis.dayOfWeekNext : '—' },
+                { label: 'Tracked', value: `${savedBirthdays.length}` },
+                { label: 'Zodiac Sign', value: savedBirthdays.length > 0 ? analyzeBirthday(savedBirthdays[0].birthdate).zodiacSign : birthdateStr ? birthdayAnalysis.zodiacSign : '—' },
+                { label: 'Nearest Milestone', value: savedBirthdays.length > 0 ? `${analyzeBirthday(savedBirthdays[0].birthdate).daysUntilNext}d` : birthdateStr ? `${birthdayAnalysis.daysUntilNext}d` : '—' },
               ]}
-              copyContent={birthdateStr ? `${birthdayName || 'Contact'}: ${birthdayAnalysis.age} yrs, next in ${birthdayAnalysis.daysUntilNext} days` : ''}
+              copyContent={
+                savedBirthdays.length > 0
+                  ? savedBirthdays.map((b) => `${b.name}: ${b.birthdate}`).join('\n')
+                  : birthdateStr
+                  ? `${birthdayName || 'Contact'}: ${birthdayAnalysis.age} yrs, next in ${birthdayAnalysis.daysUntilNext} days`
+                  : ''
+              }
             />
           </View>
         )}
@@ -564,16 +733,34 @@ export const ProdRemindersAttendanceWorkspace: React.FC<ProdRemindersAttendanceW
                 </TouchableOpacity>
               </View>
 
-              <Text style={styles.subheading}>Checked-In Attendees ({attendeeRoster.length})</Text>
-              {attendeeRoster.map((att) => (
-                <View key={att.id} style={styles.attRow}>
-                  <View style={{ flex: 1 }}>
-                    <Text style={styles.attName}>{att.attendeeName}</Text>
-                    <Text style={styles.attSession}>Session: {att.sessionId}</Text>
+              <View style={styles.sectionHeaderRow}>
+                <Text style={styles.subheading}>Checked-In Attendees ({attendeeRoster.length})</Text>
+                {attendeeRoster.length > 0 && (
+                  <TouchableOpacity onPress={clearAllAttendees} style={styles.clearAllBtn}>
+                    <Text style={styles.clearAllText}>Clear Roster</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+              {attendeeRoster.length === 0 ? (
+                <Text style={styles.emptyItemsText}>No attendees checked in yet.</Text>
+              ) : (
+                attendeeRoster.map((att) => (
+                  <View key={att.id} style={styles.attRow}>
+                    <View style={{ flex: 1 }}>
+                      <Text style={styles.attName}>{att.attendeeName}</Text>
+                      <Text style={styles.attSession}>Session: {att.sessionId}</Text>
+                    </View>
+                    <Text style={styles.attTime}>{att.timestamp}</Text>
+                    <TouchableOpacity
+                      onPress={() => deleteAttendee(att.id)}
+                      style={styles.deleteBtn}
+                      accessibilityLabel="Delete attendee"
+                    >
+                      <AppIcon name="Trash2" size={16} color="#DC2626" />
+                    </TouchableOpacity>
                   </View>
-                  <Text style={styles.attTime}>{att.timestamp}</Text>
-                </View>
-              ))}
+                ))
+              )}
             </View>
 
             <ProductivityResultCard
@@ -812,5 +999,35 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     color: '#059669',
+    marginRight: 6,
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: Spacing.sm,
+    marginBottom: 6,
+  },
+  clearAllBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#FEE2E2',
+    borderRadius: Radius.sm,
+  },
+  clearAllText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#DC2626',
+  },
+  emptyItemsText: {
+    fontSize: 12,
+    fontStyle: 'italic',
+    color: '#94A3B8',
+    paddingVertical: 6,
+  },
+  deleteBtn: {
+    padding: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });

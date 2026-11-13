@@ -46,6 +46,12 @@ interface Flashcard {
   mastered: boolean;
 }
 
+const STARTER_FLASHCARDS: Flashcard[] = [
+  { id: '1', front: 'What is the Time Complexity of Binary Search?', back: 'O(log N)', mastered: false },
+  { id: '2', front: 'What does HTTP 403 Forbidden represent?', back: 'The client does not have access rights to the content.', mastered: false },
+  { id: '3', front: 'What does ACID stand for in databases?', back: 'Atomicity, Consistency, Isolation, Durability.', mastered: false },
+];
+
 export const ProdEducationStudyWorkspace: React.FC<ProdEducationStudyWorkspaceProps> = ({
   initialToolId = 430,
   onBack,
@@ -65,6 +71,8 @@ export const ProdEducationStudyWorkspace: React.FC<ProdEducationStudyWorkspacePr
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [currentCardIdx, setCurrentCardIdx] = useState(0);
   const [cardFlipped, setCardFlipped] = useState(false);
+  const [newCardFront, setNewCardFront] = useState('');
+  const [newCardBack, setNewCardBack] = useState('');
 
   // Quiz state
   const [quizTopic, setQuizTopic] = useState('Computer Science');
@@ -95,14 +103,64 @@ export const ProdEducationStudyWorkspace: React.FC<ProdEducationStudyWorkspacePr
     setNewSubj('');
   };
 
+  const deleteSlot = (id: string) => {
+    setTimetable(timetable.filter((t) => t.id !== id));
+  };
+
+  const clearDaySchedule = () => {
+    setTimetable(timetable.filter((t) => t.day !== selectedDay));
+  };
+
+  const clearAllSchedule = () => {
+    setTimetable([]);
+  };
+
   // Flashcard helpers
-  const currentCard = flashcards[currentCardIdx] || flashcards[0];
+  const currentCard = flashcards[currentCardIdx] as Flashcard | undefined;
   const toggleMastery = () => {
+    if (!currentCard) return;
     setFlashcards(
       flashcards.map((c, i) =>
         i === currentCardIdx ? { ...c, mastered: !c.mastered } : c
       )
     );
+  };
+
+  const addFlashcard = () => {
+    if (!newCardFront.trim() || !newCardBack.trim()) {
+      Alert.alert('Incomplete Card', 'Please enter both question/front and answer/back.');
+      return;
+    }
+    const newCard: Flashcard = {
+      id: Date.now().toString(),
+      front: newCardFront.trim(),
+      back: newCardBack.trim(),
+      mastered: false,
+    };
+    setFlashcards([...flashcards, newCard]);
+    setNewCardFront('');
+    setNewCardBack('');
+    setCurrentCardIdx(flashcards.length);
+  };
+
+  const deleteCurrentCard = () => {
+    if (flashcards.length === 0) return;
+    const nextDeck = flashcards.filter((_, idx) => idx !== currentCardIdx);
+    setFlashcards(nextDeck);
+    setCardFlipped(false);
+    setCurrentCardIdx(Math.max(0, Math.min(currentCardIdx, nextDeck.length - 1)));
+  };
+
+  const clearAllFlashcards = () => {
+    setFlashcards([]);
+    setCurrentCardIdx(0);
+    setCardFlipped(false);
+  };
+
+  const loadStarterDeck = () => {
+    setFlashcards(STARTER_FLASHCARDS);
+    setCurrentCardIdx(0);
+    setCardFlipped(false);
   };
 
   // Quiz helpers
@@ -190,6 +248,19 @@ export const ProdEducationStudyWorkspace: React.FC<ProdEducationStudyWorkspacePr
               </ScrollView>
 
               <View style={styles.scheduleList}>
+                <View style={styles.sectionHeaderRow}>
+                  <Text style={styles.subheading}>{selectedDay} Classes ({daySchedule.length})</Text>
+                  {daySchedule.length > 0 && (
+                    <View style={{ flexDirection: 'row', gap: 6 }}>
+                      <TouchableOpacity onPress={clearDaySchedule} style={styles.clearAllBtn}>
+                        <Text style={styles.clearAllText}>Clear Day</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={clearAllSchedule} style={styles.clearAllBtn}>
+                        <Text style={styles.clearAllText}>Clear All</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </View>
                 {daySchedule.length > 0 ? (
                   daySchedule.map((slot) => (
                     <View key={slot.id} style={styles.slotRow}>
@@ -200,6 +271,13 @@ export const ProdEducationStudyWorkspace: React.FC<ProdEducationStudyWorkspacePr
                         <Text style={styles.slotSubj}>{slot.subject}</Text>
                         <Text style={styles.slotRoom}>{slot.room}</Text>
                       </View>
+                      <TouchableOpacity
+                        onPress={() => deleteSlot(slot.id)}
+                        style={styles.deleteBtn}
+                        accessibilityLabel="Delete class"
+                      >
+                        <AppIcon name="Trash2" size={16} color="#DC2626" />
+                      </TouchableOpacity>
                     </View>
                   ))
                 ) : (
@@ -254,86 +332,149 @@ export const ProdEducationStudyWorkspace: React.FC<ProdEducationStudyWorkspacePr
             <View style={styles.card}>
               <View style={styles.headerRow}>
                 <Text style={styles.sectionTitle}>Flashcard Study Deck</Text>
-                <Text style={styles.cardCounter}>
-                  Card {currentCardIdx + 1} of {flashcards.length}
-                </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                  <Text style={styles.cardCounter}>
+                    {flashcards.length > 0 ? `Card ${currentCardIdx + 1} of ${flashcards.length}` : 'Empty Deck'}
+                  </Text>
+                  {flashcards.length > 0 && (
+                    <TouchableOpacity onPress={clearAllFlashcards} style={styles.clearAllBtn}>
+                      <Text style={styles.clearAllText}>Clear Deck</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
               </View>
 
-              <TouchableOpacity
-                style={styles.flashcardContainer}
-                activeOpacity={0.8}
-                onPress={() => setCardFlipped(!cardFlipped)}
-              >
-                <View style={styles.cardBadge}>
-                  <Text style={styles.cardBadgeText}>
-                    {cardFlipped ? 'ANSWER (BACK)' : 'QUESTION (FRONT)'}
-                  </Text>
-                </View>
-                <Text style={styles.flashcardText}>
-                  {cardFlipped ? currentCard.back : currentCard.front}
-                </Text>
-                <Text style={styles.flipHint}>Tap card to flip</Text>
-              </TouchableOpacity>
-
-              <View style={styles.flashcardNav}>
-                <TouchableOpacity
-                  style={styles.navBtn}
-                  onPress={() => {
-                    setCardFlipped(false);
-                    setCurrentCardIdx(Math.max(0, currentCardIdx - 1));
-                  }}
-                  disabled={currentCardIdx === 0}
-                >
-                  <AppIcon name="ArrowLeft" size={16} color="#DB2777" />
-                  <Text style={styles.navBtnText}>Previous</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={[styles.navBtn, currentCard.mastered && styles.navBtnMastered]}
-                  onPress={toggleMastery}
-                >
-                  <AppIcon
-                    name={currentCard.mastered ? 'CheckCircle' : 'Circle'}
-                    size={16}
-                    color={currentCard.mastered ? '#059669' : '#DB2777'}
-                  />
-                  <Text
-                    style={[
-                      styles.navBtnText,
-                      currentCard.mastered && { color: '#059669' },
-                    ]}
+              {currentCard ? (
+                <>
+                  <TouchableOpacity
+                    style={styles.flashcardContainer}
+                    activeOpacity={0.8}
+                    onPress={() => setCardFlipped(!cardFlipped)}
                   >
-                    {currentCard.mastered ? 'Mastered' : 'Mark Learned'}
-                  </Text>
-                </TouchableOpacity>
+                    <View style={styles.cardBadge}>
+                      <Text style={styles.cardBadgeText}>
+                        {cardFlipped ? 'ANSWER (BACK)' : 'QUESTION (FRONT)'}
+                      </Text>
+                    </View>
+                    <Text style={styles.flashcardText}>
+                      {cardFlipped ? currentCard.back : currentCard.front}
+                    </Text>
+                    <Text style={styles.flipHint}>Tap card to flip</Text>
+                  </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.navBtn}
-                  onPress={() => {
-                    setCardFlipped(false);
-                    setCurrentCardIdx(
-                      Math.min(flashcards.length - 1, currentCardIdx + 1)
-                    );
-                  }}
-                  disabled={currentCardIdx === flashcards.length - 1}
-                >
-                  <Text style={styles.navBtnText}>Next</Text>
-                  <AppIcon name="ArrowRight" size={16} color="#DB2777" />
-                </TouchableOpacity>
+                  <View style={styles.flashcardNav}>
+                    <TouchableOpacity
+                      style={styles.navBtn}
+                      onPress={() => {
+                        setCardFlipped(false);
+                        setCurrentCardIdx(Math.max(0, currentCardIdx - 1));
+                      }}
+                      disabled={currentCardIdx === 0}
+                    >
+                      <AppIcon name="ArrowLeft" size={16} color="#DB2777" />
+                      <Text style={styles.navBtnText}>Previous</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={[styles.navBtn, currentCard.mastered && styles.navBtnMastered]}
+                      onPress={toggleMastery}
+                    >
+                      <AppIcon
+                        name={currentCard.mastered ? 'CheckCircle' : 'Circle'}
+                        size={16}
+                        color={currentCard.mastered ? '#059669' : '#DB2777'}
+                      />
+                      <Text
+                        style={[
+                          styles.navBtnText,
+                          currentCard.mastered && { color: '#059669' },
+                        ]}
+                      >
+                        {currentCard.mastered ? 'Mastered' : 'Mark Learned'}
+                      </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={styles.navBtn}
+                      onPress={() => {
+                        setCardFlipped(false);
+                        setCurrentCardIdx(
+                          Math.min(flashcards.length - 1, currentCardIdx + 1)
+                        );
+                      }}
+                      disabled={currentCardIdx === flashcards.length - 1}
+                    >
+                      <Text style={styles.navBtnText}>Next</Text>
+                      <AppIcon name="ArrowRight" size={16} color="#DB2777" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={styles.deleteCardBtn}
+                      onPress={deleteCurrentCard}
+                      accessibilityLabel="Delete flashcard"
+                    >
+                      <AppIcon name="Trash2" size={16} color="#DC2626" />
+                    </TouchableOpacity>
+                  </View>
+                </>
+              ) : (
+                <View style={styles.emptyCardBox}>
+                  <Text style={styles.emptyCardTitle}>Your Flashcard Deck is Empty</Text>
+                  <Text style={styles.emptyCardSub}>Add your custom study cards below or load starter cards.</Text>
+                  <TouchableOpacity style={styles.starterBtn} onPress={loadStarterDeck}>
+                    <Text style={styles.starterBtnText}>Load Starter Deck</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+
+              <View style={styles.addCardSection}>
+                <Text style={styles.subheading}>Add New Flashcard</Text>
+                <TextInput
+                  style={styles.input}
+                  value={newCardFront}
+                  onChangeText={setNewCardFront}
+                  placeholder="Question / Term (e.g. What is DNS?)"
+                />
+                <TextInput
+                  style={[styles.input, { minHeight: 60 }]}
+                  value={newCardBack}
+                  onChangeText={setNewCardBack}
+                  multiline
+                  placeholder="Answer / Definition (e.g. Domain Name System)"
+                />
+                <PrimaryButton
+                  title="Add Flashcard to Deck"
+                  icon="Plus"
+                  onPress={addFlashcard}
+                />
               </View>
             </View>
 
             <ProductivityResultCard
               title="Study Deck Progress"
               badge="Spaced Flashcards"
-              primaryValue={`${flashcards.filter((f) => f.mastered).length} of ${flashcards.length} Mastered`}
-              primarySubtext={`Current card: "${currentCard.front}"`}
-              details={`Front: ${currentCard.front}\nBack: ${currentCard.back}`}
+              primaryValue={
+                flashcards.length > 0
+                  ? `${flashcards.filter((f) => f.mastered).length} of ${flashcards.length} Mastered`
+                  : 'Deck is Empty'
+              }
+              primarySubtext={
+                currentCard
+                  ? `Current card: "${currentCard.front}"`
+                  : 'Create or load flashcards above'
+              }
+              details={
+                currentCard
+                  ? `Front: ${currentCard.front}\nBack: ${currentCard.back}`
+                  : 'Add flashcards to begin spaced repetition review.'
+              }
               metadata={[
                 { label: 'Mastered', value: `${flashcards.filter((f) => f.mastered).length}` },
                 { label: 'Deck Size', value: `${flashcards.length}` },
               ]}
-              copyContent={`Q: ${currentCard.front}\nA: ${currentCard.back}`}
+              copyContent={
+                currentCard ? `Q: ${currentCard.front}\nA: ${currentCard.back}` : ''
+              }
             />
           </View>
         )}
@@ -888,5 +1029,73 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontStyle: 'italic',
     color: '#64748B',
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  clearAllBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#FEE2E2',
+    borderRadius: Radius.sm,
+  },
+  clearAllText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#DC2626',
+  },
+  deleteBtn: {
+    padding: 6,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  deleteCardBtn: {
+    padding: 8,
+    borderRadius: Radius.md,
+    backgroundColor: '#FEE2E2',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyCardBox: {
+    backgroundColor: '#FDF2F8',
+    borderRadius: Radius.lg,
+    padding: Spacing.xl,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#FBCFE8',
+    marginBottom: Spacing.md,
+  },
+  emptyCardTitle: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#831843',
+    marginBottom: 4,
+  },
+  emptyCardSub: {
+    fontSize: 12,
+    color: '#64748B',
+    textAlign: 'center',
+    marginBottom: Spacing.md,
+  },
+  starterBtn: {
+    backgroundColor: '#DB2777',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: Radius.md,
+  },
+  starterBtnText: {
+    color: '#FFFFFF',
+    fontWeight: '700',
+    fontSize: 12,
+  },
+  addCardSection: {
+    marginTop: Spacing.md,
+    paddingTop: Spacing.md,
+    borderTopWidth: 1,
+    borderTopColor: '#FCE7F3',
   },
 });

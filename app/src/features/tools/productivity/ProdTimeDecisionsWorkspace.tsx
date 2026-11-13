@@ -336,6 +336,32 @@ export const ProdTimeDecisionsWorkspace: React.FC<ProdTimeDecisionsWorkspaceProp
                   </Text>
                 </TouchableOpacity>
               </View>
+
+              {focusLaps.length > 0 && (
+                <View style={styles.lapsSection}>
+                  <View style={styles.sectionHeaderRow}>
+                    <Text style={styles.subheading}>Logged Sprints ({focusLaps.length})</Text>
+                    <TouchableOpacity
+                      onPress={() => setFocusLaps([])}
+                      style={styles.clearAllBtn}
+                    >
+                      <Text style={styles.clearAllText}>Clear All</Text>
+                    </TouchableOpacity>
+                  </View>
+                  {focusLaps.map((lap, idx) => (
+                    <View key={idx} style={styles.lapRow}>
+                      <Text style={styles.lapText}>{lap}</Text>
+                      <TouchableOpacity
+                        onPress={() => setFocusLaps(focusLaps.filter((_, i) => i !== idx))}
+                        style={styles.deleteBtn}
+                        accessibilityLabel="Delete lap"
+                      >
+                        <AppIcon name="Trash2" size={14} color="#DC2626" />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+                </View>
+              )}
             </View>
 
             <ProductivityResultCard
@@ -545,11 +571,24 @@ export const ProdTimeDecisionsWorkspace: React.FC<ProdTimeDecisionsWorkspaceProp
                 multiline
               />
 
-              <PrimaryButton
-                title={isSpinning ? 'Spinning the Wheel...' : 'Spin the Wheel!'}
-                icon="RotateCw"
-                onPress={handleSpinWheel}
-              />
+              <View style={{ gap: 8, marginTop: 4 }}>
+                <PrimaryButton
+                  title={isSpinning ? 'Spinning the Wheel...' : 'Spin the Wheel!'}
+                  icon="RotateCw"
+                  onPress={handleSpinWheel}
+                />
+                {candidateNames.trim().length > 0 && (
+                  <TouchableOpacity
+                    style={styles.clearNamesBtn}
+                    onPress={() => {
+                      setCandidateNames('');
+                      setWinnerName(null);
+                    }}
+                  >
+                    <Text style={styles.clearNamesText}>Clear Names</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
 
             <ProductivityResultCard
@@ -729,5 +768,64 @@ const styles = StyleSheet.create({
   },
   pomoPillTextActive: {
     color: '#FFFFFF',
+  },
+  lapsSection: {
+    marginTop: Spacing.md,
+    paddingTop: Spacing.sm,
+    borderTopWidth: 1,
+    borderTopColor: '#FCE7F3',
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  subheading: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: '#9D174D',
+  },
+  clearAllBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    backgroundColor: '#FEE2E2',
+    borderRadius: Radius.sm,
+  },
+  clearAllText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#DC2626',
+  },
+  lapRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: '#FDF2F8',
+    padding: 8,
+    borderRadius: Radius.sm,
+    marginBottom: 4,
+    borderWidth: 1,
+    borderColor: '#FCE7F3',
+  },
+  lapText: {
+    fontSize: 12,
+    color: '#1E293B',
+    flex: 1,
+  },
+  deleteBtn: {
+    padding: 4,
+    marginLeft: 6,
+  },
+  clearNamesBtn: {
+    backgroundColor: '#FEE2E2',
+    paddingVertical: 10,
+    borderRadius: Radius.md,
+    alignItems: 'center',
+  },
+  clearNamesText: {
+    color: '#DC2626',
+    fontWeight: '700',
+    fontSize: 13,
   },
 });
