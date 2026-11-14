@@ -1,0 +1,226 @@
+name: Release & Multiplatform Build
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Release Tag (e.g. v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+permissions:
+  contents: write
+
+jobs:
+  # -----------------------------------------------------------
+  # 1. BUILD WEB APP
+  # -----------------------------------------------------------
+  build-web:
+    name: Build Web Application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: 'web/package-lock.json'
+
+      - name: Install Web Dependencies
+        run: |
+          cd web
+          npm ci
+
+      - name: Build Web Production Assets
+        run: |
+          cd web
+          npm run build
+
+      - name: Package Web Distribution Tarball
+        run: |
+          cd web/dist
+          tar -czf ../../toolstrum-web-production.tar.gz .
+
+      - name: Upload Web Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: toolstrum-web-production
+          path: toolstrum-web-production.tar.gz
+
+  # -----------------------------------------------------------
+  # 2. BUILD ANDROID APKs (arm64-v8a, armeabi-v7a, Universal)
+  # -----------------------------------------------------------
+  build-android:
+    name: Build Android Release APKs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Bun Runtime
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install App Dependencies
+        run: |
+          cd app
+          bun install
+
+      - name: Cache Gradle Packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('app/android/**/*.gradle*', 'app/android/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build Android Release APKs
+        run: |
+          cd app/android
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Collect and Rename Android APKs
+        run: |
+          mkdir -p dist-android
+          # Locate built APKs
+          find app/android/app/build/outputs/apk/release -name "*.apk" -exec cp {} dist-android/ \;
+          cd dist-android
+          # Standardize filenames
+          for f in *universal*.apk; do [ -f "$f" ] && mv "$f" toolstrum-universal-release.apk; done
+          for f in *arm64*.apk; do [ -f "$f" ] && mv "$f" toolstrum-arm64-v8a-release.apk; done
+          for f in *armeabi*.apk; do [ -f "$f" ] && mv "$f" toolstrum-armeabi-v7a-release.apk; done
+          for f in *x86_64*.apk; do [ -f "$f" ] && mv "$f" toolstrum-x86_64-release.apk; done
+          ls -la
+
+      - name: Upload Android APK Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: toolstrum-android-apks
+          path: dist-android/*.apk
+
+  # -----------------------------------------------------------
+  # 3. BUILD iOS (Simulator .app and Sideloadable Unsigned .ipa)
+  # -----------------------------------------------------------
+  build-ios:
+    name: Build iOS Package
+    runs-on: macos-15
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun Runtime
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install App Dependencies
+        run: |
+          cd app
+          bun install
+
+      - name: Install CocoaPods
+        run: |
+          cd app/ios
+          pod install
+
+      - name: Build iOS Simulator Bundle
+        run: |
+          mkdir -p dist-ios
+          xcodebuild -workspace app/ios/Toolstrum.xcworkspace \
+            -scheme Toolstrum \
+            -configuration Release \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath app/ios/build/derivedDataSimulator \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
+          # Zip Simulator App
+          cd app/ios/build/derivedDataSimulator/Build/Products/Release-iphonesimulator
+          zip -r ../../../../../dist-ios/toolstrum-ios-simulator.zip Toolstrum.app
+
+      - name: Build iOS Sideloadable Unsigned IPA
+        run: |
+          xcodebuild -workspace app/ios/Toolstrum.xcworkspace \
+            -scheme Toolstrum \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -derivedDataPath app/ios/build/derivedDataDevice \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            build
+
+          # Construct Payload directory for valid .ipa packaging (AltStore / Sideloadly)
+          mkdir -p /tmp/Payload
+          cp -r app/ios/build/derivedDataDevice/Build/Products/Release-iphoneos/Toolstrum.app /tmp/Payload/
+          cd /tmp
+          zip -r toolstrum-ios-unsigned.ipa Payload
+          mv toolstrum-ios-unsigned.ipa ${{ github.workspace }}/dist-ios/
+          rm -rf /tmp/Payload
+
+      - name: Upload iOS Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: toolstrum-ios-packages
+          path: dist-ios/*
+
+  # -----------------------------------------------------------
+  # 4. PUBLISH GITHUB RELEASE
+  # -----------------------------------------------------------
+  create-release:
+    name: Publish GitHub Release
+    needs: [build-web, build-android, build-ios]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Web Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: toolstrum-web-production
+          path: release-assets
+
+      - name: Download Android Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: toolstrum-android-apks
+          path: release-assets
+
+      - name: Download iOS Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: toolstrum-ios-packages
+          path: release-assets
+
+      - name: Inspect Collected Release Assets
+        run: |
+          ls -la release-assets
+
+      - name: Publish Release to GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.release_tag || github.ref_name }}
+          name: "Toolstrum ${{ github.event.inputs.release_tag || github.ref_name }} — All-in-One Offline Utility Suite"
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+          files: release-assets/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
