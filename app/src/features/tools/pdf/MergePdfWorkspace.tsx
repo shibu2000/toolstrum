@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  LayoutAnimation,
+  Platform,
+  UIManager,
 } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system/legacy';
@@ -65,8 +68,44 @@ export const MergePdfWorkspace: React.FC<MergePdfWorkspaceProps> = ({ onBack }) 
     }
   };
 
+  const animateLayout = () => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  };
+
   const handleRemoveFile = (id: string) => {
+    animateLayout();
     setSelectedFiles((prev) => prev.filter((f) => f.id !== id));
+    setOutputFile(null);
+  };
+
+  const handleMoveFile = (index: number, direction: 'up' | 'down') => {
+    const targetIdx = direction === 'up' ? index - 1 : index + 1;
+    if (targetIdx < 0 || targetIdx >= selectedFiles.length) return;
+    const reordered = [...selectedFiles];
+    const [moved] = reordered.splice(index, 1);
+    reordered.splice(targetIdx, 0, moved);
+    animateLayout();
+    setSelectedFiles(reordered);
+    setOutputFile(null);
+  };
+
+  const handleSortAlphabetical = () => {
+    const sorted = [...selectedFiles].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+    );
+    animateLayout();
+    setSelectedFiles(sorted);
+    setOutputFile(null);
+  };
+
+  const handleReverseOrder = () => {
+    const reversed = [...selectedFiles].reverse();
+    animateLayout();
+    setSelectedFiles(reversed);
+    setOutputFile(null);
   };
 
   const handleMerge = async () => {
@@ -232,20 +271,47 @@ export const MergePdfWorkspace: React.FC<MergePdfWorkspaceProps> = ({ onBack }) 
                   <Text style={styles.queueCountText}>{selectedFiles.length} Files</Text>
                 </View>
               </View>
-              <TouchableOpacity
-                onPress={() => setSelectedFiles([])}
-                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-              >
-                <Text style={styles.clearText}>Clear All</Text>
-              </TouchableOpacity>
+
+              <View style={styles.queueActionsRow}>
+                {selectedFiles.length > 1 ? (
+                  <>
+                    <TouchableOpacity
+                      onPress={handleSortAlphabetical}
+                      hitSlop={{ top: 8, bottom: 8, left: 6, right: 6 }}
+                      style={styles.quickActionBtn}
+                    >
+                      <Text style={styles.quickActionText}>A-Z</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={handleReverseOrder}
+                      hitSlop={{ top: 8, bottom: 8, left: 6, right: 6 }}
+                      style={styles.quickActionBtn}
+                    >
+                      <Text style={styles.quickActionText}>Reverse</Text>
+                    </TouchableOpacity>
+                  </>
+                ) : null}
+
+                <TouchableOpacity
+                  onPress={() => setSelectedFiles([])}
+                  hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                >
+                  <Text style={styles.clearText}>Clear All</Text>
+                </TouchableOpacity>
+              </View>
             </View>
 
-            {selectedFiles.map((file) => (
+            {selectedFiles.map((file, index) => (
               <SelectedFileRow
                 key={file.id}
                 fileName={file.name}
                 fileSize={file.size}
+                orderNumber={index + 1}
                 onRemove={() => handleRemoveFile(file.id)}
+                onMoveUp={() => handleMoveFile(index, 'up')}
+                onMoveDown={() => handleMoveFile(index, 'down')}
+                isFirst={index === 0}
+                isLast={index === selectedFiles.length - 1}
                 accentColor={Colors.accentCoral}
                 surfaceColor={Colors.surfacePdf}
               />
@@ -415,6 +481,22 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.statusError,
     fontWeight: '600',
+  },
+  queueActionsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  quickActionBtn: {
+    backgroundColor: Colors.surfaceContainerLow,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: Radius.xs,
+  },
+  quickActionText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: Colors.onSurfaceVariant,
   },
   actionContainer: {
     marginTop: Spacing.xs,

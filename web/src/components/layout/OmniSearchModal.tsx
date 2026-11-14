@@ -113,7 +113,7 @@ export const OmniSearchModal: React.FC = () => {
                   className={`flex items-center justify-between p-2.5 rounded-xl text-xs cursor-pointer transition-colors ${
                     isSelected
                       ? 'bg-slate-100 dark:bg-slate-800/80 text-slate-900 dark:text-white'
-                      : 'hover:bg-slate-50 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-300'
+                      : 'hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-300'
                   }`}
                 >
                   <div className="flex items-center gap-3 min-w-0">

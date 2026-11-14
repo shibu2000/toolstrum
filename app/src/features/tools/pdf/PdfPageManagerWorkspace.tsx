@@ -14,6 +14,7 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
+  Modal,
 } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system/legacy';
@@ -25,7 +26,14 @@ import { OfflineShield } from '../../../components/common/OfflineShield';
 import { PrimaryButton } from '../../../components/common/PrimaryButton';
 import { useAppStore } from '../../../store/useAppStore';
 import { PDF_TOOL_MAP } from './pdfConfig';
-import { loadPdfFromUri, savePdfToSandbox, mergePdfs } from './shared/PdfEngine';
+import {
+  loadPdfFromUri,
+  savePdfToSandbox,
+  mergePdfs,
+  getPdfPageDimensions,
+  parsePageRangeString,
+  formatPageRangeString,
+} from './shared/PdfEngine';
 import { PdfFilePicker, SelectedPdfFile, formatFileSize } from './shared/PdfFilePicker';
 import { PdfResultCard, PdfResultData } from './shared/PdfResultCard';
 
@@ -56,8 +64,20 @@ export const PdfPageManagerWorkspace: React.FC<PdfPageManagerWorkspaceProps> = (
   } | null>(null);
 
   // Page selection state
-  const [selectedPages, setSelectedPages] = useState<number[]>([1]);
-  const [rangeInput, setRangeInput] = useState('1');
+  const [selectedPages, setSelectedPages] = useState<number[]>(() =>
+    initialToolId === 11 ? [] : [1]
+  );
+  const [rangeInput, setRangeInput] = useState<string>(() =>
+    initialToolId === 11 ? '' : '1'
+  );
+
+  // Quick Preview Modal state (ILOVEPDF Style)
+  const [previewModalPage, setPreviewModalPage] = useState<number | null>(null);
+  const [previewPageDims, setPreviewPageDims] = useState<{
+    width: number;
+    height: number;
+    rotation: number;
+  } | null>(null);
 
   // Specific Operation Options
   // Rotate
@@ -78,6 +98,19 @@ export const PdfPageManagerWorkspace: React.FC<PdfPageManagerWorkspaceProps> = (
   const [isProcessing, setIsProcessing] = useState(false);
   const [result, setResult] = useState<PdfResultData | null>(null);
 
+  // Switch tools in Workspace B
+  const handleSelectTool = (id: number) => {
+    setActiveToolId(id);
+    setResult(null);
+    if (id === 11) {
+      setSelectedPages([]);
+      setRangeInput('');
+    } else {
+      setSelectedPages([1]);
+      setRangeInput('1');
+    }
+  };
+
   // Handle files change
   const handleFilesChange = async (files: SelectedPdfFile[]) => {
     setSelectedFiles(files);
@@ -92,8 +125,14 @@ export const PdfPageManagerWorkspace: React.FC<PdfPageManagerWorkspaceProps> = (
           docName: files[0].name,
           uri: files[0].uri,
         });
-        setSelectedPages([1]);
-        setRangeInput(`1-${Math.min(count, 3)}`);
+
+        if (activeToolId === 11) {
+          setSelectedPages([]);
+          setRangeInput('');
+        } else {
+          setSelectedPages([1]);
+          setRangeInput('1');
+        }
       } catch (err: any) {
         Alert.alert('Load Error', 'Could not parse PDF page structure.');
       }
@@ -102,10 +141,113 @@ export const PdfPageManagerWorkspace: React.FC<PdfPageManagerWorkspaceProps> = (
     }
   };
 
+  // Bi-directional Range Input and Selection Sync
+  const handleRangeInputChange = (text: string) => {
+    setRangeInput(text);
+    if (loadedDoc) {
+      const parsed = parsePageRangeString(text, loadedDoc.pageCount);
+      setSelectedPages(parsed);
+    }
+  };
+
   const togglePageSelection = (page: number) => {
-    setSelectedPages((prev) =>
-      prev.includes(page) ? prev.filter((p) => p !== page) : [...prev, page].sort((a, b) => a - b)
+    setSelectedPages((prev) => {
+      const next = prev.includes(page)
+        ? prev.filter((p) => p !== page)
+        : [...prev, page].sort((a, b) => a - b);
+      setRangeInput(formatPageRangeString(next));
+      return next;
+    });
+  };
+
+  // Quick Preset Actions
+  const handleSelectAll = () => {
+    if (!loadedDoc) return;
+    const all = Array.from({ length: loadedDoc.pageCount }, (_, i) => i + 1);
+    setSelectedPages(all);
+    setRangeInput(formatPageRangeString(all));
+  };
+
+  const handleClearSelection = () => {
+    setSelectedPages([]);
+    setRangeInput('');
+  };
+
+  const handleSelectOdd = () => {
+    if (!loadedDoc) return;
+    const odd = Array.from({ length: loadedDoc.pageCount }, (_, i) => i + 1).filter(
+      (p) => p % 2 !== 0
     );
+    setSelectedPages(odd);
+    setRangeInput(formatPageRangeString(odd));
+  };
+
+  const handleSelectEven = () => {
+    if (!loadedDoc) return;
+    const even = Array.from({ length: loadedDoc.pageCount }, (_, i) => i + 1).filter(
+      (p) => p % 2 === 0
+    );
+    setSelectedPages(even);
+    setRangeInput(formatPageRangeString(even));
+  };
+
+  const handleInvertSelection = () => {
+    if (!loadedDoc) return;
+    const set = new Set(selectedPages);
+    const inverted = Array.from({ length: loadedDoc.pageCount }, (_, i) => i + 1).filter(
+      (p) => !set.has(p)
+    );
+    setSelectedPages(inverted);
+    setRangeInput(formatPageRangeString(inverted));
+  };
+
+  // Quick Preview Modal Navigation
+  const handleOpenPreview = async (page: number) => {
+    setPreviewModalPage(page);
+    if (selectedFiles.length > 0) {
+      try {
+        const doc = await loadPdfFromUri(selectedFiles[0].uri);
+        const dims = getPdfPageDimensions(doc, page - 1);
+        setPreviewPageDims(dims);
+      } catch {
+        setPreviewPageDims({ width: 595, height: 842, rotation: 0 });
+      }
+    }
+  };
+
+  const handleClosePreview = () => {
+    setPreviewModalPage(null);
+    setPreviewPageDims(null);
+  };
+
+  const handleNextPreview = async () => {
+    if (!loadedDoc || !previewModalPage || previewModalPage >= loadedDoc.pageCount) return;
+    const next = previewModalPage + 1;
+    setPreviewModalPage(next);
+    if (selectedFiles.length > 0) {
+      try {
+        const doc = await loadPdfFromUri(selectedFiles[0].uri);
+        const dims = getPdfPageDimensions(doc, next - 1);
+        setPreviewPageDims(dims);
+      } catch {
+        setPreviewPageDims({ width: 595, height: 842, rotation: 0 });
+      }
+    }
+  };
+
+  const handlePrevPreview = async () => {
+    if (!loadedDoc || !previewModalPage || previewModalPage <= 1) return;
+    const prev = previewModalPage - 1;
+    setPreviewModalPage(prev);
+    if (selectedFiles.length > 0) {
+      try {
+        const doc = await loadPdfFromUri(selectedFiles[0].uri);
+        const dims = getPdfPageDimensions(doc, prev - 1);
+        setPreviewPageDims(dims);
+      } catch {
+        setPreviewPageDims({ width: 595, height: 842, rotation: 0 });
+      }
+    }
   };
 
   // Execution
@@ -244,13 +386,18 @@ export const PdfPageManagerWorkspace: React.FC<PdfPageManagerWorkspaceProps> = (
         });
       } else if (activeToolId === 11) {
         // --- 11: Delete PDF Pages ---
+        if (selectedPages.length === 0) {
+          Alert.alert('No Pages Selected', 'Please select at least one page to delete.');
+          setIsProcessing(false);
+          return;
+        }
         const srcDoc = await loadPdfFromUri(selectedFiles[0].uri);
         const total = srcDoc.getPageCount();
         const deleteSet = new Set(selectedPages.map((p) => p - 1));
         const keepIndices = srcDoc.getPageIndices().filter((i) => !deleteSet.has(i));
 
         if (keepIndices.length === 0) {
-          Alert.alert('Invalid Operation', 'Cannot delete all pages in document.');
+          Alert.alert('Invalid Operation', 'Cannot delete all pages in document. At least 1 page must remain.');
           setIsProcessing(false);
           return;
         }
@@ -517,10 +664,7 @@ export const PdfPageManagerWorkspace: React.FC<PdfPageManagerWorkspaceProps> = (
                 <TouchableOpacity
                   key={id}
                   style={[styles.switchChip, isSelected && styles.switchChipActive]}
-                  onPress={() => {
-                    setActiveToolId(id);
-                    setResult(null);
-                  }}
+                  onPress={() => handleSelectTool(id)}
                 >
                   <AppIcon
                     name={cfg.iconName as any}
@@ -551,51 +695,173 @@ export const PdfPageManagerWorkspace: React.FC<PdfPageManagerWorkspaceProps> = (
 
         {/* Page Selector & Inspector Card */}
         {loadedDoc && activeToolId !== 4 && (
-          <View style={styles.card}>
-            <View style={styles.cardHeader}>
-              <View>
-                <Text style={styles.cardTitle}>Document Pages ({loadedDoc.pageCount})</Text>
-                <Text style={styles.cardSubtitle}>Select target pages for this operation</Text>
+          activeToolId === 11 ? (
+            /* Dedicated ILOVEPDF-grade Delete PDF Pages UI */
+            <View style={styles.card}>
+              <View style={styles.cardHeader}>
+                <View style={{ flex: 1 }}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+                    <Text style={styles.cardTitle}>Delete PDF Pages ({loadedDoc.pageCount})</Text>
+                    <View style={styles.offlineBadge}>
+                      <Text style={styles.offlineBadgeText}>100% Offline</Text>
+                    </View>
+                  </View>
+                  <Text style={styles.cardSubtitle}>
+                    Tap pages to mark for deletion or type range below
+                  </Text>
+                </View>
               </View>
-              <TouchableOpacity
-                onPress={() => {
-                  const all = Array.from({ length: loadedDoc.pageCount }, (_, i) => i + 1);
-                  setSelectedPages(all);
-                }}
-              >
-                <Text style={styles.selectActionText}>Select All</Text>
-              </TouchableOpacity>
-            </View>
 
-            {/* Page Grid Selector */}
-            <View style={styles.pageGrid}>
-              {Array.from({ length: Math.min(loadedDoc.pageCount, 16) }, (_, i) => i + 1).map((pg) => {
-                const isSelected = selectedPages.includes(pg);
-                return (
-                  <TouchableOpacity
-                    key={pg}
-                    style={[styles.pageTile, isSelected && styles.pageTileSelected]}
-                    onPress={() => togglePageSelection(pg)}
-                  >
-                    <AppIcon
-                      name="FileText"
-                      size={20}
-                      color={isSelected ? Colors.accentCoral : Colors.textMuted}
-                    />
-                    <Text style={[styles.pageTileText, isSelected && styles.pageTileTextSelected]}>
-                      p. {pg}
-                    </Text>
+              {/* Deletion Summary Banner */}
+              <View style={styles.deleteSummaryBanner}>
+                <View style={styles.deleteCounterChip}>
+                  <AppIcon name="Trash2" size={14} color={Colors.statusError} />
+                  <Text style={styles.deleteCounterChipText}>
+                    {selectedPages.length} {selectedPages.length === 1 ? 'page' : 'pages'} to delete
+                  </Text>
+                </View>
+                <Text style={styles.remainingCounterText}>
+                  ({loadedDoc.pageCount - selectedPages.length} will remain)
+                </Text>
+              </View>
+
+              {/* Bi-directional Range Input Field */}
+              <View style={styles.rangeInputContainer}>
+                <AppIcon name="filter_list" size={16} color={Colors.textMuted} />
+                <TextInput
+                  style={styles.rangeInputField}
+                  placeholder="Pages to delete, e.g. 1-3, 5"
+                  placeholderTextColor={Colors.textMuted}
+                  value={rangeInput}
+                  onChangeText={handleRangeInputChange}
+                  keyboardType="numbers-and-punctuation"
+                />
+                {rangeInput.length > 0 && (
+                  <TouchableOpacity onPress={handleClearSelection} style={styles.clearRangeBtn}>
+                    <AppIcon name="close" size={14} color={Colors.textMuted} />
                   </TouchableOpacity>
-                );
-              })}
-            </View>
+                )}
+              </View>
 
-            {loadedDoc.pageCount > 16 && (
-              <Text style={styles.pageOverflowNote}>
-                + {loadedDoc.pageCount - 16} more pages in document
-              </Text>
-            )}
-          </View>
+              {/* Quick Action Selector Chips */}
+              <View style={styles.quickPresetRow}>
+                <TouchableOpacity style={styles.presetChip} onPress={handleSelectAll}>
+                  <Text style={styles.presetChipText}>All</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.presetChip} onPress={handleSelectOdd}>
+                  <Text style={styles.presetChipText}>Odd</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.presetChip} onPress={handleSelectEven}>
+                  <Text style={styles.presetChipText}>Even</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.presetChip} onPress={handleInvertSelection}>
+                  <Text style={styles.presetChipText}>Invert</Text>
+                </TouchableOpacity>
+                {selectedPages.length > 0 && (
+                  <TouchableOpacity
+                    style={[styles.presetChip, styles.presetChipClear]}
+                    onPress={handleClearSelection}
+                  >
+                    <Text style={[styles.presetChipText, styles.presetChipClearText]}>Clear</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+
+              {/* Interactive Visual Page Grid */}
+              <View style={styles.pageGrid}>
+                {Array.from({ length: loadedDoc.pageCount }, (_, i) => i + 1).map((pg) => {
+                  const isSelectedForDelete = selectedPages.includes(pg);
+                  return (
+                    <TouchableOpacity
+                      key={pg}
+                      style={[
+                        styles.pageTileDelete,
+                        isSelectedForDelete && styles.pageTileDeleteActive,
+                      ]}
+                      onPress={() => togglePageSelection(pg)}
+                      activeOpacity={0.7}
+                    >
+                      <View style={styles.tileHeader}>
+                        <Text
+                          style={[
+                            styles.tilePageNum,
+                            isSelectedForDelete && styles.tilePageNumActive,
+                          ]}
+                        >
+                          #{pg}
+                        </Text>
+                        <TouchableOpacity
+                          onPress={(e) => {
+                            e.stopPropagation();
+                            handleOpenPreview(pg);
+                          }}
+                          style={styles.tileEyeBtn}
+                          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                        >
+                          <AppIcon
+                            name="Eye"
+                            size={12}
+                            color={isSelectedForDelete ? Colors.statusError : Colors.textMuted}
+                          />
+                        </TouchableOpacity>
+                      </View>
+
+                      <View style={styles.tileBody}>
+                        <AppIcon
+                          name={isSelectedForDelete ? 'Trash2' : 'FileText'}
+                          size={22}
+                          color={isSelectedForDelete ? Colors.statusError : Colors.textMuted}
+                        />
+                        <Text
+                          style={[
+                            styles.tileStatusText,
+                            isSelectedForDelete && styles.tileStatusTextActive,
+                          ]}
+                        >
+                          {isSelectedForDelete ? 'DELETE' : 'KEEP'}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </View>
+          ) : (
+            /* General page selection for other tools (Rotate, Split, Extract, etc.) */
+            <View style={styles.card}>
+              <View style={styles.cardHeader}>
+                <View>
+                  <Text style={styles.cardTitle}>Document Pages ({loadedDoc.pageCount})</Text>
+                  <Text style={styles.cardSubtitle}>Select target pages for this operation</Text>
+                </View>
+                <TouchableOpacity onPress={handleSelectAll}>
+                  <Text style={styles.selectActionText}>Select All</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.pageGrid}>
+                {Array.from({ length: loadedDoc.pageCount }, (_, i) => i + 1).map((pg) => {
+                  const isSelected = selectedPages.includes(pg);
+                  return (
+                    <TouchableOpacity
+                      key={pg}
+                      style={[styles.pageTile, isSelected && styles.pageTileSelected]}
+                      onPress={() => togglePageSelection(pg)}
+                    >
+                      <AppIcon
+                        name="FileText"
+                        size={20}
+                        color={isSelected ? Colors.accentCoral : Colors.textMuted}
+                      />
+                      <Text style={[styles.pageTileText, isSelected && styles.pageTileTextSelected]}>
+                        p. {pg}
+                      </Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            </View>
+          )
         )}
 
         {/* Operation Specific Parameters */}
@@ -734,16 +1000,157 @@ export const PdfPageManagerWorkspace: React.FC<PdfPageManagerWorkspaceProps> = (
 
         {/* Primary Action Button */}
         <PrimaryButton
-          title={isProcessing ? 'Processing Pages...' : `Execute ${toolConfig.name}`}
-          icon={isProcessing ? undefined : 'Layers'}
+          title={
+            isProcessing
+              ? 'Removing Pages...'
+              : activeToolId === 11
+              ? selectedPages.length === 0
+                ? 'Select Pages to Delete'
+                : selectedPages.length >= (loadedDoc?.pageCount || 0)
+                ? 'Cannot Delete All Pages'
+                : `Delete ${selectedPages.length} ${
+                    selectedPages.length === 1 ? 'Page' : 'Pages'
+                  } & Save PDF`
+              : `Execute ${toolConfig.name}`
+          }
+          icon={isProcessing ? undefined : activeToolId === 11 ? 'Trash2' : 'Layers'}
           onPress={handleExecute}
           loading={isProcessing}
-          variant="pdf"
+          disabled={
+            isProcessing ||
+            (activeToolId === 11 &&
+              (selectedPages.length === 0 ||
+                (loadedDoc ? selectedPages.length >= loadedDoc.pageCount : false)))
+          }
+          variant={activeToolId === 11 ? 'danger' : 'pdf'}
         />
 
         {/* Result Output Card */}
         {result && <PdfResultCard result={result} onReset={() => setResult(null)} />}
       </ScrollView>
+
+      {/* Quick Preview Modal (ILOVEPDF Style) */}
+      <Modal
+        visible={previewModalPage !== null}
+        transparent
+        animationType="fade"
+        onRequestClose={handleClosePreview}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalCard}>
+            {/* Modal Header */}
+            <View style={styles.modalHeader}>
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+                <Text style={styles.modalTitle}>
+                  Page {previewModalPage} of {loadedDoc?.pageCount || 1}
+                </Text>
+                {previewModalPage && selectedPages.includes(previewModalPage) ? (
+                  <View style={styles.modalStatusDelete}>
+                    <AppIcon name="Trash2" size={11} color={Colors.statusError} />
+                    <Text style={styles.modalStatusDeleteText}>To Delete</Text>
+                  </View>
+                ) : (
+                  <View style={styles.modalStatusKeep}>
+                    <AppIcon name="Check" size={11} color={Colors.statusSuccess} />
+                    <Text style={styles.modalStatusKeepText}>Keeping</Text>
+                  </View>
+                )}
+              </View>
+
+              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                <TouchableOpacity
+                  disabled={!previewModalPage || previewModalPage <= 1}
+                  onPress={handlePrevPreview}
+                  style={[
+                    styles.modalNavBtn,
+                    (!previewModalPage || previewModalPage <= 1) && styles.modalNavBtnDisabled,
+                  ]}
+                >
+                  <AppIcon name="chevron_left" size={18} color={Colors.textSecondary} />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  disabled={!loadedDoc || !previewModalPage || previewModalPage >= loadedDoc.pageCount}
+                  onPress={handleNextPreview}
+                  style={[
+                    styles.modalNavBtn,
+                    (!loadedDoc || !previewModalPage || previewModalPage >= loadedDoc.pageCount) &&
+                      styles.modalNavBtnDisabled,
+                  ]}
+                >
+                  <AppIcon name="chevron_right" size={18} color={Colors.textSecondary} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleClosePreview} style={styles.modalCloseBtn}>
+                  <AppIcon name="close" size={18} color={Colors.textSecondary} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {/* Modal Body: Document Sheet Representation */}
+            <View style={styles.modalBody}>
+              <View style={styles.sheetRepresentation}>
+                <View style={styles.sheetHeaderGraphic}>
+                  <View style={styles.sheetCornerFold} />
+                </View>
+                <View style={styles.sheetContentGraphic}>
+                  <View style={styles.sheetLineLong} />
+                  <View style={styles.sheetLineShort} />
+                  <View style={styles.sheetLineLong} />
+                  <View style={styles.sheetLineMedium} />
+                </View>
+                <View style={styles.sheetFooterGraphic}>
+                  <Text style={styles.sheetPageBadge}>Page {previewModalPage}</Text>
+                </View>
+              </View>
+
+              {/* Metadata chips */}
+              <View style={styles.sheetMetaRow}>
+                {previewPageDims && (
+                  <>
+                    <View style={styles.metaChip}>
+                      <Text style={styles.metaChipText}>
+                        Size: {previewPageDims.width} × {previewPageDims.height} pt
+                      </Text>
+                    </View>
+                    <View style={styles.metaChip}>
+                      <Text style={styles.metaChipText}>
+                        Rotation: {previewPageDims.rotation}°
+                      </Text>
+                    </View>
+                  </>
+                )}
+              </View>
+            </View>
+
+            {/* Modal Footer Action */}
+            <View style={styles.modalFooter}>
+              {previewModalPage && (
+                <TouchableOpacity
+                  style={[
+                    styles.modalActionBtn,
+                    selectedPages.includes(previewModalPage)
+                      ? styles.modalActionBtnKeep
+                      : styles.modalActionBtnDelete,
+                  ]}
+                  onPress={() => {
+                    togglePageSelection(previewModalPage);
+                  }}
+                >
+                  <AppIcon
+                    name={selectedPages.includes(previewModalPage) ? 'Check' : 'Trash2'}
+                    size={16}
+                    color={Colors.white}
+                  />
+                  <Text style={styles.modalActionBtnText}>
+                    {selectedPages.includes(previewModalPage)
+                      ? 'Restore Page (Keep it)'
+                      : 'Mark Page for Deletion'}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -903,5 +1310,311 @@ const styles = StyleSheet.create({
   executeBtn: {
     backgroundColor: Colors.accentCoral,
     marginVertical: Spacing.sm,
+  },
+  executeBtnDelete: {
+    backgroundColor: Colors.statusError,
+  },
+  offlineBadge: {
+    backgroundColor: '#DCFCE7',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: Radius.sm,
+  },
+  offlineBadgeText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.statusSuccess,
+  },
+  deleteSummaryBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: Spacing.sm,
+    backgroundColor: Colors.cloudWhite,
+    padding: 8,
+    borderRadius: Radius.md,
+  },
+  deleteCounterChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    backgroundColor: '#FEE2E2',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: Radius.sm,
+  },
+  deleteCounterChipText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: Colors.statusError,
+  },
+  remainingCounterText: {
+    fontSize: 12,
+    color: Colors.textMuted,
+  },
+  rangeInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.cloudWhite,
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
+    paddingHorizontal: 10,
+    marginBottom: Spacing.xs,
+    gap: 8,
+  },
+  rangeInputField: {
+    flex: 1,
+    height: 38,
+    fontSize: 13,
+    color: Colors.midnightNavy,
+  },
+  clearRangeBtn: {
+    padding: 4,
+  },
+  quickPresetRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginBottom: Spacing.sm,
+  },
+  presetChip: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: Radius.sm,
+    backgroundColor: Colors.cloudWhite,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
+  },
+  presetChipText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: Colors.textSecondary,
+  },
+  presetChipClear: {
+    borderColor: '#FECACA',
+    backgroundColor: '#FFF1F2',
+  },
+  presetChipClearText: {
+    color: Colors.statusError,
+  },
+  pageTileDelete: {
+    width: 68,
+    height: 76,
+    borderRadius: Radius.md,
+    backgroundColor: Colors.cloudWhite,
+    borderWidth: 1.5,
+    borderColor: Colors.borderLight,
+    padding: 4,
+    justifyContent: 'space-between',
+  },
+  pageTileDeleteActive: {
+    borderColor: Colors.statusError,
+    backgroundColor: '#FEE2E2',
+  },
+  tileHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  tilePageNum: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.textMuted,
+  },
+  tilePageNumActive: {
+    color: Colors.statusError,
+  },
+  tileEyeBtn: {
+    padding: 2,
+  },
+  tileBody: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 2,
+    paddingBottom: 2,
+  },
+  tileStatusText: {
+    fontSize: 9,
+    fontWeight: '700',
+    color: Colors.textMuted,
+  },
+  tileStatusTextActive: {
+    color: Colors.statusError,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.65)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: Spacing.md,
+  },
+  modalCard: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: Colors.surfaceWhite,
+    borderRadius: Radius.xl,
+    padding: Spacing.md,
+    gap: Spacing.md,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 10,
+    elevation: 8,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: Colors.midnightNavy,
+  },
+  modalStatusDelete: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#FEE2E2',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: Radius.sm,
+  },
+  modalStatusDeleteText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.statusError,
+  },
+  modalStatusKeep: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#DCFCE7',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: Radius.sm,
+  },
+  modalStatusKeepText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.statusSuccess,
+  },
+  modalNavBtn: {
+    padding: 6,
+    borderRadius: Radius.sm,
+    backgroundColor: Colors.cloudWhite,
+  },
+  modalNavBtnDisabled: {
+    opacity: 0.3,
+  },
+  modalCloseBtn: {
+    padding: 6,
+    borderRadius: Radius.sm,
+    backgroundColor: Colors.cloudWhite,
+    marginLeft: 4,
+  },
+  modalBody: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: Spacing.sm,
+  },
+  sheetRepresentation: {
+    width: 170,
+    height: 230,
+    backgroundColor: Colors.surfaceWhite,
+    borderRadius: Radius.sm,
+    borderWidth: 1.5,
+    borderColor: Colors.borderLight,
+    padding: 12,
+    justifyContent: 'space-between',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  sheetHeaderGraphic: {
+    alignItems: 'flex-end',
+  },
+  sheetCornerFold: {
+    width: 20,
+    height: 20,
+    backgroundColor: Colors.cloudWhite,
+    borderBottomLeftRadius: 6,
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: Colors.borderLight,
+  },
+  sheetContentGraphic: {
+    gap: 8,
+    paddingVertical: 12,
+  },
+  sheetLineLong: {
+    height: 5,
+    backgroundColor: Colors.borderLight,
+    borderRadius: 2,
+    width: '90%',
+  },
+  sheetLineShort: {
+    height: 5,
+    backgroundColor: Colors.borderLight,
+    borderRadius: 2,
+    width: '60%',
+  },
+  sheetLineMedium: {
+    height: 5,
+    backgroundColor: Colors.borderLight,
+    borderRadius: 2,
+    width: '75%',
+  },
+  sheetFooterGraphic: {
+    alignItems: 'center',
+  },
+  sheetPageBadge: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.textMuted,
+  },
+  sheetMetaRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    justifyContent: 'center',
+  },
+  metaChip: {
+    backgroundColor: Colors.cloudWhite,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: Radius.sm,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
+  },
+  metaChipText: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: Colors.textSecondary,
+  },
+  modalFooter: {
+    marginTop: Spacing.xs,
+  },
+  modalActionBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 12,
+    borderRadius: Radius.md,
+  },
+  modalActionBtnDelete: {
+    backgroundColor: Colors.statusError,
+  },
+  modalActionBtnKeep: {
+    backgroundColor: Colors.statusSuccess,
+  },
+  modalActionBtnText: {
+    color: Colors.white,
+    fontSize: 13,
+    fontWeight: '700',
   },
 });

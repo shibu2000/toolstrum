@@ -8,6 +8,11 @@ interface SelectedFileRowProps {
   fileSize?: number;
   infoText?: string;
   onRemove: () => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
+  isFirst?: boolean;
+  isLast?: boolean;
+  orderNumber?: number;
   accentColor?: string;
   surfaceColor?: string;
   icon?: string;
@@ -18,6 +23,11 @@ export const SelectedFileRow: React.FC<SelectedFileRowProps> = ({
   fileSize,
   infoText,
   onRemove,
+  onMoveUp,
+  onMoveDown,
+  isFirst = false,
+  isLast = false,
+  orderNumber,
   accentColor = Colors.accentCoral,
   surfaceColor = Colors.surfacePdf,
   icon = 'FileText',
@@ -29,11 +39,19 @@ export const SelectedFileRow: React.FC<SelectedFileRowProps> = ({
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   };
 
+  const hasReorder = Boolean(onMoveUp && onMoveDown);
+
   return (
     <View style={styles.container}>
       <View style={styles.leftGroup}>
+        {orderNumber !== undefined ? (
+          <View style={[styles.orderBadge, { backgroundColor: surfaceColor }]}>
+            <Text style={[styles.orderNumberText, { color: accentColor }]}>#{orderNumber}</Text>
+          </View>
+        ) : null}
+
         <View style={[styles.iconBox, { backgroundColor: surfaceColor }]}>
-          <AppIcon name={icon} size={20} color={accentColor} />
+          <AppIcon name={icon} size={18} color={accentColor} />
         </View>
 
         <View style={styles.details}>
@@ -48,13 +66,44 @@ export const SelectedFileRow: React.FC<SelectedFileRowProps> = ({
         </View>
       </View>
 
-      <TouchableOpacity
-        style={styles.removeButton}
-        onPress={onRemove}
-        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-      >
-        <AppIcon name="close" size={18} color={Colors.textMuted} />
-      </TouchableOpacity>
+      <View style={styles.rightGroup}>
+        {hasReorder ? (
+          <View style={styles.arrowGroup}>
+            <TouchableOpacity
+              style={[styles.arrowBtn, isFirst && styles.arrowBtnDisabled]}
+              onPress={onMoveUp}
+              disabled={isFirst}
+              hitSlop={{ top: 8, bottom: 8, left: 6, right: 6 }}
+            >
+              <AppIcon
+                name="ChevronUp"
+                size={16}
+                color={isFirst ? Colors.outlineVariant : Colors.onSurfaceVariant}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.arrowBtn, isLast && styles.arrowBtnDisabled]}
+              onPress={onMoveDown}
+              disabled={isLast}
+              hitSlop={{ top: 8, bottom: 8, left: 6, right: 6 }}
+            >
+              <AppIcon
+                name="ChevronDown"
+                size={16}
+                color={isLast ? Colors.outlineVariant : Colors.onSurfaceVariant}
+              />
+            </TouchableOpacity>
+          </View>
+        ) : null}
+
+        <TouchableOpacity
+          style={styles.removeButton}
+          onPress={onRemove}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
+          <AppIcon name="close" size={16} color={Colors.textMuted} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -82,10 +131,23 @@ const styles = StyleSheet.create({
     flex: 1,
     marginRight: Spacing.sm,
   },
+  orderBadge: {
+    paddingHorizontal: 6,
+    paddingVertical: 3,
+    borderRadius: Radius.xs,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: Spacing.xs + 2,
+  },
+  orderNumberText: {
+    fontSize: 11,
+    fontWeight: '700',
+    fontVariant: ['tabular-nums'],
+  },
   iconBox: {
-    width: 38,
-    height: 38,
-    borderRadius: Radius.sm + 2,
+    width: 34,
+    height: 34,
+    borderRadius: Radius.sm,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: Spacing.sm,
@@ -94,7 +156,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   name: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '600',
     color: Colors.onSurface,
   },
@@ -105,7 +167,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   metaText: {
-    fontSize: 12,
+    fontSize: 11,
     color: Colors.textMuted,
   },
   dot: {
@@ -114,9 +176,31 @@ const styles = StyleSheet.create({
     borderRadius: 2,
     backgroundColor: Colors.outlineVariant,
   },
+  rightGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  arrowGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: Colors.surfaceContainerLow,
+    borderRadius: Radius.sm,
+    padding: 2,
+  },
+  arrowBtn: {
+    width: 26,
+    height: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: Radius.xs,
+  },
+  arrowBtnDisabled: {
+    opacity: 0.35,
+  },
   removeButton: {
-    width: 32,
-    height: 32,
+    width: 30,
+    height: 30,
     borderRadius: Radius.pill,
     alignItems: 'center',
     justifyContent: 'center',

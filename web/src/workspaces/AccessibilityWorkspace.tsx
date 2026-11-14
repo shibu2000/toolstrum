@@ -1101,7 +1101,7 @@ export const AccessibilityWorkspace: React.FC<AccessibilityWorkspaceProps> = ({
                 <button
                   key={item.freq}
                   onClick={() => playHearingTone(item.freq)}
-                  className="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-750 text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between border border-slate-200 dark:border-slate-700"
+                  className="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center justify-between border border-slate-200 dark:border-slate-700"
                 >
                   <span>{item.label}</span>
                   <Volume2 className="w-4 h-4 text-indigo-500 shrink-0" />

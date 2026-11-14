@@ -339,25 +339,14 @@ export const AudioFfmpegPanel: React.FC<AudioFfmpegPanelProps> = ({ accentColor,
         <div className="space-y-3">
           <FileDropZone
             accept="audio/*"
+            multiple
             maxFiles={8}
             files={multiFiles}
-            onFilesChange={(files) => setMultiFiles((prev) => [...prev, ...files].slice(0, 8))}
-            label="Add audio files (in order)"
-            sublabel="2-8 clips"
+            onFilesChange={setMultiFiles}
+            label="Add audio clips to join"
+            sublabel="2-8 clips • Reorder sequence with drag or arrows"
             accentColor={accentColor}
           />
-          {multiFiles.length > 0 && (
-            <div className="space-y-1.5">
-              {multiFiles.map((f, i) => (
-                <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs">
-                  <span className="truncate text-slate-700 dark:text-slate-300">{i + 1}. {f.name}</span>
-                  <button onClick={() => setMultiFiles((prev) => prev.filter((_, idx) => idx !== i))}>
-                    <X className="w-3.5 h-3.5 text-slate-400 hover:text-rose-500" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       ) : (
         <FileDropZone

@@ -21,6 +21,7 @@ import {
   RefreshCw,
 } from 'lucide-react';
 import { formatBytes } from './archiveHelpers';
+import { FileDropZone } from '../../components/common/FileDropZone';
 
 interface ToolProps {
   copied?: boolean;
@@ -233,18 +234,21 @@ export const FileJoinerTool: React.FC<ToolProps> = () => {
   return (
     <div className="max-w-2xl mx-auto space-y-6">
       <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-        <label className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-amber-300 dark:border-amber-700/60 rounded-2xl bg-amber-50/20 dark:bg-amber-950/20 cursor-pointer hover:bg-amber-50/50 transition-all">
-          <Merge className="w-10 h-10 text-amber-500 mb-2" />
-          <span className="text-sm font-bold text-slate-800 dark:text-slate-200">
-            {chunks.length > 0
-              ? `Loaded ${chunks.length} numbered chunks`
-              : 'Select all numbered chunk files (.part001, .part002...)'}
-          </span>
-          <span className="text-xs text-slate-400 mt-1">
-            Reassembles sliced binary chunks into the original intact file
-          </span>
-          <input type="file" multiple onChange={handleChunksUploaded} className="hidden" />
-        </label>
+        <FileDropZone
+          multiple
+          files={chunks}
+          onFilesChange={(newChunks) => {
+            setChunks(newChunks);
+            setJoinedBlob(null);
+            if (newChunks[0] && !outputFileName) {
+              const guessed = newChunks[0].name.replace(/\.part\d+$/i, '');
+              setOutputFileName(guessed || 'joined_file.bin');
+            }
+          }}
+          label="Select all numbered chunk files (.part001, .part002...)"
+          sublabel="Reorders chunks with live sliding before binary reassembly"
+          accentColor="#F59E0B"
+        />
 
         {chunks.length > 0 && (
           <div className="space-y-3 pt-2">
@@ -258,15 +262,6 @@ export const FileJoinerTool: React.FC<ToolProps> = () => {
                 onChange={(e) => setOutputFileName(e.target.value)}
                 className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-medium text-slate-900 dark:text-white"
               />
-            </div>
-
-            <div className="space-y-1.5 max-h-40 overflow-y-auto border border-slate-100 dark:border-slate-800 p-2 rounded-xl">
-              {chunks.map((c, i) => (
-                <div key={i} className="flex justify-between text-xs text-slate-600 dark:text-slate-400">
-                  <span className="font-mono">{c.name}</span>
-                  <span>{formatBytes(c.size)}</span>
-                </div>
-              ))}
             </div>
 
             <button

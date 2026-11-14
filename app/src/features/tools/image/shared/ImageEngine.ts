@@ -279,7 +279,7 @@ export async function readImageInfo(
 export async function convertImagesToPdf(
   images: Array<{ uri: string; name: string }>,
   options: {
-    pageSize?: 'A4' | 'Letter';
+    pageSize?: 'A4' | 'Letter' | 'Fit';
     margin?: number;
   } = {}
 ): Promise<{ uri: string; name: string; size: number; pageCount: number }> {
@@ -287,21 +287,48 @@ export async function convertImagesToPdf(
   const margin = options.margin ?? 20;
 
   for (const img of images) {
-    const b64 = await FileSystem.readAsStringAsync(img.uri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-    const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
-
     let embeddedImage;
     if (img.uri.toLowerCase().endsWith('.png')) {
-      embeddedImage = await pdfDoc.embedPng(bytes);
+      try {
+        const b64 = await FileSystem.readAsStringAsync(img.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+        embeddedImage = await pdfDoc.embedPng(bytes);
+      } catch {
+        // Fallback to JPEG conversion
+        const jpegResult = await manipulateAsync(img.uri, [], {
+          compress: 0.9,
+          format: SaveFormat.JPEG,
+        });
+        const b64 = await FileSystem.readAsStringAsync(jpegResult.uri, {
+          encoding: FileSystem.EncodingType.Base64,
+        });
+        const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+        embeddedImage = await pdfDoc.embedJpg(bytes);
+      }
     } else {
+      // Convert to clean standard JPEG bytes via manipulateAsync so WebP, HEIC, JPG all work seamlessly
+      const jpegResult = await manipulateAsync(img.uri, [], {
+        compress: 0.9,
+        format: SaveFormat.JPEG,
+      });
+      const b64 = await FileSystem.readAsStringAsync(jpegResult.uri, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+      const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
       embeddedImage = await pdfDoc.embedJpg(bytes);
     }
 
     const { width: imgW, height: imgH } = embeddedImage;
-    const standardSize = options.pageSize === 'Letter' ? PageSizes.Letter : PageSizes.A4;
-    const page = pdfDoc.addPage(standardSize);
+    let page;
+
+    if (options.pageSize === 'Fit') {
+      page = pdfDoc.addPage([imgW + margin * 2, imgH + margin * 2]);
+    } else {
+      const standardSize = options.pageSize === 'Letter' ? PageSizes.Letter : PageSizes.A4;
+      page = pdfDoc.addPage(standardSize);
+    }
 
     const availableWidth = page.getWidth() - margin * 2;
     const availableHeight = page.getHeight() - margin * 2;

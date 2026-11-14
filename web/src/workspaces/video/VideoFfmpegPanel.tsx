@@ -335,25 +335,14 @@ export const VideoFfmpegPanel: React.FC<VideoFfmpegPanelProps> = ({ accentColor,
         <div className="space-y-3">
           <FileDropZone
             accept="video/*"
+            multiple
             maxFiles={8}
             files={mergeFiles}
-            onFilesChange={(files) => setMergeFiles((prev) => [...prev, ...files].slice(0, 8))}
-            label="Add videos (in order)"
-            sublabel="2-8 clips, same resolution recommended"
+            onFilesChange={setMergeFiles}
+            label="Add videos to merge"
+            sublabel="2-8 clips • Reorder sequence with drag or arrows"
             accentColor={accentColor}
           />
-          {mergeFiles.length > 0 && (
-            <div className="space-y-1.5">
-              {mergeFiles.map((f, i) => (
-                <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs">
-                  <span className="truncate text-slate-700 dark:text-slate-300">{i + 1}. {f.name}</span>
-                  <button onClick={() => setMergeFiles((prev) => prev.filter((_, idx) => idx !== i))}>
-                    <X className="w-3.5 h-3.5 text-slate-400 hover:text-rose-500" />
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
       ) : (
         <>

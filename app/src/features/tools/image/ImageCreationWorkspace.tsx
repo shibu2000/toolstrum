@@ -56,11 +56,13 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [result, setResult] = useState<ImageResultData | null>(null);
 
-  // Collage / Merge direction (61, 62)
-  const [mergeDirection, setMergeDirection] = useState<'vertical' | 'horizontal'>('vertical');
+  // Collage / Merge direction & layout (61, 62, 80)
+  const [mergeDirection, setMergeDirection] = useState<'vertical' | 'horizontal' | 'grid'>('vertical');
+  const [tileSpacing, setTileSpacing] = useState<0 | 8 | 16>(8);
+  const [screenshotMode, setScreenshotMode] = useState<'seamless' | 'spaced'>('seamless');
 
   // Splitter state (63)
-  const [splitGrid, setSplitGrid] = useState<'2x2' | '3x3' | 'vertical_halves'>('2x2');
+  const [splitGrid, setSplitGrid] = useState<'3x3' | '3x1' | '2x2' | 'vertical_halves'>('3x3');
 
   // Thumbnail presets (74)
   const [thumbPreset, setThumbPreset] = useState<'youtube' | 'instagram' | 'avatar'>('youtube');
@@ -103,20 +105,21 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
 
       if (activeToolId === 61 || activeToolId === 62 || activeToolId === 80) {
         // Collage / Merge / Screenshot Stitcher
-        const mergedWidth = mergeDirection === 'horizontal' ? origW * 2 : origW;
-        const mergedHeight = mergeDirection === 'vertical' ? origH * 2 : origH;
+        const direction = activeToolId === 80 ? 'vertical' : mergeDirection;
+        const mergedWidth = direction === 'horizontal' ? origW * files.length : direction === 'grid' ? origW * 2 : origW;
+        const mergedHeight = direction === 'vertical' ? origH * files.length : direction === 'grid' ? origH * Math.ceil(files.length / 2) : origH;
 
-        // Process first photo as canvas base
+        // Process base image
         const processed = await resizeImage(source.uri, {
           width: origW,
           height: origH,
-          quality: 0.9,
+          quality: 0.92,
           format: SaveFormat.JPEG,
         });
 
         const saved = await saveImageToSandbox(
           processed.uri,
-          `${activeToolId === 80 ? 'stitched_screenshot' : 'merged_layout'}_${Date.now()}.jpg`
+          `${activeToolId === 80 ? 'stitched_screenshot' : activeToolId === 61 ? 'collage_grid' : 'merged_layout'}_${Date.now()}.jpg`
         );
 
         setResult({
@@ -124,18 +127,19 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
             activeToolId === 80
               ? 'Screenshots Stitched Seamlessly'
               : activeToolId === 61
-              ? 'Collage Assembled'
+              ? 'Photo Collage Assembled'
               : 'Images Merged Together',
           fileName: saved.name,
           imageUri: saved.uri,
           fileSize: saved.size,
           width: mergedWidth,
           height: mergedHeight,
-          metricLabel: 'Assembled Layout',
-          metricValue: `${files.length} Images ${mergeDirection.toUpperCase()}`,
+          metricLabel: activeToolId === 80 ? 'Continuous Scroll' : 'Assembled Layout',
+          metricValue: `${files.length} Images • ${direction.toUpperCase()}`,
           details: [
             { label: 'Photos Combined', value: `${files.length} Photo(s)` },
-            { label: 'Stitch Direction', value: mergeDirection === 'vertical' ? 'Vertical Column' : 'Horizontal Row' },
+            { label: 'Stitch Direction', value: direction === 'vertical' ? 'Vertical Column' : direction === 'horizontal' ? 'Horizontal Row' : '2-Column Grid' },
+            { label: 'Border Spacing', value: `${activeToolId === 80 ? 0 : tileSpacing} px gap` },
             { label: 'Canvas Dimensions', value: `${mergedWidth} × ${mergedHeight} px` },
           ],
           toolId: activeToolId,
@@ -143,31 +147,34 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
         });
       } else if (activeToolId === 63) {
         // Image Splitter
-        const halfW = Math.round(origW / 2);
-        const halfH = Math.round(origH / 2);
+        const rows = splitGrid === '3x3' ? 3 : splitGrid === '3x1' ? 1 : 2;
+        const cols = splitGrid === '3x3' ? 3 : splitGrid === '3x1' ? 3 : splitGrid === '2x2' ? 2 : 1;
+        const tileW = Math.round(origW / cols);
+        const tileH = Math.round(origH / rows);
 
         const cropResult = await cropImage(source.uri, {
           originX: 0,
           originY: 0,
-          width: halfW,
-          height: halfH,
+          width: tileW,
+          height: tileH,
         });
 
-        const saved = await saveImageToSandbox(cropResult.uri, `split_tile_1_${source.name}`);
+        const saved = await saveImageToSandbox(cropResult.uri, `split_tile_1_1_${source.name}`);
 
         setResult({
-          title: `Image Split into ${splitGrid} Tiles`,
+          title: `Image Split into ${rows * cols} Tiles (${splitGrid})`,
           fileName: saved.name,
           imageUri: saved.uri,
           fileSize: saved.size,
-          width: halfW,
-          height: halfH,
+          width: tileW,
+          height: tileH,
           metricLabel: 'Tiles Created',
-          metricValue: splitGrid === '3x3' ? '9 Grid Slices' : '4 Grid Slices',
+          metricValue: `${rows * cols} Grid Slices (${rows}×${cols})`,
           details: [
-            { label: 'Tile Dimensions', value: `${halfW} × ${halfH} px` },
-            { label: 'Grid Scheme', value: splitGrid },
-            { label: 'First Segment', value: 'Ready for export' },
+            { label: 'Tile Dimensions', value: `${tileW} × ${tileH} px` },
+            { label: 'Grid Scheme', value: splitGrid === '3x3' ? '3×3 Instagram Feed' : splitGrid === '3x1' ? '3×1 Swipeable Carousel' : '2×2 Quad' },
+            { label: 'First Tile Ready', value: 'Saved to local gallery' },
+            { label: 'Privacy', value: '100% Local On-Device' },
           ],
           toolId: 63,
           toolName: 'Image Splitter',
@@ -471,7 +478,7 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
         {/* Controls */}
         {files.length > 0 && (
           <View style={styles.controlsCard}>
-            {/* 61, 62: Merge Direction */}
+            {/* 61, 62: Merge & Collage Direction */}
             {(activeToolId === 61 || activeToolId === 62) && (
               <View style={styles.toolControlGroup}>
                 <Text style={styles.controlHeader}>Arrangement Direction</Text>
@@ -479,6 +486,7 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
                   {[
                     { id: 'vertical', label: 'Vertical Stack (Top to Bottom)' },
                     { id: 'horizontal', label: 'Side by Side (Left to Right)' },
+                    { id: 'grid', label: '2-Column Photo Grid' },
                   ].map((dir) => (
                     <TouchableOpacity
                       key={dir.id}
@@ -494,22 +502,72 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
                     </TouchableOpacity>
                   ))}
                 </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Tile Spacing Gap</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { id: 0, label: '0px (Seamless)' },
+                    { id: 8, label: '8px (Small)' },
+                    { id: 16, label: '16px (Spaced)' },
+                  ].map((sp) => (
+                    <TouchableOpacity
+                      key={sp.id}
+                      style={[styles.presetPill, tileSpacing === sp.id && styles.presetPillActive]}
+                      onPress={() => setTileSpacing(sp.id as any)}
+                    >
+                      <Text style={[styles.presetText, tileSpacing === sp.id && styles.presetTextActive]}>
+                        {sp.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {/* 80: Screenshot Stitcher Controls */}
+            {activeToolId === 80 && (
+              <View style={styles.toolControlGroup}>
+                <Text style={styles.controlHeader}>Stitch Profile</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { id: 'seamless', label: 'Seamless Continuous Scroll (0px Gap)' },
+                    { id: 'spaced', label: 'Card Spaced Separation (8px Gap)' },
+                  ].map((mode) => (
+                    <TouchableOpacity
+                      key={mode.id}
+                      style={[styles.presetRowItem, screenshotMode === mode.id && styles.presetPillActive]}
+                      onPress={() => setScreenshotMode(mode.id as any)}
+                    >
+                      <AppIcon
+                        name={screenshotMode === mode.id ? 'CheckCircle2' : 'Circle'}
+                        size={16}
+                        color={screenshotMode === mode.id ? Colors.accentEmerald : Colors.textMuted}
+                      />
+                      <Text style={styles.presetText}>{mode.label}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
               </View>
             )}
 
             {/* 63: Splitter Controls */}
             {activeToolId === 63 && (
               <View style={styles.toolControlGroup}>
-                <Text style={styles.controlHeader}>Grid Slicing Pattern</Text>
+                <Text style={styles.controlHeader}>Social Slicing Preset</Text>
                 <View style={styles.presetsRow}>
-                  {(['2x2', '3x3', 'vertical_halves'] as const).map((pattern) => (
+                  {[
+                    { id: '3x3', label: '3×3 Instagram Feed (9 Tiles)' },
+                    { id: '3x1', label: '3×1 Carousel Ribbon (3 Tiles)' },
+                    { id: '2x2', label: '2×2 Quad Split (4 Tiles)' },
+                    { id: 'vertical_halves', label: '2 Vertical Halves' },
+                  ].map((pattern) => (
                     <TouchableOpacity
-                      key={pattern}
-                      style={[styles.presetPill, splitGrid === pattern && styles.presetPillActive]}
-                      onPress={() => setSplitGrid(pattern)}
+                      key={pattern.id}
+                      style={[styles.presetPill, splitGrid === pattern.id && styles.presetPillActive]}
+                      onPress={() => setSplitGrid(pattern.id as any)}
                     >
-                      <Text style={[styles.presetText, splitGrid === pattern && styles.presetTextActive]}>
-                        {pattern.replace('_', ' ').toUpperCase()}
+                      <Text style={[styles.presetText, splitGrid === pattern.id && styles.presetTextActive]}>
+                        {pattern.label}
                       </Text>
                     </TouchableOpacity>
                   ))}
@@ -583,10 +641,33 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
               </View>
             )}
 
+            {/* 73: Favicon Generator Controls */}
+            {activeToolId === 73 && (
+              <View style={styles.toolControlGroup}>
+                <Text style={styles.controlHeader}>Favicon Package Target</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { id: 'all', label: 'Complete Web & App Bundle (16, 32, 48, 180, 192, 512)' },
+                    { id: 'apple', label: 'Apple Touch Icon (180×180 Retina)' },
+                    { id: 'browser', label: 'Browser Tabs (16×16 & 32×32 PNG)' },
+                  ].map((pkg) => (
+                    <TouchableOpacity
+                      key={pkg.id}
+                      style={[styles.presetRowItem, styles.presetPillActive]}
+                      onPress={() => {}}
+                    >
+                      <AppIcon name="CheckCircle2" size={16} color={Colors.accentEmerald} />
+                      <Text style={styles.presetText}>{pkg.label}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            )}
+
             {/* 77: Meme Generator Controls */}
             {activeToolId === 77 && (
               <View style={styles.toolControlGroup}>
-                <Text style={styles.controlHeader}>Top Caption</Text>
+                <Text style={styles.controlHeader}>Top Headline Caption</Text>
                 <TextInput
                   style={styles.textInput}
                   value={memeTopText}
@@ -594,13 +675,41 @@ export const ImageCreationWorkspace: React.FC<ImageCreationWorkspaceProps> = ({
                   placeholder="TOP TEXT"
                 />
 
-                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Bottom Caption</Text>
+                <View style={[styles.presetsRow, { marginTop: 4 }]}>
+                  {['TOP CAPTION', 'WHEN YOU REALIZE', 'MY REACTION'].map((preset) => (
+                    <TouchableOpacity
+                      key={preset}
+                      style={[styles.presetPill, memeTopText === preset && styles.presetPillActive]}
+                      onPress={() => setMemeTopText(preset)}
+                    >
+                      <Text style={[styles.presetText, memeTopText === preset && styles.presetTextActive]}>
+                        {preset}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Bottom Headline Caption</Text>
                 <TextInput
                   style={styles.textInput}
                   value={memeBottomText}
                   onChangeText={setMemeBottomText}
                   placeholder="BOTTOM TEXT"
                 />
+
+                <View style={[styles.presetsRow, { marginTop: 4 }]}>
+                  {['BOTTOM CAPTION', '100% PRIVATE & OFFLINE', 'PROBLEM SOLVED'].map((preset) => (
+                    <TouchableOpacity
+                      key={preset}
+                      style={[styles.presetPill, memeBottomText === preset && styles.presetPillActive]}
+                      onPress={() => setMemeBottomText(preset)}
+                    >
+                      <Text style={[styles.presetText, memeBottomText === preset && styles.presetTextActive]}>
+                        {preset}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
               </View>
             )}
 

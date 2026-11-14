@@ -6,7 +6,17 @@
  */
 
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+  LayoutAnimation,
+  Platform,
+  UIManager,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as DocumentPicker from 'expo-document-picker';
 import { Colors, Radius, Spacing } from '../../../../design-system/tokens';
@@ -145,11 +155,44 @@ export const ImageFilePicker: React.FC<ImageFilePickerProps> = ({
     }
   };
 
+  const animateLayout = () => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  };
+
+  const handleMove = (index: number, direction: 'up' | 'down') => {
+    const target = direction === 'up' ? index - 1 : index + 1;
+    if (target < 0 || target >= files.length) return;
+    const reordered = [...files];
+    const [moved] = reordered.splice(index, 1);
+    reordered.splice(target, 0, moved);
+    animateLayout();
+    onFilesChange(reordered);
+  };
+
+  const handleSortAlphabetical = () => {
+    const sorted = [...files].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+    );
+    animateLayout();
+    onFilesChange(sorted);
+  };
+
+  const handleReverseOrder = () => {
+    const reversed = [...files].reverse();
+    animateLayout();
+    onFilesChange(reversed);
+  };
+
   const handleRemove = (id: string) => {
+    animateLayout();
     onFilesChange(files.filter((f) => f.id !== id));
   };
 
   const handleClearAll = () => {
+    animateLayout();
     onFilesChange([]);
   };
 
@@ -160,11 +203,33 @@ export const ImageFilePicker: React.FC<ImageFilePickerProps> = ({
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
-        {files.length > 0 && (
-          <TouchableOpacity onPress={handleClearAll} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-            <Text style={styles.clearText}>Clear ({files.length})</Text>
-          </TouchableOpacity>
-        )}
+
+        <View style={styles.headerActions}>
+          {multiple && files.length > 1 && (
+            <View style={styles.sortButtonGroup}>
+              <TouchableOpacity
+                onPress={handleSortAlphabetical}
+                style={styles.miniActionBtn}
+                hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+              >
+                <Text style={styles.miniActionText}>A-Z</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleReverseOrder}
+                style={styles.miniActionBtn}
+                hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+              >
+                <Text style={styles.miniActionText}>Reverse</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          {files.length > 0 && (
+            <TouchableOpacity onPress={handleClearAll} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+              <Text style={styles.clearText}>Clear ({files.length})</Text>
+            </TouchableOpacity>
+          )}
+        </View>
       </View>
 
       {/* Main Pick Trigger */}
@@ -216,11 +281,17 @@ export const ImageFilePicker: React.FC<ImageFilePickerProps> = ({
         )}
       </View>
 
-      {/* Selected Images List */}
+      {/* Selected Images List with Ordering Controls */}
       {files.length > 0 && (
         <View style={styles.fileList}>
-          {files.map((file) => (
+          {files.map((file, index) => (
             <View key={file.id} style={styles.fileRow}>
+              {multiple && files.length > 1 && (
+                <View style={styles.orderBadge}>
+                  <Text style={styles.orderNumberText}>#{index + 1}</Text>
+                </View>
+              )}
+
               {file.uri.endsWith('.svg') || file.uri.endsWith('.pdf') ? (
                 <View style={styles.vectorBadge}>
                   <AppIcon name="FileText" size={16} color={Colors.accentEmerald} />
@@ -228,6 +299,7 @@ export const ImageFilePicker: React.FC<ImageFilePickerProps> = ({
               ) : (
                 <Image source={{ uri: file.uri }} style={styles.thumbnail} resizeMode="cover" />
               )}
+
               <View style={styles.fileDetails}>
                 <Text style={styles.fileName} numberOfLines={1}>
                   {file.name}
@@ -237,6 +309,37 @@ export const ImageFilePicker: React.FC<ImageFilePickerProps> = ({
                   {file.width && file.height ? ` · ${file.width}×${file.height}px` : ''}
                 </Text>
               </View>
+
+              {/* Sequence Move Arrows */}
+              {multiple && files.length > 1 && (
+                <View style={styles.reorderButtons}>
+                  <TouchableOpacity
+                    style={[styles.arrowBtn, index === 0 && styles.arrowBtnDisabled]}
+                    onPress={() => handleMove(index, 'up')}
+                    disabled={index === 0}
+                    hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                  >
+                    <AppIcon
+                      name="ChevronUp"
+                      size={14}
+                      color={index === 0 ? Colors.outlineVariant : Colors.onSurfaceVariant}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.arrowBtn, index === files.length - 1 && styles.arrowBtnDisabled]}
+                    onPress={() => handleMove(index, 'down')}
+                    disabled={index === files.length - 1}
+                    hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                  >
+                    <AppIcon
+                      name="ChevronDown"
+                      size={14}
+                      color={index === files.length - 1 ? Colors.outlineVariant : Colors.onSurfaceVariant}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
+
               <TouchableOpacity
                 onPress={() => handleRemove(file.id)}
                 style={styles.removeBtn}
@@ -278,6 +381,62 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: Colors.textMuted,
     marginTop: 1,
+  },
+  headerActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Spacing.sm,
+  },
+  sortButtonGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: Colors.surfaceImage,
+    borderRadius: Radius.sm,
+    padding: 2,
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+  },
+  miniActionBtn: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: Radius.xs,
+  },
+  miniActionText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.accentEmerald,
+  },
+  orderBadge: {
+    width: 22,
+    height: 22,
+    borderRadius: Radius.xs,
+    backgroundColor: Colors.surfaceImage,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+  },
+  orderNumberText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.accentEmerald,
+    fontVariant: ['tabular-nums'],
+  },
+  reorderButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+    backgroundColor: '#F1F5F9',
+    borderRadius: Radius.sm,
+    padding: 2,
+  },
+  arrowBtn: {
+    padding: 3,
+    borderRadius: Radius.xs,
+  },
+  arrowBtnDisabled: {
+    opacity: 0.3,
   },
   clearText: {
     fontSize: 12,

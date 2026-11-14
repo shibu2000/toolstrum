@@ -102,7 +102,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
       </div>
 
       {primaryValue !== undefined && (
-        <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-850/60 border border-slate-100 dark:border-slate-800">
+        <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
           <p className="text-2xl font-bold font-mono tracking-tight text-slate-900 dark:text-white">
             {primaryValue}
           </p>

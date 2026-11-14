@@ -26,6 +26,7 @@ import {
   formatBytes,
   TarEntryInfo,
 } from './archiveHelpers';
+import { FileDropZone } from '../../components/common/FileDropZone';
 
 interface ToolProps {
   copied?: boolean;
@@ -126,31 +127,18 @@ export const ZipCreatorTool: React.FC<ToolProps> = () => {
           <label className="text-xs font-bold text-slate-800 dark:text-slate-200 block mb-2">
             Select Files to Pack ({files.length} selected)
           </label>
-          <label className="flex flex-col items-center justify-center p-6 border-2 border-dashed border-amber-300 dark:border-amber-700/60 rounded-2xl bg-amber-50/30 dark:bg-amber-950/20 cursor-pointer hover:bg-amber-50/60 transition-all">
-            <Archive className="w-8 h-8 text-amber-500 mb-2" />
-            <span className="text-xs font-bold text-slate-800 dark:text-slate-200">
-              Click to browse or drop files here
-            </span>
-            <span className="text-[11px] text-slate-400 mt-0.5">
-              Files are packed 100% offline in your browser
-            </span>
-            <input type="file" multiple onChange={handleFilesSelected} className="hidden" />
-          </label>
+          <FileDropZone
+            multiple
+            files={files}
+            onFilesChange={(newFiles) => {
+              setFiles(newFiles);
+              setDownloadBlob(null);
+            }}
+            label="Select or drop files to pack into ZIP"
+            sublabel="100% Offline • Reorder, sort & arrange archive structure"
+            accentColor="#F59E0B"
+          />
         </div>
-
-        {files.length > 0 && (
-          <div className="space-y-1.5 max-h-44 overflow-y-auto pt-2 border-t border-slate-100 dark:border-slate-800">
-            {files.map((f, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-xs"
-              >
-                <span className="truncate max-w-[200px] text-slate-700 dark:text-slate-300">{f.name}</span>
-                <span className="text-slate-400 font-mono text-[11px]">{formatBytes(f.size)}</span>
-              </div>
-            ))}
-          </div>
-        )}
 
         <button
           onClick={handleCreateZip}

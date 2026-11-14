@@ -67,7 +67,7 @@ export const QrGeneratorTool: React.FC<ToolProps> = ({ copied, onCopy }) => {
       <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border-2 border-teal-500/30 shadow-md flex flex-col items-center justify-center space-y-4 text-center">
         {dataUrl ? (
           <>
-            <div className="p-4 rounded-2xl bg-white shadow-sm border border-slate-100">
+            <div className="p-4 rounded-2xl bg-white shadow-sm border border-slate-100 dark:border-slate-800">
               <img src={dataUrl} alt="QR Code" className="w-56 h-56 object-contain" />
             </div>
             <button
@@ -217,7 +217,7 @@ export const BarcodeGeneratorTool: React.FC<ToolProps> = ({ copied, onCopy }) =>
         </span>
 
         <div
-          className="p-4 bg-white rounded-2xl border border-slate-200 text-slate-900 w-full max-w-xs"
+          className="p-4 bg-white rounded-2xl border border-slate-200 dark:border-slate-700 text-slate-900 w-full max-w-xs"
           dangerouslySetInnerHTML={{ __html: svgMarkup }}
         />
 
@@ -395,7 +395,7 @@ export const QrCustomizerTool: React.FC<ToolProps> = () => {
       <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border-2 border-teal-500/30 shadow-md flex flex-col items-center justify-center space-y-4 text-center">
         {dataUrl && (
           <>
-            <div className="p-4 rounded-2xl shadow-sm border border-slate-100" style={{ backgroundColor: colorLight }}>
+            <div className="p-4 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800" style={{ backgroundColor: colorLight }}>
               <img src={dataUrl} alt="Custom QR" className="w-56 h-56 object-contain" />
             </div>
             <a

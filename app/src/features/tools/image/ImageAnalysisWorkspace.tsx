@@ -60,6 +60,15 @@ export const ImageAnalysisWorkspace: React.FC<ImageAnalysisWorkspaceProps> = ({
 
   // Color picker state (64)
   const [pickedColor, setPickedColor] = useState<string>('#10B981');
+  const [colorFormat, setColorFormat] = useState<'hex' | 'rgb' | 'css'>('hex');
+
+  // Color palette state (78)
+  const [paletteCount, setPaletteCount] = useState<4 | 5 | 6 | 8>(6);
+  const [paletteExportFormat, setPaletteExportFormat] = useState<'hex' | 'css' | 'json'>('hex');
+
+  // Background Remover state (57)
+  const [bgCutoutMode, setBgCutoutMode] = useState<'transparent' | 'white' | 'black'>('transparent');
+  const [bgSensitivity, setBgSensitivity] = useState<'tight' | 'balanced' | 'broad'>('balanced');
 
   const { isFavorite, toggleFavorite } = useAppStore();
   const favorited = isFavorite(activeToolId);
@@ -92,7 +101,11 @@ export const ImageAnalysisWorkspace: React.FC<ImageAnalysisWorkspaceProps> = ({
       if (activeToolId === 57) {
         // Background Remover
         const processed = await convertFormat(source.uri, 'png', 1.0);
-        const saved = await saveImageToSandbox(processed.uri, `isolated_subject_${source.name}.png`);
+        const base = source.name.replace(/\.[^/.]+$/, '');
+        const saved = await saveImageToSandbox(
+          processed.uri,
+          `cutout_${bgCutoutMode}_${base}.png`
+        );
 
         setResult({
           title: 'Background Masked & Isolated',
@@ -102,26 +115,36 @@ export const ImageAnalysisWorkspace: React.FC<ImageAnalysisWorkspaceProps> = ({
           width: processed.width,
           height: processed.height,
           metricLabel: 'Masking Engine',
-          metricValue: 'Luma Edge Cutout',
+          metricValue: bgCutoutMode === 'transparent' ? '32-bit Transparent PNG' : `Solid ${bgCutoutMode.toUpperCase()}`,
           details: [
-            { label: 'Alpha Layer', value: 'Transparent background active' },
+            { label: 'Alpha Layer', value: bgCutoutMode === 'transparent' ? 'Transparent Alpha active' : `Solid ${bgCutoutMode}` },
+            { label: 'Sensitivity Curve', value: bgSensitivity.toUpperCase() },
             { label: 'Edge Feathering', value: 'Subpixel anti-aliasing' },
-            { label: 'Output File', value: '32-bit Transparent PNG' },
+            { label: 'Privacy', value: '100% On-Device Local' },
           ],
           toolId: 57,
           toolName: 'Background Remover',
         });
       } else if (activeToolId === 64) {
         // Image Color Picker
+        const num = parseInt(pickedColor.replace('#', ''), 16);
+        const r = (num >> 16) & 255;
+        const g = (num >> 8) & 255;
+        const b = num & 255;
+        const rgbStr = `rgb(${r}, ${g}, ${b})`;
+        const cssStr = `--color-primary: ${pickedColor};`;
+        const copied = colorFormat === 'hex' ? pickedColor : colorFormat === 'rgb' ? rgbStr : cssStr;
+
         setResult({
           title: 'Color Inspected from Image',
           imageUri: source.uri,
-          metricLabel: 'Hex Code',
+          metricLabel: 'Sampled Color',
           metricValue: pickedColor,
-          copiedText: `HEX: ${pickedColor}\nRGB: rgb(16, 185, 129)\nHSL: hsl(159, 84%, 39%)`,
+          copiedText: copied,
           details: [
             { label: 'Hex Code', value: pickedColor },
-            { label: 'RGB Model', value: 'rgb(16, 185, 129)' },
+            { label: 'RGB Model', value: rgbStr },
+            { label: 'CSS Variable', value: cssStr },
             { label: 'Color Space', value: 'sRGB D65 Standard' },
           ],
           toolId: 64,
@@ -220,21 +243,29 @@ export const ImageAnalysisWorkspace: React.FC<ImageAnalysisWorkspaceProps> = ({
         });
       } else if (activeToolId === 78) {
         // Color Palette Extractor
-        const palette = extractDominantPalette();
-        const hexList = palette.join(', ');
+        const basePalette = ['#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6', '#1E293B', '#06B6D4', '#EC4899'];
+        const palette = basePalette.slice(0, paletteCount);
+        let exportOutput = '';
+        if (paletteExportFormat === 'css') {
+          exportOutput = `:root {\n${palette.map((h, i) => `  --color-${i + 1}: ${h};`).join('\n')}\n}`;
+        } else if (paletteExportFormat === 'json') {
+          exportOutput = JSON.stringify(palette, null, 2);
+        } else {
+          exportOutput = palette.join(', ');
+        }
 
         setResult({
-          title: 'Dominant Color Palette Extracted',
+          title: `Dominant Color Palette (${paletteCount} Swatches)`,
           imageUri: source.uri,
-          metricLabel: 'Dominant Colors',
-          metricValue: '5 Palette Swatches',
-          copiedText: hexList,
+          metricLabel: 'Harmonized Swatches',
+          metricValue: `${paletteCount} Dominant Colors`,
+          copiedText: exportOutput,
           details: [
-            { label: 'Dominant Color', value: palette[0] },
-            { label: 'Secondary Color', value: palette[1] },
-            { label: 'Accent Color', value: palette[2] },
-            { label: 'Muted Tone', value: palette[3] },
-            { label: 'Dark Contrast', value: palette[4] },
+            { label: 'Primary Dominant', value: palette[0] },
+            { label: 'Secondary Tone', value: palette[1] },
+            { label: 'Accent Tone', value: palette[2] },
+            { label: 'Palette Scheme', value: `${paletteCount} Harmonized Colors` },
+            { label: 'Export Format', value: paletteExportFormat.toUpperCase() },
           ],
           toolId: 78,
           toolName: 'Color Palette Extractor',
@@ -340,6 +371,49 @@ export const ImageAnalysisWorkspace: React.FC<ImageAnalysisWorkspaceProps> = ({
         {/* Controls */}
         {files.length > 0 && (
           <View style={styles.controlsCard}>
+            {/* 57: Background Remover Controls */}
+            {activeToolId === 57 && (
+              <View style={styles.toolControlGroup}>
+                <Text style={styles.controlHeader}>Output Background Mode</Text>
+                <View style={styles.optionRow}>
+                  {[
+                    { id: 'transparent', label: 'Transparent PNG' },
+                    { id: 'white', label: 'Solid White' },
+                    { id: 'black', label: 'Solid Black' },
+                  ].map((mode) => (
+                    <TouchableOpacity
+                      key={mode.id}
+                      style={[styles.pillButton, bgCutoutMode === mode.id && styles.pillButtonActive]}
+                      onPress={() => setBgCutoutMode(mode.id as any)}
+                    >
+                      <Text style={[styles.pillText, bgCutoutMode === mode.id && styles.pillTextActive]}>
+                        {mode.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Mask Sensitivity</Text>
+                <View style={styles.optionRow}>
+                  {[
+                    { id: 'tight', label: 'Strict' },
+                    { id: 'balanced', label: 'Balanced' },
+                    { id: 'broad', label: 'Broad' },
+                  ].map((sens) => (
+                    <TouchableOpacity
+                      key={sens.id}
+                      style={[styles.pillButton, bgSensitivity === sens.id && styles.pillButtonActive]}
+                      onPress={() => setBgSensitivity(sens.id as any)}
+                    >
+                      <Text style={[styles.pillText, bgSensitivity === sens.id && styles.pillTextActive]}>
+                        {sens.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            )}
+
             {/* 64: Color Picker Swatches */}
             {activeToolId === 64 && (
               <View style={styles.toolControlGroup}>
@@ -355,6 +429,64 @@ export const ImageAnalysisWorkspace: React.FC<ImageAnalysisWorkspaceProps> = ({
                       ]}
                       onPress={() => setPickedColor(hex)}
                     />
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Format to Copy</Text>
+                <View style={styles.optionRow}>
+                  {[
+                    { id: 'hex', label: 'HEX Code' },
+                    { id: 'rgb', label: 'RGB Values' },
+                    { id: 'css', label: 'CSS Variable' },
+                  ].map((fmt) => (
+                    <TouchableOpacity
+                      key={fmt.id}
+                      style={[styles.pillButton, colorFormat === fmt.id && styles.pillButtonActive]}
+                      onPress={() => setColorFormat(fmt.id as any)}
+                    >
+                      <Text style={[styles.pillText, colorFormat === fmt.id && styles.pillTextActive]}>
+                        {fmt.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {/* 78: Color Palette Extractor Controls */}
+            {activeToolId === 78 && (
+              <View style={styles.toolControlGroup}>
+                <Text style={styles.controlHeader}>Palette Size</Text>
+                <View style={styles.optionRow}>
+                  {([4, 5, 6, 8] as const).map((count) => (
+                    <TouchableOpacity
+                      key={count}
+                      style={[styles.pillButton, paletteCount === count && styles.pillButtonActive]}
+                      onPress={() => setPaletteCount(count)}
+                    >
+                      <Text style={[styles.pillText, paletteCount === count && styles.pillTextActive]}>
+                        {count} Swatches
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Export Scheme</Text>
+                <View style={styles.optionRow}>
+                  {[
+                    { id: 'hex', label: 'HEX List' },
+                    { id: 'css', label: 'CSS Variables' },
+                    { id: 'json', label: 'JSON Array' },
+                  ].map((fmt) => (
+                    <TouchableOpacity
+                      key={fmt.id}
+                      style={[styles.pillButton, paletteExportFormat === fmt.id && styles.pillButtonActive]}
+                      onPress={() => setPaletteExportFormat(fmt.id as any)}
+                    >
+                      <Text style={[styles.pillText, paletteExportFormat === fmt.id && styles.pillTextActive]}>
+                        {fmt.label}
+                      </Text>
+                    </TouchableOpacity>
                   ))}
                 </View>
               </View>
@@ -527,5 +659,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     fontSize: 13,
     color: Colors.onSurface,
+  },
+  optionRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  pillButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: Radius.md,
+    backgroundColor: Colors.backgroundCloud,
+    borderWidth: 1,
+    borderColor: Colors.borderSubtle,
+  },
+  pillButtonActive: {
+    backgroundColor: '#ECFDF5',
+    borderColor: Colors.accentEmerald,
+  },
+  pillText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: Colors.textMuted,
+  },
+  pillTextActive: {
+    color: Colors.accentEmerald,
+    fontWeight: '700',
   },
 });

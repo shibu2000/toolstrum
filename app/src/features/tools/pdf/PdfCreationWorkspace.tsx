@@ -14,6 +14,9 @@ import {
   TextInput,
   Image,
   Alert,
+  LayoutAnimation,
+  Platform,
+  UIManager,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as DocumentPicker from 'expo-document-picker';
@@ -144,6 +147,47 @@ export const PdfCreationWorkspace: React.FC<PdfCreationWorkspaceProps> = ({
     } catch (err: any) {
       Alert.alert('Scanner Error', err?.message || 'Failed to capture document scan.');
     }
+  };
+
+  // Layout animation for 60fps sliding
+  const animateLayout = () => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  };
+
+  const handleMoveImage = (index: number, direction: 'up' | 'down') => {
+    const target = direction === 'up' ? index - 1 : index + 1;
+    if (target < 0 || target >= images.length) return;
+    const reordered = [...images];
+    const [moved] = reordered.splice(index, 1);
+    reordered.splice(target, 0, moved);
+    animateLayout();
+    setImages(reordered);
+    setResult(null);
+  };
+
+  const handleSortImagesAtoZ = () => {
+    const sorted = [...images].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+    );
+    animateLayout();
+    setImages(sorted);
+    setResult(null);
+  };
+
+  const handleReverseImages = () => {
+    const reversed = [...images].reverse();
+    animateLayout();
+    setImages(reversed);
+    setResult(null);
+  };
+
+  const handleRemoveImage = (id: string) => {
+    animateLayout();
+    setImages((prev) => prev.filter((i) => i.id !== id));
+    setResult(null);
   };
 
   // Pick Office Document
@@ -478,20 +522,77 @@ export const PdfCreationWorkspace: React.FC<PdfCreationWorkspaceProps> = ({
             {/* Selected Images List */}
             {images.length > 0 ? (
               <View style={styles.imageList}>
+                <View style={styles.imageListHeader}>
+                  <Text style={styles.imageListTitle}>Page Order ({images.length} pages)</Text>
+                  {images.length > 1 && (
+                    <View style={styles.sortButtonGroup}>
+                      <TouchableOpacity
+                        onPress={handleSortImagesAtoZ}
+                        style={styles.miniActionBtn}
+                        hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                      >
+                        <Text style={styles.miniActionText}>A-Z</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={handleReverseImages}
+                        style={styles.miniActionBtn}
+                        hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                      >
+                        <Text style={styles.miniActionText}>Reverse</Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </View>
+
                 {images.map((img, idx) => (
                   <View key={img.id} style={styles.imageItem}>
+                    <View style={styles.orderBadge}>
+                      <Text style={styles.orderNumberText}>#{idx + 1}</Text>
+                    </View>
+
                     <Image source={{ uri: img.uri }} style={styles.imageThumb} />
                     <View style={styles.imageMeta}>
                       <Text style={styles.imageName} numberOfLines={1}>
-                        {idx + 1}. {img.name}
+                        {img.name}
                       </Text>
                       <Text style={styles.imageDims}>
                         {img.width && img.height ? `${img.width} × ${img.height} px` : 'Image file'}
                       </Text>
                     </View>
+
+                    {images.length > 1 && (
+                      <View style={styles.reorderButtons}>
+                        <TouchableOpacity
+                          style={[styles.arrowBtn, idx === 0 && styles.arrowBtnDisabled]}
+                          onPress={() => handleMoveImage(idx, 'up')}
+                          disabled={idx === 0}
+                          hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                        >
+                          <AppIcon
+                            name="ChevronUp"
+                            size={14}
+                            color={idx === 0 ? Colors.outlineVariant : Colors.onSurfaceVariant}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[styles.arrowBtn, idx === images.length - 1 && styles.arrowBtnDisabled]}
+                          onPress={() => handleMoveImage(idx, 'down')}
+                          disabled={idx === images.length - 1}
+                          hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                        >
+                          <AppIcon
+                            name="ChevronDown"
+                            size={14}
+                            color={idx === images.length - 1 ? Colors.outlineVariant : Colors.onSurfaceVariant}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    )}
+
                     <TouchableOpacity
-                      onPress={() => setImages((prev) => prev.filter((i) => i.id !== img.id))}
+                      onPress={() => handleRemoveImage(img.id)}
                       style={styles.removeBtn}
+                      hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                     >
                       <AppIcon name="Trash2" size={16} color={Colors.statusError} />
                     </TouchableOpacity>
@@ -803,6 +904,63 @@ const styles = StyleSheet.create({
   imageList: {
     gap: Spacing.xs,
     marginTop: Spacing.sm,
+  },
+  imageListHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  imageListTitle: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: Colors.midnightNavy,
+  },
+  sortButtonGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#FFE8EC',
+    borderRadius: Radius.sm,
+    padding: 2,
+  },
+  miniActionBtn: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: Radius.xs,
+  },
+  miniActionText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.accentCoral,
+  },
+  orderBadge: {
+    width: 22,
+    height: 22,
+    borderRadius: Radius.xs,
+    backgroundColor: '#FFE8EC',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  orderNumberText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.accentCoral,
+  },
+  reorderButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+    backgroundColor: '#F1F5F9',
+    borderRadius: Radius.sm,
+    padding: 2,
+  },
+  arrowBtn: {
+    padding: 3,
+    borderRadius: Radius.xs,
+  },
+  arrowBtnDisabled: {
+    opacity: 0.3,
   },
   imageItem: {
     flexDirection: 'row',

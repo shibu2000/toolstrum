@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { PDFDocument, rgb, degrees } from 'pdf-lib';
 import {
   FileText,
@@ -32,6 +32,8 @@ import { FileDropZone } from '../components/common/FileDropZone';
 import { ResultCard } from '../components/common/ResultCard';
 import { getToolById } from '../data/webRegistry';
 import { extractPdfText, extractPdfTextByPage } from '../utils/pdfText';
+import { DeletePagesPanel } from './pdf/DeletePagesPanel';
+import { useFlipList } from '../utils/useFlipList';
 
 interface PdfWorkspaceProps {
   toolId: number;
@@ -266,6 +268,50 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
     }
   };
 
+  const [highlightedPdfKey, setHighlightedPdfKey] = useState<string | null>(null);
+  const [highlightedScanId, setHighlightedScanId] = useState<string | null>(null);
+
+  const pdfFileIdMap = useRef(new WeakMap<File, string>());
+  const pdfIdCounter = useRef(0);
+  const getPdfFileId = useCallback((file: File) => {
+    let id = pdfFileIdMap.current.get(file);
+    if (!id) {
+      id = `pdf-file-${++pdfIdCounter.current}-${file.name}-${file.size}-${file.lastModified}`;
+      pdfFileIdMap.current.set(file, id);
+    }
+    return id;
+  }, []);
+
+  const { registerItem: registerPdfItem } = useFlipList(selectedFiles, getPdfFileId, {
+    duration: 320,
+    easing: 'cubic-bezier(0.2, 0.9, 0.3, 1)',
+  });
+
+  const getScannedPageId = useCallback((page: ScannedPageItem) => page.id, []);
+  const { registerItem: registerScanItem } = useFlipList(scannedPages, getScannedPageId, {
+    duration: 320,
+    easing: 'cubic-bezier(0.2, 0.9, 0.3, 1)',
+  });
+
+  const triggerPdfHighlight = (file: File) => {
+    const key = `${file.name}-${file.size}`;
+    setHighlightedPdfKey(key);
+    setTimeout(() => {
+      setHighlightedPdfKey(null);
+    }, 550);
+  };
+
+  const moveScannedPage = (index: number, direction: 'prev' | 'next') => {
+    const targetIdx = direction === 'prev' ? index - 1 : index + 1;
+    if (targetIdx < 0 || targetIdx >= scannedPages.length) return;
+    const nextPages = [...scannedPages];
+    const [moved] = nextPages.splice(index, 1);
+    nextPages.splice(targetIdx, 0, moved);
+    setScannedPages(nextPages);
+    setHighlightedScanId(moved.id);
+    setTimeout(() => setHighlightedScanId(null), 550);
+  };
+
   // ==========================================
   // MERGE PDF STATE (Tool 4)
   // ==========================================
@@ -305,6 +351,7 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
     newFiles[index] = newFiles[targetIdx];
     newFiles[targetIdx] = temp;
     setSelectedFiles(newFiles);
+    triggerPdfHighlight(temp);
   };
 
   // ==========================================
@@ -467,51 +514,6 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
     }
   };
 
-  // ==========================================
-  // DELETE PAGES (Tool 11)
-  // ==========================================
-  const [deletePagesInput, setDeletePagesInput] = useState('1');
-
-  const handleDeletePages = async () => {
-    if (selectedFiles.length === 0) {
-      setErrorMsg('Please select a PDF file.');
-      return;
-    }
-    setErrorMsg('');
-    setIsProcessing(true);
-
-    try {
-      const file = selectedFiles[0];
-      const buffer = await file.arrayBuffer();
-      const pdfDoc = await PDFDocument.load(buffer);
-      const totalPages = pdfDoc.getPageCount();
-
-      const toDelete = deletePagesInput
-        .split(',')
-        .map((s) => parseInt(s.trim(), 10) - 1)
-        .filter((n) => !isNaN(n) && n >= 0 && n < totalPages)
-        .sort((a, b) => b - a);
-
-      if (toDelete.length >= totalPages) {
-        setErrorMsg('Cannot delete all pages in the PDF.');
-        setIsProcessing(false);
-        return;
-      }
-
-      for (const idx of toDelete) {
-        pdfDoc.removePage(idx);
-      }
-
-      const pdfBytes = await pdfDoc.save();
-      const blob = new Blob([pdfBytes as any], { type: 'application/pdf' });
-      setOutputBlob(blob);
-      setOutputFilename(`edited-${file.name}`);
-    } catch (e: any) {
-      setErrorMsg(`Delete pages failed: ${e.message}`);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
 
   // ==========================================
   // WATERMARK (Tool 18, 20)
@@ -1074,11 +1076,18 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
                 </div>
 
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-96 overflow-y-auto p-1">
-                  {scannedPages.map((page, idx) => (
-                    <div
-                      key={page.id}
-                      className="group relative rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-2 space-y-1.5"
-                    >
+                  {scannedPages.map((page, idx) => {
+                    const isHighlighted = highlightedScanId === page.id;
+                    return (
+                      <div
+                        key={page.id}
+                        ref={registerScanItem(page.id)}
+                        className={`group relative rounded-xl border p-2 space-y-1.5 transition-[background-color,border-color,box-shadow] duration-200 ${
+                          isHighlighted
+                            ? 'animate-reorder-highlight border-rose-500 bg-rose-50 dark:bg-rose-950/60 ring-2 ring-rose-500/50 shadow-md'
+                            : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:border-slate-300 dark:hover:border-slate-600'
+                        }`}
+                      >
                       <div className="aspect-3/4 rounded-lg overflow-hidden bg-black flex items-center justify-center">
                         <img
                           src={page.dataUrl}
@@ -1087,19 +1096,41 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
                         />
                       </div>
                       <div className="flex items-center justify-between text-[11px]">
-                        <span className="font-bold text-slate-700 dark:text-slate-300">
+                        <span className="font-bold text-slate-700 dark:text-slate-300 font-mono">
                           Page {idx + 1}
                         </span>
-                        <button
-                          type="button"
-                          onClick={() => setScannedPages((prev) => prev.filter((p) => p.id !== page.id))}
-                          className="text-slate-400 hover:text-rose-500 cursor-pointer"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
+                        <div className="flex items-center gap-1">
+                          <button
+                            type="button"
+                            onClick={() => moveScannedPage(idx, 'prev')}
+                            disabled={idx === 0}
+                            className="p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 cursor-pointer transition-colors"
+                            title="Move earlier"
+                          >
+                            <ArrowUp className="w-3 h-3 -rotate-90" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => moveScannedPage(idx, 'next')}
+                            disabled={idx === scannedPages.length - 1}
+                            className="p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 cursor-pointer transition-colors"
+                            title="Move later"
+                          >
+                            <ArrowDown className="w-3 h-3 -rotate-90" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setScannedPages((prev) => prev.filter((p) => p.id !== page.id))}
+                            className="p-1 rounded text-slate-400 hover:text-rose-500 cursor-pointer transition-colors"
+                            title="Remove page"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  ))}
+                  );
+                })}
                 </div>
               </div>
             ) : (
@@ -1188,15 +1219,55 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
               </div>
             ) : selectedFiles.length > 0 ? (
               <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-                <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
-                  Documents to Merge ({selectedFiles.length})
-                </h4>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                      Documents to Merge ({selectedFiles.length})
+                    </h4>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                      PDFs will be joined in this sequence.
+                    </p>
+                  </div>
+                  {selectedFiles.length > 1 && (
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const sorted = [...selectedFiles].sort((a, b) =>
+                            a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+                          );
+                          setSelectedFiles(sorted);
+                        }}
+                        className="text-[11px] font-medium text-slate-500 hover:text-rose-500 dark:text-slate-400 cursor-pointer"
+                        title="Sort alphabetically"
+                      >
+                        Sort A-Z
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedFiles([...selectedFiles].reverse())}
+                        className="text-[11px] font-medium text-slate-500 hover:text-rose-500 dark:text-slate-400 cursor-pointer"
+                        title="Reverse order"
+                      >
+                        Reverse
+                      </button>
+                    </div>
+                  )}
+                </div>
                 <div className="space-y-2 max-h-72 overflow-y-auto">
-                  {selectedFiles.map((f, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs"
-                    >
+                  {selectedFiles.map((f, i) => {
+                    const fileId = getPdfFileId(f);
+                    const isHighlighted = highlightedPdfKey === `${f.name}-${f.size}`;
+                    return (
+                      <div
+                        key={fileId}
+                        ref={registerPdfItem(fileId)}
+                        className={`flex items-center justify-between p-2.5 rounded-xl border text-xs shadow-2xs transition-[background-color,border-color,box-shadow] duration-200 ${
+                          isHighlighted
+                            ? 'animate-reorder-highlight border-rose-500 bg-rose-50/80 dark:bg-rose-950/60 ring-2 ring-rose-500/50 shadow-md'
+                            : 'bg-slate-50 dark:bg-slate-800 border-slate-200/60 dark:border-slate-700/60 hover:border-slate-300 dark:hover:border-slate-600'
+                        }`}
+                      >
                       <div className="flex items-center gap-2 truncate">
                         <span className="w-5 h-5 rounded-md bg-slate-200 dark:bg-slate-700 flex items-center justify-center font-bold text-[10px]">
                           {i + 1}
@@ -1204,12 +1275,12 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
                         <span className="truncate font-medium text-slate-800 dark:text-slate-200">{f.name}</span>
                       </div>
                       <div className="flex items-center gap-1.5 shrink-0">
-                        <span className="text-slate-400 text-[11px] mr-1">{formatSize(f.size)}</span>
+                        <span className="text-slate-400 text-[11px] mr-1 font-mono">{formatSize(f.size)}</span>
                         <button
                           type="button"
                           onClick={() => moveFileOrder(i, 'up')}
                           disabled={i === 0}
-                          className="p-1 rounded text-slate-400 hover:text-slate-700 disabled:opacity-20 cursor-pointer"
+                          className="p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 cursor-pointer transition-colors"
                           title="Move up"
                         >
                           <ArrowUp className="w-3.5 h-3.5" />
@@ -1218,14 +1289,15 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
                           type="button"
                           onClick={() => moveFileOrder(i, 'down')}
                           disabled={i === selectedFiles.length - 1}
-                          className="p-1 rounded text-slate-400 hover:text-slate-700 disabled:opacity-20 cursor-pointer"
+                          className="p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 cursor-pointer transition-colors"
                           title="Move down"
                         >
                           <ArrowDown className="w-3.5 h-3.5" />
                         </button>
                       </div>
                     </div>
-                  ))}
+                  );
+                })}
                 </div>
               </div>
             ) : (
@@ -1311,6 +1383,91 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
                 >
                   Convert Another Batch
                 </button>
+              </div>
+            ) : selectedFiles.length > 0 ? (
+              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-1.5">
+                      <Layers className="w-3.5 h-3.5 text-rose-500" />
+                      <span>Page Sequence Preview ({selectedFiles.length})</span>
+                    </h4>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                      Pages in the generated PDF will follow this exact order.
+                    </p>
+                  </div>
+                  {selectedFiles.length > 1 && (
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const sorted = [...selectedFiles].sort((a, b) =>
+                            a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+                          );
+                          setSelectedFiles(sorted);
+                        }}
+                        className="text-[11px] font-medium text-slate-500 hover:text-rose-500 dark:text-slate-400 cursor-pointer"
+                        title="Sort alphabetically"
+                      >
+                        Sort A-Z
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedFiles([...selectedFiles].reverse())}
+                        className="text-[11px] font-medium text-slate-500 hover:text-rose-500 dark:text-slate-400 cursor-pointer"
+                        title="Reverse order"
+                      >
+                        Reverse
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <div className="space-y-2 max-h-80 overflow-y-auto pr-1">
+                  {selectedFiles.map((f, i) => {
+                    const fileId = getPdfFileId(f);
+                    const isHighlighted = highlightedPdfKey === `${f.name}-${f.size}`;
+                    return (
+                      <div
+                        key={fileId}
+                        ref={registerPdfItem(fileId)}
+                        className={`flex items-center justify-between p-2.5 rounded-xl border text-xs shadow-2xs transition-[background-color,border-color,box-shadow] duration-200 ${
+                          isHighlighted
+                            ? 'animate-reorder-highlight border-rose-500 bg-rose-50/80 dark:bg-rose-950/60 ring-2 ring-rose-500/50 shadow-md'
+                            : 'bg-slate-50 dark:bg-slate-800 border-slate-200/80 dark:border-slate-700/80 hover:border-slate-300 dark:hover:border-slate-600'
+                        }`}
+                      >
+                      <div className="flex items-center gap-2.5 truncate">
+                        <span className="w-5 h-5 rounded-md bg-rose-100 dark:bg-rose-950/80 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold text-[10px] shrink-0 font-mono">
+                          {i + 1}
+                        </span>
+                        <span className="truncate font-medium text-slate-800 dark:text-slate-200">{f.name}</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 shrink-0">
+                        <span className="text-slate-400 text-[11px] mr-1 font-mono">{formatSize(f.size)}</span>
+                        <button
+                          type="button"
+                          onClick={() => moveFileOrder(i, 'up')}
+                          disabled={i === 0}
+                          className="p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 cursor-pointer transition-colors"
+                          title="Move up (earlier page)"
+                        >
+                          <ArrowUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => moveFileOrder(i, 'down')}
+                          disabled={i === selectedFiles.length - 1}
+                          className="p-1 rounded text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 disabled:opacity-20 cursor-pointer transition-colors"
+                          title="Move down (later page)"
+                        >
+                          <ArrowDown className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+                </div>
               </div>
             ) : (
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
@@ -1590,79 +1747,7 @@ export const PdfWorkspace: React.FC<PdfWorkspaceProps> = ({
       {/* 7. DELETE PAGES (Tool 11) */}
       {/* ======================================================== */}
       {activeTab === 'delete_pages' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <div>
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Trash2 className="w-4 h-4 text-rose-500" />
-                <span>Delete PDF Pages</span>
-              </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Remove specific unwanted pages from your PDF document.
-              </p>
-            </div>
-
-            <FileDropZone
-              accept="application/pdf"
-              multiple={false}
-              label="Select PDF file"
-              files={selectedFiles}
-              onFilesChange={(files) => {
-                setSelectedFiles(files);
-                setOutputBlob(null);
-              }}
-              accentColor={accentColor}
-            />
-
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                Pages to Delete (e.g. 1, 3)
-              </label>
-              <input
-                type="text"
-                value={deletePagesInput}
-                onChange={(e) => setDeletePagesInput(e.target.value)}
-                placeholder="1"
-                className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-white"
-              />
-            </div>
-
-            <button
-              onClick={handleDeletePages}
-              disabled={isProcessing || selectedFiles.length === 0}
-              className="w-full py-3.5 rounded-xl bg-rose-500 hover:bg-rose-600 disabled:opacity-40 text-white font-bold text-xs cursor-pointer shadow-xs transition-colors flex items-center justify-center gap-2"
-            >
-              <Trash2 className="w-4 h-4" />
-              <span>{isProcessing ? 'Removing Pages...' : 'Delete Selected Pages & Save'}</span>
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            {outputBlob && (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-emerald-500/40 shadow-md space-y-4 animate-in fade-in duration-200">
-                <div className="flex items-center gap-2">
-                  <span className="p-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400">
-                    <Check className="w-4 h-4" />
-                  </span>
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">
-                      Pages Removed Successfully!
-                    </h4>
-                  </div>
-                </div>
-
-                <a
-                  href={URL.createObjectURL(outputBlob)}
-                  download={outputFilename}
-                  className="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-colors"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>Download Edited PDF</span>
-                </a>
-              </div>
-            )}
-          </div>
-        </div>
+        <DeletePagesPanel accentColor={accentColor} />
       )}
 
       {/* ======================================================== */}

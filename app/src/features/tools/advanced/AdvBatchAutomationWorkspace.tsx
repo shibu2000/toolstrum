@@ -7,6 +7,9 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
+  LayoutAnimation,
+  Platform,
+  UIManager,
 } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { Colors, Spacing, Radius } from '../../../design-system/tokens';
@@ -33,6 +36,103 @@ interface BatchQueueItem {
   size: string;
   status: 'Pending' | 'Processing' | 'Complete';
 }
+
+const BatchQueueList: React.FC<{
+  queue: BatchQueueItem[];
+  emptyMessage: string;
+  onMove: (index: number, direction: 'up' | 'down') => void;
+  onSortAZ: () => void;
+  onReverse: () => void;
+  onRemove: (id: string) => void;
+  showStatus?: boolean;
+}> = ({ queue, emptyMessage, onMove, onSortAZ, onReverse, onRemove, showStatus = true }) => {
+  if (queue.length === 0) {
+    return (
+      <Text style={{ color: Colors.textSecondary, fontStyle: 'italic', marginVertical: 8 }}>
+        {emptyMessage}
+      </Text>
+    );
+  }
+
+  return (
+    <View style={{ gap: 6, marginVertical: 8 }}>
+      {queue.length > 1 && (
+        <View style={styles.batchControlsRow}>
+          <Text style={styles.batchControlsTitle}>Execution Sequence ({queue.length} files)</Text>
+          <View style={styles.sortButtonGroup}>
+            <TouchableOpacity onPress={onSortAZ} style={styles.miniActionBtn}>
+              <Text style={styles.miniActionText}>A-Z</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onReverse} style={styles.miniActionBtn}>
+              <Text style={styles.miniActionText}>Reverse</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      {queue.map((item, idx) => (
+        <View key={item.id} style={styles.queueItemRow}>
+          <View style={styles.orderBadge}>
+            <Text style={styles.orderNumberText}>#{idx + 1}</Text>
+          </View>
+
+          <View style={{ flex: 1, marginHorizontal: 8 }}>
+            <Text style={styles.queueItemName} numberOfLines={1}>{item.name}</Text>
+            <Text style={styles.queueItemSize}>{item.size}</Text>
+          </View>
+
+          {queue.length > 1 && (
+            <View style={styles.reorderButtons}>
+              <TouchableOpacity
+                style={[styles.arrowBtn, idx === 0 && styles.arrowBtnDisabled]}
+                onPress={() => onMove(idx, 'up')}
+                disabled={idx === 0}
+                hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+              >
+                <AppIcon
+                  name="ChevronUp"
+                  size={14}
+                  color={idx === 0 ? Colors.outlineVariant : Colors.onSurfaceVariant}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.arrowBtn, idx === queue.length - 1 && styles.arrowBtnDisabled]}
+                onPress={() => onMove(idx, 'down')}
+                disabled={idx === queue.length - 1}
+                hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+              >
+                <AppIcon
+                  name="ChevronDown"
+                  size={14}
+                  color={idx === queue.length - 1 ? Colors.outlineVariant : Colors.onSurfaceVariant}
+                />
+              </TouchableOpacity>
+            </View>
+          )}
+
+          {showStatus && (
+            <View
+              style={[
+                styles.statusBadge,
+                item.status === 'Complete' && styles.statusComplete,
+              ]}
+            >
+              <Text style={styles.statusBadgeText}>{item.status}</Text>
+            </View>
+          )}
+
+          <TouchableOpacity
+            onPress={() => onRemove(item.id)}
+            style={styles.deleteBtn}
+            accessibilityLabel="Remove file"
+          >
+            <AppIcon name="Trash2" size={14} color="#DC2626" />
+          </TouchableOpacity>
+        </View>
+      ))}
+    </View>
+  );
+};
 
 export const AdvBatchAutomationWorkspace: React.FC<AdvBatchAutomationWorkspaceProps> = ({
   initialToolId = 487,
@@ -91,11 +191,44 @@ export const AdvBatchAutomationWorkspace: React.FC<AdvBatchAutomationWorkspacePr
     }
   };
 
+  const animateLayout = () => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  };
+
+  const handleMoveQueueItem = (index: number, direction: 'up' | 'down') => {
+    const target = direction === 'up' ? index - 1 : index + 1;
+    if (target < 0 || target >= queue.length) return;
+    const reordered = [...queue];
+    const [moved] = reordered.splice(index, 1);
+    reordered.splice(target, 0, moved);
+    animateLayout();
+    setQueue(reordered);
+  };
+
+  const handleSortAlphabetical = () => {
+    const sorted = [...queue].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+    );
+    animateLayout();
+    setQueue(sorted);
+  };
+
+  const handleReverseQueue = () => {
+    const reversed = [...queue].reverse();
+    animateLayout();
+    setQueue(reversed);
+  };
+
   const handleRemoveQueueItem = (id: string) => {
+    animateLayout();
     setQueue((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleClearQueue = () => {
+    animateLayout();
     setQueue([]);
   };
 
@@ -180,35 +313,14 @@ export const AdvBatchAutomationWorkspace: React.FC<AdvBatchAutomationWorkspacePr
                 </View>
               </View>
 
-              {queue.length === 0 ? (
-                <Text style={{ color: Colors.textSecondary, fontStyle: 'italic', marginVertical: 8 }}>
-                  No files in batch queue. Tap "Add Files" to pick files.
-                </Text>
-              ) : (
-                queue.map((item) => (
-                  <View key={item.id} style={styles.queueItemRow}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.queueItemName}>{item.name}</Text>
-                      <Text style={styles.queueItemSize}>{item.size}</Text>
-                    </View>
-                    <View
-                      style={[
-                        styles.statusBadge,
-                        item.status === 'Complete' && styles.statusComplete,
-                      ]}
-                    >
-                      <Text style={styles.statusBadgeText}>{item.status}</Text>
-                    </View>
-                    <TouchableOpacity
-                      onPress={() => handleRemoveQueueItem(item.id)}
-                      style={styles.deleteBtn}
-                      accessibilityLabel="Remove file"
-                    >
-                      <AppIcon name="Trash2" size={14} color="#DC2626" />
-                    </TouchableOpacity>
-                  </View>
-                ))
-              )}
+              <BatchQueueList
+                queue={queue}
+                emptyMessage="No files in batch queue. Tap 'Add Files' to pick files."
+                onMove={handleMoveQueueItem}
+                onSortAZ={handleSortAlphabetical}
+                onReverse={handleReverseQueue}
+                onRemove={handleRemoveQueueItem}
+              />
 
               <PrimaryButton
                 title={queue.length > 0 ? "Apply Watermark to All" : "No Files in Queue"}
@@ -252,27 +364,15 @@ export const AdvBatchAutomationWorkspace: React.FC<AdvBatchAutomationWorkspacePr
                   )}
                 </View>
               </View>
-              {queue.length === 0 ? (
-                <Text style={{ color: Colors.textSecondary, fontStyle: 'italic', marginVertical: 8 }}>
-                  No document scans queued for OCR. Tap "Add Scans" to select files.
-                </Text>
-              ) : (
-                queue.map((item) => (
-                  <View key={item.id} style={styles.queueItemRow}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.queueItemName}>{item.name}</Text>
-                      <Text style={styles.queueItemSize}>{item.status === 'Complete' ? 'Text Extracted' : 'Queued'}</Text>
-                    </View>
-                    <TouchableOpacity
-                      onPress={() => handleRemoveQueueItem(item.id)}
-                      style={styles.deleteBtn}
-                      accessibilityLabel="Remove file"
-                    >
-                      <AppIcon name="Trash2" size={14} color="#DC2626" />
-                    </TouchableOpacity>
-                  </View>
-                ))
-              )}
+              <BatchQueueList
+                queue={queue}
+                emptyMessage="No document scans queued for OCR. Tap 'Add Scans' to select files."
+                onMove={handleMoveQueueItem}
+                onSortAZ={handleSortAlphabetical}
+                onReverse={handleReverseQueue}
+                onRemove={handleRemoveQueueItem}
+                showStatus={false}
+              />
               <PrimaryButton
                 title={queue.length > 0 ? "Extract Text From All Pages" : "No Documents Queued"}
                 icon="FileText"
@@ -346,27 +446,15 @@ export const AdvBatchAutomationWorkspace: React.FC<AdvBatchAutomationWorkspacePr
                   )}
                 </View>
               </View>
-              {queue.length === 0 ? (
-                <Text style={{ color: Colors.textSecondary, fontStyle: 'italic', marginVertical: 8 }}>
-                  No files queued for conversion. Tap "Add Files" to pick files.
-                </Text>
-              ) : (
-                queue.map((item) => (
-                  <View key={item.id} style={styles.queueItemRow}>
-                    <View style={{ flex: 1 }}>
-                      <Text style={styles.queueItemName}>{item.name}</Text>
-                      <Text style={styles.queueItemSize}>{item.size}</Text>
-                    </View>
-                    <TouchableOpacity
-                      onPress={() => handleRemoveQueueItem(item.id)}
-                      style={styles.deleteBtn}
-                      accessibilityLabel="Remove file"
-                    >
-                      <AppIcon name="Trash2" size={14} color="#DC2626" />
-                    </TouchableOpacity>
-                  </View>
-                ))
-              )}
+              <BatchQueueList
+                queue={queue}
+                emptyMessage="No files queued for conversion. Tap 'Add Files' to pick files."
+                onMove={handleMoveQueueItem}
+                onSortAZ={handleSortAlphabetical}
+                onReverse={handleReverseQueue}
+                onRemove={handleRemoveQueueItem}
+                showStatus={false}
+              />
 
               <PrimaryButton
                 title={queue.length > 0 ? `Convert ${queue.length} Files to ${targetFormat}` : "No Files Queued"}
@@ -551,6 +639,68 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#1E293B',
     marginBottom: Spacing.sm,
+  },
+  batchControlsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  batchControlsTitle: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#6B21A8',
+  },
+  sortButtonGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: '#FAF5FF',
+    borderRadius: Radius.sm,
+    padding: 2,
+    borderWidth: 1,
+    borderColor: '#E9D5FF',
+  },
+  miniActionBtn: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: Radius.xs,
+  },
+  miniActionText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#9333EA',
+  },
+  orderBadge: {
+    width: 22,
+    height: 22,
+    borderRadius: Radius.xs,
+    backgroundColor: '#FAF5FF',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#E9D5FF',
+  },
+  orderNumberText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#9333EA',
+  },
+  reorderButtons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+    backgroundColor: '#F3E8FF',
+    borderRadius: Radius.sm,
+    padding: 2,
+    marginRight: 6,
+  },
+  arrowBtn: {
+    padding: 2,
+    borderRadius: Radius.xs,
+  },
+  arrowBtnDisabled: {
+    opacity: 0.3,
   },
   queueItemRow: {
     flexDirection: 'row',

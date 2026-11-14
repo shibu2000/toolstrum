@@ -60,25 +60,33 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
   const [keepAspect, setKeepAspect] = useState<boolean>(true);
 
   // Crop state (Tool 51)
-  const [cropPreset, setCropPreset] = useState<'1:1' | '4:3' | '16:9' | '9:16' | '3:2'>('1:1');
+  const [cropPreset, setCropPreset] = useState<'1:1' | '4:5' | '16:9' | '9:16' | '4:3' | '3:2' | '2:1'>('1:1');
+  const [cropPosition, setCropPosition] = useState<'center' | 'top' | 'bottom' | 'left' | 'right'>('center');
+  const [cropFormat, setCropFormat] = useState<SaveFormat>(SaveFormat.PNG);
 
   // Rotate state (Tool 52)
   const [rotationAngle, setRotationAngle] = useState<number>(90);
   const [flipDirection, setFlipDirection] = useState<'none' | 'horizontal' | 'vertical'>('none');
+  const [rotateFormat, setRotateFormat] = useState<SaveFormat>(SaveFormat.PNG);
 
   // Background / Framing state (Tool 58)
   const [bgChoice, setBgChoice] = useState<'#FFFFFF' | '#171A2E' | '#10B981' | '#F59E0B'>('#FFFFFF');
   const [paddingAmount, setPaddingAmount] = useState<number>(20);
 
   // Watermark state (Tool 59)
-  const [watermarkText, setWatermarkText] = useState<string>('');
-  const [watermarkPos, setWatermarkPos] = useState<'bottom-right' | 'center' | 'top-left'>('bottom-right');
+  const [watermarkText, setWatermarkText] = useState<string>('CONFIDENTIAL');
+  const [watermarkPos, setWatermarkPos] = useState<'bottom-right' | 'center' | 'top-left' | 'tiled'>('bottom-right');
+  const [watermarkOpacity, setWatermarkOpacity] = useState<number>(60);
+  const [watermarkColor, setWatermarkColor] = useState<string>('#FFFFFF');
 
   // Annotator state (Tool 60)
-  const [annotationNote, setAnnotationNote] = useState<string>('');
+  const [annotationNote, setAnnotationNote] = useState<string>('APPROVED');
+  const [annotationStyle, setAnnotationStyle] = useState<'bottom-banner' | 'top-banner' | 'corner-stamp'>('bottom-banner');
+  const [annotationTheme, setAnnotationTheme] = useState<'emerald' | 'amber' | 'rose' | 'slate'>('emerald');
 
   // Blur state (Tool 68)
   const [blurStrength, setBlurStrength] = useState<'light' | 'medium' | 'heavy'>('medium');
+  const [blurStyle, setBlurStyle] = useState<'smooth' | 'mosaic'>('smooth');
 
   const { isFavorite, toggleFavorite } = useAppStore();
   const favorited = isFavorite(activeToolId);
@@ -157,18 +165,24 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
         // Image Cropper
         let ratioW = 1;
         let ratioH = 1;
-        if (cropPreset === '4:3') {
+        if (cropPreset === '4:5') {
           ratioW = 4;
-          ratioH = 3;
+          ratioH = 5;
         } else if (cropPreset === '16:9') {
           ratioW = 16;
           ratioH = 9;
         } else if (cropPreset === '9:16') {
           ratioW = 9;
           ratioH = 16;
+        } else if (cropPreset === '4:3') {
+          ratioW = 4;
+          ratioH = 3;
         } else if (cropPreset === '3:2') {
           ratioW = 3;
           ratioH = 2;
+        } else if (cropPreset === '2:1') {
+          ratioW = 2;
+          ratioH = 1;
         }
 
         const targetRatio = ratioW / ratioH;
@@ -180,19 +194,38 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
           cropW = Math.round(cropH * targetRatio);
         }
 
-        const originX = Math.max(0, Math.round((origW - cropW) / 2));
-        const originY = Math.max(0, Math.round((origH - cropH) / 2));
+        let originX = Math.max(0, Math.round((origW - cropW) / 2));
+        let originY = Math.max(0, Math.round((origH - cropH) / 2));
 
-        const processed = await cropImage(source.uri, {
-          originX,
-          originY,
-          width: cropW,
-          height: cropH,
-        });
+        if (cropPosition === 'top') {
+          originY = 0;
+        } else if (cropPosition === 'bottom') {
+          originY = Math.max(0, origH - cropH);
+        } else if (cropPosition === 'left') {
+          originX = 0;
+        } else if (cropPosition === 'right') {
+          originX = Math.max(0, origW - cropW);
+        }
 
+        const processed = await cropImage(
+          source.uri,
+          {
+            originX,
+            originY,
+            width: cropW,
+            height: cropH,
+          },
+          {
+            format: cropFormat,
+            quality: 0.95,
+          }
+        );
+
+        const ext = cropFormat === SaveFormat.PNG ? 'png' : cropFormat === SaveFormat.WEBP ? 'webp' : 'jpg';
+        const baseName = source.name.replace(/\.[^/.]+$/, '');
         const saved = await saveImageToSandbox(
           processed.uri,
-          `cropped_${cropPreset.replace(':', '_')}_${source.name}`
+          `cropped_${cropPreset.replace(':', '_')}_${baseName}.${ext}`
         );
 
         setResult({
@@ -207,23 +240,38 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
           metricValue: cropPreset,
           details: [
             { label: 'Crop Dimensions', value: `${cropW} × ${cropH} px` },
+            { label: 'Alignment Focus', value: cropPosition.toUpperCase() },
             { label: 'Origin Offset', value: `X:${originX}, Y:${originY}` },
-            { label: 'Format', value: 'PNG lossless' },
+            {
+              label: 'Format',
+              value:
+                cropFormat === SaveFormat.PNG
+                  ? 'PNG Lossless'
+                  : cropFormat === SaveFormat.WEBP
+                  ? 'Smart WebP'
+                  : 'JPEG High Quality',
+            },
           ],
           toolId: 51,
           toolName: 'Image Cropper',
         });
       } else if (activeToolId === 52) {
-        // Image Rotator
+        // Image Rotator & Flipper
         const processed = await rotateAndFlipImage(
           source.uri,
           rotationAngle,
-          flipDirection
+          flipDirection,
+          {
+            format: rotateFormat,
+            quality: 0.95,
+          }
         );
 
+        const ext = rotateFormat === SaveFormat.PNG ? 'png' : rotateFormat === SaveFormat.WEBP ? 'webp' : 'jpg';
+        const baseName = source.name.replace(/\.[^/.]+$/, '');
         const saved = await saveImageToSandbox(
           processed.uri,
-          `rotated_${rotationAngle}deg_${source.name}`
+          `rotated_${rotationAngle}deg_${baseName}.${ext}`
         );
 
         setResult({
@@ -238,8 +286,17 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
           metricValue: `${rotationAngle}°`,
           details: [
             { label: 'Rotation Degrees', value: `${rotationAngle}° clockwise` },
-            { label: 'Flip Mode', value: flipDirection === 'none' ? 'None' : flipDirection },
-            { label: 'Orientation Matrix', value: 'Applied cleanly' },
+            { label: 'Flip Axis', value: flipDirection === 'none' ? 'None' : flipDirection.toUpperCase() },
+            { label: 'Dimensions', value: `${processed.width} × ${processed.height} px` },
+            {
+              label: 'Output Format',
+              value:
+                rotateFormat === SaveFormat.PNG
+                  ? 'PNG Lossless'
+                  : rotateFormat === SaveFormat.WEBP
+                  ? 'Smart WebP'
+                  : 'JPEG High Quality',
+            },
           ],
           toolId: 52,
           toolName: 'Image Rotator',
@@ -292,12 +349,13 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
           fileSize: saved.size,
           width: processed.width,
           height: processed.height,
-          metricLabel: 'Watermark Tag',
-          metricValue: watermarkPos,
+          metricLabel: 'Watermark Engine',
+          metricValue: watermarkPos === 'tiled' ? 'Tiled Repeating Grid' : `${watermarkPos.replace('-', ' ')}`,
           details: [
-            { label: 'Watermark Text', value: watermarkText },
-            { label: 'Placement', value: watermarkPos },
-            { label: 'Font Weight', value: 'Semi-bold 18pt' },
+            { label: 'Watermark Text', value: watermarkText || 'CONFIDENTIAL' },
+            { label: 'Layout Pattern', value: watermarkPos === 'tiled' ? 'Stock Protection Grid' : `Anchor (${watermarkPos})` },
+            { label: 'Opacity & Color', value: `${watermarkOpacity}% • ${watermarkColor}` },
+            { label: 'Privacy', value: '100% On-Device Local' },
           ],
           toolId: 59,
           toolName: 'Image Watermark',
@@ -321,10 +379,11 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
           width: processed.width,
           height: processed.height,
           metricLabel: 'Stamp Applied',
-          metricValue: 'Annotation Banner',
+          metricValue: `${annotationTheme.toUpperCase()} ${annotationStyle.replace('-', ' ')}`,
           details: [
-            { label: 'Banner Content', value: annotationNote },
-            { label: 'Position', value: 'Bottom Status Badge' },
+            { label: 'Callout Note', value: annotationNote || 'APPROVED' },
+            { label: 'Badge Layout', value: annotationStyle.replace('-', ' ').toUpperCase() },
+            { label: 'Theme Palette', value: annotationTheme.toUpperCase() },
             { label: 'Audit Log', value: 'Marked on-device' },
           ],
           toolId: 60,
@@ -356,12 +415,13 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
           fileSize: saved.size,
           width: blurred.width,
           height: blurred.height,
-          metricLabel: 'Blur Intensity',
-          metricValue: blurStrength.toUpperCase(),
+          metricLabel: 'Obfuscation Engine',
+          metricValue: `${blurStyle.toUpperCase()} (${blurStrength.toUpperCase()})`,
           details: [
-            { label: 'Filter Method', value: 'Bicubic Box Downsampling' },
-            { label: 'Obfuscation Level', value: `${blurStrength} radius` },
+            { label: 'Filter Method', value: blurStyle === 'mosaic' ? 'Pixelated Mosaic Downsampler' : 'Bicubic Box Gaussian Blur' },
+            { label: 'Obfuscation Level', value: `${blurStrength.toUpperCase()} strength` },
             { label: 'Privacy Status', value: 'Sensitive info obscured' },
+            { label: 'Execution', value: '100% On-Device Local' },
           ],
           toolId: 68,
           toolName: 'Blur Image',
@@ -447,7 +507,7 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
               <View style={styles.toolControlGroup}>
                 <Text style={styles.controlHeader}>Scale Presets</Text>
                 <View style={styles.presetsRow}>
-                  {[25, 50, 75, 150, 200].map((scale) => (
+                  {[25, 50, 75, 100, 150, 200].map((scale) => (
                     <TouchableOpacity
                       key={scale}
                       style={[styles.presetPill, resizeScale === scale && styles.presetPillActive]}
@@ -459,6 +519,41 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
                     </TouchableOpacity>
                   ))}
                 </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 12 }]}>Social Media &amp; Web Presets</Text>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: 6 }}>
+                  {[
+                    { label: 'IG Square (1080×1080)', w: 1080, h: 1080 },
+                    { label: 'Story / Reel (1080×1920)', w: 1080, h: 1920 },
+                    { label: 'YouTube (1280×720)', w: 1280, h: 720 },
+                    { label: 'Twitter/X (1200×675)', w: 1200, h: 675 },
+                    { label: 'Facebook (1200×630)', w: 1200, h: 630 },
+                    { label: 'LinkedIn (1584×396)', w: 1584, h: 396 },
+                    { label: '1080p FHD (1920×1080)', w: 1920, h: 1080 },
+                  ].map((preset) => (
+                    <TouchableOpacity
+                      key={preset.label}
+                      style={[
+                        styles.presetPill,
+                        customWidth === String(preset.w) && customHeight === String(preset.h) && styles.presetPillActive,
+                      ]}
+                      onPress={() => {
+                        setCustomWidth(String(preset.w));
+                        setCustomHeight(String(preset.h));
+                        setKeepAspect(false);
+                      }}
+                    >
+                      <Text
+                        style={[
+                          styles.presetText,
+                          customWidth === String(preset.w) && customHeight === String(preset.h) && styles.presetTextActive,
+                        ]}
+                      >
+                        {preset.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
 
                 <View style={styles.dimensionInputsRow}>
                   <View style={styles.inputCol}>
@@ -500,22 +595,67 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
             {activeToolId === 51 && (
               <View style={styles.toolControlGroup}>
                 <Text style={styles.controlHeader}>Crop Aspect Ratio</Text>
-                <View style={styles.presetsRow}>
-                  {(['1:1', '4:3', '16:9', '9:16', '3:2'] as const).map((ratio) => (
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.presetsRow}>
+                  {([
+                    { id: '1:1', label: '1:1 Square' },
+                    { id: '4:5', label: '4:5 Portrait' },
+                    { id: '16:9', label: '16:9 Wide' },
+                    { id: '9:16', label: '9:16 Reel' },
+                    { id: '4:3', label: '4:3 Display' },
+                    { id: '3:2', label: '3:2 Photo' },
+                    { id: '2:1', label: '2:1 Banner' },
+                  ] as const).map((ratio) => (
                     <TouchableOpacity
-                      key={ratio}
-                      style={[styles.presetPill, cropPreset === ratio && styles.presetPillActive]}
-                      onPress={() => setCropPreset(ratio)}
+                      key={ratio.id}
+                      style={[styles.presetPill, cropPreset === ratio.id && styles.presetPillActive]}
+                      onPress={() => setCropPreset(ratio.id)}
                     >
-                      <Text style={[styles.presetText, cropPreset === ratio && styles.presetTextActive]}>
-                        {ratio}
+                      <Text style={[styles.presetText, cropPreset === ratio.id && styles.presetTextActive]}>
+                        {ratio.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </ScrollView>
+
+                <Text style={[styles.controlHeader, { marginTop: 12 }]}>Focal Alignment Focus</Text>
+                <View style={styles.presetsRow}>
+                  {(['center', 'top', 'bottom', 'left', 'right'] as const).map((pos) => (
+                    <TouchableOpacity
+                      key={pos}
+                      style={[styles.presetPill, cropPosition === pos && styles.presetPillActive]}
+                      onPress={() => setCropPosition(pos)}
+                    >
+                      <Text style={[styles.presetText, cropPosition === pos && styles.presetTextActive]}>
+                        {pos.charAt(0).toUpperCase() + pos.slice(1)}
                       </Text>
                     </TouchableOpacity>
                   ))}
                 </View>
-                <Text style={styles.noteText}>
-                  Center crop will be calculated automatically to preserve the focal subject.
-                </Text>
+
+                <Text style={[styles.controlHeader, { marginTop: 12 }]}>Output Format</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { format: SaveFormat.PNG, label: 'PNG Lossless' },
+                    { format: SaveFormat.WEBP, label: 'Smart WebP' },
+                    { format: SaveFormat.JPEG, label: 'JPEG Photo' },
+                  ].map((fmt) => (
+                    <TouchableOpacity
+                      key={fmt.label}
+                      style={[styles.presetPill, cropFormat === fmt.format && styles.presetPillActive]}
+                      onPress={() => setCropFormat(fmt.format)}
+                    >
+                      <Text style={[styles.presetText, cropFormat === fmt.format && styles.presetTextActive]}>
+                        {fmt.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                {files[0] && files[0].width && files[0].height && (
+                  <Text style={[styles.noteText, { marginTop: 8 }]}>
+                    Source: {files[0].width} × {files[0].height} px • Offset: {cropPosition.toUpperCase()}
+                  </Text>
+                )}
               </View>
             )}
 
@@ -524,20 +664,20 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
               <View style={styles.toolControlGroup}>
                 <Text style={styles.controlHeader}>Rotation Angle</Text>
                 <View style={styles.presetsRow}>
-                  {[90, 180, 270].map((deg) => (
+                  {[0, 90, 180, 270].map((deg) => (
                     <TouchableOpacity
                       key={deg}
                       style={[styles.presetPill, rotationAngle === deg && styles.presetPillActive]}
                       onPress={() => setRotationAngle(deg)}
                     >
                       <Text style={[styles.presetText, rotationAngle === deg && styles.presetTextActive]}>
-                        {deg}°
+                        {deg === 0 ? '0° (Original)' : `${deg}°`}
                       </Text>
                     </TouchableOpacity>
                   ))}
                 </View>
 
-                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Flip Axis</Text>
+                <Text style={[styles.controlHeader, { marginTop: 12 }]}>Flip Axis</Text>
                 <View style={styles.presetsRow}>
                   {(['none', 'horizontal', 'vertical'] as const).map((mode) => (
                     <TouchableOpacity
@@ -546,11 +686,40 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
                       onPress={() => setFlipDirection(mode)}
                     >
                       <Text style={[styles.presetText, flipDirection === mode && styles.presetTextActive]}>
-                        {mode === 'none' ? 'No Flip' : mode.toUpperCase()}
+                        {mode === 'none' ? 'None' : mode === 'horizontal' ? 'Horizontal (Mirror)' : 'Vertical (Invert)'}
                       </Text>
                     </TouchableOpacity>
                   ))}
                 </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 12 }]}>Output Format</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { format: SaveFormat.PNG, label: 'PNG Lossless' },
+                    { format: SaveFormat.WEBP, label: 'Smart WebP' },
+                    { format: SaveFormat.JPEG, label: 'JPEG Photo' },
+                  ].map((fmt) => (
+                    <TouchableOpacity
+                      key={fmt.label}
+                      style={[styles.presetPill, rotateFormat === fmt.format && styles.presetPillActive]}
+                      onPress={() => setRotateFormat(fmt.format)}
+                    >
+                      <Text style={[styles.presetText, rotateFormat === fmt.format && styles.presetTextActive]}>
+                        {fmt.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                {files[0] && files[0].width && files[0].height && (
+                  <Text style={[styles.noteText, { marginTop: 8 }]}>
+                    Source: {files[0].width} × {files[0].height} px &bull; Result:{' '}
+                    {rotationAngle % 180 !== 0
+                      ? `${files[0].height} × ${files[0].width}`
+                      : `${files[0].width} × ${files[0].height}`}{' '}
+                    px
+                  </Text>
+                )}
               </View>
             )}
 
@@ -602,19 +771,54 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
                   style={styles.textInput}
                   value={watermarkText}
                   onChangeText={setWatermarkText}
-                  placeholder="e.g. © 2026 Your Brand"
+                  placeholder="e.g. CONFIDENTIAL"
                 />
 
-                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Placement</Text>
-                <View style={styles.presetsRow}>
-                  {(['bottom-right', 'center', 'top-left'] as const).map((pos) => (
+                {/* Preset Chips */}
+                <View style={[styles.presetsRow, { marginTop: 4 }]}>
+                  {['CONFIDENTIAL', 'DO NOT COPY', 'DRAFT', '© COPYRIGHT'].map((preset) => (
                     <TouchableOpacity
-                      key={pos}
-                      style={[styles.presetPill, watermarkPos === pos && styles.presetPillActive]}
-                      onPress={() => setWatermarkPos(pos)}
+                      key={preset}
+                      style={[styles.presetPill, watermarkText === preset && styles.presetPillActive]}
+                      onPress={() => setWatermarkText(preset)}
                     >
-                      <Text style={[styles.presetText, watermarkPos === pos && styles.presetTextActive]}>
-                        {pos.replace('-', ' ')}
+                      <Text style={[styles.presetText, watermarkText === preset && styles.presetTextActive]}>
+                        {preset}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Placement & Pattern</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { id: 'bottom-right', label: 'Bottom Right' },
+                    { id: 'center', label: 'Center' },
+                    { id: 'top-left', label: 'Top Left' },
+                    { id: 'tiled', label: 'Tiled Grid' },
+                  ].map((pos) => (
+                    <TouchableOpacity
+                      key={pos.id}
+                      style={[styles.presetPill, watermarkPos === pos.id && styles.presetPillActive]}
+                      onPress={() => setWatermarkPos(pos.id as any)}
+                    >
+                      <Text style={[styles.presetText, watermarkPos === pos.id && styles.presetTextActive]}>
+                        {pos.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Opacity</Text>
+                <View style={styles.presetsRow}>
+                  {[30, 50, 75, 100].map((op) => (
+                    <TouchableOpacity
+                      key={op}
+                      style={[styles.presetPill, watermarkOpacity === op && styles.presetPillActive]}
+                      onPress={() => setWatermarkOpacity(op)}
+                    >
+                      <Text style={[styles.presetText, watermarkOpacity === op && styles.presetTextActive]}>
+                        {op}%
                       </Text>
                     </TouchableOpacity>
                   ))}
@@ -625,20 +829,91 @@ export const ImageEditorWorkspace: React.FC<ImageEditorWorkspaceProps> = ({
             {/* Tool 60: Image Annotator Controls */}
             {activeToolId === 60 && (
               <View style={styles.toolControlGroup}>
-                <Text style={styles.controlHeader}>Annotation Banner Text</Text>
+                <Text style={styles.controlHeader}>Annotation Callout Text</Text>
                 <TextInput
                   style={styles.textInput}
                   value={annotationNote}
                   onChangeText={setAnnotationNote}
-                  placeholder="Add note or stamp text"
+                  placeholder="e.g. APPROVED ON 2026-11-14"
                 />
+
+                <View style={[styles.presetsRow, { marginTop: 4 }]}>
+                  {['APPROVED', 'CONFIDENTIAL', 'URGENT', 'FINAL DRAFT'].map((preset) => (
+                    <TouchableOpacity
+                      key={preset}
+                      style={[styles.presetPill, annotationNote === preset && styles.presetPillActive]}
+                      onPress={() => setAnnotationNote(preset)}
+                    >
+                      <Text style={[styles.presetText, annotationNote === preset && styles.presetTextActive]}>
+                        {preset}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Callout Style</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { id: 'bottom-banner', label: 'Bottom Banner' },
+                    { id: 'top-banner', label: 'Top Header' },
+                    { id: 'corner-stamp', label: 'Corner Stamp' },
+                  ].map((style) => (
+                    <TouchableOpacity
+                      key={style.id}
+                      style={[styles.presetPill, annotationStyle === style.id && styles.presetPillActive]}
+                      onPress={() => setAnnotationStyle(style.id as any)}
+                    >
+                      <Text style={[styles.presetText, annotationStyle === style.id && styles.presetTextActive]}>
+                        {style.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Badge Theme</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { id: 'emerald', label: 'Verified Emerald' },
+                    { id: 'amber', label: 'Warning Amber' },
+                    { id: 'rose', label: 'Urgent Rose' },
+                    { id: 'slate', label: 'Dark Slate' },
+                  ].map((theme) => (
+                    <TouchableOpacity
+                      key={theme.id}
+                      style={[styles.presetPill, annotationTheme === theme.id && styles.presetPillActive]}
+                      onPress={() => setAnnotationTheme(theme.id as any)}
+                    >
+                      <Text style={[styles.presetText, annotationTheme === theme.id && styles.presetTextActive]}>
+                        {theme.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
               </View>
             )}
 
             {/* Tool 68: Blur Image Controls */}
             {activeToolId === 68 && (
               <View style={styles.toolControlGroup}>
-                <Text style={styles.controlHeader}>Privacy Blur Strength</Text>
+                <Text style={styles.controlHeader}>Obfuscation Style</Text>
+                <View style={styles.presetsRow}>
+                  {[
+                    { id: 'smooth', label: 'Smooth Blur' },
+                    { id: 'mosaic', label: 'Pixelated Mosaic' },
+                  ].map((style) => (
+                    <TouchableOpacity
+                      key={style.id}
+                      style={[styles.presetPill, blurStyle === style.id && styles.presetPillActive]}
+                      onPress={() => setBlurStyle(style.id as any)}
+                    >
+                      <Text style={[styles.presetText, blurStyle === style.id && styles.presetTextActive]}>
+                        {style.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+
+                <Text style={[styles.controlHeader, { marginTop: 10 }]}>Blur Strength</Text>
                 <View style={styles.presetsRow}>
                   {(['light', 'medium', 'heavy'] as const).map((str) => (
                     <TouchableOpacity

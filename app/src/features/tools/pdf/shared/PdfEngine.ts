@@ -386,3 +386,77 @@ export async function repairPdfDoc(uri: string): Promise<PDFDocument> {
   pages.forEach((p) => cleanDoc.addPage(p));
   return cleanDoc;
 }
+
+/**
+ * Gets dimensions and orientation of a specific page.
+ */
+export function getPdfPageDimensions(
+  pdfDoc: PDFDocument,
+  pageIndex: number
+): { width: number; height: number; rotation: number } {
+  try {
+    const page = pdfDoc.getPage(pageIndex);
+    const { width, height } = page.getSize();
+    const rotation = page.getRotation().angle;
+    return { width: Math.round(width), height: Math.round(height), rotation };
+  } catch {
+    return { width: 595, height: 842, rotation: 0 };
+  }
+}
+
+/**
+ * Parses user input like "1, 3-5, 8" into a sorted array of 1-based page numbers.
+ */
+export function parsePageRangeString(input: string, totalPages: number): number[] {
+  const selected = new Set<number>();
+  if (!input || !totalPages) return [];
+
+  const parts = input.split(',').map((p) => p.trim()).filter(Boolean);
+  for (const part of parts) {
+    if (part.includes('-')) {
+      const tokens = part.split('-').map((s) => s.trim());
+      if (tokens.length === 2) {
+        const start = parseInt(tokens[0], 10);
+        const end = parseInt(tokens[1], 10);
+        if (!isNaN(start) && !isNaN(end)) {
+          const min = Math.max(1, Math.min(start, end));
+          const max = Math.min(totalPages, Math.max(start, end));
+          for (let i = min; i <= max; i++) {
+            selected.add(i);
+          }
+        }
+      }
+    } else {
+      const p = parseInt(part, 10);
+      if (!isNaN(p) && p >= 1 && p <= totalPages) {
+        selected.add(p);
+      }
+    }
+  }
+  return Array.from(selected).sort((a, b) => a - b);
+}
+
+/**
+ * Converts a list of 1-based page numbers into a condensed range string, e.g. "1-3, 5, 7-9".
+ */
+export function formatPageRangeString(pages: number[]): string {
+  const sorted = Array.from(new Set(pages)).sort((a, b) => a - b);
+  if (sorted.length === 0) return '';
+
+  const ranges: string[] = [];
+  let rangeStart = sorted[0];
+  let prev = sorted[0];
+
+  for (let i = 1; i < sorted.length; i++) {
+    const cur = sorted[i];
+    if (cur === prev + 1) {
+      prev = cur;
+    } else {
+      ranges.push(rangeStart === prev ? `${rangeStart}` : `${rangeStart}-${prev}`);
+      rangeStart = cur;
+      prev = cur;
+    }
+  }
+  ranges.push(rangeStart === prev ? `${rangeStart}` : `${rangeStart}-${prev}`);
+  return ranges.join(', ');
+}

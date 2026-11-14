@@ -7,6 +7,9 @@ import {
   TouchableOpacity,
   Image,
   Alert,
+  LayoutAnimation,
+  Platform,
+  UIManager,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system/legacy';
@@ -67,8 +70,44 @@ export const ImagesToPdfWorkspace: React.FC<ImagesToPdfWorkspaceProps> = ({ onBa
     }
   };
 
+  const animateLayout = () => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  };
+
   const handleRemove = (id: string) => {
+    animateLayout();
     setImages((prev) => prev.filter((img) => img.id !== id));
+    setOutputPdf(null);
+  };
+
+  const handleMoveImage = (index: number, direction: 'prev' | 'next') => {
+    const targetIdx = direction === 'prev' ? index - 1 : index + 1;
+    if (targetIdx < 0 || targetIdx >= images.length) return;
+    const reordered = [...images];
+    const [moved] = reordered.splice(index, 1);
+    reordered.splice(targetIdx, 0, moved);
+    animateLayout();
+    setImages(reordered);
+    setOutputPdf(null);
+  };
+
+  const handleSortAlphabetical = () => {
+    const sorted = [...images].sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })
+    );
+    animateLayout();
+    setImages(sorted);
+    setOutputPdf(null);
+  };
+
+  const handleReverseOrder = () => {
+    const reversed = [...images].reverse();
+    animateLayout();
+    setImages(reversed);
+    setOutputPdf(null);
   };
 
   const handleGeneratePdf = async () => {
@@ -260,8 +299,29 @@ export const ImagesToPdfWorkspace: React.FC<ImagesToPdfWorkspaceProps> = ({ onBa
               <AppIcon name="Image" size={18} color={Colors.accentCoral} />
               <Text style={styles.cardTitle}>Source Images</Text>
             </View>
-            <View style={styles.countBadge}>
-              <Text style={styles.countBadgeText}>{images.length} selected</Text>
+
+            <View style={styles.headerRightActions}>
+              {images.length > 1 ? (
+                <View style={styles.sortButtonGroup}>
+                  <TouchableOpacity
+                    onPress={handleSortAlphabetical}
+                    style={styles.miniActionBtn}
+                    hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                  >
+                    <Text style={styles.miniActionText}>A-Z</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleReverseOrder}
+                    style={styles.miniActionBtn}
+                    hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                  >
+                    <Text style={styles.miniActionText}>Reverse</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : null}
+              <View style={styles.countBadge}>
+                <Text style={styles.countBadgeText}>{images.length} selected</Text>
+              </View>
             </View>
           </View>
 
@@ -278,7 +338,7 @@ export const ImagesToPdfWorkspace: React.FC<ImagesToPdfWorkspaceProps> = ({ onBa
             <Text style={styles.dropzoneHint}>Supports JPG, PNG, WebP from photo gallery</Text>
           </TouchableOpacity>
 
-          {/* Image Staging Grid */}
+          {/* Image Staging Grid with Ordering Controls */}
           {images.length > 0 ? (
             <View style={styles.grid}>
               {images.map((img, index) => (
@@ -294,6 +354,41 @@ export const ImagesToPdfWorkspace: React.FC<ImagesToPdfWorkspaceProps> = ({ onBa
                   >
                     <AppIcon name="close" size={14} color={Colors.statusError} strokeWidth={2.5} />
                   </TouchableOpacity>
+
+                  {/* Reorder Arrow Bar */}
+                  {images.length > 1 ? (
+                    <View style={styles.reorderBar}>
+                      <TouchableOpacity
+                        style={[styles.reorderBtn, index === 0 && styles.reorderBtnDisabled]}
+                        disabled={index === 0}
+                        onPress={() => handleMoveImage(index, 'prev')}
+                        hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                      >
+                        <AppIcon
+                          name="ChevronLeft"
+                          size={13}
+                          color={index === 0 ? Colors.outlineVariant : Colors.onSurface}
+                        />
+                      </TouchableOpacity>
+                      <Text style={styles.reorderIndexText}>Pg {index + 1}</Text>
+                      <TouchableOpacity
+                        style={[
+                          styles.reorderBtn,
+                          index === images.length - 1 && styles.reorderBtnDisabled,
+                        ]}
+                        disabled={index === images.length - 1}
+                        onPress={() => handleMoveImage(index, 'next')}
+                        hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+                      >
+                        <AppIcon
+                          name="ChevronRight"
+                          size={13}
+                          color={index === images.length - 1 ? Colors.outlineVariant : Colors.onSurface}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                  ) : null}
+
                   <Text style={styles.thumbnailName} numberOfLines={1}>
                     {img.name}
                   </Text>
@@ -502,6 +597,27 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: Spacing.sm,
   },
+  headerRightActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  sortButtonGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  miniActionBtn: {
+    backgroundColor: Colors.surfaceContainerLow,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: Radius.xs,
+  },
+  miniActionText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.onSurfaceVariant,
+  },
   cardHeaderTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -601,6 +717,31 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 2,
     elevation: 2,
+  },
+  reorderBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: Colors.surfaceWhite,
+    borderRadius: Radius.xs,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+    marginTop: 4,
+  },
+  reorderBtn: {
+    width: 22,
+    height: 22,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: Radius.xs,
+  },
+  reorderBtnDisabled: {
+    opacity: 0.3,
+  },
+  reorderIndexText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: Colors.onSurface,
   },
   thumbnailName: {
     fontSize: 11,
