@@ -48,9 +48,6 @@ pnpm-debug.log*
 # Backups created during repo setup
 *.bak-preexpo
 
-# Local AI assistant config (not part of the application)
-.claude/
-CLAUDE.md
 
 # Intermediate video frames
 video_output/real_frames/
