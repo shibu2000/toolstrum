@@ -30,6 +30,7 @@ import { HtmlFormatterPanel } from './developer/HtmlFormatterPanel';
 import { HtmlMinifierPanel } from './developer/HtmlMinifierPanel';
 import { CssFormatterPanel } from './developer/CssFormatterPanel';
 import { CssMinifierPanel } from './developer/CssMinifierPanel';
+import { JsFormatterPanel } from './developer/JsFormatterPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -846,7 +847,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 257 && <HtmlMinifierPanel />}
       {toolId === 258 && <CssFormatterPanel />}
       {toolId === 259 && <CssMinifierPanel />}
-      {toolId === 260 && <JsFormatterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 260 && <JsFormatterPanel />}
       {toolId === 261 && <JsMinifierTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 262 && <SqlFormatterTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 263 && <SqlMinifierTool copied={copied} onCopy={handleCopyText} />}

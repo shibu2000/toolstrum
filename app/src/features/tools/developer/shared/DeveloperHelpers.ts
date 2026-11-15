@@ -1586,19 +1586,114 @@ export function minifyCss(css: string, options: CssMinifyOptions = {}): string {
   return s.trim();
 }
 
-export function formatJs(js: string): string {
-  const lines = js.split('\n');
-  let indent = 0;
-  const result: string[] = [];
+export interface JsFormatOptions {
+  indent?: number | 'tab';
+  quoteType?: 'single' | 'double' | 'preserve';
+  semicolons?: boolean;
+}
 
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (trimmed.startsWith('}')) indent = Math.max(0, indent - 1);
-    result.push('  '.repeat(indent) + trimmed);
-    if (trimmed.endsWith('{')) indent++;
+export function formatJs(jsStr: string, indent: number | 'tab' | JsFormatOptions = 2): string {
+  if (!jsStr || !jsStr.trim()) return '';
+
+  let options: JsFormatOptions = {};
+  if (typeof indent === 'object') {
+    options = indent;
+  } else {
+    options = { indent };
   }
 
-  return result.join('\n');
+  const indentUnit = options.indent === 'tab' ? '\t' : ' '.repeat(typeof options.indent === 'number' ? options.indent : 2);
+  const quoteType = options.quoteType ?? 'preserve';
+
+  const protectedItems: string[] = [];
+  const protectRegex = /(\/\*[\s\S]*?\*\/|\/\/[^\n]*|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`[\s\S]*?`|\/(?:[^\/\\]|\\.)+\/[gimsuy]*)/g;
+
+  const s = jsStr.replace(protectRegex, (match) => {
+    let finalMatch = match;
+    if (quoteType === 'single' && match.startsWith('"') && match.endsWith('"')) {
+      const inner = match.slice(1, -1).replace(/'/g, "\\'").replace(/\\"/g, '"');
+      finalMatch = `'${inner}'`;
+    } else if (quoteType === 'double' && match.startsWith("'") && match.endsWith("'")) {
+      const inner = match.slice(1, -1).replace(/"/g, '\\"').replace(/\\'/g, "'");
+      finalMatch = `"${inner}"`;
+    }
+    protectedItems.push(finalMatch);
+    return `__TOOLSTRUM_JS_${protectedItems.length - 1}__`;
+  });
+
+  let processed = '';
+  let parenDepth = 0;
+
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+
+    if (char === '(') {
+      parenDepth++;
+      processed += char;
+      continue;
+    }
+
+    if (char === ')') {
+      parenDepth = Math.max(0, parenDepth - 1);
+      processed += char;
+      continue;
+    }
+
+    if (char === '{') {
+      processed += ' {\n';
+      continue;
+    }
+
+    if (char === '}') {
+      processed += '\n}\n';
+      continue;
+    }
+
+    if (char === ';') {
+      if (parenDepth > 0) {
+        processed += '; ';
+      } else {
+        processed += ';\n';
+      }
+      continue;
+    }
+
+    processed += char;
+  }
+
+  processed = processed
+    .replace(/\s*(=>|===|!==|==|!=|<=|>=|\+=|-=|\*=|\/=|&&|\|\||\?\?|=)\s*/g, ' $1 ')
+    .replace(/,\s*/g, ', ')
+    .replace(/\s*:\s*/g, ': ')
+    .replace(/\b(if|for|while|switch|catch)\s*\(/g, '$1 (')
+    .replace(/\}\s*else\s*\{/g, '} else {')
+    .replace(/\}\s*else\s+if/g, '} else if')
+    .replace(/\}\s*catch/g, '} catch')
+    .replace(/\}\s*finally/g, '} finally');
+
+  const rawLines = processed.split('\n');
+  const resultLines: string[] = [];
+  let depth = 0;
+
+  for (const raw of rawLines) {
+    const trimmed = raw.trim();
+    if (!trimmed) continue;
+
+    if (/^[}\])]/.test(trimmed)) {
+      depth = Math.max(0, depth - 1);
+    }
+
+    resultLines.push(`${indentUnit.repeat(depth)}${trimmed}`);
+
+    if (/[{\[(]$/.test(trimmed)) {
+      depth++;
+    }
+  }
+
+  let output = resultLines.join('\n').replace(/__TOOLSTRUM_JS_(\d+)__/g, (_, idx) => protectedItems[Number(idx)] || '');
+  output = output.replace(/\n{3,}/g, '\n\n').trim();
+
+  return output;
 }
 
 export function minifyJs(js: string): string {

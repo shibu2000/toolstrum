@@ -70,6 +70,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
   const [sortProperties, setSortProperties] = useState<boolean>(false);
   const [cssStripComments, setCssStripComments] = useState<boolean>(true);
   const [cssShortenHex, setCssShortenHex] = useState<boolean>(true);
+  const [jsQuoteType, setJsQuoteType] = useState<'preserve' | 'single' | 'double'>('preserve');
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -120,7 +121,10 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             shortenHexColors: cssShortenHex,
           });
         case 260:
-          return formatJs(codeJs);
+          return formatJs(codeJs, {
+            indent: indentSize,
+            quoteType: jsQuoteType,
+          });
         case 261:
           return minifyJs(codeJs);
         case 262:
@@ -141,7 +145,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     } catch (err: any) {
       return `Processing error: ${err?.message || 'Unable to parse code syntax'}`;
     }
-  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex]);
+  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex, jsQuoteType]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -358,6 +362,42 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             >
               <Text style={[styles.smallPillText, cssShortenHex && styles.smallPillTextActive]}>
                 #fff Hex
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* JS Formatter Subbar (Tool 260) */}
+        {activeToolId === 260 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Indent:</Text>
+            {([2, 4, 'tab'] as const).map((sz) => (
+              <TouchableOpacity
+                key={sz}
+                style={[styles.smallPill, indentSize === sz && styles.smallPillActive]}
+                onPress={() => setIndentSize(sz)}
+              >
+                <Text style={[styles.smallPillText, indentSize === sz && styles.smallPillTextActive]}>
+                  {sz === 'tab' ? 'Tab' : `${sz}s`}
+                </Text>
+              </TouchableOpacity>
+            ))}
+
+            <TouchableOpacity
+              style={[styles.smallPill, jsQuoteType === 'single' && styles.smallPillActive]}
+              onPress={() => setJsQuoteType(jsQuoteType === 'single' ? 'preserve' : 'single')}
+            >
+              <Text style={[styles.smallPillText, jsQuoteType === 'single' && styles.smallPillTextActive]}>
+                'Single'
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, jsQuoteType === 'double' && styles.smallPillActive]}
+              onPress={() => setJsQuoteType(jsQuoteType === 'double' ? 'preserve' : 'double')}
+            >
+              <Text style={[styles.smallPillText, jsQuoteType === 'double' && styles.smallPillTextActive]}>
+                "Double"
               </Text>
             </TouchableOpacity>
           </View>
