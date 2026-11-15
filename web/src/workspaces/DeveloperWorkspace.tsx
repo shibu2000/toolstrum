@@ -55,6 +55,9 @@ import { FlexboxPlaygroundPanel } from './developer/FlexboxPlaygroundPanel';
 import { GridGeneratorPanel } from './developer/GridGeneratorPanel';
 import { UnixTimestampPanel } from './developer/UnixTimestampPanel';
 import { CrontabHelperPanel } from './developer/CrontabHelperPanel';
+import { DiffPatchPanel } from './developer/DiffPatchPanel';
+import { UrlParserPanel } from './developer/UrlParserPanel';
+import { UserAgentParserPanel } from './developer/UserAgentParserPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -215,102 +218,6 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       c.name.toLowerCase().includes(httpSearch.toLowerCase()) ||
       c.desc.toLowerCase().includes(httpSearch.toLowerCase())
   );
-
-  // ==========================================
-  // 9. DIFF & PATCH VIEWER
-  // ==========================================
-  const [diffLeft, setDiffLeft] = useState('line one\nline two\nline three');
-  const [diffRight, setDiffRight] = useState('line one\nline 2\nline three\nline four');
-  const [diffResult, setDiffResult] = useState<{ type: 'same' | 'added' | 'removed'; text: string }[]>([]);
-  const [diffHasRun, setDiffHasRun] = useState(false);
-
-  const handleComputeDiff = () => {
-    const a = diffLeft.split('\n');
-    const b = diffRight.split('\n');
-    const dp: number[][] = Array.from({ length: a.length + 1 }, () => new Array(b.length + 1).fill(0));
-    for (let i = a.length - 1; i >= 0; i--) {
-      for (let j = b.length - 1; j >= 0; j--) {
-        dp[i][j] = a[i] === b[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
-      }
-    }
-    const result: { type: 'same' | 'added' | 'removed'; text: string }[] = [];
-    let i = 0;
-    let j = 0;
-    while (i < a.length && j < b.length) {
-      if (a[i] === b[j]) {
-        result.push({ type: 'same', text: a[i] });
-        i++;
-        j++;
-      } else if (dp[i + 1][j] >= dp[i][j + 1]) {
-        result.push({ type: 'removed', text: a[i] });
-        i++;
-      } else {
-        result.push({ type: 'added', text: b[j] });
-        j++;
-      }
-    }
-    while (i < a.length) result.push({ type: 'removed', text: a[i++] });
-    while (j < b.length) result.push({ type: 'added', text: b[j++] });
-    setDiffResult(result);
-    setDiffHasRun(true);
-  };
-
-  // ==========================================
-  // 10. URL PARSER
-  // ==========================================
-  const [urlInput, setUrlInput] = useState('https://www.toolstrum.app/search?q=offline+tools&page=2#results');
-  const [urlError, setUrlError] = useState('');
-  const [urlParsed, setUrlParsed] = useState<{ protocol: string; hostname: string; port: string; pathname: string; hash: string; params: [string, string][] } | null>(null);
-
-  const handleParseUrl = () => {
-    setUrlError('');
-    try {
-      const u = new URL(urlInput);
-      setUrlParsed({
-        protocol: u.protocol,
-        hostname: u.hostname,
-        port: u.port || '(default)',
-        pathname: u.pathname,
-        hash: u.hash || '(none)',
-        params: Array.from(u.searchParams.entries()),
-      });
-    } catch {
-      setUrlError('Invalid URL. Include the protocol, e.g. https://example.com');
-      setUrlParsed(null);
-    }
-  };
-
-  // ==========================================
-  // 11. USER-AGENT PARSER
-  // ==========================================
-  const [uaInput, setUaInput] = useState(typeof navigator !== 'undefined' ? navigator.userAgent : '');
-  const [uaResult, setUaResult] = useState<{ browser: string; os: string; engine: string; device: string } | null>(null);
-
-  const handleParseUa = () => {
-    const ua = uaInput;
-    let browser = 'Unknown';
-    if (/Edg\//.test(ua)) browser = `Edge ${ua.match(/Edg\/([\d.]+)/)?.[1] || ''}`;
-    else if (/OPR\//.test(ua)) browser = `Opera ${ua.match(/OPR\/([\d.]+)/)?.[1] || ''}`;
-    else if (/Chrome\//.test(ua) && !/Chromium/.test(ua)) browser = `Chrome ${ua.match(/Chrome\/([\d.]+)/)?.[1] || ''}`;
-    else if (/Firefox\//.test(ua)) browser = `Firefox ${ua.match(/Firefox\/([\d.]+)/)?.[1] || ''}`;
-    else if (/Version\/.*Safari\//.test(ua)) browser = `Safari ${ua.match(/Version\/([\d.]+)/)?.[1] || ''}`;
-
-    let os = 'Unknown';
-    if (/Windows NT 10/.test(ua)) os = 'Windows 10/11';
-    else if (/Windows NT/.test(ua)) os = `Windows (${ua.match(/Windows NT ([\d.]+)/)?.[1]})`;
-    else if (/Mac OS X/.test(ua) && !/iPhone|iPad/.test(ua)) os = `macOS ${(ua.match(/Mac OS X ([\d_]+)/)?.[1] || '').replace(/_/g, '.')}`;
-    else if (/Android/.test(ua)) os = `Android ${ua.match(/Android ([\d.]+)/)?.[1] || ''}`;
-    else if (/iPhone|iPad/.test(ua)) os = `iOS ${(ua.match(/OS ([\d_]+)/)?.[1] || '').replace(/_/g, '.')}`;
-    else if (/Linux/.test(ua)) os = 'Linux';
-
-    let engine = 'Unknown';
-    if (/Gecko\/\d/.test(ua)) engine = 'Gecko';
-    else if (/AppleWebKit/.test(ua)) engine = /Chrome|Edg|OPR/.test(ua) ? 'Blink' : 'WebKit';
-
-    const device = /Mobi/.test(ua) ? 'Mobile' : /iPad|Tablet/.test(ua) ? 'Tablet' : 'Desktop';
-
-    setUaResult({ browser: browser.trim() || 'Unknown', os, engine, device });
-  };
 
   // ==========================================
   // 12. MIME TYPE REFERENCE
@@ -801,149 +708,12 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 286 && <UnixTimestampPanel />}
       {toolId === 287 && <CrontabHelperPanel />}
 
-      {/* 288 — DIFF & PATCH VIEWER */}
-      {toolId === 288 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Layers className="w-4 h-4 text-sky-500" /> Diff & Patch Viewer
-            </h3>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Original Text</label>
-              <textarea value={diffLeft} onChange={(e) => setDiffLeft(e.target.value)} rows={8} className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-            </div>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Modified Text</label>
-              <textarea value={diffRight} onChange={(e) => setDiffRight(e.target.value)} rows={8} className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-            </div>
-            <button onClick={handleComputeDiff} className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs">
-              Compute Diff
-            </button>
-          </div>
-          <div className="space-y-4">
-            {diffHasRun ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md">
-                <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Line Diff</span>
-                <div className="mt-3 font-mono text-xs max-h-[420px] overflow-y-auto space-y-0.5">
-                  {diffResult.map((l, i) => (
-                    <div
-                      key={i}
-                      className={`px-2 py-1 rounded-sm whitespace-pre-wrap ${
-                        l.type === 'added' ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300' :
-                        l.type === 'removed' ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300' :
-                        'text-slate-600 dark:text-slate-400'
-                      }`}
-                    >
-                      {l.type === 'added' ? '+ ' : l.type === 'removed' ? '- ' : '  '}{l.text}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">Paste both versions and click Compute Diff.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* 289 — URL PARSER */}
-      {toolId === 289 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <FileCode className="w-4 h-4 text-sky-500" /> URL Parser
-            </h3>
-            <input
-              type="text"
-              value={urlInput}
-              onChange={(e) => setUrlInput(e.target.value)}
-              className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs"
-            />
-            <button onClick={handleParseUrl} className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs">
-              Parse URL
-            </button>
-            {urlError && <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">{urlError}</div>}
-          </div>
-          <div className="space-y-4">
-            {urlParsed ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-2.5 text-xs">
-                {[
-                  ['Protocol', urlParsed.protocol],
-                  ['Hostname', urlParsed.hostname],
-                  ['Port', urlParsed.port],
-                  ['Path', urlParsed.pathname],
-                  ['Hash', urlParsed.hash],
-                ].map(([k, v]) => (
-                  <div key={k} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
-                    <span className="text-slate-500">{k}</span>
-                    <span className="font-bold font-mono text-slate-900 dark:text-white">{v}</span>
-                  </div>
-                ))}
-                {urlParsed.params.length > 0 && (
-                  <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-                    <span className="text-[10px] uppercase font-bold text-slate-400">Query Parameters</span>
-                    {urlParsed.params.map(([k, v], i) => (
-                      <div key={i} className="p-2 mt-1 rounded-lg bg-slate-50 dark:bg-slate-800 flex justify-between font-mono">
-                        <span>{k}</span><span>{v}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">Enter a full URL and click Parse URL.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* 290 — USER-AGENT PARSER */}
-      {toolId === 290 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Play className="w-4 h-4 text-sky-500" /> User-Agent Parser
-            </h3>
-            <textarea
-              value={uaInput}
-              onChange={(e) => setUaInput(e.target.value)}
-              rows={5}
-              className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs"
-            />
-            <button onClick={handleParseUa} className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs">
-              Parse User-Agent
-            </button>
-          </div>
-          <div className="space-y-4">
-            {uaResult ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-2.5 text-xs">
-                {[
-                  ['Browser', uaResult.browser],
-                  ['Operating System', uaResult.os],
-                  ['Rendering Engine', uaResult.engine],
-                  ['Device Type', uaResult.device],
-                ].map(([k, v]) => (
-                  <div key={k} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 flex justify-between">
-                    <span className="text-slate-500">{k}</span>
-                    <span className="font-bold text-slate-900 dark:text-white">{v}</span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">Paste a user-agent string (or use your own, pre-filled) and click Parse.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {/* ======================================================== */}
+      {/* 288-290: DEDICATED DIFF, URL & USER-AGENT INSPECTORS */}
+      {/* ======================================================== */}
+      {toolId === 288 && <DiffPatchPanel />}
+      {toolId === 289 && <UrlParserPanel />}
+      {toolId === 290 && <UserAgentParserPanel />}
 
       {/* 291 — HTTP STATUS CODE REFERENCE */}
       {toolId === 291 && (

@@ -2940,3 +2940,265 @@ export function parseCronExpression(expr: string): CronParseResult {
     };
   }
 }
+
+// ==========================================
+// 14. DIFF & PATCH COMPUTATION HELPERS
+// ==========================================
+export interface DiffLine {
+  type: 'same' | 'added' | 'removed';
+  oldLineNumber?: number;
+  newLineNumber?: number;
+  text: string;
+}
+
+export interface DiffResult {
+  lines: DiffLine[];
+  additions: number;
+  deletions: number;
+  unchanged: number;
+  similarity: number;
+  unifiedPatch: string;
+}
+
+export function computeLineDiff(
+  original: string,
+  modified: string,
+  options: { ignoreWhitespace?: boolean; ignoreCase?: boolean; filename?: string } = {}
+): DiffResult {
+  const origLines = original.split('\n');
+  const modLines = modified.split('\n');
+
+  const normalize = (s: string) => {
+    let res = s;
+    if (options.ignoreWhitespace) res = res.trim().replace(/\s+/g, ' ');
+    if (options.ignoreCase) res = res.toLowerCase();
+    return res;
+  };
+
+  const n = origLines.length;
+  const m = modLines.length;
+
+  // DP table for LCS
+  const dp: number[][] = Array.from({ length: n + 1 }, () => new Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      if (normalize(origLines[i]) === normalize(modLines[j])) {
+        dp[i][j] = dp[i + 1][j + 1] + 1;
+      } else {
+        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);
+      }
+    }
+  }
+
+  const lines: DiffLine[] = [];
+  let i = 0;
+  let j = 0;
+  let oldLine = 1;
+  let newLine = 1;
+
+  while (i < n && j < m) {
+    if (normalize(origLines[i]) === normalize(modLines[j])) {
+      lines.push({ type: 'same', oldLineNumber: oldLine++, newLineNumber: newLine++, text: origLines[i] });
+      i++;
+      j++;
+    } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+      lines.push({ type: 'removed', oldLineNumber: oldLine++, text: origLines[i] });
+      i++;
+    } else {
+      lines.push({ type: 'added', newLineNumber: newLine++, text: modLines[j] });
+      j++;
+    }
+  }
+
+  while (i < n) {
+    lines.push({ type: 'removed', oldLineNumber: oldLine++, text: origLines[i++] });
+  }
+  while (j < m) {
+    lines.push({ type: 'added', newLineNumber: newLine++, text: modLines[j++] });
+  }
+
+  let additions = 0;
+  let deletions = 0;
+  let unchanged = 0;
+  for (const line of lines) {
+    if (line.type === 'added') additions++;
+    else if (line.type === 'removed') deletions++;
+    else unchanged++;
+  }
+
+  const total = n + m;
+  const similarity = total === 0 ? 100 : Math.round(((unchanged * 2) / total) * 100);
+
+  // Generate unified patch string
+  const fname = options.filename || 'sample.txt';
+  const patchHeader = [
+    `--- a/${fname}`,
+    `+++ b/${fname}`,
+    `@@ -1,${Math.max(1, n)} +1,${Math.max(1, m)} @@`,
+  ];
+  const patchLines = lines.map((l) => {
+    if (l.type === 'added') return `+${l.text}`;
+    if (l.type === 'removed') return `-${l.text}`;
+    return ` ${l.text}`;
+  });
+  const unifiedPatch = [...patchHeader, ...patchLines].join('\n');
+
+  return { lines, additions, deletions, unchanged, similarity, unifiedPatch };
+}
+
+// ==========================================
+// 15. URL PARSER & QUERY PARAMETER HELPERS
+// ==========================================
+export interface QueryParamItem {
+  id: string;
+  key: string;
+  value: string;
+  enabled: boolean;
+}
+
+export interface ParsedUrlDetails {
+  valid: boolean;
+  error?: string;
+  raw: string;
+  protocol: string;
+  username: string;
+  password: string;
+  hostname: string;
+  port: string;
+  pathname: string;
+  pathSegments: string[];
+  search: string;
+  hash: string;
+  origin: string;
+  isSecure: boolean;
+  queryParams: QueryParamItem[];
+  trackingParamsFound: string[];
+}
+
+const KNOWN_TRACKING_KEYS = new Set([
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_term',
+  'utm_content',
+  'fbclid',
+  'gclid',
+  'dclid',
+  'msclkid',
+  'mc_eid',
+  '_hsenc',
+  '_hsmi',
+  'ref',
+  'ref_src',
+]);
+
+export function parseFullUrl(rawInput: string): ParsedUrlDetails {
+  const trimmed = rawInput.trim();
+  if (!trimmed) {
+    return {
+      valid: false,
+      error: 'Please enter a URL.',
+      raw: '',
+      protocol: '',
+      username: '',
+      password: '',
+      hostname: '',
+      port: '',
+      pathname: '',
+      pathSegments: [],
+      search: '',
+      hash: '',
+      origin: '',
+      isSecure: false,
+      queryParams: [],
+      trackingParamsFound: [],
+    };
+  }
+
+  // Prepend protocol if missing for lenient parsing
+  let normalized = trimmed;
+  if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(normalized)) {
+    normalized = `https://${normalized}`;
+  }
+
+  try {
+    const url = new URL(normalized);
+
+    const queryParams: QueryParamItem[] = [];
+    const trackingParamsFound: string[] = [];
+
+    url.searchParams.forEach((value, key) => {
+      const id = `${key}-${Math.random().toString(36).slice(2, 7)}`;
+      queryParams.push({ id, key, value, enabled: true });
+      if (KNOWN_TRACKING_KEYS.has(key.toLowerCase()) || key.toLowerCase().startsWith('utm_')) {
+        trackingParamsFound.push(key);
+      }
+    });
+
+    const pathSegments = url.pathname.split('/').filter(Boolean);
+
+    return {
+      valid: true,
+      raw: trimmed,
+      protocol: url.protocol,
+      username: url.username,
+      password: url.password,
+      hostname: url.hostname,
+      port: url.port,
+      pathname: url.pathname,
+      pathSegments,
+      search: url.search,
+      hash: url.hash,
+      origin: url.origin,
+      isSecure: url.protocol === 'https:' || url.protocol === 'wss:',
+      queryParams,
+      trackingParamsFound,
+    };
+  } catch (e: any) {
+    return {
+      valid: false,
+      error: `Invalid URL format: ${e.message}`,
+      raw: trimmed,
+      protocol: '',
+      username: '',
+      password: '',
+      hostname: '',
+      port: '',
+      pathname: '',
+      pathSegments: [],
+      search: '',
+      hash: '',
+      origin: '',
+      isSecure: false,
+      queryParams: [],
+      trackingParamsFound: [],
+    };
+  }
+}
+
+export function buildUrlFromComponents(
+  baseOrigin: string,
+  pathname: string,
+  params: QueryParamItem[],
+  hash: string
+): string {
+  try {
+    const cleanOrigin = baseOrigin.replace(/\/+$/, '');
+    const cleanPath = pathname.startsWith('/') ? pathname : `/${pathname}`;
+    const url = new URL(`${cleanOrigin}${cleanPath}`);
+
+    for (const p of params) {
+      if (p.enabled && p.key.trim()) {
+        url.searchParams.append(p.key.trim(), p.value);
+      }
+    }
+
+    if (hash) {
+      url.hash = hash.startsWith('#') ? hash : `#${hash}`;
+    }
+
+    return url.toString();
+  } catch {
+    return `${baseOrigin}${pathname}`;
+  }
+}
