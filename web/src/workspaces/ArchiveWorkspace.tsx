@@ -32,8 +32,10 @@ import {
 import {
   FileSplitterTool,
   FileJoinerTool,
+  BulkFileRenamerTool,
   FileExtensionConverterTool,
   BatchFileOrganizerTool,
+  TemporaryFileCleanerTool,
   FileSharingUtilityTool,
   RecentFilesManagerTool,
   StorageUsageAnalyzerTool,
@@ -86,6 +88,8 @@ export const ArchiveWorkspace: React.FC<ArchiveWorkspaceProps> = ({
         return <FileSizeAnalyzerTool copied={copied} onCopy={handleCopy} />;
       case 191:
         return <DuplicateFileFinderTool copied={copied} onCopy={handleCopy} />;
+      case 192:
+        return <BulkFileRenamerTool copied={copied} onCopy={handleCopy} />;
       case 193:
         return <FileChecksumGeneratorTool copied={copied} onCopy={handleCopy} />;
       case 194:
@@ -102,6 +106,8 @@ export const ArchiveWorkspace: React.FC<ArchiveWorkspaceProps> = ({
         return <FileExtensionConverterTool copied={copied} onCopy={handleCopy} />;
       case 199:
         return <BatchFileOrganizerTool copied={copied} onCopy={handleCopy} />;
+      case 200:
+        return <TemporaryFileCleanerTool copied={copied} onCopy={handleCopy} />;
       case 201:
         return <FileSharingUtilityTool copied={copied} onCopy={handleCopy} />;
       case 202:

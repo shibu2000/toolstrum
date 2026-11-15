@@ -3966,6 +3966,28 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 192,
+    "name": "Bulk File Renamer",
+    "studioId": "archive",
+    "description": "Batch renames files with custom prefixes, suffixes, numbering, and case formatting.",
+    "keywords": [
+      "bulk file renamer",
+      "archive & files",
+      "archive",
+      "bulk",
+      "file",
+      "renamer"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Archive",
+    "inputKind": "file",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 193,
     "name": "File Checksum Generator",
     "studioId": "archive",
@@ -4106,6 +4128,29 @@ export const WEB_TOOLS: ToolDefinition[] = [
       "batch",
       "file",
       "organizer"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Archive",
+    "inputKind": "file",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 200,
+    "name": "Temporary File Cleaner",
+    "studioId": "archive",
+    "description": "Inspects and safely clears browser caches, temporary offline files, and local session data.",
+    "keywords": [
+      "temporary file cleaner",
+      "archive & files",
+      "archive",
+      "temporary",
+      "file",
+      "cleaner",
+      "cache"
     ],
     "status": "available",
     "offlineCapable": true,
