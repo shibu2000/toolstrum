@@ -1439,7 +1439,26 @@ export function minifySql(sql: string, options: SqlMinifyOptions = {}): string {
   return s.trim();
 }
 
-export interface SqlExplanation {
+export interface SqlClauseItem {
+  clause: string;
+  explanation: string;
+  detail?: string;
+}
+
+export interface SqlRecommendation {
+  type: 'warning' | 'tip' | 'info';
+  title: string;
+  message: string;
+}
+
+export interface SqlExecutionStep {
+  step: number;
+  operation: string;
+  description: string;
+  target?: string;
+}
+
+export interface SqlExplanation extends Array<SqlClauseItem> {
   type: string;
   tables: string[];
   columns: string[];
@@ -1449,59 +1468,296 @@ export interface SqlExplanation {
   sorting: string[];
   limit: string;
   summary: string;
+  clauses: SqlClauseItem[];
+  complexityScore: number;
+  costRating: 'Low' | 'Moderate' | 'High' | 'Critical';
+  recommendations: SqlRecommendation[];
+  executionPlan: SqlExecutionStep[];
 }
 
 export function explainSql(sql: string): SqlExplanation {
   const clean = sql.replace(/\s+/g, ' ').trim();
+  const normalized = clean.toUpperCase();
+
   let type = 'SELECT';
-  if (/^INSERT/i.test(clean)) type = 'INSERT';
+  if (/^INSERT\s+INTO/i.test(clean)) type = 'INSERT';
   else if (/^UPDATE/i.test(clean)) type = 'UPDATE';
-  else if (/^DELETE/i.test(clean)) type = 'DELETE';
+  else if (/^DELETE\s+FROM/i.test(clean)) type = 'DELETE';
+  else if (/^WITH/i.test(clean)) type = 'WITH (CTE)';
+  else if (/^CREATE\s+TABLE/i.test(clean)) type = 'CREATE TABLE';
+  else if (/^ALTER\s+TABLE/i.test(clean)) type = 'ALTER TABLE';
 
+  const clauses: SqlClauseItem[] = [];
+
+  if (normalized.includes('WITH ')) {
+    clauses.push({
+      clause: 'WITH',
+      explanation: 'Defines Common Table Expressions (CTEs) for modular query execution pipelines.',
+    });
+  }
+  if (normalized.includes('SELECT')) {
+    clauses.push({
+      clause: 'SELECT',
+      explanation: 'Retrieves designated column projections or computed expressions from the dataset.',
+    });
+  }
+  if (normalized.includes('FROM')) {
+    clauses.push({
+      clause: 'FROM',
+      explanation: 'Specifies primary data source tables or derived subquery relations.',
+    });
+  }
+  if (normalized.includes('JOIN')) {
+    clauses.push({
+      clause: 'JOIN',
+      explanation: 'Correlates related records across tables using relational key predicates.',
+    });
+  }
+  if (normalized.includes('WHERE')) {
+    clauses.push({
+      clause: 'WHERE',
+      explanation: 'Applies boolean filter predicates before data grouping or aggregation.',
+    });
+  }
+  if (normalized.includes('GROUP BY')) {
+    clauses.push({
+      clause: 'GROUP BY',
+      explanation: 'Aggregates row subsets by unique categorical values for metrics calculation.',
+    });
+  }
+  if (normalized.includes('HAVING')) {
+    clauses.push({
+      clause: 'HAVING',
+      explanation: 'Filters grouped aggregates based on post-calculation threshold criteria.',
+    });
+  }
+  if (normalized.includes('ORDER BY')) {
+    clauses.push({
+      clause: 'ORDER BY',
+      explanation: 'Orders result records sequentially by designated column criteria.',
+    });
+  }
+  if (normalized.includes('LIMIT') || normalized.includes('FETCH NEXT')) {
+    clauses.push({
+      clause: 'LIMIT',
+      explanation: 'Restricts maximum row cardinality transmitted back to the client.',
+    });
+  }
+
+  // Extract tables
   const tables: string[] = [];
-  const fromMatch = clean.match(/FROM\s+([a-zA-Z0-9_,\s]+?)(?:WHERE|JOIN|GROUP|ORDER|LIMIT|$)/i);
+  const fromMatch = clean.match(/FROM\s+([a-zA-Z0-9_,\s]+?)(?=\s+(?:WHERE|LEFT|RIGHT|INNER|FULL|CROSS|NATURAL|JOIN|GROUP|HAVING|ORDER|LIMIT|$))/i);
   if (fromMatch) {
-    tables.push(...fromMatch[1].split(',').map((t) => t.trim().split(/\s+/)[0]));
+    fromMatch[1].split(',').forEach((t) => {
+      const name = t.trim().split(/\s+/)[0];
+      if (name && !tables.includes(name)) tables.push(name);
+    });
   }
 
+  // Extract joins
   const joins: string[] = [];
-  const joinMatches = clean.matchAll(/(?:LEFT|RIGHT|INNER|FULL|CROSS)?\s*JOIN\s+([a-zA-Z0-9_]+)\s+ON\s+([^WHERE|GROUP|ORDER|LIMIT]+)/gi);
-  for (const jm of joinMatches) {
-    joins.push(`${jm[1]} (condition: ${jm[2].trim()})`);
+  const joinRegex = /(LEFT\s+OUTER|RIGHT\s+OUTER|FULL\s+OUTER|LEFT|RIGHT|INNER|FULL|CROSS|NATURAL)?\s*JOIN\s+([a-zA-Z0-9_]+)(?:\s+(?:AS\s+)?([a-zA-Z0-9_]+))?\s+ON\s+([^\s]+(?:\s+(?:AND|OR)\s+[^\s]+)*)/gi;
+  let jMatch;
+  while ((jMatch = joinRegex.exec(clean)) !== null) {
+    const joinType = (jMatch[1] || 'INNER').toUpperCase();
+    const table = jMatch[2];
+    const cond = jMatch[4] ? jMatch[4].trim() : '';
+    joins.push(`${joinType} JOIN ${table} ON ${cond}`);
+    if (!tables.includes(table)) tables.push(table);
   }
 
+  // Extract columns
   const columns: string[] = [];
-  const selectMatch = clean.match(/SELECT\s+(.*?)\s+FROM/i);
+  const selectMatch = clean.match(/SELECT\s+(DISTINCT\s+)?(.*?)\s+FROM/i);
   if (selectMatch) {
-    columns.push(...selectMatch[1].split(',').map((c) => c.trim()));
+    selectMatch[2].split(',').forEach((c) => {
+      const col = c.trim();
+      if (col && !columns.includes(col)) columns.push(col);
+    });
   }
 
+  // Extract filters
   const filters: string[] = [];
-  const whereMatch = clean.match(/WHERE\s+(.*?)(?:GROUP|ORDER|LIMIT|$)/i);
+  const whereMatch = clean.match(/WHERE\s+(.*?)(?=\s+(?:GROUP\s+BY|ORDER\s+BY|LIMIT|HAVING|$))/i);
   if (whereMatch) {
-    filters.push(whereMatch[1].trim());
+    whereMatch[1].split(/\s+AND\s+|\s+OR\s+/i).forEach((f) => {
+      const flt = f.trim();
+      if (flt && !filters.includes(flt)) filters.push(flt);
+    });
   }
 
+  // Extract grouping
   const grouping: string[] = [];
-  const groupMatch = clean.match(/GROUP BY\s+(.*?)(?:HAVING|ORDER|LIMIT|$)/i);
+  const groupMatch = clean.match(/GROUP BY\s+(.*?)(?=\s+(?:HAVING|ORDER\s+BY|LIMIT|$))/i);
   if (groupMatch) {
-    grouping.push(...groupMatch[1].split(',').map((g) => g.trim()));
+    groupMatch[1].split(',').forEach((g) => {
+      const grp = g.trim();
+      if (grp && !grouping.includes(grp)) grouping.push(grp);
+    });
   }
 
+  // Extract sorting
   const sorting: string[] = [];
-  const orderMatch = clean.match(/ORDER BY\s+(.*?)(?:LIMIT|$)/i);
+  const orderMatch = clean.match(/ORDER BY\s+(.*?)(?=\s+(?:LIMIT|$))/i);
   if (orderMatch) {
-    sorting.push(...orderMatch[1].split(',').map((o) => o.trim()));
+    orderMatch[1].split(',').forEach((o) => {
+      const srt = o.trim();
+      if (srt && !sorting.includes(srt)) sorting.push(srt);
+    });
   }
 
   const limitMatch = clean.match(/LIMIT\s+(\d+)(?:\s+OFFSET\s+(\d+))?/i);
   const limit = limitMatch ? `${limitMatch[1]} rows${limitMatch[2] ? ` (offset ${limitMatch[2]})` : ''}` : 'No limit specified (returns all matches)';
 
+  // Static performance & optimization analysis
+  const recommendations: SqlRecommendation[] = [];
+
+  if (columns.some((c) => c === '*' || c.endsWith('.*'))) {
+    recommendations.push({
+      type: 'warning',
+      title: 'Wildcard Projection (SELECT *)',
+      message: 'Avoid SELECT * in high-throughput workloads. Explicit column projections reduce network transmission, lower memory overhead, and enable index-only covering scans.',
+    });
+  }
+
+  if (filters.some((f) => /LIKE\s+['"][%_]/i.test(f))) {
+    recommendations.push({
+      type: 'warning',
+      title: 'Leading Wildcard in LIKE Predicate',
+      message: "Predicates with leading wildcards (e.g. LIKE '%term') cannot utilize standard B-Tree indexes, triggering an unindexed sequential table scan (Full Table Scan).",
+    });
+  }
+
+  if (filters.some((f) => /(?:LOWER|UPPER|DATE|YEAR|MONTH|TO_CHAR|COALESCE|SUBSTR)\s*\(/i.test(f))) {
+    recommendations.push({
+      type: 'warning',
+      title: 'Function Wrapper on Column in WHERE',
+      message: 'Applying a function to a column in a WHERE condition bypasses column B-Tree indexes unless a matching functional/expression index is created.',
+    });
+  }
+
+  if (tables.length > 1 && joins.length === 0 && !filters.some((f) => f.includes('='))) {
+    recommendations.push({
+      type: 'warning',
+      title: 'Potential Cartesian Product',
+      message: 'Multiple tables referenced in FROM without explicit JOIN ON conditions can generate massive combinatorial Cartesian products (M x N rows).',
+    });
+  }
+
+  if (type === 'SELECT' && !limitMatch) {
+    recommendations.push({
+      type: 'tip',
+      title: 'Unbounded Result Set (No LIMIT)',
+      message: 'Consider adding a LIMIT clause to guard against memory spikes when queries match unexpected row volumes.',
+    });
+  }
+
+  if (joins.length > 0) {
+    recommendations.push({
+      type: 'info',
+      title: 'Foreign Key Indexing',
+      message: `Ensure columns referenced in the ${joins.length} join predicate(s) have B-Tree indexes on both parent and child relations to prevent nested loop bottlenecks.`,
+    });
+  }
+
+  // Complexity score calculation (1 - 10)
+  let score = 1;
+  score += joins.length * 1.5;
+  if (normalized.includes('GROUP BY')) score += 1.5;
+  if (normalized.includes('HAVING')) score += 1;
+  if (normalized.includes('OVER (')) score += 2; // Window function
+  if (normalized.includes('DISTINCT')) score += 0.5;
+  if (normalized.includes('UNION')) score += 1.5;
+  if (normalized.includes('WITH ')) score += 1;
+  if (filters.length > 3) score += 1;
+  const complexityScore = Math.min(10, Math.max(1, Math.round(score)));
+
+  const costRating: 'Low' | 'Moderate' | 'High' | 'Critical' =
+    complexityScore <= 3 ? 'Low' : complexityScore <= 6 ? 'Moderate' : complexityScore <= 8 ? 'High' : 'Critical';
+
+  // Execution Plan Simulation Steps
+  const executionPlan: SqlExecutionStep[] = [];
+  let stepCounter = 1;
+
+  if (tables.length > 0) {
+    executionPlan.push({
+      step: stepCounter++,
+      operation: 'Data Access / Scan',
+      description: `Access base records from table: ${tables[0]} (Index Scan if indexed on primary/foreign key, otherwise Sequential Scan).`,
+      target: tables[0],
+    });
+  }
+
+  if (joins.length > 0) {
+    joins.forEach((j) => {
+      executionPlan.push({
+        step: stepCounter++,
+        operation: 'Relational Join',
+        description: `Correlate tuples: ${j} using Hash Join or Nested Loop Join.`,
+      });
+    });
+  }
+
+  if (filters.length > 0) {
+    executionPlan.push({
+      step: stepCounter++,
+      operation: 'Filter Evaluation',
+      description: `Evaluate WHERE boolean predicate(s): [${filters.join(' AND ')}] to discard non-qualifying tuples.`,
+    });
+  }
+
+  if (grouping.length > 0) {
+    executionPlan.push({
+      step: stepCounter++,
+      operation: 'Group By & Aggregation',
+      description: `Partition filtered rows into hash buckets by (${grouping.join(', ')}) and compute aggregate functions.`,
+    });
+  }
+
+  if (normalized.includes('HAVING')) {
+    executionPlan.push({
+      step: stepCounter++,
+      operation: 'Having Filter',
+      description: 'Filter aggregated group results against HAVING conditional thresholds.',
+    });
+  }
+
+  if (sorting.length > 0) {
+    executionPlan.push({
+      step: stepCounter++,
+      operation: 'Sort Operation',
+      description: `Order resulting dataset by (${sorting.join(', ')}). Uses In-Memory Quicksort or disk-spilled external sort if buffer exceeds work_mem.`,
+    });
+  }
+
+  executionPlan.push({
+    step: stepCounter++,
+    operation: 'Projection & Emission',
+    description: `Project final column attributes (${columns.length ? columns.length : 'all'} columns) with limit policy: ${limit}.`,
+  });
+
   const summary = `This ${type} query targets table(s) "${tables.join(', ') || 'unknown'}"${
     filters.length ? ` filtered by [${filters.join(' AND ')}]` : ''
-  }${joins.length ? ` joined with ${joins.length} relation(s)` : ''}.`;
+  }${joins.length ? ` joined with ${joins.length} relation(s)` : ''}. Estimated complexity is ${complexityScore}/10 (${costRating}).`;
 
-  return { type, tables, columns, filters, joins, grouping, sorting, limit, summary };
+  // Extended array instance
+  const result: any = [...clauses];
+  result.type = type;
+  result.tables = tables;
+  result.columns = columns;
+  result.filters = filters;
+  result.joins = joins;
+  result.grouping = grouping;
+  result.sorting = sorting;
+  result.limit = limit;
+  result.summary = summary;
+  result.clauses = clauses;
+  result.complexityScore = complexityScore;
+  result.costRating = costRating;
+  result.recommendations = recommendations;
+  result.executionPlan = executionPlan;
+
+  return result as SqlExplanation;
 }
 
 // ==========================================

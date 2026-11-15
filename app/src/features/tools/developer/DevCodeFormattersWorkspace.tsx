@@ -151,8 +151,16 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             keywordCase: sqlKeywordCase,
           });
         case 264: {
-          const explanation = explainSql(codeSql);
-          return explanation.map((e) => `[${e.clause}]\n${e.explanation}`).join('\n\n');
+          const exp = explainSql(codeSql);
+          let res = `=== QUERY OVERVIEW: ${exp.type} ===\n${exp.summary}\nComplexity Score: ${exp.complexityScore}/10 (${exp.costRating} Cost)\n\n`;
+          if (exp.recommendations && exp.recommendations.length > 0) {
+            res += `=== PERFORMANCE ADVISOR ===\n` + exp.recommendations.map((r) => `[${r.type.toUpperCase()}] ${r.title}\n${r.message}`).join('\n\n') + '\n\n';
+          }
+          if (exp.executionPlan && exp.executionPlan.length > 0) {
+            res += `=== SIMULATED EXECUTION PIPELINE ===\n` + exp.executionPlan.map((s) => `${s.step}. ${s.operation}: ${s.description}`).join('\n') + '\n\n';
+          }
+          res += `=== CLAUSE DECOMPOSITION ===\n` + exp.clauses.map((e) => `[${e.clause}]\n${e.explanation}`).join('\n\n');
+          return res;
         }
         case 293:
           return formatMarkdownCode(codeHtml);
