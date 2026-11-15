@@ -50,6 +50,7 @@ import { BcryptInspectorPanel } from './developer/BcryptInspectorPanel';
 import { ColorConverterPanel } from './developer/ColorConverterPanel';
 import { GradientGeneratorPanel } from './developer/GradientGeneratorPanel';
 import { BoxShadowGeneratorPanel } from './developer/BoxShadowGeneratorPanel';
+import { BorderRadiusGeneratorPanel } from './developer/BorderRadiusGeneratorPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -77,7 +78,6 @@ import {
   UrlDecoderTool,
 } from './developer/CodecTools';
 import {
-  BorderRadiusTool,
   FlexboxPlaygroundTool,
   GridGeneratorTool,
 } from './developer/CssTools';
@@ -891,7 +891,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 280 && <ColorConverterPanel />}
       {toolId === 281 && <GradientGeneratorPanel />}
       {toolId === 282 && <BoxShadowGeneratorPanel />}
-      {toolId === 283 && <BorderRadiusTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 283 && <BorderRadiusGeneratorPanel />}
       {toolId === 284 && <FlexboxPlaygroundTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 285 && <GridGeneratorTool copied={copied} onCopy={handleCopyText} />}
 
