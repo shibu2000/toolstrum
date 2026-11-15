@@ -76,6 +76,8 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
   const [jsWrapIIFE, setJsWrapIIFE] = useState<boolean>(false);
   const [sqlKeywordCase, setSqlKeywordCase] = useState<'upper' | 'lower'>('upper');
   const [sqlCommaPosition, setSqlCommaPosition] = useState<'trailing' | 'leading'>('trailing');
+  const [sqlStripComments, setSqlStripComments] = useState<boolean>(true);
+  const [sqlTightPunctuation, setSqlTightPunctuation] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -143,7 +145,11 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             commaPosition: sqlCommaPosition,
           });
         case 263:
-          return minifySql(codeSql);
+          return minifySql(codeSql, {
+            stripComments: sqlStripComments,
+            tightPunctuation: sqlTightPunctuation,
+            keywordCase: sqlKeywordCase,
+          });
         case 264: {
           const explanation = explainSql(codeSql);
           return explanation.map((e) => `[${e.clause}]\n${e.explanation}`).join('\n\n');
@@ -158,7 +164,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     } catch (err: any) {
       return `Processing error: ${err?.message || 'Unable to parse code syntax'}`;
     }
-  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex, jsQuoteType, jsStripComments, jsCompressBooleans, jsWrapIIFE, sqlKeywordCase, sqlCommaPosition]);
+  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex, jsQuoteType, jsStripComments, jsCompressBooleans, jsWrapIIFE, sqlKeywordCase, sqlCommaPosition, sqlStripComments, sqlTightPunctuation]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -480,6 +486,39 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             >
               <Text style={[styles.smallPillText, sqlCommaPosition === 'leading' && styles.smallPillTextActive]}>
                 {sqlCommaPosition === 'leading' ? ', Leading' : 'Trailing ,'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* SQL Minifier Subbar (Tool 263) */}
+        {activeToolId === 263 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Options:</Text>
+            <TouchableOpacity
+              style={[styles.smallPill, sqlStripComments && styles.smallPillActive]}
+              onPress={() => setSqlStripComments(!sqlStripComments)}
+            >
+              <Text style={[styles.smallPillText, sqlStripComments && styles.smallPillTextActive]}>
+                Strip Comments
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, sqlTightPunctuation && styles.smallPillActive]}
+              onPress={() => setSqlTightPunctuation(!sqlTightPunctuation)}
+            >
+              <Text style={[styles.smallPillText, sqlTightPunctuation && styles.smallPillTextActive]}>
+                Tight Syntax
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, sqlKeywordCase === 'upper' && styles.smallPillActive]}
+              onPress={() => setSqlKeywordCase(sqlKeywordCase === 'upper' ? 'lower' : 'upper')}
+            >
+              <Text style={[styles.smallPillText, sqlKeywordCase === 'upper' && styles.smallPillTextActive]}>
+                {sqlKeywordCase === 'upper' ? 'UPPER' : 'lower'}
               </Text>
             </TouchableOpacity>
           </View>

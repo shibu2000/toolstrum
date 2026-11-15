@@ -1385,12 +1385,58 @@ export function formatSql(sql: string, indent: number | 'tab' | SqlFormatOptions
   return result;
 }
 
-export function minifySql(sql: string): string {
-  return sql
-    .replace(/--.*$/gm, '') // Line comments
-    .replace(/\/\*[\s\S]*?\*\//g, '') // Block comments
-    .replace(/\s+/g, ' ')
-    .trim();
+export interface SqlMinifyOptions {
+  stripComments?: boolean;
+  tightPunctuation?: boolean;
+  keywordCase?: 'upper' | 'lower' | 'preserve';
+}
+
+export function minifySql(sql: string, options: SqlMinifyOptions = {}): string {
+  const {
+    stripComments = true,
+    tightPunctuation = false,
+    keywordCase = 'upper',
+  } = options;
+
+  if (!sql || !sql.trim()) return '';
+
+  const protectedStrings: string[] = [];
+  const strRegex = /('(?:''|[^'])*'|"(?:""|[^"])*"|`[^`]*`|\[[^\]]*\])/g;
+  let s = sql.replace(strRegex, (match) => {
+    protectedStrings.push(match);
+    return `__TOOLSTRUM_SQL_STR_${protectedStrings.length - 1}__`;
+  });
+
+  if (stripComments) {
+    s = s.replace(/--[^\r\n]*/g, '');
+    s = s.replace(/\/\*[\s\S]*?\*\//g, '');
+  }
+
+  // Collapse all whitespace into single space
+  s = s.replace(/\s+/g, ' ').trim();
+
+  if (tightPunctuation) {
+    s = s.replace(/\s*([,;()=><])\s*/g, '$1');
+  }
+
+  if (keywordCase !== 'preserve') {
+    const keywords = [
+      'SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN',
+      'INNER JOIN', 'FULL JOIN', 'CROSS JOIN', 'NATURAL JOIN', 'GROUP BY', 'ORDER BY',
+      'HAVING', 'LIMIT', 'OFFSET', 'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM',
+      'AS', 'ON', 'IN', 'IS', 'NOT', 'NULL', 'LIKE', 'ILIKE', 'BETWEEN',
+      'UNION', 'ALL', 'EXISTS', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END',
+      'CREATE TABLE', 'DROP TABLE', 'ALTER TABLE', 'PRIMARY KEY', 'FOREIGN KEY'
+    ];
+    for (const kw of keywords) {
+      const reg = new RegExp(`\\b${kw}\\b`, 'gi');
+      s = s.replace(reg, keywordCase === 'upper' ? kw.toUpperCase() : kw.toLowerCase());
+    }
+  }
+
+  // Restore protected strings
+  s = s.replace(/__TOOLSTRUM_SQL_STR_(\d+)__/g, (_, idx) => protectedStrings[Number(idx)] || '');
+  return s.trim();
 }
 
 export interface SqlExplanation {
