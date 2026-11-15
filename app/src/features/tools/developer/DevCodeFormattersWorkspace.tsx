@@ -62,6 +62,8 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
   const [codeJs, setCodeJs] = useState<string>('');
   const [codeRecords, setCodeRecords] = useState<string>('');
   const [sqlTable, setSqlTable] = useState<string>('');
+  const [indentSize, setIndentSize] = useState<2 | 4 | 'tab'>(2);
+  const [wrapAttributes, setWrapAttributes] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -93,7 +95,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
 
       switch (activeToolId) {
         case 256:
-          return formatHtml(codeHtml);
+          return formatHtml(codeHtml, { indent: indentSize, wrapAttributes });
         case 257:
           return minifyHtml(codeHtml);
         case 258:
@@ -122,7 +124,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     } catch (err: any) {
       return `Processing error: ${err?.message || 'Unable to parse code syntax'}`;
     }
-  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput]);
+  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -214,6 +216,33 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
               placeholder="e.g. users, products..."
               placeholderTextColor={Colors.textMuted}
             />
+          </View>
+        )}
+
+        {/* HTML Formatter Subbar (Tool 256) */}
+        {activeToolId === 256 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Indent:</Text>
+            {([2, 4, 'tab'] as const).map((sz) => (
+              <TouchableOpacity
+                key={sz}
+                style={[styles.smallPill, indentSize === sz && styles.smallPillActive]}
+                onPress={() => setIndentSize(sz)}
+              >
+                <Text style={[styles.smallPillText, indentSize === sz && styles.smallPillTextActive]}>
+                  {sz === 'tab' ? 'Tab' : `${sz}s`}
+                </Text>
+              </TouchableOpacity>
+            ))}
+
+            <TouchableOpacity
+              style={[styles.smallPill, wrapAttributes && styles.smallPillActive]}
+              onPress={() => setWrapAttributes(!wrapAttributes)}
+            >
+              <Text style={[styles.smallPillText, wrapAttributes && styles.smallPillTextActive]}>
+                Wrap Attrs
+              </Text>
+            </TouchableOpacity>
           </View>
         )}
 
@@ -380,5 +409,41 @@ const styles = StyleSheet.create({
     borderRadius: Radius.md,
     padding: Spacing.sm,
     backgroundColor: '#FAFAFA',
+  },
+  subBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: Spacing.sm,
+    backgroundColor: Colors.surfaceWhite,
+    padding: Spacing.sm,
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
+  },
+  subBarLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: Colors.textMuted,
+  },
+  smallPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: Radius.sm,
+    backgroundColor: Colors.surfaceBackground,
+    borderWidth: 1,
+    borderColor: Colors.borderLight,
+  },
+  smallPillActive: {
+    backgroundColor: Colors.accentSky,
+    borderColor: Colors.accentSky,
+  },
+  smallPillText: {
+    fontSize: 11,
+    fontWeight: '600',
+    color: Colors.onSurface,
+  },
+  smallPillTextActive: {
+    color: Colors.surfaceWhite,
   },
 });

@@ -687,27 +687,146 @@ export function formatXml(
 // ==========================================
 // 4. HTML FORMATTER & MINIFIER
 // ==========================================
-export function formatHtml(html: string, indent = 2): string {
-  const pad = ' '.repeat(indent);
-  let formatted = '';
-  let depth = 0;
-  // Clean newlines & spaces between tags
-  const tokens = html.replace(/>\s*</g, '><').match(/<[^>]+>|[^<]+/g) || [];
+// ==========================================
+// 4. HTML FORMATTER & MINIFIER
+// ==========================================
+const VOID_HTML_ELEMENTS = new Set([
+  'area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+  'link', 'meta', 'param', 'source', 'track', 'wbr'
+]);
 
-  for (const token of tokens) {
-    if (token.startsWith('</')) {
-      depth = Math.max(0, depth - 1);
-      formatted += `${pad.repeat(depth)}${token}\n`;
-    } else if (token.startsWith('<') && !token.startsWith('<!') && !token.endsWith('/>')) {
-      const isVoid = /<(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)/i.test(token);
-      formatted += `${pad.repeat(depth)}${token}\n`;
-      if (!isVoid) depth++;
-    } else {
-      const text = token.trim();
-      if (text) formatted += `${pad.repeat(depth)}${text}\n`;
+export interface HtmlFormatOptions {
+  indent?: number | 'tab';
+  wrapAttributes?: boolean;
+  inlineTextElements?: boolean;
+}
+
+export function formatHtml(html: string, indent: number | 'tab' | HtmlFormatOptions = 2): string {
+  if (!html || !html.trim()) return '';
+
+  let options: HtmlFormatOptions = {};
+  if (typeof indent === 'object') {
+    options = indent;
+  } else {
+    options = { indent };
+  }
+
+  const indentStr = options.indent === 'tab' ? '\t' : ' '.repeat(typeof options.indent === 'number' ? options.indent : 2);
+  const wrapAttrs = options.wrapAttributes ?? false;
+  const inlineText = options.inlineTextElements ?? true;
+
+  const tokenRegex = /(<!--[\s\S]*?-->|<!DOCTYPE[\s\S]*?>|<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<\/[a-zA-Z0-9_\-.:]+\s*>|<[a-zA-Z0-9_\-.:]+(?:\s+[^"'>]*(?:"[^"]*"|'[^']*')?)*\s*\/?>|[^<]+)/gi;
+
+  const rawTokens: string[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = tokenRegex.exec(html)) !== null) {
+    const tok = match[0].trim();
+    if (tok.length > 0) {
+      rawTokens.push(tok);
     }
   }
-  return formatted.trim();
+
+  const lines: string[] = [];
+  let depth = 0;
+
+  function formatTagAttrs(tag: string, currentIndent: string): string {
+    if (!wrapAttrs || !tag.startsWith('<') || tag.startsWith('</') || tag.startsWith('<!')) return tag;
+    const isSelfClosing = tag.endsWith('/>');
+    const inner = isSelfClosing ? tag.slice(1, -2).trim() : tag.slice(1, -1).trim();
+    const firstSpace = inner.search(/\s/);
+    if (firstSpace === -1) return tag;
+
+    const tagName = inner.slice(0, firstSpace);
+    const attrStr = inner.slice(firstSpace).trim();
+    const attrRegex = /([a-zA-Z_][a-zA-Z0-9_\-.:]*)(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?/g;
+    const attrs: string[] = [];
+    let attrMatch: RegExpExecArray | null;
+    while ((attrMatch = attrRegex.exec(attrStr)) !== null) {
+      attrs.push(attrMatch[0]);
+    }
+
+    if (attrs.length <= 2) return tag;
+
+    const attrIndent = currentIndent + indentStr;
+    const attrBlock = attrs.map((a) => `${attrIndent}${a}`).join('\n');
+    return `<${tagName}\n${attrBlock}\n${currentIndent}${isSelfClosing ? '/>' : '>'}`;
+  }
+
+  for (let i = 0; i < rawTokens.length; i++) {
+    const token = rawTokens[i];
+
+    // Comments, DOCTYPE
+    if (token.startsWith('<!--') || token.startsWith('<!DOCTYPE')) {
+      lines.push(`${indentStr.repeat(depth)}${token}`);
+      continue;
+    }
+
+    // Embedded Script or Style block
+    if (/^<script[\s\S]*?<\/script>$/i.test(token) || /^<style[\s\S]*?<\/style>$/i.test(token)) {
+      const openTagMatch = token.match(/^<([a-zA-Z0-9_\-.:]+)[^>]*>/i);
+      const openTag = openTagMatch ? openTagMatch[0] : '<script>';
+      const closeTag = `</${openTagMatch ? openTagMatch[1] : 'script'}>`;
+      const innerContent = token.slice(openTag.length, token.length - closeTag.length).trim();
+
+      lines.push(`${indentStr.repeat(depth)}${openTag}`);
+      if (innerContent) {
+        const innerLines = innerContent.split('\n');
+        for (const line of innerLines) {
+          const trimmedLine = line.trim();
+          if (trimmedLine) {
+            lines.push(`${indentStr.repeat(depth + 1)}${trimmedLine}`);
+          }
+        }
+      }
+      lines.push(`${indentStr.repeat(depth)}${closeTag}`);
+      continue;
+    }
+
+    // Closing tag
+    if (token.startsWith('</')) {
+      depth = Math.max(0, depth - 1);
+      lines.push(`${indentStr.repeat(depth)}${token}`);
+      continue;
+    }
+
+    // Opening or Void / Self-closing tag
+    if (token.startsWith('<')) {
+      const tagNameMatch = token.match(/^<([a-zA-Z0-9_\-.:]+)/i);
+      const tagName = tagNameMatch ? tagNameMatch[1].toLowerCase() : '';
+      const isVoid = VOID_HTML_ELEMENTS.has(tagName) || token.endsWith('/>');
+
+      if (isVoid) {
+        const formattedTag = formatTagAttrs(token, indentStr.repeat(depth));
+        lines.push(`${indentStr.repeat(depth)}${formattedTag}`);
+        continue;
+      }
+
+      // Check if followed immediately by single-line text and matching closing tag
+      if (
+        inlineText &&
+        i + 2 < rawTokens.length &&
+        !rawTokens[i + 1].startsWith('<') &&
+        !rawTokens[i + 1].includes('\n') &&
+        rawTokens[i + 2].toLowerCase() === `</${tagName}>`
+      ) {
+        const formattedTag = formatTagAttrs(token, indentStr.repeat(depth));
+        lines.push(`${indentStr.repeat(depth)}${formattedTag}${rawTokens[i + 1]}${rawTokens[i + 2]}`);
+        i += 2;
+        continue;
+      }
+
+      // Normal element
+      const formattedTag = formatTagAttrs(token, indentStr.repeat(depth));
+      lines.push(`${indentStr.repeat(depth)}${formattedTag}`);
+      depth++;
+      continue;
+    }
+
+    // Text content
+    lines.push(`${indentStr.repeat(depth)}${token}`);
+  }
+
+  return lines.join('\n');
 }
 
 export function minifyHtml(html: string): string {
