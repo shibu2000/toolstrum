@@ -672,6 +672,44 @@ export function jsonToYaml(raw: string): string {
   return toYaml(obj).trim();
 }
 
+export function autoRepairYaml(raw: string): { repaired: string; fixedIssues: string[] } {
+  const issues: string[] = [];
+  let s = raw;
+  if (s.includes('\t')) {
+    s = s.replace(/\t/g, '  ');
+    issues.push('Replaced tabs with spaces');
+  }
+  const missingSpaceRegex = /^(\s*[\w.-]+):([^\s\n/])/gm;
+  if (missingSpaceRegex.test(s)) {
+    s = s.replace(/^(\s*[\w.-]+):([^\s\n/])/gm, '$1: $2');
+    issues.push('Added missing spaces after colons');
+  }
+  return { repaired: s, fixedIssues: issues.length > 0 ? issues : ['Syntax normalization applied'] };
+}
+
+export function formatYaml(yamlStr: string, indent = 2, sortKeys = false): string {
+  let s = yamlStr;
+  if (s.includes('\t')) {
+    s = s.replace(/\t/g, ' '.repeat(indent));
+  }
+  let jsonStr: string;
+  try {
+    jsonStr = yamlToJson(s);
+  } catch {
+    return yamlStr;
+  }
+  let parsed = JSON.parse(jsonStr);
+  if (sortKeys && parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+    parsed = Object.keys(parsed)
+      .sort()
+      .reduce((acc: any, k) => {
+        acc[k] = parsed[k];
+        return acc;
+      }, {});
+  }
+  return jsonToYaml(JSON.stringify(parsed));
+}
+
 export function yamlToJson(yamlStr: string): string {
   const lines = yamlStr.split('\n');
   const result: Record<string, any> = {};

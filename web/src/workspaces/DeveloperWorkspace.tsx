@@ -22,6 +22,7 @@ import { JsonDiffPanel } from './developer/JsonDiffPanel';
 import { JsonPathPanel } from './developer/JsonPathPanel';
 import { JsonToTypePanel } from './developer/JsonToTypePanel';
 import { JsonSchemaGeneratorPanel } from './developer/JsonSchemaGeneratorPanel';
+import { YamlFormatterPanel } from './developer/YamlFormatterPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -829,7 +830,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* ======================================================== */}
       {/* 251-264: DEDICATED CODE & FORMATTER TOOLS */}
       {/* ======================================================== */}
-      {toolId === 251 && <YamlFormatterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 251 && <YamlFormatterPanel />}
       {toolId === 252 && <YamlValidatorTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 253 && <YamlToJsonTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 254 && <JsonToYamlTool copied={copied} onCopy={handleCopyText} />}

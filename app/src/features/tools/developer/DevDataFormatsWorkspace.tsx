@@ -25,6 +25,8 @@ import {
   jsonToTypeModel,
   jsonToSchema,
   jsonToYaml,
+  formatYaml,
+  autoRepairYaml,
   yamlToJson,
   validateYaml,
   validateXml,
@@ -90,6 +92,9 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
   // Check if input can be auto-repaired
   const canRepair = useMemo(() => {
     if (!inputData.trim()) return false;
+    if (activeToolId === 251 || activeToolId === 252 || activeToolId === 253) {
+      return inputData.includes('\t') || /^(\s*[\w.-]+):([^\s\n/])/gm.test(inputData);
+    }
     try {
       JSON.parse(inputData);
       return false;
@@ -102,7 +107,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         return false;
       }
     }
-  }, [inputData]);
+  }, [activeToolId, inputData]);
 
   // Calculate processed output
   const { output, isValid, errorInfo } = useMemo(() => {
@@ -193,7 +198,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           return { output: schema, isValid: true };
         }
         case 251: {
-          const yaml = jsonToYaml(inputData);
+          const yaml = formatYaml(inputData, indentSize, sortKeys);
           return { output: yaml, isValid: true };
         }
         case 252: {
@@ -629,6 +634,49 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
                 Auto-Formats
               </Text>
             </TouchableOpacity>
+          </View>
+        )}
+
+        {/* YAML Formatter Controls (Tool 251) */}
+        {activeToolId === 251 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Format:</Text>
+            {[2, 4].map((n) => (
+              <TouchableOpacity
+                key={n}
+                style={[styles.smallPill, indentSize === n && styles.smallPillActive]}
+                onPress={() => setIndentSize(n as any)}
+              >
+                <Text
+                  style={[styles.smallPillText, indentSize === n && styles.smallPillTextActive]}
+                >
+                  {n} Spaces
+                </Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity
+              style={[styles.smallPill, sortKeys && styles.smallPillActive]}
+              onPress={() => setSortKeys(!sortKeys)}
+            >
+              <Text style={[styles.smallPillText, sortKeys && styles.smallPillTextActive]}>
+                Sort A-Z
+              </Text>
+            </TouchableOpacity>
+
+            {canRepair && (
+              <TouchableOpacity
+                style={[styles.smallPill, { backgroundColor: '#F59E0B' }]}
+                onPress={() => {
+                  const { repaired } = autoRepairYaml(inputData);
+                  setInputData(repaired);
+                  Alert.alert('Auto-Repair Applied', 'Replaced forbidden tabs with spaces.');
+                }}
+              >
+                <Text style={[styles.smallPillText, { color: '#FFFFFF', fontWeight: '700' }]}>
+                  ⚡ Repair Tabs
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         )}
 
