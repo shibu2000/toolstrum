@@ -2052,8 +2052,41 @@ export function decodeBase64(b64: string): { text?: string; error?: string; byte
   }
 }
 
-export function encodeUrl(url: string, componentMode = false): string {
-  return componentMode ? encodeURIComponent(url) : encodeURI(url);
+export interface UrlEncodeOptions {
+  mode?: 'component' | 'full' | 'all';
+  spaceAsPlus?: boolean;
+}
+
+export function encodeUrl(
+  url: string,
+  componentModeOrOptions: boolean | UrlEncodeOptions = true
+): string {
+  let mode: 'component' | 'full' | 'all' = 'component';
+  let spaceAsPlus = false;
+
+  if (typeof componentModeOrOptions === 'object') {
+    mode = componentModeOrOptions.mode ?? 'component';
+    spaceAsPlus = componentModeOrOptions.spaceAsPlus ?? false;
+  } else {
+    mode = componentModeOrOptions ? 'component' : 'full';
+  }
+
+  let res = '';
+  if (mode === 'component') {
+    res = encodeURIComponent(url);
+  } else if (mode === 'full') {
+    res = encodeURI(url);
+  } else if (mode === 'all') {
+    res = Array.from(new TextEncoder().encode(url))
+      .map((b) => '%' + b.toString(16).toUpperCase().padStart(2, '0'))
+      .join('');
+  }
+
+  if (spaceAsPlus) {
+    res = res.replace(/%20/g, '+');
+  }
+
+  return res;
 }
 
 export function decodeUrl(url: string, plusAsSpace = true): { text?: string; error?: string } {

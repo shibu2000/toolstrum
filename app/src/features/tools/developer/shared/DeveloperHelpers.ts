@@ -2540,8 +2540,41 @@ export function decodeBase64(str: string): string {
   }
 }
 
-export function encodeUrl(str: string, component = true): string {
-  return component ? encodeURIComponent(str) : encodeURI(str);
+export interface UrlEncodeOptions {
+  mode?: 'component' | 'full' | 'all';
+  spaceAsPlus?: boolean;
+}
+
+export function encodeUrl(
+  str: string,
+  componentModeOrOptions: boolean | UrlEncodeOptions = true
+): string {
+  let mode: 'component' | 'full' | 'all' = 'component';
+  let spaceAsPlus = false;
+
+  if (typeof componentModeOrOptions === 'object') {
+    mode = componentModeOrOptions.mode ?? 'component';
+    spaceAsPlus = componentModeOrOptions.spaceAsPlus ?? false;
+  } else {
+    mode = componentModeOrOptions ? 'component' : 'full';
+  }
+
+  let res = '';
+  if (mode === 'component') {
+    res = encodeURIComponent(str);
+  } else if (mode === 'full') {
+    res = encodeURI(str);
+  } else if (mode === 'all') {
+    res = Array.from(new TextEncoder().encode(str))
+      .map((b) => '%' + b.toString(16).toUpperCase().padStart(2, '0'))
+      .join('');
+  }
+
+  if (spaceAsPlus) {
+    res = res.replace(/%20/g, '+');
+  }
+
+  return res;
 }
 
 export function decodeUrl(str: string): string {

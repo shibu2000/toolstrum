@@ -56,6 +56,7 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
   const [uaInput, setUaInput] = useState<string>('');
   const [b64UrlSafe, setB64UrlSafe] = useState<boolean>(false);
   const [b64NoPadding, setB64NoPadding] = useState<boolean>(false);
+  const [urlEncodeMode, setUrlEncodeMode] = useState<'component' | 'full' | 'form'>('component');
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -103,7 +104,10 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
       case 268:
         return decodeBase64(inputText);
       case 269:
-        return encodeUrl(inputText);
+        return encodeUrl(inputText, {
+          mode: urlEncodeMode === 'form' ? 'component' : urlEncodeMode,
+          spaceAsPlus: urlEncodeMode === 'form',
+        });
       case 270:
         return decodeUrl(inputText);
       case 271:
@@ -136,7 +140,7 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
       default:
         return inputText;
     }
-  }, [activeToolId, regexResult, regexPattern, inputText, jwtToken, urlInput, uaInput, b64UrlSafe, b64NoPadding]);
+  }, [activeToolId, regexResult, regexPattern, inputText, jwtToken, urlInput, uaInput, b64UrlSafe, b64NoPadding, urlEncodeMode]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -274,6 +278,39 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
               >
                 <Text style={[styles.pillText, b64NoPadding && styles.pillTextActive]}>
                   Strip Padding (=)
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        {/* 269 URL Encoder Options */}
+        {activeToolId === 269 && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>URL Encoding Mode</Text>
+            <View style={{ flexDirection: 'row', gap: 8, marginTop: 4 }}>
+              <TouchableOpacity
+                style={[styles.pill, urlEncodeMode === 'component' && styles.pillActive]}
+                onPress={() => setUrlEncodeMode('component')}
+              >
+                <Text style={[styles.pillText, urlEncodeMode === 'component' && styles.pillTextActive]}>
+                  Component
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pill, urlEncodeMode === 'full' && styles.pillActive]}
+                onPress={() => setUrlEncodeMode('full')}
+              >
+                <Text style={[styles.pillText, urlEncodeMode === 'full' && styles.pillTextActive]}>
+                  Full URI
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pill, urlEncodeMode === 'form' && styles.pillActive]}
+                onPress={() => setUrlEncodeMode('form')}
+              >
+                <Text style={[styles.pillText, urlEncodeMode === 'form' && styles.pillTextActive]}>
+                  Form (+)
                 </Text>
               </TouchableOpacity>
             </View>

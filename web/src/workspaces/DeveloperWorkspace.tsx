@@ -38,6 +38,7 @@ import { SqlQueryExplainerPanel } from './developer/SqlQueryExplainerPanel';
 import { RegexTesterPanel } from './developer/RegexTesterPanel';
 import { RegexExplainerPanel } from './developer/RegexExplainerPanel';
 import { Base64CodecPanel } from './developer/Base64CodecPanel';
+import { UrlCodecPanel } from './developer/UrlCodecPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -871,8 +872,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* ======================================================== */}
       {toolId === 267 && <Base64CodecPanel initialDirection="encode" />}
       {toolId === 268 && <Base64CodecPanel initialDirection="decode" />}
-      {toolId === 269 && <UrlEncoderTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 270 && <UrlDecoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 269 && <UrlCodecPanel initialDirection="encode" />}
+      {toolId === 270 && <UrlCodecPanel initialDirection="decode" />}
       {toolId === 271 && <HtmlEntityEncoderTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 272 && <HtmlEntityDecoderTool copied={copied} onCopy={handleCopyText} />}
 
