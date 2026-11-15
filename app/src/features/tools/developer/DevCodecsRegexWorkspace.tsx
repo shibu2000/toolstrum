@@ -120,10 +120,14 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
         return JSON.stringify(
           {
             validFormat: decoded.validFormat,
+            status: decoded.expired ? 'EXPIRED' : 'ACTIVE',
+            timeLeft: decoded.timeLeft,
             isExpired: decoded.expired,
             expirationDate: decoded.expDate,
             header: decoded.header,
             payload: decoded.payload,
+            claims: decoded.claims,
+            securityWarnings: decoded.securityWarnings,
             signatureHex: decoded.signature,
           },
           null,

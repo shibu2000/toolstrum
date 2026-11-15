@@ -40,6 +40,7 @@ import { RegexExplainerPanel } from './developer/RegexExplainerPanel';
 import { Base64CodecPanel } from './developer/Base64CodecPanel';
 import { UrlCodecPanel } from './developer/UrlCodecPanel';
 import { HtmlEntityCodecPanel } from './developer/HtmlEntityCodecPanel';
+import { JwtInspectorPanel } from './developer/JwtInspectorPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -67,7 +68,6 @@ import {
   UrlDecoderTool,
 } from './developer/CodecTools';
 import {
-  JwtDecoderTool,
   UuidGeneratorTool,
   UlidGeneratorTool,
   HashGeneratorTool,
@@ -879,7 +879,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* ======================================================== */}
       {/* 273-279: DEDICATED SECURITY & CRYPTO TOOLS */}
       {/* ======================================================== */}
-      {toolId === 273 && <JwtDecoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 273 && <JwtInspectorPanel />}
       {toolId === 274 && <UuidGeneratorTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 275 && <UlidGeneratorTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 276 && <HashGeneratorTool copied={copied} onCopy={handleCopyText} />}

@@ -2695,36 +2695,132 @@ export function decodeHtmlEntities(str: string): string {
   });
 }
 
-export function decodeJwt(token: string): {
+export interface JwtClaimItem {
+  name: string;
+  value: any;
+  standard: boolean;
+  description: string;
+  formattedValue?: string;
+}
+
+export interface MobileJwtDecoded {
   header: any;
   payload: any;
   signature: string;
   validFormat: boolean;
   expired: boolean;
   expDate?: string;
-} {
+  issuedAt?: string;
+  expiresAt?: string;
+  timeLeft?: string;
+  claims?: JwtClaimItem[];
+  securityWarnings?: string[];
+  error?: string;
+}
+
+const RFC_CLAIMS_INFO: Record<string, string> = {
+  iss: 'Issuer: Identifies the principal that issued the JWT',
+  sub: 'Subject: Identifies the subject/user ID of the JWT',
+  aud: 'Audience: Identifies the intended recipient services',
+  exp: 'Expiration Time: Timestamp after which the token is invalid',
+  nbf: 'Not Before: Timestamp before which the token must not be accepted',
+  iat: 'Issued At: Timestamp when the JWT was generated',
+  jti: 'JWT ID: Unique identifier for one-time token use',
+};
+
+export function decodeJwt(token: string): MobileJwtDecoded {
   const parts = token.trim().split('.');
-  if (parts.length !== 3) {
-    return { header: {}, payload: {}, signature: '', validFormat: false, expired: false };
+  if (parts.length < 2) {
+    return {
+      header: {},
+      payload: {},
+      signature: '',
+      validFormat: false,
+      expired: false,
+      error: 'JWT must have at least 2 segments separated by dots.',
+    };
   }
 
   try {
-    const header = JSON.parse(decodeBase64(parts[0].replace(/-/g, '+').replace(/_/g, '/')));
-    const payload = JSON.parse(decodeBase64(parts[1].replace(/-/g, '+').replace(/_/g, '/')));
-    const signature = parts[2];
+    const rawHeader = decodeBase64(parts[0].replace(/-/g, '+').replace(/_/g, '/'));
+    const rawPayload = decodeBase64(parts[1].replace(/-/g, '+').replace(/_/g, '/'));
+    const header = JSON.parse(rawHeader);
+    const payload = JSON.parse(rawPayload);
+    const signature = parts[2] || '';
 
     let expired = false;
     let expDate: string | undefined;
+    let expiresAt: string | undefined;
+    let issuedAt: string | undefined;
+    let timeLeft: string | undefined;
+    const securityWarnings: string[] = [];
+
+    if (!header.alg || header.alg.toLowerCase() === 'none') {
+      securityWarnings.push("CRITICAL: Token algorithm is set to 'none' (unsecured).");
+    }
+
+    if (payload.iat && typeof payload.iat === 'number') {
+      issuedAt = new Date(payload.iat * 1000).toLocaleString();
+    }
 
     if (payload.exp && typeof payload.exp === 'number') {
       const expMs = payload.exp * 1000;
       expired = Date.now() > expMs;
       expDate = new Date(expMs).toISOString();
+      expiresAt = new Date(expMs).toLocaleString();
+      const diffMs = expMs - Date.now();
+      const absMinutes = Math.abs(Math.floor(diffMs / 60000));
+      timeLeft = expired ? `Expired ${absMinutes}m ago` : `Expires in ${absMinutes}m`;
+      if (expired) {
+        securityWarnings.push(`Token expired on ${expiresAt}`);
+      }
+    } else {
+      securityWarnings.push("WARNING: Token does not have an expiration ('exp') claim.");
     }
 
-    return { header, payload, signature, validFormat: true, expired, expDate };
-  } catch {
-    return { header: {}, payload: {}, signature: parts[2] || '', validFormat: false, expired: false };
+    const claims: JwtClaimItem[] = [];
+    if (typeof payload === 'object' && payload !== null) {
+      for (const [key, value] of Object.entries(payload)) {
+        const standard = key in RFC_CLAIMS_INFO;
+        const description = RFC_CLAIMS_INFO[key] || 'Custom application claim';
+        let formattedValue: string | undefined;
+
+        if ((key === 'exp' || key === 'iat' || key === 'nbf') && typeof value === 'number') {
+          formattedValue = new Date(value * 1000).toLocaleString();
+        }
+
+        claims.push({
+          name: key,
+          value,
+          standard,
+          description,
+          formattedValue,
+        });
+      }
+    }
+
+    return {
+      header,
+      payload,
+      signature,
+      validFormat: true,
+      expired,
+      expDate,
+      issuedAt,
+      expiresAt,
+      timeLeft,
+      claims,
+      securityWarnings,
+    };
+  } catch (e: any) {
+    return {
+      header: {},
+      payload: {},
+      signature: parts[2] || '',
+      validFormat: false,
+      expired: false,
+      error: e?.message || 'Invalid JWT structure',
+    };
   }
 }
 

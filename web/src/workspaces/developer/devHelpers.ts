@@ -2211,47 +2211,164 @@ export function decodeHtmlEntities(text: string): string {
 // ==========================================
 // 10. SECURITY TOOLS (JWT, UUID, ULID, HASHES, HMAC, PASSWORD, BCRYPT)
 // ==========================================
+export interface JwtClaimItem {
+  name: string;
+  value: any;
+  standard: boolean;
+  description: string;
+  formattedValue?: string;
+}
+
 export interface JwtDecoded {
   header: any;
   payload: any;
   signature: string;
+  rawHeader?: string;
+  rawPayload?: string;
   isValidStructure: boolean;
   isExpired: boolean;
+  isNotYetValid?: boolean;
   issuedAt?: string;
   expiresAt?: string;
+  notBefore?: string;
   timeLeft?: string;
+  claims?: JwtClaimItem[];
+  securityWarnings?: string[];
   error?: string;
 }
+
+const RFC_CLAIMS_INFO: Record<string, string> = {
+  iss: 'Issuer: Identifies the principal that issued the JWT',
+  sub: 'Subject: Identifies the subject/user ID of the JWT',
+  aud: 'Audience: Identifies the intended recipient services',
+  exp: 'Expiration Time: Timestamp after which the token is invalid',
+  nbf: 'Not Before: Timestamp before which the token must not be accepted',
+  iat: 'Issued At: Timestamp when the JWT was generated',
+  jti: 'JWT ID: Unique identifier for one-time token use',
+};
 
 export function decodeJwt(jwtStr: string): JwtDecoded {
   try {
     const parts = jwtStr.trim().split('.');
-    if (parts.length < 2) return { header: null, payload: null, signature: '', isValidStructure: false, isExpired: false, error: 'JWT must have at least 2 segments separated by dots.' };
+    if (parts.length < 2) {
+      return {
+        header: null,
+        payload: null,
+        signature: '',
+        isValidStructure: false,
+        isExpired: false,
+        error: 'JWT must have at least 2 segments separated by dots (header.payload.signature).',
+      };
+    }
 
-    const header = JSON.parse(decodeURIComponent(escape(atob(parts[0].replace(/-/g, '+').replace(/_/g, '/')))));
-    const payload = JSON.parse(decodeURIComponent(escape(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')))));
+    const rawHeader = decodeURIComponent(
+      escape(atob(parts[0].replace(/-/g, '+').replace(/_/g, '/')))
+    );
+    const rawPayload = decodeURIComponent(
+      escape(atob(parts[1].replace(/-/g, '+').replace(/_/g, '/')))
+    );
+
+    const header = JSON.parse(rawHeader);
+    const payload = JSON.parse(rawPayload);
     const signature = parts[2] || '';
 
     let isExpired = false;
+    let isNotYetValid = false;
     let issuedAt: string | undefined;
     let expiresAt: string | undefined;
+    let notBefore: string | undefined;
     let timeLeft: string | undefined;
+    const securityWarnings: string[] = [];
 
-    if (payload.iat) {
+    // Algorithm check
+    if (!header.alg || header.alg.toLowerCase() === 'none') {
+      securityWarnings.push("CRITICAL: Token algorithm is set to 'none' (unsecured, signature bypassed).");
+    }
+
+    if (payload.iat && typeof payload.iat === 'number') {
       issuedAt = new Date(payload.iat * 1000).toLocaleString();
     }
-    if (payload.exp) {
+
+    if (payload.nbf && typeof payload.nbf === 'number') {
+      const nbfDate = new Date(payload.nbf * 1000);
+      notBefore = nbfDate.toLocaleString();
+      if (Date.now() < nbfDate.getTime()) {
+        isNotYetValid = true;
+        securityWarnings.push(`Token not active yet (Not Before: ${notBefore})`);
+      }
+    }
+
+    if (payload.exp && typeof payload.exp === 'number') {
       const expDate = new Date(payload.exp * 1000);
       expiresAt = expDate.toLocaleString();
       const diffMs = expDate.getTime() - Date.now();
       isExpired = diffMs < 0;
       const absMinutes = Math.abs(Math.floor(diffMs / 60000));
-      timeLeft = isExpired ? `Expired ${absMinutes} minute(s) ago` : `Expires in ${absMinutes} minute(s)`;
+      const absHours = Math.abs(Math.floor(diffMs / 3600000));
+      const absDays = Math.abs(Math.floor(diffMs / 86400000));
+
+      if (absDays > 0) {
+        timeLeft = isExpired ? `Expired ${absDays} day(s) ago` : `Expires in ${absDays} day(s)`;
+      } else if (absHours > 0) {
+        timeLeft = isExpired ? `Expired ${absHours} hour(s) ago` : `Expires in ${absHours} hour(s)`;
+      } else {
+        timeLeft = isExpired ? `Expired ${absMinutes} minute(s) ago` : `Expires in ${absMinutes} minute(s)`;
+      }
+
+      if (isExpired) {
+        securityWarnings.push(`Token expired on ${expiresAt}`);
+      }
+    } else {
+      securityWarnings.push("WARNING: Token does not have an expiration ('exp') claim and will never expire.");
     }
 
-    return { header, payload, signature, isValidStructure: true, isExpired, issuedAt, expiresAt, timeLeft };
+    // Extract claims
+    const claims: JwtClaimItem[] = [];
+    if (typeof payload === 'object' && payload !== null) {
+      for (const [key, value] of Object.entries(payload)) {
+        const standard = key in RFC_CLAIMS_INFO;
+        const description = RFC_CLAIMS_INFO[key] || 'Custom application claim';
+        let formattedValue: string | undefined;
+
+        if ((key === 'exp' || key === 'iat' || key === 'nbf') && typeof value === 'number') {
+          formattedValue = new Date(value * 1000).toLocaleString();
+        }
+
+        claims.push({
+          name: key,
+          value,
+          standard,
+          description,
+          formattedValue,
+        });
+      }
+    }
+
+    return {
+      header,
+      payload,
+      signature,
+      rawHeader,
+      rawPayload,
+      isValidStructure: true,
+      isExpired,
+      isNotYetValid,
+      issuedAt,
+      expiresAt,
+      notBefore,
+      timeLeft,
+      claims,
+      securityWarnings,
+    };
   } catch (e: any) {
-    return { header: null, payload: null, signature: '', isValidStructure: false, isExpired: false, error: e.message || 'Invalid JWT' };
+    return {
+      header: null,
+      payload: null,
+      signature: '',
+      isValidStructure: false,
+      isExpired: false,
+      error: e.message || 'Invalid JWT structure or base64 decoding error.',
+    };
   }
 }
 
