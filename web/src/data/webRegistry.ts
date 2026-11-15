@@ -6648,6 +6648,179 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 320,
+    "name": "Length Converter",
+    "studioId": "calculators",
+    "description": "Converts between meters, kilometers, miles, yards, feet, inches, and nautical miles.",
+    "keywords": [
+      "length converter",
+      "calculators",
+      "distance",
+      "meters",
+      "miles",
+      "feet"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Calculator",
+    "inputKind": "form",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 321,
+    "name": "Weight Converter",
+    "studioId": "calculators",
+    "description": "Converts between kilograms, grams, milligrams, pounds, ounces, and metric tons.",
+    "keywords": [
+      "weight converter",
+      "calculators",
+      "mass",
+      "kilograms",
+      "pounds",
+      "ounces"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Calculator",
+    "inputKind": "form",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 322,
+    "name": "Temperature Converter",
+    "studioId": "calculators",
+    "description": "Converts between Celsius, Fahrenheit, and Kelvin temperature scales.",
+    "keywords": [
+      "temperature converter",
+      "calculators",
+      "celsius",
+      "fahrenheit",
+      "kelvin"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Calculator",
+    "inputKind": "form",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 323,
+    "name": "Area Converter",
+    "studioId": "calculators",
+    "description": "Converts between square meters, square feet, square kilometers, acres, and hectares.",
+    "keywords": [
+      "area converter",
+      "calculators",
+      "acres",
+      "hectares",
+      "square feet"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Calculator",
+    "inputKind": "form",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 324,
+    "name": "Volume Converter",
+    "studioId": "calculators",
+    "description": "Converts between liters, milliliters, gallons, quarts, pints, and cubic meters.",
+    "keywords": [
+      "volume converter",
+      "calculators",
+      "liters",
+      "gallons",
+      "fluid ounces"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Calculator",
+    "inputKind": "form",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 325,
+    "name": "Speed Converter",
+    "studioId": "calculators",
+    "description": "Converts between km/h, mph, m/s, knots, and Mach speed.",
+    "keywords": [
+      "speed converter",
+      "calculators",
+      "velocity",
+      "mph",
+      "kmh",
+      "knots"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Calculator",
+    "inputKind": "form",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 326,
+    "name": "Pressure Converter",
+    "studioId": "calculators",
+    "description": "Converts between Pascals, bar, psi, atmospheres, and torr/mmHg.",
+    "keywords": [
+      "pressure converter",
+      "calculators",
+      "pascal",
+      "bar",
+      "psi",
+      "atmosphere"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Calculator",
+    "inputKind": "form",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 327,
+    "name": "Data Storage Converter",
+    "studioId": "calculators",
+    "description": "Converts between bytes, KB, MB, GB, TB, and binary KiB, MiB, GiB units.",
+    "keywords": [
+      "data storage converter",
+      "calculators",
+      "bytes",
+      "gigabytes",
+      "terabytes",
+      "binary"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Calculator",
+    "inputKind": "form",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 328,
     "name": "Number System Converter",
     "studioId": "calculators",
