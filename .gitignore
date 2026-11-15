@@ -51,3 +51,9 @@ pnpm-debug.log*
 
 # Intermediate video frames
 video_output/real_frames/
+
+# Built distribution artifacts
+dist-android/
+dist-ios/
+*.tar.gz
+*.ipa
