@@ -2899,6 +2899,19 @@ export function generateUuidV4(): string {
   });
 }
 
+export function generateUuidV7(): string {
+  const now = Date.now();
+  const timeHex = now.toString(16).padStart(12, '0');
+  const randA = Math.floor(Math.random() * 0xfff).toString(16).padStart(3, '0');
+  const varChar = ['8', '9', 'a', 'b'][Math.floor(Math.random() * 4)];
+  const randB = Math.floor(Math.random() * 0xfff).toString(16).padStart(3, '0');
+  const randC = Array.from({ length: 12 }, () =>
+    Math.floor(Math.random() * 16).toString(16)
+  ).join('');
+
+  return `${timeHex.slice(0, 8)}-${timeHex.slice(8, 12)}-7${randA}-${varChar}${randB}-${randC}`;
+}
+
 const ENCODING = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
 
 export function generateUlid(now = Date.now()): string {

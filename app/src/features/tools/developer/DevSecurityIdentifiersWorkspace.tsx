@@ -16,6 +16,7 @@ import { OfflineShield } from '../../../components/common/OfflineShield';
 import { useAppStore } from '../../../store/useAppStore';
 import {
   generateUuidV4,
+  generateUuidV7,
   generateUlid,
   generateCryptoHashes,
   generateHmac,
@@ -49,7 +50,9 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
 
   // States
   const [uuidCount, setUuidCount] = useState<number>(3);
+  const [uuidVersion, setUuidVersion] = useState<'v4' | 'v7'>('v4');
   const [uuidUppercase, setUuidUppercase] = useState<boolean>(false);
+  const [uuidHyphens, setUuidHyphens] = useState<boolean>(true);
   const [ulidCount, setUlidCount] = useState<number>(3);
   const [hashInput, setHashInput] = useState<string>('');
   const [hmacMessage, setHmacMessage] = useState<string>('');
@@ -76,14 +79,15 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
       case 274: {
         const list: string[] = [];
         for (let i = 0; i < uuidCount; i++) {
-          const u = generateUuidV4();
+          let u = uuidVersion === 'v7' ? generateUuidV7() : generateUuidV4();
+          if (!uuidHyphens) u = u.replace(/-/g, '');
           list.push(uuidUppercase ? u.toUpperCase() : u);
         }
         return {
           output: list.join('\n'),
           statItems: [
             { label: 'Count', value: uuidCount },
-            { label: 'Version', value: 'UUID v4' },
+            { label: 'Version', value: `UUID ${uuidVersion.toUpperCase()}` },
           ],
         };
       }
@@ -229,7 +233,9 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
     activeToolId,
     seed,
     uuidCount,
+    uuidVersion,
     uuidUppercase,
+    uuidHyphens,
     ulidCount,
     hashInput,
     hmacMessage,
@@ -317,6 +323,28 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
         {activeToolId === 274 && (
           <View style={styles.card}>
             <Text style={styles.cardTitle}>UUID Options</Text>
+            <View style={{ flexDirection: 'row', gap: 8, marginBottom: 8 }}>
+              <TouchableOpacity
+                style={[styles.smallPill, uuidVersion === 'v4' && styles.smallPillActive]}
+                onPress={() => setUuidVersion('v4')}
+              >
+                <Text
+                  style={[styles.smallPillText, uuidVersion === 'v4' && styles.smallPillTextActive]}
+                >
+                  UUID v4 (Random)
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.smallPill, uuidVersion === 'v7' && styles.smallPillActive]}
+                onPress={() => setUuidVersion('v7')}
+              >
+                <Text
+                  style={[styles.smallPillText, uuidVersion === 'v7' && styles.smallPillTextActive]}
+                >
+                  UUID v7 (Time)
+                </Text>
+              </TouchableOpacity>
+            </View>
             <View style={styles.rowWrap}>
               <Text style={styles.label}>Count: {uuidCount}</Text>
               <View style={styles.stepperBtns}>
@@ -341,6 +369,16 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
                   style={[styles.smallPillText, uuidUppercase && styles.smallPillTextActive]}
                 >
                   Uppercase
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.smallPill, !uuidHyphens && styles.smallPillActive]}
+                onPress={() => setUuidHyphens(!uuidHyphens)}
+              >
+                <Text
+                  style={[styles.smallPillText, !uuidHyphens && styles.smallPillTextActive]}
+                >
+                  No Hyphens
                 </Text>
               </TouchableOpacity>
             </View>
