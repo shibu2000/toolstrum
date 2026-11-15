@@ -231,6 +231,23 @@ export function diffJson(
   return diffs;
 }
 
+export function diffJsonPatch(
+  jsonA: string,
+  jsonB: string
+): Array<{ op: 'add' | 'remove' | 'replace'; path: string; value?: any }> {
+  const diffs = diffJson(jsonA, jsonB);
+  return diffs.map((d) => {
+    const rfcPath = '/' + d.path.replace(/\./g, '/').replace(/\[(\d+)\]/g, '/$1');
+    if (d.change === 'added') {
+      return { op: 'add', path: rfcPath, value: d.valB };
+    }
+    if (d.change === 'removed') {
+      return { op: 'remove', path: rfcPath };
+    }
+    return { op: 'replace', path: rfcPath, value: d.valB };
+  });
+}
+
 export function queryJsonPath(raw: string, path: string): any {
   const obj = JSON.parse(raw);
   if (!path || path === '$' || path === '.') return obj;

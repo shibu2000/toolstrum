@@ -19,6 +19,7 @@ import {
   minifyJson,
   getJsonMinifyStats,
   diffJson,
+  diffJsonPatch,
   queryJsonPath,
   jsonToTypeScript,
   jsonToSchema,
@@ -75,6 +76,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
   const [minifyFormat, setMinifyFormat] = useState<'raw' | 'curl' | 'url' | 'base64'>('raw');
   const [removeNulls, setRemoveNulls] = useState<boolean>(false);
   const [escapeQuotes, setEscapeQuotes] = useState<boolean>(false);
+  const [diffFormat, setDiffFormat] = useState<'list' | 'patch'>('list');
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -137,6 +139,19 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           return { output: res, isValid: true };
         }
         case 247: {
+          if (!compareData.trim()) {
+            return {
+              output: 'Please provide both the original JSON payload and the comparison JSON payload above.',
+              isValid: true,
+            };
+          }
+          if (diffFormat === 'patch') {
+            const patch = diffJsonPatch(inputData, compareData);
+            return {
+              output: JSON.stringify(patch, null, 2),
+              isValid: true,
+            };
+          }
           const diffs = diffJson(inputData, compareData);
           const formatted =
             diffs.length > 0
@@ -152,7 +167,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
                       }`
                   )
                   .join('\n\n')
-              : 'No structural differences found between objects.';
+              : '✅ No structural differences found. Both objects are 100% identical.';
           return { output: formatted, isValid: true };
         }
         case 248: {
@@ -212,7 +227,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         errorInfo: err?.message,
       };
     }
-  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes]);
+  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes, diffFormat]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -240,8 +255,22 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         { label: 'Status', value: 'OPTIMAL' },
       ];
     }
+    if (activeToolId === 247 && isValid && inputData.trim() && compareData.trim()) {
+      try {
+        const diffs = diffJson(inputData, compareData);
+        const added = diffs.filter((d) => d.change === 'added').length;
+        const removed = diffs.filter((d) => d.change === 'removed').length;
+        const modified = diffs.filter((d) => d.change === 'modified').length;
+        return [
+          { label: 'Added', value: `+${added}` },
+          { label: 'Removed', value: `-${removed}` },
+          { label: 'Modified', value: `~${modified}` },
+          { label: 'Total Diffs', value: diffs.length },
+        ];
+      } catch {}
+    }
     return base;
-  }, [activeToolId, isValid, inputData, output]);
+  }, [activeToolId, isValid, inputData, compareData, output]);
 
   const toolsInWorkspace = [
     { id: 244, name: 'JSON Format' },
@@ -406,6 +435,58 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
                 </Text>
               </TouchableOpacity>
             )}
+          </View>
+        )}
+
+        {/* Diff Controls (Tool 247) */}
+        {activeToolId === 247 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>View:</Text>
+            {(['list', 'patch'] as const).map((fmt) => (
+              <TouchableOpacity
+                key={fmt}
+                style={[styles.smallPill, diffFormat === fmt && styles.smallPillActive]}
+                onPress={() => setDiffFormat(fmt)}
+              >
+                <Text
+                  style={[styles.smallPillText, diffFormat === fmt && styles.smallPillTextActive]}
+                >
+                  {fmt === 'list' ? 'Changes List' : 'RFC 6902 Patch'}
+                </Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity
+              style={styles.smallPill}
+              onPress={() => {
+                const tmp = inputData;
+                setInputData(compareData);
+                setCompareData(tmp);
+              }}
+            >
+              <Text style={styles.smallPillText}>⇄ Swap A/B</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.smallPill}
+              onPress={() => {
+                setInputData(
+                  JSON.stringify(
+                    { app: 'Toolstrum', version: '1.0.0', config: { debug: true, maxUsers: 50 } },
+                    null,
+                    2
+                  )
+                );
+                setCompareData(
+                  JSON.stringify(
+                    { app: 'Toolstrum', version: '2.0.0', config: { debug: false, maxUsers: 500, ssl: true } },
+                    null,
+                    2
+                  )
+                );
+              }}
+            >
+              <Text style={styles.smallPillText}>Sample Diffs</Text>
+            </TouchableOpacity>
           </View>
         )}
 

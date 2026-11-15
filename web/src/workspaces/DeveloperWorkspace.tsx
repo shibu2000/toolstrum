@@ -18,6 +18,7 @@ import { getToolById } from '../data/webRegistry';
 import { JsonFormatterPanel } from './developer/JsonFormatterPanel';
 import { JsonValidatorPanel } from './developer/JsonValidatorPanel';
 import { JsonMinifierPanel } from './developer/JsonMinifierPanel';
+import { JsonDiffPanel } from './developer/JsonDiffPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -810,36 +811,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* 246 — JSON MINIFIER & COMPRESSION CRUNCHER — dedicated modern panel */}
       {toolId === 246 && <JsonMinifierPanel initialValue={jsonInput} />}
 
-      {/* 247 — JSON DIFF — auto-computes live */}
-      {toolId === 247 && (() => {
-        const left = parseJson(jsonDiffLeft);
-        const right = parseJson(jsonDiffRight);
-        const diffs = !left.error && !right.error ? diffJsonObjects(left.value, right.value) : [];
-        return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-3">
-              <label className="text-xs font-bold text-slate-900 dark:text-white">Original JSON</label>
-              <textarea value={jsonDiffLeft} onChange={(e) => setJsonDiffLeft(e.target.value)} rows={8} className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-              <label className="text-xs font-bold text-slate-900 dark:text-white">Modified JSON</label>
-              <textarea value={jsonDiffRight} onChange={(e) => setJsonDiffRight(e.target.value)} rows={8} className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-              {(left.error || right.error) && <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">{left.error || right.error}</div>}
-            </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md">
-              <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Differences ({diffs.length})</span>
-              <div className="mt-3 space-y-1.5 max-h-[380px] overflow-y-auto font-mono text-xs">
-                {diffs.length === 0 && !left.error && !right.error && <p className="text-slate-500 font-sans">No differences found.</p>}
-                {diffs.map((d, i) => (
-                  <div key={i} className={`p-2 rounded-lg ${d.type === 'added' ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300' : d.type === 'removed' ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/40 dark:text-rose-300' : 'bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300'}`}>
-                    <span className="font-bold">{d.path}</span>: {d.type}
-                    {d.type !== 'added' && <span> left={JSON.stringify(d.left)}</span>}
-                    {d.type !== 'removed' && <span> right={JSON.stringify(d.right)}</span>}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-      })()}
+      {/* 247 — JSON DIFF & OBJECT COMPARISON — dedicated modern panel */}
+      {toolId === 247 && <JsonDiffPanel initialLeft={jsonDiffLeft} initialRight={jsonDiffRight} />}
 
       {/* 248 — JSON PATH TESTER — auto-computes live */}
       {toolId === 248 && (() => {
