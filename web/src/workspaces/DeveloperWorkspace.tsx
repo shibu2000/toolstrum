@@ -60,6 +60,9 @@ import { UrlParserPanel } from './developer/UrlParserPanel';
 import { UserAgentParserPanel } from './developer/UserAgentParserPanel';
 import { HttpStatusCodePanel } from './developer/HttpStatusCodePanel';
 import { MimeTypePanel } from './developer/MimeTypePanel';
+import { MarkdownFormatterPanel } from './developer/MarkdownFormatterPanel';
+import { SqlInsertGeneratorPanel } from './developer/SqlInsertGeneratorPanel';
+import { MockJsonGeneratorPanel } from './developer/MockJsonGeneratorPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -195,99 +198,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
 
 
 
-  // ==========================================
-  // 13. MARKDOWN CODE FORMATTER
-  // ==========================================
-  const [mdInput, setMdInput] = useState('#Title\n*  item one\n+  item two\n\n\n\nSome   text.');
-  const [mdOutput, setMdOutput] = useState('');
-  const [mdHasRun, setMdHasRun] = useState(false);
 
-  const handleFormatMarkdown = () => {
-    const lines = mdInput.split('\n').map((l) => l.replace(/\s+$/g, ''));
-    const normalized = lines.map((l) => {
-      let line = l.replace(/^(#{1,6})\s*/, (m, hashes) => `${hashes} `);
-      line = line.replace(/^(\s*)[*+]\s+/, '$1- ');
-      return line;
-    });
-    const collapsed: string[] = [];
-    let blankRun = 0;
-    for (const line of normalized) {
-      if (line.trim() === '') {
-        blankRun++;
-        if (blankRun <= 1) collapsed.push('');
-      } else {
-        blankRun = 0;
-        collapsed.push(line);
-      }
-    }
-    setMdOutput(collapsed.join('\n'));
-    setMdHasRun(true);
-  };
-
-  // ==========================================
-  // 14. SQL INSERT GENERATOR
-  // ==========================================
-  const [sqlTable, setSqlTable] = useState('users');
-  const [sqlColumns, setSqlColumns] = useState('id, name, email, is_active');
-  const [sqlRows, setSqlRows] = useState('1, "Alice Dev", alice@toolstrum.app, true\n2, "Bob Admin", bob@toolstrum.app, false');
-  const [sqlOutput, setSqlOutput] = useState('');
-  const [sqlHasRun, setSqlHasRun] = useState(false);
-
-  const handleGenerateSqlInsert = () => {
-    const cols = sqlColumns.split(',').map((c) => c.trim()).filter(Boolean);
-    const rows = sqlRows.split('\n').map((r) => r.trim()).filter(Boolean);
-    const formatValue = (raw: string) => {
-      const v = raw.trim().replace(/^["']|["']$/g, '');
-      if (v.toLowerCase() === 'true' || v.toLowerCase() === 'false') return v.toLowerCase();
-      if (v.toLowerCase() === 'null') return 'NULL';
-      if (/^-?\d+(\.\d+)?$/.test(v)) return v;
-      return `'${v.replace(/'/g, "''")}'`;
-    };
-    const valueTuples = rows.map((row) => {
-      const values = row.split(',').map((v) => formatValue(v));
-      return `  (${values.join(', ')})`;
-    });
-    setSqlOutput(`INSERT INTO ${sqlTable} (${cols.join(', ')})\nVALUES\n${valueTuples.join(',\n')};`);
-    setSqlHasRun(true);
-  };
-
-  // ==========================================
-  // 15. MOCK JSON GENERATOR
-  // ==========================================
-  const [mockSchema, setMockSchema] = useState('id:uuid\nname:string\nemail:email\nage:number\nactive:boolean\ncreatedAt:date');
-  const [mockCount, setMockCount] = useState(3);
-  const [mockOutput, setMockOutput] = useState('');
-  const [mockHasRun, setMockHasRun] = useState(false);
-
-  const handleGenerateMockJson = () => {
-    const sampleWords = ['Alpha', 'Bravo', 'Cedar', 'Delta', 'Ember', 'Falcon', 'Garnet', 'Harbor', 'Indigo', 'Juniper'];
-    const fields = mockSchema.split('\n').map((l) => l.split(':').map((p) => p.trim())).filter(([k, t]) => k && t);
-    const genValue = (type: string): any => {
-      switch (type.toLowerCase()) {
-        case 'uuid':
-          return crypto.randomUUID ? crypto.randomUUID() : 'xxxx-xxxx-xxxx-xxxx';
-        case 'number':
-          return Math.floor(Math.random() * 1000);
-        case 'boolean':
-          return Math.random() > 0.5;
-        case 'date':
-          return new Date(Date.now() - Math.floor(Math.random() * 1e10)).toISOString();
-        case 'email':
-          return `${sampleWords[Math.floor(Math.random() * sampleWords.length)].toLowerCase()}${Math.floor(Math.random() * 99)}@example.com`;
-        default:
-          return `${sampleWords[Math.floor(Math.random() * sampleWords.length)]} ${sampleWords[Math.floor(Math.random() * sampleWords.length)]}`;
-      }
-    };
-    const records = Array.from({ length: Math.max(1, Math.min(50, mockCount)) }, () => {
-      const obj: Record<string, any> = {};
-      fields.forEach(([key, type]) => {
-        obj[key] = genValue(type);
-      });
-      return obj;
-    });
-    setMockOutput(JSON.stringify(records, null, 2));
-    setMockHasRun(true);
-  };
 
   // ==========================================
   // 16. API REQUEST BUILDER
@@ -664,127 +575,12 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 291 && <HttpStatusCodePanel />}
       {toolId === 292 && <MimeTypePanel />}
 
-      {/* 293 — MARKDOWN CODE FORMATTER */}
-      {toolId === 293 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-sky-500" /> Markdown Code Formatter
-            </h3>
-            <textarea value={mdInput} onChange={(e) => setMdInput(e.target.value)} rows={12} className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-            <button onClick={handleFormatMarkdown} className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs">
-              Format Markdown
-            </button>
-          </div>
-          <div className="space-y-4">
-            {mdHasRun ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Formatted Markdown</span>
-                  <button onClick={() => handleCopyText(mdOutput)} className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-xs font-semibold flex items-center gap-1.5">
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>Copy</span>
-                  </button>
-                </div>
-                <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs whitespace-pre-wrap max-h-[360px] overflow-y-auto">{mdOutput}</pre>
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">Normalizes headings, bullet markers, trailing whitespace and extra blank lines.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* 294 — SQL INSERT GENERATOR */}
-      {toolId === 294 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Hash className="w-4 h-4 text-sky-500" /> SQL Insert Generator
-            </h3>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Table Name</label>
-              <input type="text" value={sqlTable} onChange={(e) => setSqlTable(e.target.value)} className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-            </div>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Columns (comma-separated)</label>
-              <input type="text" value={sqlColumns} onChange={(e) => setSqlColumns(e.target.value)} className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-            </div>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">Rows (one per line, comma-separated values)</label>
-              <textarea value={sqlRows} onChange={(e) => setSqlRows(e.target.value)} rows={6} className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-            </div>
-            <button onClick={handleGenerateSqlInsert} className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs">
-              Generate SQL
-            </button>
-          </div>
-          <div className="space-y-4">
-            {sqlHasRun ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Generated SQL</span>
-                  <button onClick={() => handleCopyText(sqlOutput)} className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-xs font-semibold flex items-center gap-1.5">
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>Copy</span>
-                  </button>
-                </div>
-                <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs whitespace-pre-wrap max-h-[360px] overflow-y-auto">{sqlOutput}</pre>
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">Fill in table, columns, and rows, then click Generate SQL.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* 295 — MOCK JSON GENERATOR */}
-      {toolId === 295 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <RefreshCw className="w-4 h-4 text-sky-500" /> Mock JSON Generator
-            </h3>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                Schema (one field per line: name:type — types: string, number, boolean, uuid, email, date)
-              </label>
-              <textarea value={mockSchema} onChange={(e) => setMockSchema(e.target.value)} rows={7} className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-            </div>
-            <div>
-              <div className="flex justify-between mb-1 text-xs"><span>Number of Records: {mockCount}</span></div>
-              <input type="range" min="1" max="20" value={mockCount} onChange={(e) => setMockCount(Number(e.target.value))} className="w-full accent-sky-600" />
-            </div>
-            <button onClick={handleGenerateMockJson} className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs">
-              Generate Mock Data
-            </button>
-          </div>
-          <div className="space-y-4">
-            {mockHasRun ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Generated JSON</span>
-                  <button onClick={() => handleCopyText(mockOutput)} className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-xs font-semibold flex items-center gap-1.5">
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>Copy</span>
-                  </button>
-                </div>
-                <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs whitespace-pre-wrap max-h-[360px] overflow-y-auto">{mockOutput}</pre>
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">Define a schema and click Generate Mock Data. Values are synthetic placeholders, not real people's data.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {/* ======================================================== */}
+      {/* 293-295: DEDICATED MARKDOWN, SQL INSERT & MOCK DATA GENERATORS */}
+      {/* ======================================================== */}
+      {toolId === 293 && <MarkdownFormatterPanel />}
+      {toolId === 294 && <SqlInsertGeneratorPanel />}
+      {toolId === 295 && <MockJsonGeneratorPanel />}
 
       {/* 296 — API REQUEST BUILDER */}
       {toolId === 296 && (
