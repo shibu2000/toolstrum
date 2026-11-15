@@ -79,6 +79,8 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
   const [escapeQuotes, setEscapeQuotes] = useState<boolean>(false);
   const [diffFormat, setDiffFormat] = useState<'list' | 'patch'>('list');
   const [targetTypeLang, setTargetTypeLang] = useState<'typescript' | 'zod' | 'go' | 'rust' | 'python'>('typescript');
+  const [schemaDraft, setSchemaDraft] = useState<'draft-07' | 'draft-04' | '2020-12'>('draft-07');
+  const [detectFormats, setDetectFormats] = useState<boolean>(true);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -184,7 +186,10 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           return { output: ts, isValid: true };
         }
         case 250: {
-          const schema = jsonToSchema(inputData);
+          const schema = jsonToSchema(inputData, {
+            draft: schemaDraft,
+            detectFormats,
+          });
           return { output: schema, isValid: true };
         }
         case 251: {
@@ -229,7 +234,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         errorInfo: err?.message,
       };
     }
-  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes, diffFormat, targetTypeLang]);
+  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes, diffFormat, targetTypeLang, schemaDraft, detectFormats]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -288,8 +293,16 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         { label: 'Status', value: 'TYPED' },
       ];
     }
+    if (activeToolId === 250 && isValid && inputData.trim()) {
+      return [
+        { label: 'Draft', value: schemaDraft.toUpperCase() },
+        { label: 'Formats', value: detectFormats ? 'AUTO' : 'OFF' },
+        { label: 'Lines', value: output.split('\n').length },
+        { label: 'Status', value: 'SYNTHESIZED' },
+      ];
+    }
     return base;
-  }, [activeToolId, isValid, inputData, compareData, output, targetTypeLang]);
+  }, [activeToolId, isValid, inputData, compareData, output, targetTypeLang, schemaDraft, detectFormats]);
 
   const toolsInWorkspace = [
     { id: 244, name: 'JSON Format' },
@@ -588,6 +601,34 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
                 </Text>
               </TouchableOpacity>
             ))}
+          </View>
+        )}
+
+        {/* Schema Controls (Tool 250) */}
+        {activeToolId === 250 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Draft:</Text>
+            {(['draft-07', '2020-12', 'draft-04'] as const).map((d) => (
+              <TouchableOpacity
+                key={d}
+                style={[styles.smallPill, schemaDraft === d && styles.smallPillActive]}
+                onPress={() => setSchemaDraft(d)}
+              >
+                <Text
+                  style={[styles.smallPillText, schemaDraft === d && styles.smallPillTextActive]}
+                >
+                  {d === 'draft-07' ? 'Draft-07' : d === '2020-12' ? '2020-12' : 'Draft-04'}
+                </Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity
+              style={[styles.smallPill, detectFormats && styles.smallPillActive]}
+              onPress={() => setDetectFormats(!detectFormats)}
+            >
+              <Text style={[styles.smallPillText, detectFormats && styles.smallPillTextActive]}>
+                Auto-Formats
+              </Text>
+            </TouchableOpacity>
           </View>
         )}
 

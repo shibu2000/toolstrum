@@ -573,11 +573,43 @@ export function jsonToTypeScript(raw: string, rootName = 'RootObject'): string {
   return jsonToTypeModel(raw, 'typescript', rootName);
 }
 
-export function jsonToSchema(raw: string): string {
+export function jsonToSchema(
+  raw: string,
+  options: {
+    draft?: 'draft-07' | 'draft-04' | '2020-12';
+    detectFormats?: boolean;
+    allRequired?: boolean;
+    title?: string;
+  } = {}
+): string {
   const obj = JSON.parse(raw);
+  const draftUrls = {
+    'draft-07': 'http://json-schema.org/draft-07/schema#',
+    'draft-04': 'http://json-schema.org/draft-04/schema#',
+    '2020-12': 'https://json-schema.org/draft/2020-12/schema',
+  };
+  const draft = options.draft || 'draft-07';
+  const detectFormats = options.detectFormats !== false;
+  const allRequired = options.allRequired !== false;
 
   function makeSchema(val: any): any {
     if (val === null) return { type: 'null' };
+    if (typeof val === 'string') {
+      const node: any = { type: 'string' };
+      if (detectFormats) {
+        if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/.test(val)) node.format = 'date-time';
+        else if (/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}/i.test(val)) node.format = 'uuid';
+        else if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(val)) node.format = 'email';
+        else if (/^https?:\/\//i.test(val)) node.format = 'uri';
+      }
+      return node;
+    }
+    if (typeof val === 'number') {
+      return { type: Number.isInteger(val) ? 'integer' : 'number' };
+    }
+    if (typeof val === 'boolean') {
+      return { type: 'boolean' };
+    }
     if (Array.isArray(val)) {
       return {
         type: 'array',
@@ -589,20 +621,23 @@ export function jsonToSchema(raw: string): string {
       const required: string[] = [];
       for (const [k, v] of Object.entries(val)) {
         properties[k] = makeSchema(v);
-        required.push(k);
+        if (allRequired || (v !== null && v !== undefined)) {
+          required.push(k);
+        }
       }
-      return {
+      const node: any = {
         type: 'object',
         properties,
-        required,
       };
+      if (required.length > 0) node.required = required;
+      return node;
     }
     return { type: typeof val };
   }
 
   const schema = {
-    $schema: 'http://json-schema.org/draft-07/schema#',
-    title: 'GeneratedSchema',
+    $schema: draftUrls[draft],
+    title: options.title || 'GeneratedSchema',
     ...makeSchema(obj),
   };
 
