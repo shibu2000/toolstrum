@@ -45,6 +45,8 @@ import { UuidGeneratorPanel } from './developer/UuidGeneratorPanel';
 import { UlidGeneratorPanel } from './developer/UlidGeneratorPanel';
 import { HashGeneratorPanel } from './developer/HashGeneratorPanel';
 import { HmacGeneratorPanel } from './developer/HmacGeneratorPanel';
+import { PasswordGeneratorPanel } from './developer/PasswordGeneratorPanel';
+import { BcryptInspectorPanel } from './developer/BcryptInspectorPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -71,10 +73,6 @@ import {
   UrlEncoderTool,
   UrlDecoderTool,
 } from './developer/CodecTools';
-import {
-  PasswordGeneratorTool,
-  BcryptCheckerTool,
-} from './developer/SecurityTools';
 import {
   ColorConverterTool,
   GradientGeneratorTool,
@@ -884,8 +882,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 275 && <UlidGeneratorPanel />}
       {toolId === 276 && <HashGeneratorPanel />}
       {toolId === 277 && <HmacGeneratorPanel />}
-      {toolId === 278 && <PasswordGeneratorTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 279 && <BcryptCheckerTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 278 && <PasswordGeneratorPanel />}
+      {toolId === 279 && <BcryptInspectorPanel />}
 
       {/* ======================================================== */}
       {/* 280-285: DEDICATED CSS & DESIGN GENERATORS */}
