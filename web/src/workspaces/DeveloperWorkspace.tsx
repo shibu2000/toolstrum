@@ -19,6 +19,7 @@ import { JsonFormatterPanel } from './developer/JsonFormatterPanel';
 import { JsonValidatorPanel } from './developer/JsonValidatorPanel';
 import { JsonMinifierPanel } from './developer/JsonMinifierPanel';
 import { JsonDiffPanel } from './developer/JsonDiffPanel';
+import { JsonPathPanel } from './developer/JsonPathPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -814,35 +815,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* 247 — JSON DIFF & OBJECT COMPARISON — dedicated modern panel */}
       {toolId === 247 && <JsonDiffPanel initialLeft={jsonDiffLeft} initialRight={jsonDiffRight} />}
 
-      {/* 248 — JSON PATH TESTER — auto-computes live */}
-      {toolId === 248 && (() => {
-        const { value, error } = parseJson(jsonInput);
-        const result = !error ? evaluateJsonPath(value, jsonPathQuery) : { value: undefined, error: '' };
-        return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-              <label className="text-xs font-bold text-slate-900 dark:text-white">JSON Input</label>
-              <textarea
-                value={jsonInput}
-                onChange={(e) => setJsonInput(e.target.value)}
-                rows={10}
-                className="w-full p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs leading-relaxed"
-              />
-              <label className="text-xs font-bold text-slate-900 dark:text-white block">Path (e.g. tools[0] or a.b.c)</label>
-              <input type="text" value={jsonPathQuery} onChange={(e) => setJsonPathQuery(e.target.value)} className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs" />
-              {error && <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">{error}</div>}
-            </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-3">
-              <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Matched Value</span>
-              {result.error ? (
-                <p className="text-xs text-rose-600 font-medium">{result.error}</p>
-              ) : (
-                <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs overflow-x-auto max-h-[300px]">{JSON.stringify(result.value, null, 2) ?? 'undefined'}</pre>
-              )}
-            </div>
-          </div>
-        );
-      })()}
+      {/* 248 — JSONPATH EVALUATOR & NODE EXTRACTOR — dedicated modern panel */}
+      {toolId === 248 && <JsonPathPanel initialValue={jsonInput} initialQuery={jsonPathQuery} />}
 
       {/* 249 — JSON TO TYPESCRIPT — auto-computes live */}
       {toolId === 249 && (() => {

@@ -250,28 +250,146 @@ export function diffJsonPatch(
 
 export function queryJsonPath(raw: string, path: string): any {
   const obj = JSON.parse(raw);
-  if (!path || path === '$' || path === '.') return obj;
+  const q = path.trim();
+  if (!q || q === '$' || q === '.') return obj;
 
-  const normalized = path.replace(/^\$\.?/, '');
-  const tokens = normalized.split('.').filter(Boolean);
-
-  let cur: any = obj;
-  for (const token of tokens) {
-    if (token.includes('[') && token.includes(']')) {
-      const key = token.slice(0, token.indexOf('['));
-      const idx = parseInt(token.slice(token.indexOf('[') + 1, token.indexOf(']')), 10);
-      cur = key ? cur[key] : cur;
-      if (Array.isArray(cur) && !isNaN(idx)) {
-        cur = cur[idx];
-      } else {
-        return undefined;
-      }
-    } else {
-      cur = cur?.[token];
+  // Simple dot notation optimization for exact single properties (fast path)
+  if (/^\$?\.?[a-zA-Z0-9_$]+(\.[a-zA-Z0-9_$]+)*$/.test(q)) {
+    const tokens = q.replace(/^\$\.?/, '').split('.');
+    let cur = obj;
+    for (const t of tokens) {
+      if (cur === null || typeof cur !== 'object') return undefined;
+      cur = cur[t];
     }
-    if (cur === undefined) break;
+    return cur;
   }
-  return cur;
+
+  // General JSONPath evaluation
+  try {
+    let clean = q.startsWith('$') ? q.slice(1) : q;
+    if (clean.startsWith('.')) {
+      // ok
+    } else if (!clean.startsWith('[')) {
+      clean = '.' + clean;
+    }
+
+    const tokenRegex = /(\.\.)|(\.[^.[\s]+)|(\[.*?\])/g;
+    let match: RegExpExecArray | null;
+    const tokens: string[] = [];
+    while ((match = tokenRegex.exec(clean)) !== null) {
+      tokens.push(match[0]);
+    }
+
+    let currentNodes: any[] = [obj];
+
+    for (let i = 0; i < tokens.length; i++) {
+      const token = tokens[i];
+      const nextNodes: any[] = [];
+
+      // Recursive descent
+      if (token === '..' || token.startsWith('..')) {
+        const subKey = token.length > 2 ? token.slice(2) : tokens[++i]?.replace(/^\./, '');
+        function walk(node: any) {
+          if (node === null || typeof node !== 'object') return;
+          if (Array.isArray(node)) {
+            for (const item of node) {
+              if (subKey === '*' || subKey === undefined) nextNodes.push(item);
+              walk(item);
+            }
+          } else {
+            for (const k of Object.keys(node)) {
+              if (subKey === '*' || k === subKey) nextNodes.push(node[k]);
+              walk(node[k]);
+            }
+          }
+        }
+        for (const curr of currentNodes) walk(curr);
+      }
+      // Bracket notation
+      else if (token.startsWith('[')) {
+        const expr = token.slice(1, -1).trim();
+        for (const curr of currentNodes) {
+          if (curr === null || typeof curr !== 'object') continue;
+
+          if (expr === '*') {
+            if (Array.isArray(curr)) nextNodes.push(...curr);
+            else nextNodes.push(...Object.values(curr));
+          } else if (expr.startsWith('?(') && expr.endsWith(')')) {
+            const cond = expr.slice(2, -1).trim();
+            const comp = cond.match(/^@\.([a-zA-Z0-9_$]+)\s*(==|!=|<=|>=|<|>)\s*(.+)$/);
+            const exist = cond.match(/^@\.([a-zA-Z0-9_$]+)$/);
+
+            const testItem = (item: any) => {
+              if (item === null || typeof item !== 'object') return false;
+              if (exist) return item[exist[1]] !== undefined;
+              if (comp) {
+                const [, p, op, rawV] = comp;
+                let r: any = rawV.trim().replace(/^['"]|['"]$/g, '');
+                if (!isNaN(Number(r))) r = Number(r);
+                if (r === 'true') r = true;
+                if (r === 'false') r = false;
+                const l = item[p];
+                if (op === '==') return l === r;
+                if (op === '!=') return l !== r;
+                if (op === '<') return l < r;
+                if (op === '<=') return l <= r;
+                if (op === '>') return l > r;
+                if (op === '>=') return l >= r;
+              }
+              return false;
+            };
+
+            if (Array.isArray(curr)) {
+              for (const it of curr) if (testItem(it)) nextNodes.push(it);
+            } else if (testItem(curr)) {
+              nextNodes.push(curr);
+            }
+          } else if (expr.includes(':')) {
+            if (Array.isArray(curr)) {
+              const parts = expr.split(':').map((s) => s.trim());
+              let start = parts[0] ? parseInt(parts[0], 10) : 0;
+              let end = parts[1] ? parseInt(parts[1], 10) : curr.length;
+              if (start < 0) start = Math.max(0, curr.length + start);
+              if (end < 0) end = Math.max(0, curr.length + end);
+              for (let idx = start; idx < Math.min(end, curr.length); idx++) nextNodes.push(curr[idx]);
+            }
+          } else {
+            const cleanProp = expr.replace(/^['"]|['"]$/g, '');
+            if (Array.isArray(curr) && /^-?\d+$/.test(cleanProp)) {
+              let idx = parseInt(cleanProp, 10);
+              if (idx < 0) idx = curr.length + idx;
+              if (idx >= 0 && idx < curr.length) nextNodes.push(curr[idx]);
+            } else if (cleanProp in curr) {
+              nextNodes.push(curr[cleanProp]);
+            }
+          }
+        }
+      }
+      // Dot property
+      else {
+        const prop = token.replace(/^\./, '');
+        for (const curr of currentNodes) {
+          if (curr === null || typeof curr !== 'object') continue;
+          if (prop === '*') {
+            if (Array.isArray(curr)) nextNodes.push(...curr);
+            else nextNodes.push(...Object.values(curr));
+          } else if (prop in curr) {
+            nextNodes.push(curr[prop]);
+          }
+        }
+      }
+
+      currentNodes = nextNodes;
+      if (currentNodes.length === 0) break;
+    }
+
+    if (currentNodes.length === 0) return undefined;
+    return currentNodes.length === 1 && !q.includes('*') && !q.includes('?') && !q.includes(':') && !q.includes('..')
+      ? currentNodes[0]
+      : currentNodes;
+  } catch {
+    return undefined;
+  }
 }
 
 export function jsonToTypeScript(raw: string, rootName = 'RootObject'): string {

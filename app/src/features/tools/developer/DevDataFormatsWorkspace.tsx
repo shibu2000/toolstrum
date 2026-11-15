@@ -269,6 +269,15 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         ];
       } catch {}
     }
+    if (activeToolId === 248 && isValid && inputData.trim()) {
+      const isFound = output !== 'Query returned undefined';
+      return [
+        { label: 'Expression', value: jsonPathQuery || '$' },
+        { label: 'Result', value: isFound ? 'MATCH' : 'EMPTY' },
+        { label: 'Lines', value: output.split('\n').length },
+        { label: 'Status', value: isValid ? 'OK' : 'ERROR' },
+      ];
+    }
     return base;
   }, [activeToolId, isValid, inputData, compareData, output]);
 
@@ -493,14 +502,62 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         {/* JSONPath Query Bar (Tool 248) */}
         {activeToolId === 248 && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>JSONPath Expression</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+              <Text style={styles.cardTitle}>JSONPath Expression</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setInputData(
+                    JSON.stringify(
+                      {
+                        store: {
+                          books: [
+                            { title: 'The Pragmatic Programmer', author: 'Andy Hunt', price: 29.99 },
+                            { title: 'Clean Architecture', author: 'Robert Martin', price: 24.50 },
+                            { title: 'Designing Data-Intensive Apps', author: 'Martin Kleppmann', price: 34.00 }
+                          ],
+                          currency: 'USD'
+                        }
+                      },
+                      null,
+                      2
+                    )
+                  );
+                  setJsonPathQuery('$.store.books[*].author');
+                }}
+              >
+                <Text style={{ fontSize: 11, color: Colors.primary, fontWeight: '600' }}>Load Store Sample</Text>
+              </TouchableOpacity>
+            </View>
             <TextInput
               style={styles.singleInput}
               value={jsonPathQuery}
               onChangeText={setJsonPathQuery}
-              placeholder="e.g. $.developer.name or $.features[0]"
+              placeholder="e.g. $.developer.name or $.store.books[*].author"
               placeholderTextColor={Colors.textMuted}
             />
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginTop: 8 }}>
+              <View style={{ flexDirection: 'row', gap: 6 }}>
+                {[
+                  { label: 'Root ($)', q: '$' },
+                  { label: 'All Items [*]', q: '$.store.books[*]' },
+                  { label: 'Authors', q: '$.store.books[*].author' },
+                  { label: 'Deep Prices', q: '$..price' },
+                  { label: 'First [0]', q: '$.store.books[0]' },
+                  { label: 'Last [-1]', q: '$.store.books[-1]' },
+                  { label: 'Price < 30', q: '$.store.books[?(@.price < 30)]' }
+                ].map((item) => (
+                  <TouchableOpacity
+                    key={item.label}
+                    style={[styles.smallPill, jsonPathQuery === item.q && styles.smallPillActive]}
+                    onPress={() => setJsonPathQuery(item.q)}
+                  >
+                    <Text style={[styles.smallPillText, jsonPathQuery === item.q && styles.smallPillTextActive]}>
+                      {item.label}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
           </View>
         )}
 
