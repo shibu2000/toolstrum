@@ -22,6 +22,7 @@ import {
   diffJsonPatch,
   queryJsonPath,
   jsonToTypeScript,
+  jsonToTypeModel,
   jsonToSchema,
   jsonToYaml,
   yamlToJson,
@@ -77,6 +78,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
   const [removeNulls, setRemoveNulls] = useState<boolean>(false);
   const [escapeQuotes, setEscapeQuotes] = useState<boolean>(false);
   const [diffFormat, setDiffFormat] = useState<'list' | 'patch'>('list');
+  const [targetTypeLang, setTargetTypeLang] = useState<'typescript' | 'zod' | 'go' | 'rust' | 'python'>('typescript');
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -178,7 +180,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           };
         }
         case 249: {
-          const ts = jsonToTypeScript(inputData, 'GeneratedPayload');
+          const ts = jsonToTypeModel(inputData, targetTypeLang, 'GeneratedPayload');
           return { output: ts, isValid: true };
         }
         case 250: {
@@ -227,7 +229,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         errorInfo: err?.message,
       };
     }
-  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes, diffFormat]);
+  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes, diffFormat, targetTypeLang]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -278,8 +280,16 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         { label: 'Status', value: isValid ? 'OK' : 'ERROR' },
       ];
     }
+    if (activeToolId === 249 && isValid && inputData.trim()) {
+      return [
+        { label: 'Language', value: targetTypeLang.toUpperCase() },
+        { label: 'Root Model', value: 'GeneratedPayload' },
+        { label: 'Lines', value: output.split('\n').length },
+        { label: 'Status', value: 'TYPED' },
+      ];
+    }
     return base;
-  }, [activeToolId, isValid, inputData, compareData, output]);
+  }, [activeToolId, isValid, inputData, compareData, output, targetTypeLang]);
 
   const toolsInWorkspace = [
     { id: 244, name: 'JSON Format' },
@@ -558,6 +568,26 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
                 ))}
               </View>
             </ScrollView>
+          </View>
+        )}
+
+        {/* Language Target Bar (Tool 249) */}
+        {activeToolId === 249 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Target:</Text>
+            {(['typescript', 'zod', 'go', 'rust', 'python'] as const).map((lang) => (
+              <TouchableOpacity
+                key={lang}
+                style={[styles.smallPill, targetTypeLang === lang && styles.smallPillActive]}
+                onPress={() => setTargetTypeLang(lang)}
+              >
+                <Text
+                  style={[styles.smallPillText, targetTypeLang === lang && styles.smallPillTextActive]}
+                >
+                  {lang === 'typescript' ? 'TS' : lang.toUpperCase()}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
         )}
 

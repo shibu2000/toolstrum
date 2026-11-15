@@ -392,36 +392,185 @@ export function queryJsonPath(raw: string, path: string): any {
   }
 }
 
-export function jsonToTypeScript(raw: string, rootName = 'RootObject'): string {
+export function jsonToTypeModel(
+  raw: string,
+  targetLang: 'typescript' | 'zod' | 'go' | 'rust' | 'python' = 'typescript',
+  rootName = 'RootObject'
+): string {
   const obj = JSON.parse(raw);
-  const interfaces: string[] = [];
+  if (typeof obj !== 'object' || obj === null || Array.isArray(obj)) {
+    throw new Error('Root JSON payload must be an object {...}');
+  }
 
-  function inferType(val: any, name: string): string {
-    if (val === null) return 'any';
+  function toPascal(s: string): string {
+    return s.replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase()).replace(/^[a-z]/, (c) => c.toUpperCase());
+  }
+
+  function toSnake(s: string): string {
+    return s.replace(/([A-Z])/g, '_$1').toLowerCase().replace(/^_/, '').replace(/[^a-z0-9_]/g, '_');
+  }
+
+  // TypeScript
+  if (targetLang === 'typescript') {
+    const interfaces: string[] = [];
+    function inferTs(val: any, name: string): string {
+      if (val === null) return 'any';
+      if (Array.isArray(val)) {
+        if (val.length === 0) return 'any[]';
+        return `${inferTs(val[0], `${name}Item`)}[]`;
+      }
+      if (typeof val === 'object') {
+        const nested = toPascal(name);
+        buildTs(val, nested);
+        return nested;
+      }
+      return typeof val;
+    }
+    function buildTs(o: Record<string, any>, ifName: string) {
+      const fields = Object.entries(o).map(([k, v]) => {
+        const cleanKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k) ? k : JSON.stringify(k);
+        return `  ${cleanKey}: ${inferTs(v, k)};`;
+      });
+      interfaces.push(`export interface ${ifName} {\n${fields.join('\n')}\n}`);
+    }
+    buildTs(obj, rootName);
+    return interfaces.join('\n\n');
+  }
+
+  // Zod
+  if (targetLang === 'zod') {
+    const schemas: string[] = [];
+    function inferZod(val: any, name: string): string {
+      if (val === null) return 'z.null()';
+      if (typeof val === 'string') return 'z.string()';
+      if (typeof val === 'number') return Number.isInteger(val) ? 'z.number().int()' : 'z.number()';
+      if (typeof val === 'boolean') return 'z.boolean()';
+      if (Array.isArray(val)) {
+        if (val.length === 0) return 'z.array(z.any())';
+        return `z.array(${inferZod(val[0], `${name}Item`)})`;
+      }
+      if (typeof val === 'object') {
+        const nested = `${toPascal(name)}Schema`;
+        buildZod(val, nested);
+        return nested;
+      }
+      return 'z.any()';
+    }
+    function buildZod(o: Record<string, any>, schemaName: string) {
+      const lines = Object.entries(o).map(([k, v]) => {
+        const cleanKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k) ? k : JSON.stringify(k);
+        return `  ${cleanKey}: ${inferZod(v, k)},`;
+      });
+      schemas.push(`export const ${schemaName} = z.object({\n${lines.join('\n')}\n});`);
+    }
+    const rootSchema = `${rootName}Schema`;
+    buildZod(obj, rootSchema);
+    return [
+      `import { z } from 'zod';`,
+      '',
+      schemas.join('\n\n'),
+      '',
+      `export type ${rootName} = z.infer<typeof ${rootSchema}>;`
+    ].join('\n');
+  }
+
+  // Go
+  if (targetLang === 'go') {
+    const structs: string[] = [];
+    function inferGo(val: any, name: string): string {
+      if (val === null) return 'interface{}';
+      if (typeof val === 'string') return 'string';
+      if (typeof val === 'number') return Number.isInteger(val) ? 'int64' : 'float64';
+      if (typeof val === 'boolean') return 'bool';
+      if (Array.isArray(val)) {
+        if (val.length === 0) return '[]interface{}';
+        return `[]${inferGo(val[0], `${name}Item`)}`;
+      }
+      if (typeof val === 'object') {
+        const nested = toPascal(name);
+        buildGo(val, nested);
+        return nested;
+      }
+      return 'interface{}';
+    }
+    function buildGo(o: Record<string, any>, sName: string) {
+      const fields = Object.entries(o).map(([k, v]) => `\t${toPascal(k)} ${inferGo(v, k)} \`json:"${k}"\``);
+      structs.push(`type ${sName} struct {\n${fields.join('\n')}\n}`);
+    }
+    buildGo(obj, rootName);
+    return [`package models`, '', structs.join('\n\n')].join('\n');
+  }
+
+  // Rust
+  if (targetLang === 'rust') {
+    const structs: string[] = [];
+    function inferRust(val: any, name: string): string {
+      if (val === null) return 'Option<serde_json::Value>';
+      if (typeof val === 'string') return 'String';
+      if (typeof val === 'number') return Number.isInteger(val) ? 'i64' : 'f64';
+      if (typeof val === 'boolean') return 'bool';
+      if (Array.isArray(val)) {
+        if (val.length === 0) return 'Vec<serde_json::Value>';
+        return `Vec<${inferRust(val[0], `${name}Item`)}>`;
+      }
+      if (typeof val === 'object') {
+        const nested = toPascal(name);
+        buildRust(val, nested);
+        return nested;
+      }
+      return 'serde_json::Value';
+    }
+    function buildRust(o: Record<string, any>, sName: string) {
+      const fields = Object.entries(o).map(([k, v]) => {
+        const sk = toSnake(k);
+        const attr = sk !== k ? `\t#[serde(rename = "${k}")]\n` : '';
+        return `${attr}\tpub ${sk}: ${inferRust(v, k)},`;
+      });
+      structs.push(
+        `#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]\npub struct ${sName} {\n${fields.join('\n')}\n}`
+      );
+    }
+    buildRust(obj, rootName);
+    return [`use serde::{Deserialize, Serialize};`, '', structs.join('\n\n')].join('\n');
+  }
+
+  // Python
+  const models: string[] = [];
+  function inferPy(val: any, name: string): string {
+    if (val === null) return 'Optional[Any]';
+    if (typeof val === 'string') return 'str';
+    if (typeof val === 'number') return Number.isInteger(val) ? 'int' : 'float';
+    if (typeof val === 'boolean') return 'bool';
     if (Array.isArray(val)) {
-      if (val.length === 0) return 'any[]';
-      const elType = inferType(val[0], `${name}Item`);
-      return `${elType}[]`;
+      if (val.length === 0) return 'List[Any]';
+      return `List[${inferPy(val[0], `${name}Item`)}]`;
     }
     if (typeof val === 'object') {
-      const nestedName = name.charAt(0).toUpperCase() + name.slice(1);
-      generateInterface(val, nestedName);
-      return nestedName;
+      const nested = toPascal(name);
+      buildPy(val, nested);
+      return nested;
     }
-    return typeof val;
+    return 'Any';
   }
-
-  function generateInterface(o: Record<string, any>, ifName: string) {
+  function buildPy(o: Record<string, any>, mName: string) {
     const fields = Object.entries(o).map(([k, v]) => {
-      const cleanKey = /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(k) ? k : JSON.stringify(k);
-      const fieldType = inferType(v, k);
-      return `  ${cleanKey}: ${fieldType};`;
+      const sk = toSnake(k);
+      const t = inferPy(v, k);
+      return sk !== k ? `    ${sk}: ${t} = Field(..., alias="${k}")` : `    ${sk}: ${t}`;
     });
-    interfaces.push(`export interface ${ifName} {\n${fields.join('\n')}\n}`);
+    models.push(`class ${mName}(BaseModel):\n${fields.join('\n')}`);
   }
+  buildPy(obj, rootName);
+  return [
+    `from typing import List, Optional, Any`,
+    `from pydantic import BaseModel, Field`,
+    '',
+    models.join('\n\n')
+  ].join('\n');
+}
 
-  generateInterface(obj, rootName);
-  return interfaces.join('\n\n');
+export function jsonToTypeScript(raw: string, rootName = 'RootObject'): string {
+  return jsonToTypeModel(raw, 'typescript', rootName);
 }
 
 export function jsonToSchema(raw: string): string {

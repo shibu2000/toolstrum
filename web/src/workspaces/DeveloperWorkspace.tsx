@@ -20,6 +20,7 @@ import { JsonValidatorPanel } from './developer/JsonValidatorPanel';
 import { JsonMinifierPanel } from './developer/JsonMinifierPanel';
 import { JsonDiffPanel } from './developer/JsonDiffPanel';
 import { JsonPathPanel } from './developer/JsonPathPanel';
+import { JsonToTypePanel } from './developer/JsonToTypePanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -818,37 +819,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* 248 — JSONPATH EVALUATOR & NODE EXTRACTOR — dedicated modern panel */}
       {toolId === 248 && <JsonPathPanel initialValue={jsonInput} initialQuery={jsonPathQuery} />}
 
-      {/* 249 — JSON TO TYPESCRIPT — auto-computes live */}
-      {toolId === 249 && (() => {
-        const { value, error } = parseJson(jsonInput);
-        const output = value !== undefined && typeof value === 'object' && value !== null ? generateTsInterface(value) : '';
-        return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-              <label className="text-xs font-bold text-slate-900 dark:text-white">JSON Input</label>
-              <textarea
-                value={jsonInput}
-                onChange={(e) => setJsonInput(e.target.value)}
-                rows={14}
-                className="w-full p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs leading-relaxed"
-              />
-              {error && <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">{error}</div>}
-            </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">TypeScript Interface</span>
-                {output && (
-                  <button onClick={() => handleCopyText(output)} className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-xs font-semibold flex items-center gap-1.5">
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? 'Copied' : 'Copy'}</span>
-                  </button>
-                )}
-              </div>
-              <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs overflow-x-auto max-h-[380px] leading-relaxed">{output || 'Root value must be a JSON object to generate an interface.'}</pre>
-            </div>
-          </div>
-        );
-      })()}
+      {/* 249 — JSON TO TYPESCRIPT / GO / RUST / PYTHON — dedicated modern panel */}
+      {toolId === 249 && <JsonToTypePanel initialValue={jsonInput} />}
 
       {/* 250 — JSON SCHEMA GENERATOR — auto-computes live */}
       {toolId === 250 && (() => {
