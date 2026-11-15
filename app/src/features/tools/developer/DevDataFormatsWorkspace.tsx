@@ -30,6 +30,8 @@ import {
   yamlToJson,
   validateYaml,
   validateXml,
+  formatXml,
+  autoRepairXml,
   generateMockJson,
   autoRepairJson,
 } from './shared/DeveloperHelpers';
@@ -64,6 +66,40 @@ const DEFAULT_SAMPLE_DIFF = `{
   "toolsCount": 500
 }`;
 
+const DEFAULT_SAMPLE_YAML = `apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: toolstrum-api
+  namespace: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: toolstrum
+  template:
+    metadata:
+      labels:
+        app: toolstrum
+    spec:
+      containers:
+      - name: server
+        image: toolstrum:v2
+        ports:
+        - containerPort: 8080`;
+
+const DEFAULT_SAMPLE_XML = `<?xml version="1.0" encoding="UTF-8"?>
+<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:ts="https://toolstrum.com/api/v1">
+  <soap:Header>
+    <ts:AuthToken>sec_live_99f2b87c41a2</ts:AuthToken>
+  </soap:Header>
+  <soap:Body>
+    <ts:GetDiagnosticsRequest>
+      <ts:ClusterId>us-east-cluster-04</ts:ClusterId>
+      <ts:IncludeTelemetry>true</ts:IncludeTelemetry>
+    </ts:GetDiagnosticsRequest>
+  </soap:Body>
+</soap:Envelope>`;
+
 export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = ({
   initialToolId = 244,
   initialOperation,
@@ -83,6 +119,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
   const [targetTypeLang, setTargetTypeLang] = useState<'typescript' | 'zod' | 'go' | 'rust' | 'python'>('typescript');
   const [schemaDraft, setSchemaDraft] = useState<'draft-07' | 'draft-04' | '2020-12'>('draft-07');
   const [detectFormats, setDetectFormats] = useState<boolean>(true);
+  const [xmlMode, setXmlMode] = useState<'format' | 'validate'>('format');
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -94,6 +131,10 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
     if (!inputData.trim()) return false;
     if (activeToolId === 251 || activeToolId === 252 || activeToolId === 253) {
       return inputData.includes('\t') || /^(\s*[\w.-]+):([^\s\n/])/gm.test(inputData);
+    }
+    if (activeToolId === 255) {
+      const val = validateXml(inputData);
+      return !val.valid || Boolean(val.warnings && val.warnings.length > 0);
     }
     try {
       JSON.parse(inputData);
@@ -255,13 +296,27 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           return { output: yaml, isValid: true };
         }
         case 255: {
-          const val = validateXml(inputData);
-          return {
-            output: val.valid
-              ? `✅ XML syntax valid (${val.nodes} tags audited).`
-              : `❌ XML Error: ${val.error}`,
-            isValid: val.valid,
-          };
+          if (xmlMode === 'format') {
+            const formatted = formatXml(inputData, indentSize === 'min' ? 'min' : indentSize);
+            return { output: formatted, isValid: true };
+          } else {
+            const val = validateXml(inputData);
+            if (val.valid) {
+              let msg = '✅ XML Document structure is 100% valid.';
+              msg += `\n• Root element: <${val.rootElement || 'unknown'}>`;
+              msg += `\n• Elements audited: ${val.nodes || 0}`;
+              msg += `\n• Max hierarchy depth: ${val.maxDepth || 1}`;
+              if (val.cdataCount) msg += `\n• CDATA sections: ${val.cdataCount}`;
+              if (val.commentCount) msg += `\n• Comments: ${val.commentCount}`;
+              if (val.warnings && val.warnings.length > 0) {
+                msg += `\n\n⚠️ Warnings:\n${val.warnings.map((w) => `• ${w}`).join('\n')}`;
+              }
+              return { output: msg, isValid: true };
+            }
+            let err = `❌ XML Syntax Error:\n${val.error}`;
+            if (val.line) err += `\nLine: ${val.line}, Column: ${val.column || 1}`;
+            return { output: err, isValid: false, errorInfo: val.error };
+          }
         }
         case 295: {
           const mock = generateMockJson(mockType, 4);
@@ -277,7 +332,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         errorInfo: err?.message,
       };
     }
-  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes, diffFormat, targetTypeLang, schemaDraft, detectFormats]);
+  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes, diffFormat, targetTypeLang, schemaDraft, detectFormats, xmlMode]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -378,7 +433,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
     { id: 252, name: 'YAML Valid' },
     { id: 253, name: 'YAML to JSON' },
     { id: 254, name: 'JSON to YAML' },
-    { id: 255, name: 'XML Valid' },
+    { id: 255, name: 'XML Tool' },
     { id: 295, name: 'Mock JSON' },
   ];
 
@@ -858,6 +913,65 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           </View>
         )}
 
+        {/* XML Formatter & Validator Controls (Tool 255) */}
+        {activeToolId === 255 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Mode:</Text>
+            <TouchableOpacity
+              style={[styles.smallPill, xmlMode === 'format' && styles.smallPillActive]}
+              onPress={() => setXmlMode('format')}
+            >
+              <Text style={[styles.smallPillText, xmlMode === 'format' && styles.smallPillTextActive]}>
+                Format
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.smallPill, xmlMode === 'validate' && styles.smallPillActive]}
+              onPress={() => setXmlMode('validate')}
+            >
+              <Text style={[styles.smallPillText, xmlMode === 'validate' && styles.smallPillTextActive]}>
+                Validate
+              </Text>
+            </TouchableOpacity>
+
+            {xmlMode === 'format' && (
+              <>
+                <Text style={[styles.subBarLabel, { marginLeft: 6 }]}>Indent:</Text>
+                {([2, 4, 'min'] as const).map((sz) => (
+                  <TouchableOpacity
+                    key={sz}
+                    style={[styles.smallPill, indentSize === sz && styles.smallPillActive]}
+                    onPress={() => setIndentSize(sz)}
+                  >
+                    <Text style={[styles.smallPillText, indentSize === sz && styles.smallPillTextActive]}>
+                      {sz === 'min' ? 'Min' : `${sz}s`}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </>
+            )}
+
+            {canRepair && (
+              <TouchableOpacity
+                style={[styles.smallPill, { backgroundColor: '#F59E0B' }]}
+                onPress={() => {
+                  try {
+                    const { repaired, repairs } = autoRepairXml(inputData);
+                    setInputData(repaired);
+                    Alert.alert('Auto-Repair Applied', repairs.join('\n') || 'Normalized XML markup.');
+                  } catch (e: any) {
+                    Alert.alert('Repair Failed', e?.message || 'Could not auto-repair.');
+                  }
+                }}
+              >
+                <Text style={[styles.smallPillText, { color: '#FFFFFF', fontWeight: '700' }]}>
+                  ⚡ Auto-Repair
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+
         {/* Mock JSON Mode Bar (Tool 295) */}
         {activeToolId === 295 && (
           <View style={styles.subBar}>
@@ -880,11 +994,23 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         <View style={styles.inputCard}>
           <View style={styles.inputCardHeader}>
             <Text style={styles.sectionTitle}>
-              {activeToolId === 253 ? 'YAML Input Document' : 'Input Document / Payload'}
+              {activeToolId === 253
+                ? 'YAML Input Document'
+                : activeToolId === 255
+                ? 'XML Input Document'
+                : 'Input Document / Payload'}
             </Text>
             <View style={styles.inputHeaderActions}>
               <TouchableOpacity
-                onPress={() => setInputData(DEFAULT_SAMPLE_JSON)}
+                onPress={() => {
+                  if (activeToolId === 255) {
+                    setInputData(DEFAULT_SAMPLE_XML);
+                  } else if (activeToolId === 251 || activeToolId === 252 || activeToolId === 253) {
+                    setInputData(DEFAULT_SAMPLE_YAML);
+                  } else {
+                    setInputData(DEFAULT_SAMPLE_JSON);
+                  }
+                }}
                 style={styles.actionChip}
               >
                 <Text style={styles.actionChipText}>Sample</Text>

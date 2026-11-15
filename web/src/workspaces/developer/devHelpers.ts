@@ -314,23 +314,374 @@ export function validateYaml(yamlStr: string): { valid: boolean; error?: string;
 }
 
 // ==========================================
-// 3. XML VALIDATOR
+// 3. XML VALIDATOR & FORMATTER
 // ==========================================
-export function validateXml(xmlStr: string): { valid: boolean; rootElement?: string; childCount?: number; error?: string } {
-  if (!xmlStr.trim()) return { valid: false, error: 'XML input is empty.' };
-  if (typeof window === 'undefined') return { valid: true };
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(xmlStr, 'application/xml');
-  const parserError = doc.querySelector('parsererror');
-  if (parserError) {
-    return { valid: false, error: parserError.textContent || 'XML syntax or closing tag error.' };
+export interface XmlValidationResult {
+  valid: boolean;
+  error?: string;
+  line?: number;
+  column?: number;
+  rootElement?: string;
+  childCount?: number;
+  nodes?: number;
+  maxDepth?: number;
+  cdataCount?: number;
+  commentCount?: number;
+  warnings?: string[];
+}
+
+function getXmlLineAndCol(text: string, index: number): { line: number; column: number } {
+  const prefix = text.slice(0, index);
+  const lines = prefix.split('\n');
+  return {
+    line: lines.length,
+    column: lines[lines.length - 1].length + 1,
+  };
+}
+
+export function validateXml(xmlStr: string): XmlValidationResult {
+  if (!xmlStr || !xmlStr.trim()) {
+    return { valid: false, error: 'Empty XML document' };
   }
-  const root = doc.documentElement;
+
+  // If running in browser, also use DOMParser for strict native checks
+  if (typeof window !== 'undefined' && typeof DOMParser !== 'undefined') {
+    try {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(xmlStr, 'application/xml');
+      const parserError = doc.querySelector('parsererror');
+      if (parserError) {
+        const text = parserError.textContent || '';
+        const lineMatch = text.match(/line\s+(\d+)/i);
+        const colMatch = text.match(/column\s+(\d+)/i);
+        return {
+          valid: false,
+          error: text.split('\n')[0] || 'XML syntax or closing tag error',
+          line: lineMatch ? parseInt(lineMatch[1], 10) : undefined,
+          column: colMatch ? parseInt(colMatch[1], 10) : undefined,
+        };
+      }
+    } catch {
+      // Fallback to pure tokenizer check below
+    }
+  }
+
+  const trimmed = xmlStr.trim();
+  const warnings: string[] = [];
+  let rootElement: string | undefined;
+  let elementCount = 0;
+  let cdataCount = 0;
+  let commentCount = 0;
+  let currentDepth = 0;
+  let maxDepth = 0;
+
+  if (trimmed.startsWith('<?xml')) {
+    const declMatch = trimmed.match(/^<\?xml\s+version=(["'])(1\.[0-9]+)\1(?:\s+encoding=(["'])([a-zA-Z0-9\-_]+)\3)?(?:\s+standalone=(["'])(yes|no)\5)?\s*\?>/);
+    if (!declMatch) {
+      const declEnd = trimmed.indexOf('?>');
+      const declStr = declEnd !== -1 ? trimmed.slice(0, declEnd + 2) : '<?xml ...';
+      warnings.push(`XML declaration '${declStr}' has non-standard attributes or quotes.`);
+    }
+  }
+
+  const tokenRegex = /(<!--[\s\S]*?-->|<!\[CDATA\[[\s\S]*?\]\]>|<\?[\s\S]*?\?>|<!DOCTYPE[\s\S]*?>|<\/[a-zA-Z0-9_\-.:]+\s*>|<[a-zA-Z0-9_\-.:]+(?:\s+[^"'>]*(?:"[^"]*"|'[^']*')?)*\s*\/?>|[^<]+)/g;
+  const stack: { name: string; line: number; column: number }[] = [];
+
+  let match: RegExpExecArray | null;
+  let hasRoot = false;
+  let rootClosed = false;
+
+  while ((match = tokenRegex.exec(xmlStr)) !== null) {
+    const token = match[0];
+    const index = match.index;
+    const { line, column } = getXmlLineAndCol(xmlStr, index);
+
+    if (token.startsWith('<!--')) {
+      commentCount++;
+      if (!token.endsWith('-->')) {
+        return { valid: false, error: 'Unclosed XML comment', line, column };
+      }
+      continue;
+    }
+
+    if (token.startsWith('<![CDATA[')) {
+      cdataCount++;
+      if (!token.endsWith(']]>')) {
+        return { valid: false, error: 'Unclosed CDATA section', line, column };
+      }
+      continue;
+    }
+
+    if (token.startsWith('<?') || token.startsWith('<!DOCTYPE')) {
+      continue;
+    }
+
+    if (token.startsWith('</')) {
+      const closeMatch = token.match(/^<\/\s*([a-zA-Z0-9_\-.:]+)\s*>$/);
+      if (!closeMatch) {
+        return { valid: false, error: `Malformed closing tag: ${token}`, line, column };
+      }
+      const closeName = closeMatch[1];
+      if (stack.length === 0) {
+        return {
+          valid: false,
+          error: `Unexpected closing tag </${closeName}> with no matching opening tag`,
+          line,
+          column,
+        };
+      }
+      const last = stack.pop()!;
+      if (last.name !== closeName) {
+        return {
+          valid: false,
+          error: `Mismatched closing tag </${closeName}>, expected </${last.name}> (opened at line ${last.line}, col ${last.column})`,
+          line,
+          column,
+        };
+      }
+      currentDepth--;
+      if (stack.length === 0) {
+        rootClosed = true;
+      }
+      continue;
+    }
+
+    if (token.startsWith('<')) {
+      const isSelfClosing = token.endsWith('/>');
+      const tagContent = isSelfClosing ? token.slice(1, -2).trim() : token.slice(1, -1).trim();
+      const firstSpace = tagContent.search(/\s/);
+      const tagName = firstSpace === -1 ? tagContent : tagContent.slice(0, firstSpace);
+
+      if (!/^[a-zA-Z_][a-zA-Z0-9_\-.:]*$/.test(tagName)) {
+        return { valid: false, error: `Invalid tag name: <${tagName}>`, line, column };
+      }
+
+      if (rootClosed && stack.length === 0) {
+        return {
+          valid: false,
+          error: `Extra root element <${tagName}> found. XML allows only one top-level root element.`,
+          line,
+          column,
+        };
+      }
+
+      if (!hasRoot) {
+        hasRoot = true;
+        rootElement = tagName;
+      }
+
+      elementCount++;
+      currentDepth++;
+      if (currentDepth > maxDepth) maxDepth = currentDepth;
+
+      if (firstSpace !== -1) {
+        const attrStr = tagContent.slice(firstSpace);
+        const attrRegex = /([a-zA-Z_][a-zA-Z0-9_\-.:]*)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
+        let attrMatch: RegExpExecArray | null;
+        const seenAttrs = new Set<string>();
+
+        while ((attrMatch = attrRegex.exec(attrStr)) !== null) {
+          const attrName = attrMatch[1];
+          if (seenAttrs.has(attrName)) {
+            warnings.push(`Duplicate attribute '${attrName}' on element <${tagName}> at line ${line}.`);
+          }
+          seenAttrs.add(attrName);
+
+          if (attrMatch[4] !== undefined) {
+            return {
+              valid: false,
+              error: `Unquoted attribute value for '${attrName}' in <${tagName}> at line ${line}`,
+              line,
+              column,
+            };
+          }
+        }
+      }
+
+      if (isSelfClosing) {
+        currentDepth--;
+        if (stack.length === 0 && hasRoot) {
+          rootClosed = true;
+        }
+      } else {
+        stack.push({ name: tagName, line, column });
+      }
+      continue;
+    }
+
+    if (!token.trim()) continue;
+    const nakedAmp = /&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#[xX][0-9a-fA-F]+;)/g;
+    if (nakedAmp.test(token)) {
+      warnings.push(`Unescaped '&' found in text content at line ${line}. Use '&amp;' instead.`);
+    }
+  }
+
+  if (stack.length > 0) {
+    const unclosed = stack[stack.length - 1];
+    return {
+      valid: false,
+      error: `Unclosed XML tag: <${unclosed.name}> opened at line ${unclosed.line}, column ${unclosed.column}`,
+      line: unclosed.line,
+      column: unclosed.column,
+    };
+  }
+
+  if (!hasRoot) {
+    return { valid: false, error: 'Document does not contain any XML elements' };
+  }
+
   return {
     valid: true,
-    rootElement: root.tagName,
-    childCount: root.children.length,
+    nodes: elementCount,
+    childCount: elementCount,
+    rootElement,
+    maxDepth,
+    cdataCount,
+    commentCount,
+    warnings: warnings.length > 0 ? warnings : undefined,
   };
+}
+
+export function autoRepairXml(xmlStr: string): { repaired: string; repairs: string[] } {
+  const repairs: string[] = [];
+  let s = xmlStr;
+
+  const ampCount = (s.match(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#[xX][0-9a-fA-F]+;)/g) || []).length;
+  if (ampCount > 0) {
+    s = s.replace(/&(?!amp;|lt;|gt;|quot;|apos;|#\d+;|#[xX][0-9a-fA-F]+;)/g, '&amp;');
+    repairs.push(`Escaped ${ampCount} raw '&' characters into '&amp;'`);
+  }
+
+  const unquotedAttrRegex = /([a-zA-Z_][a-zA-Z0-9_\-.:]*)=([a-zA-Z0-9_\-.:/]+)(?=[\s>])/g;
+  let unquotedFound = 0;
+  s = s.replace(unquotedAttrRegex, (_, name, val) => {
+    unquotedFound++;
+    return `${name}="${val}"`;
+  });
+  if (unquotedFound > 0) {
+    repairs.push(`Enclosed ${unquotedFound} unquoted attribute values in double quotes`);
+  }
+
+  const malformedClose = /<\s*([a-zA-Z_][a-zA-Z0-9_\-.:]*)([^>]*?)\s*\/\s*>/g;
+  s = s.replace(malformedClose, '<$1$2 />');
+
+  const tokenRegex = /(<!--[\s\S]*?-->|<!\[CDATA\[[\s\S]*?\]\]>|<\?[\s\S]*?\?>|<!DOCTYPE[\s\S]*?>|<\/[a-zA-Z0-9_\-.:]+\s*>|<[a-zA-Z0-9_\-.:]+(?:\s+[^"'>]*(?:"[^"]*"|'[^']*')?)*\s*\/?>)/g;
+  const stack: string[] = [];
+  let m: RegExpExecArray | null;
+
+  while ((m = tokenRegex.exec(s)) !== null) {
+    const t = m[0];
+    if (t.startsWith('<!--') || t.startsWith('<![CDATA[') || t.startsWith('<?') || t.startsWith('<!DOCTYPE')) continue;
+    if (t.startsWith('</')) {
+      const matchName = t.match(/^<\/\s*([a-zA-Z0-9_\-.:]+)\s*>$/);
+      if (matchName && stack.length > 0 && stack[stack.length - 1] === matchName[1]) {
+        stack.pop();
+      }
+    } else if (t.startsWith('<') && !t.endsWith('/>')) {
+      const firstSpace = t.search(/\s/);
+      const name = firstSpace === -1 ? t.slice(1, -1) : t.slice(1, firstSpace);
+      stack.push(name);
+    }
+  }
+
+  if (stack.length > 0) {
+    const closedTags: string[] = [];
+    while (stack.length > 0) {
+      const tag = stack.pop()!;
+      s += `\n</${tag}>`;
+      closedTags.push(tag);
+    }
+    repairs.push(`Auto-closed unclosed tags: </${closedTags.reverse().join('>, </')}>`);
+  }
+
+  return { repaired: s, repairs };
+}
+
+export function formatXml(
+  xmlStr: string,
+  indent: number | 'min' = 2,
+  options: {
+    wrapAttributes?: boolean;
+    selfCloseEmpty?: boolean;
+  } = {}
+): string {
+  if (!xmlStr || !xmlStr.trim()) return '';
+
+  if (indent === 'min') {
+    return xmlStr
+      .replace(/>[\s\r\n]+</g, '><')
+      .replace(/\s+/g, ' ')
+      .replace(/<\s+/g, '<')
+      .replace(/\s+>/g, '>')
+      .replace(/\s*\/\s*>/g, ' />')
+      .trim();
+  }
+
+  const space = ' '.repeat(typeof indent === 'number' ? indent : 2);
+  const tokenRegex = /(<!--[\s\S]*?-->|<!\[CDATA\[[\s\S]*?\]\]>|<\?[\s\S]*?\?>|<!DOCTYPE[\s\S]*?>|<\/[a-zA-Z0-9_\-.:]+\s*>|<[a-zA-Z0-9_\-.:]+(?:\s+[^"'>]*(?:"[^"]*"|'[^']*')?)*\s*\/?>|[^<]+)/g;
+
+  const rawTokens: string[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = tokenRegex.exec(xmlStr)) !== null) {
+    const tok = match[0].trim();
+    if (tok.length > 0) {
+      rawTokens.push(tok);
+    }
+  }
+
+  const formattedLines: string[] = [];
+  let depth = 0;
+
+  for (let i = 0; i < rawTokens.length; i++) {
+    const token = rawTokens[i];
+
+    if (token.startsWith('<?') || token.startsWith('<!DOCTYPE') || token.startsWith('<!--') || token.startsWith('<![CDATA[')) {
+      formattedLines.push(`${space.repeat(depth)}${token}`);
+      continue;
+    }
+
+    if (token.startsWith('</')) {
+      depth = Math.max(0, depth - 1);
+      formattedLines.push(`${space.repeat(depth)}${token}`);
+      continue;
+    }
+
+    if (token.startsWith('<') && token.endsWith('/>')) {
+      formattedLines.push(`${space.repeat(depth)}${token}`);
+      continue;
+    }
+
+    if (token.startsWith('<')) {
+      const tagNameMatch = token.match(/^<([a-zA-Z0-9_\-.:]+)/);
+      const tagName = tagNameMatch ? tagNameMatch[1] : '';
+
+      if (options.selfCloseEmpty && i + 1 < rawTokens.length && rawTokens[i + 1] === `</${tagName}>`) {
+        const selfClosed = token.slice(0, -1).trim() + ' />';
+        formattedLines.push(`${space.repeat(depth)}${selfClosed}`);
+        i++;
+        continue;
+      }
+
+      if (
+        i + 2 < rawTokens.length &&
+        !rawTokens[i + 1].startsWith('<') &&
+        !rawTokens[i + 1].includes('\n') &&
+        rawTokens[i + 2] === `</${tagName}>`
+      ) {
+        formattedLines.push(`${space.repeat(depth)}${token}${rawTokens[i + 1]}${rawTokens[i + 2]}`);
+        i += 2;
+        continue;
+      }
+
+      formattedLines.push(`${space.repeat(depth)}${token}`);
+      depth++;
+      continue;
+    }
+
+    formattedLines.push(`${space.repeat(depth)}${token}`);
+  }
+
+  return formattedLines.join('\n');
 }
 
 // ==========================================
