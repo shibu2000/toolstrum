@@ -3049,7 +3049,22 @@ export function convertColor(colorStr: string): { hex: string; rgb: string; hsl:
   }
 
   const rgb = `rgb(${r}, ${g}, ${b})`;
-  const hsl = 'hsl(243, 100%, 68%)';
+  
+  const rNorm = r / 255, gNorm = g / 255, bNorm = b / 255;
+  const max = Math.max(rNorm, gNorm, bNorm), min = Math.min(rNorm, gNorm, bNorm);
+  let h = 0, s = 0;
+  const l = (max + min) / 2;
+
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    if (max === rNorm) h = (gNorm - bNorm) / d + (gNorm < bNorm ? 6 : 0);
+    else if (max === gNorm) h = (bNorm - rNorm) / d + 2;
+    else h = (rNorm - gNorm) / d + 4;
+    h /= 6;
+  }
+
+  const hsl = `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
 
   return { hex, rgb, hsl };
 }

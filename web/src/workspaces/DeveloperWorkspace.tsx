@@ -47,6 +47,7 @@ import { HashGeneratorPanel } from './developer/HashGeneratorPanel';
 import { HmacGeneratorPanel } from './developer/HmacGeneratorPanel';
 import { PasswordGeneratorPanel } from './developer/PasswordGeneratorPanel';
 import { BcryptInspectorPanel } from './developer/BcryptInspectorPanel';
+import { ColorConverterPanel } from './developer/ColorConverterPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -74,7 +75,6 @@ import {
   UrlDecoderTool,
 } from './developer/CodecTools';
 import {
-  ColorConverterTool,
   GradientGeneratorTool,
   BoxShadowTool,
   BorderRadiusTool,
@@ -888,7 +888,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* ======================================================== */}
       {/* 280-285: DEDICATED CSS & DESIGN GENERATORS */}
       {/* ======================================================== */}
-      {toolId === 280 && <ColorConverterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 280 && <ColorConverterPanel />}
       {toolId === 281 && <GradientGeneratorTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 282 && <BoxShadowTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 283 && <BorderRadiusTool copied={copied} onCopy={handleCopyText} />}
