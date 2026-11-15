@@ -27,6 +27,7 @@ import { YamlValidatorPanel } from './developer/YamlValidatorPanel';
 import { YamlJsonConverterPanel } from './developer/YamlJsonConverterPanel';
 import { XmlValidatorFormatterPanel } from './developer/XmlValidatorFormatterPanel';
 import { HtmlFormatterPanel } from './developer/HtmlFormatterPanel';
+import { HtmlMinifierPanel } from './developer/HtmlMinifierPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -840,7 +841,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 254 && <YamlJsonConverterPanel initialDirection="json-to-yaml" />}
       {toolId === 255 && <XmlValidatorFormatterPanel />}
       {toolId === 256 && <HtmlFormatterPanel />}
-      {toolId === 257 && <HtmlMinifierTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 257 && <HtmlMinifierPanel />}
       {toolId === 258 && <CssFormatterTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 259 && <CssMinifierTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 260 && <JsFormatterTool copied={copied} onCopy={handleCopyText} />}

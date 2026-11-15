@@ -1347,12 +1347,75 @@ export function formatHtml(html: string, indent: number | 'tab' | HtmlFormatOpti
   return lines.join('\n');
 }
 
-export function minifyHtml(html: string): string {
-  return html
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/\s+/g, ' ')
-    .replace(/>\s+</g, '><')
-    .trim();
+export interface HtmlMinifyOptions {
+  stripComments?: boolean;
+  collapseWhitespace?: boolean;
+  minifyEmbeddedCss?: boolean;
+  minifyEmbeddedJs?: boolean;
+  removeBooleanAttributes?: boolean;
+  removeEmptyAttributes?: boolean;
+}
+
+export function minifyHtml(html: string, options: HtmlMinifyOptions = {}): string {
+  if (!html || !html.trim()) return '';
+
+  const {
+    stripComments = true,
+    collapseWhitespace = true,
+    minifyEmbeddedCss = true,
+    minifyEmbeddedJs = true,
+    removeBooleanAttributes = true,
+    removeEmptyAttributes = false,
+  } = options;
+
+  let s = html;
+
+  if (minifyEmbeddedCss) {
+    s = s.replace(/<style([^>]*)>([\s\S]*?)<\/style>/gi, (_, attrs, css) => {
+      let minCss = css
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/\s*([{}:;,])\s*/g, '$1')
+        .replace(/;}/g, '}')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+      return `<style${attrs}>${minCss}</style>`;
+    });
+  }
+
+  if (minifyEmbeddedJs) {
+    s = s.replace(/<script([^>]*)>([\s\S]*?)<\/script>/gi, (_, attrs, js) => {
+      let minJs = js
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/(^|[^:])\/\/[^\r\n]*/g, '$1')
+        .replace(/^\s+|\s+$/gm, '')
+        .replace(/\n{2,}/g, '\n')
+        .trim();
+      return `<script${attrs}>${minJs}</script>`;
+    });
+  }
+
+  if (stripComments) {
+    s = s.replace(/<!--(?!\s*\[if)[\s\S]*?-->/gi, '');
+  }
+
+  if (removeBooleanAttributes) {
+    s = s.replace(/\s+(disabled|checked|readonly|required|autofocus|multiple|selected)=["']\1["']/gi, ' $1');
+  }
+
+  if (removeEmptyAttributes) {
+    s = s.replace(/\s+(class|id|style)=["']\s*["']/gi, '');
+  }
+
+  if (collapseWhitespace) {
+    s = s
+      .replace(/>[\s\r\n]+</g, '><')
+      .replace(/\s{2,}/g, ' ')
+      .replace(/\s+>/g, '>')
+      .replace(/<\s+/g, '<')
+      .trim();
+  }
+
+  return s;
 }
 
 export function formatCss(css: string): string {

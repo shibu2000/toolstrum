@@ -64,6 +64,8 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
   const [sqlTable, setSqlTable] = useState<string>('');
   const [indentSize, setIndentSize] = useState<2 | 4 | 'tab'>(2);
   const [wrapAttributes, setWrapAttributes] = useState<boolean>(false);
+  const [stripComments, setStripComments] = useState<boolean>(true);
+  const [minifyEmbedded, setMinifyEmbedded] = useState<boolean>(true);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -97,7 +99,11 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
         case 256:
           return formatHtml(codeHtml, { indent: indentSize, wrapAttributes });
         case 257:
-          return minifyHtml(codeHtml);
+          return minifyHtml(codeHtml, {
+            stripComments,
+            minifyEmbeddedCss: minifyEmbedded,
+            minifyEmbeddedJs: minifyEmbedded,
+          });
         case 258:
           return formatCss(codeCss);
         case 259:
@@ -124,7 +130,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     } catch (err: any) {
       return `Processing error: ${err?.message || 'Unable to parse code syntax'}`;
     }
-  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes]);
+  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -136,12 +142,28 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     });
   };
 
-  const statItems: DevStatItem[] = [
-    { label: 'Input Length', value: currentInput.length },
-    { label: 'Output Length', value: formattedOutput.length },
-    { label: 'Input Lines', value: currentInput.split('\n').length },
-    { label: 'Output Lines', value: formattedOutput.split('\n').length },
-  ];
+  const statItems: DevStatItem[] = useMemo(() => {
+    const rawLen = currentInput.length;
+    const outLen = formattedOutput.length;
+    const saved = Math.max(0, rawLen - outLen);
+    const pct = rawLen > 0 ? Math.round((saved / rawLen) * 100) : 0;
+
+    if (activeToolId === 257 || activeToolId === 259 || activeToolId === 261 || activeToolId === 263) {
+      return [
+        { label: 'Original', value: `${rawLen} B` },
+        { label: 'Minified', value: `${outLen} B` },
+        { label: 'Savings', value: `-${saved} B (${pct}%)` },
+        { label: 'Est. Gzip', value: `~${Math.round(outLen * 0.38)} B` },
+      ];
+    }
+
+    return [
+      { label: 'Input Length', value: rawLen },
+      { label: 'Output Length', value: outLen },
+      { label: 'Input Lines', value: currentInput.split('\n').length },
+      { label: 'Output Lines', value: formattedOutput.split('\n').length },
+    ];
+  }, [activeToolId, currentInput, formattedOutput]);
 
   const toolsInWorkspace = [
     { id: 262, name: 'SQL Format' },
@@ -241,6 +263,30 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             >
               <Text style={[styles.smallPillText, wrapAttributes && styles.smallPillTextActive]}>
                 Wrap Attrs
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* HTML Minifier Subbar (Tool 257) */}
+        {activeToolId === 257 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Options:</Text>
+            <TouchableOpacity
+              style={[styles.smallPill, stripComments && styles.smallPillActive]}
+              onPress={() => setStripComments(!stripComments)}
+            >
+              <Text style={[styles.smallPillText, stripComments && styles.smallPillTextActive]}>
+                Strip Comments
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, minifyEmbedded && styles.smallPillActive]}
+              onPress={() => setMinifyEmbedded(!minifyEmbedded)}
+            >
+              <Text style={[styles.smallPillText, minifyEmbedded && styles.smallPillTextActive]}>
+                Minify CSS/JS
               </Text>
             </TouchableOpacity>
           </View>
