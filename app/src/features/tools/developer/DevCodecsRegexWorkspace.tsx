@@ -87,8 +87,15 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
           return out;
         }
         return 'No regex matches found in test corpus.';
-      case 266:
-        return explainRegex(regexPattern).map((exp, i) => `${i + 1}. ${exp}`).join('\n');
+      case 266: {
+        const tokens = explainRegex(regexPattern);
+        if (tokens.length === 0) return 'No pattern provided to explain.';
+        let res = `=== REGEX PATTERN EXPLANATION (${tokens.length} TOKENS) ===\n\n`;
+        res += tokens
+          .map((t, i) => `${i + 1}. [${t.category.toUpperCase()}] "${t.token}"\n   ${t.meaning}`)
+          .join('\n\n');
+        return res;
+      }
       case 267:
         return encodeBase64(inputText);
       case 268:

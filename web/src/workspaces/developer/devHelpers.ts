@@ -1840,76 +1840,150 @@ export function testRegex(
 export interface RegexTokenExplanation {
   token: string;
   meaning: string;
-  category: 'anchor' | 'character' | 'quantifier' | 'group' | 'logic';
+  category: 'anchor' | 'character' | 'quantifier' | 'group' | 'logic' | 'lookaround';
+  depth?: number;
+  toString?: () => string;
 }
 
 export function explainRegex(pattern: string): RegexTokenExplanation[] {
   const tokens: RegexTokenExplanation[] = [];
   let i = 0;
+  let groupCounter = 1;
+  let currentDepth = 0;
+
+  const add = (
+    token: string,
+    meaning: string,
+    category: 'anchor' | 'character' | 'quantifier' | 'group' | 'logic' | 'lookaround'
+  ) => {
+    tokens.push({
+      token,
+      meaning,
+      category,
+      depth: currentDepth,
+      toString() {
+        return `"${this.token}" -> ${this.meaning} (${this.category})`;
+      },
+    });
+  };
 
   while (i < pattern.length) {
     const char = pattern[i];
 
     if (char === '^') {
-      tokens.push({ token: '^', meaning: 'Asserts the start of the string or line.', category: 'anchor' });
+      add('^', 'Asserts position at the beginning of the string or line.', 'anchor');
       i++;
     } else if (char === '$') {
-      tokens.push({ token: '$', meaning: 'Asserts the end of the string or line.', category: 'anchor' });
+      add('$', 'Asserts position at the end of the string or line.', 'anchor');
       i++;
     } else if (char === '\\') {
       const next = pattern[i + 1] || '';
-      if (next === 'd') tokens.push({ token: '\\d', meaning: 'Matches any digit (equivalent to [0-9]).', category: 'character' });
-      else if (next === 'D') tokens.push({ token: '\\D', meaning: 'Matches any non-digit character.', category: 'character' });
-      else if (next === 'w') tokens.push({ token: '\\w', meaning: 'Matches any word character (letters, digits, underscore).', category: 'character' });
-      else if (next === 'W') tokens.push({ token: '\\W', meaning: 'Matches any non-word character.', category: 'character' });
-      else if (next === 's') tokens.push({ token: '\\s', meaning: 'Matches any whitespace character (space, tab, newline).', category: 'character' });
-      else if (next === 'S') tokens.push({ token: '\\S', meaning: 'Matches any non-whitespace character.', category: 'character' });
-      else if (next === 'b') tokens.push({ token: '\\b', meaning: 'Asserts a word boundary.', category: 'anchor' });
-      else tokens.push({ token: `\\${next}`, meaning: `Escaped literal character "${next}".`, category: 'character' });
+      if (next === 'd') add('\\d', 'Matches any ASCII digit [0-9].', 'character');
+      else if (next === 'D') add('\\D', 'Matches any non-digit character [^0-9].', 'character');
+      else if (next === 'w') add('\\w', 'Matches any word character (letter, number, underscore) [A-Za-z0-9_].', 'character');
+      else if (next === 'W') add('\\W', 'Matches any non-word character [^A-Za-z0-9_].', 'character');
+      else if (next === 's') add('\\s', 'Matches any whitespace character (space, tab, newline).', 'character');
+      else if (next === 'S') add('\\S', 'Matches any non-whitespace character.', 'character');
+      else if (next === 'b') add('\\b', 'Asserts position at a word boundary (between \\w and \\W).', 'anchor');
+      else if (next === 'B') add('\\B', 'Asserts position not at a word boundary.', 'anchor');
+      else add(`\\${next}`, `Matches literal escaped character "${next}".`, 'character');
       i += 2;
     } else if (char === '[') {
-      const end = pattern.indexOf(']', i);
-      if (end !== -1) {
+      let end = i + 1;
+      while (end < pattern.length && pattern[end] !== ']') {
+        if (pattern[end] === '\\') end++;
+        end++;
+      }
+      if (end < pattern.length) {
         const cls = pattern.slice(i, end + 1);
-        tokens.push({ token: cls, meaning: `Character class matching any character in ${cls}.`, category: 'character' });
+        const isNegated = cls.startsWith('[^');
+        add(
+          cls,
+          isNegated
+            ? `Negated character class: matches any character NOT in ${cls.slice(2, -1)}.`
+            : `Character class: matches any single character contained in ${cls.slice(1, -1)}.`,
+          'character'
+        );
         i = end + 1;
       } else {
-        tokens.push({ token: '[', meaning: 'Unclosed character class bracket.', category: 'character' });
+        add('[', 'Unclosed character class opening bracket.', 'character');
         i++;
       }
-    } else if (char === '+' || char === '*' || char === '?') {
-      const desc = char === '+' ? 'Matches 1 or more times.' : char === '*' ? 'Matches 0 or more times.' : 'Matches 0 or 1 time (optional).';
-      tokens.push({ token: char, meaning: desc, category: 'quantifier' });
+    } else if (char === '(') {
+      currentDepth++;
+      if (pattern.startsWith('(?=', i)) {
+        add('(?=...)', 'Positive Lookahead: asserts that enclosed regex matches ahead without consuming characters.', 'lookaround');
+        i += 3;
+      } else if (pattern.startsWith('(?!', i)) {
+        add('(?!...)', 'Negative Lookahead: asserts that enclosed regex DOES NOT match ahead.', 'lookaround');
+        i += 3;
+      } else if (pattern.startsWith('(?<=', i)) {
+        add('(?<=...)', 'Positive Lookbehind: asserts that enclosed regex matches immediately preceding without consuming.', 'lookaround');
+        i += 4;
+      } else if (pattern.startsWith('(?<!', i)) {
+        add('(?<!...)', 'Negative Lookbehind: asserts that enclosed regex DOES NOT match immediately preceding.', 'lookaround');
+        i += 4;
+      } else if (pattern.startsWith('(?:', i)) {
+        add('(?:...)', 'Non-capturing group: groups tokens together without generating a numbered backreference.', 'group');
+        i += 3;
+      } else if (pattern.startsWith('(?<', i)) {
+        const nameEnd = pattern.indexOf('>', i);
+        if (nameEnd !== -1) {
+          const groupName = pattern.slice(i + 3, nameEnd);
+          add(`(?<${groupName}>...)`, `Named capturing group "${groupName}".`, 'group');
+          i = nameEnd + 1;
+        } else {
+          add('(', `Capturing Group #${groupCounter++}.`, 'group');
+          i++;
+        }
+      } else {
+        add('(', `Capturing Group #${groupCounter++}.`, 'group');
+        i++;
+      }
+    } else if (char === ')') {
+      add(')', 'Closes active group scope.', 'group');
+      if (currentDepth > 0) currentDepth--;
       i++;
+    } else if (char === '+' || char === '*' || char === '?') {
+      const isLazy = pattern[i + 1] === '?';
+      const quant = isLazy ? char + '?' : char;
+      const desc =
+        char === '+'
+          ? 'Matches 1 or more times'
+          : char === '*'
+          ? 'Matches 0 or more times'
+          : 'Matches 0 or 1 time (optional)';
+      add(quant, `${desc}${isLazy ? ' (lazy / ungreedy).' : ' (greedy).'}`, 'quantifier');
+      i += isLazy ? 2 : 1;
     } else if (char === '{') {
       const end = pattern.indexOf('}', i);
       if (end !== -1) {
         const q = pattern.slice(i, end + 1);
-        tokens.push({ token: q, meaning: `Quantifier matching ${q.slice(1, -1)} occurrences.`, category: 'quantifier' });
-        i = end + 1;
+        const inner = q.slice(1, -1);
+        const isLazy = pattern[end + 1] === '?';
+        const fullToken = isLazy ? q + '?' : q;
+        add(
+          fullToken,
+          `Interval quantifier: matches ${inner} occurrences${isLazy ? ' (lazy).' : ' (greedy).'}`,
+          'quantifier'
+        );
+        i = end + (isLazy ? 2 : 1);
       } else {
-        tokens.push({ token: '{', meaning: 'Literal bracket', category: 'character' });
+        add('{', 'Literal bracket "{".', 'character');
         i++;
       }
-    } else if (char === '(') {
-      if (pattern.startsWith('(?:', i)) {
-        tokens.push({ token: '(?:...)', meaning: 'Non-capturing group.', category: 'group' });
-        i += 3;
-      } else {
-        tokens.push({ token: '(', meaning: 'Starts a capturing group.', category: 'group' });
-        i++;
-      }
-    } else if (char === ')') {
-      tokens.push({ token: ')', meaning: 'Ends a capturing group.', category: 'group' });
-      i++;
     } else if (char === '|') {
-      tokens.push({ token: '|', meaning: 'Alternation (Boolean OR condition).', category: 'logic' });
+      add('|', 'Alternation: Acts like a boolean OR. Matches expression before OR after.', 'logic');
       i++;
     } else if (char === '.') {
-      tokens.push({ token: '.', meaning: 'Wildcard: matches any single character except newline.', category: 'character' });
+      add(
+        '.',
+        'Wildcard: matches any single character except line terminators (unless dotAll "s" flag is set).',
+        'character'
+      );
       i++;
     } else {
-      tokens.push({ token: char, meaning: `Literal character "${char}".`, category: 'character' });
+      add(char, `Literal character "${char}".`, 'character');
       i++;
     }
   }
