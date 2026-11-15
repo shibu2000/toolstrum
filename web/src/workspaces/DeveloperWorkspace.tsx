@@ -58,6 +58,8 @@ import { CrontabHelperPanel } from './developer/CrontabHelperPanel';
 import { DiffPatchPanel } from './developer/DiffPatchPanel';
 import { UrlParserPanel } from './developer/UrlParserPanel';
 import { UserAgentParserPanel } from './developer/UserAgentParserPanel';
+import { HttpStatusCodePanel } from './developer/HttpStatusCodePanel';
+import { MimeTypePanel } from './developer/MimeTypePanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -191,66 +193,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
     }
   };
 
-  // ==========================================
-  // 7. HTTP CODES REFERENCE
-  // ==========================================
-  const [httpSearch, setHttpSearch] = useState('');
 
-  const httpCodes = [
-    { code: 200, name: 'OK', desc: 'Standard successful HTTP request.' },
-    { code: 201, name: 'Created', desc: 'Resource created successfully.' },
-    { code: 204, name: 'No Content', desc: 'Success, no body returned.' },
-    { code: 301, name: 'Moved Permanently', desc: 'URL redirected permanently.' },
-    { code: 304, name: 'Not Modified', desc: 'Cached resource is still valid.' },
-    { code: 400, name: 'Bad Request', desc: 'Malformed client request syntax.' },
-    { code: 401, name: 'Unauthorized', desc: 'Authentication required.' },
-    { code: 403, name: 'Forbidden', desc: 'Server refuses to authorize request.' },
-    { code: 404, name: 'Not Found', desc: 'Requested resource not found.' },
-    { code: 429, name: 'Too Many Requests', desc: 'Rate limit exceeded.' },
-    { code: 500, name: 'Internal Server Error', desc: 'Generic server error condition.' },
-    { code: 502, name: 'Bad Gateway', desc: 'Invalid response from upstream server.' },
-    { code: 503, name: 'Service Unavailable', desc: 'Server is temporarily overloaded.' },
-  ];
-
-  const filteredHttpCodes = httpCodes.filter(
-    (c) =>
-      String(c.code).includes(httpSearch) ||
-      c.name.toLowerCase().includes(httpSearch.toLowerCase()) ||
-      c.desc.toLowerCase().includes(httpSearch.toLowerCase())
-  );
-
-  // ==========================================
-  // 12. MIME TYPE REFERENCE
-  // ==========================================
-  const [mimeSearch, setMimeSearch] = useState('');
-  const mimeTypes = [
-    { ext: '.html', mime: 'text/html' },
-    { ext: '.css', mime: 'text/css' },
-    { ext: '.js', mime: 'text/javascript' },
-    { ext: '.json', mime: 'application/json' },
-    { ext: '.xml', mime: 'application/xml' },
-    { ext: '.pdf', mime: 'application/pdf' },
-    { ext: '.zip', mime: 'application/zip' },
-    { ext: '.png', mime: 'image/png' },
-    { ext: '.jpg / .jpeg', mime: 'image/jpeg' },
-    { ext: '.gif', mime: 'image/gif' },
-    { ext: '.svg', mime: 'image/svg+xml' },
-    { ext: '.webp', mime: 'image/webp' },
-    { ext: '.mp3', mime: 'audio/mpeg' },
-    { ext: '.wav', mime: 'audio/wav' },
-    { ext: '.mp4', mime: 'video/mp4' },
-    { ext: '.webm', mime: 'video/webm' },
-    { ext: '.txt', mime: 'text/plain' },
-    { ext: '.csv', mime: 'text/csv' },
-    { ext: '.doc / .docx', mime: 'application/msword / application/vnd.openxmlformats-officedocument.wordprocessingml.document' },
-    { ext: '.xls / .xlsx', mime: 'application/vnd.ms-excel / application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
-    { ext: '.ttf', mime: 'font/ttf' },
-    { ext: '.woff / .woff2', mime: 'font/woff / font/woff2' },
-    { ext: '.wasm', mime: 'application/wasm' },
-  ];
-  const filteredMimeTypes = mimeTypes.filter(
-    (m) => m.ext.toLowerCase().includes(mimeSearch.toLowerCase()) || m.mime.toLowerCase().includes(mimeSearch.toLowerCase())
-  );
 
   // ==========================================
   // 13. MARKDOWN CODE FORMATTER
@@ -715,58 +658,11 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 289 && <UrlParserPanel />}
       {toolId === 290 && <UserAgentParserPanel />}
 
-      {/* 291 — HTTP STATUS CODE REFERENCE */}
-      {toolId === 291 && (
-        <div className="grid grid-cols-1 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              HTTP Status Code Reference
-            </h3>
-            <input
-              type="text"
-              placeholder="Search code or description (e.g. 404, Unauthorized)..."
-              value={httpSearch}
-              onChange={(e) => setHttpSearch(e.target.value)}
-              className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs"
-            />
-            <div className="space-y-2 max-h-[400px] overflow-y-auto">
-              {filteredHttpCodes.map((item) => (
-                <div key={item.code} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs flex items-center justify-between">
-                  <div>
-                    <span className="font-mono font-bold text-sky-600 dark:text-sky-400 mr-2">{item.code}</span>
-                    <span className="font-semibold text-slate-900 dark:text-white">{item.name}</span>
-                    <p className="text-[11px] text-slate-500 mt-0.5">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 292 — MIME TYPE REFERENCE */}
-      {toolId === 292 && (
-        <div className="grid grid-cols-1 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">MIME Type Reference</h3>
-            <input
-              type="text"
-              placeholder="Search by extension or MIME type..."
-              value={mimeSearch}
-              onChange={(e) => setMimeSearch(e.target.value)}
-              className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs"
-            />
-            <div className="space-y-2 max-h-[400px] overflow-y-auto">
-              {filteredMimeTypes.map((item) => (
-                <div key={item.ext} className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 text-xs flex items-center justify-between gap-3">
-                  <span className="font-mono font-bold text-sky-600 dark:text-sky-400 shrink-0">{item.ext}</span>
-                  <span className="font-mono text-slate-700 dark:text-slate-300 text-right">{item.mime}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* ======================================================== */}
+      {/* 291-292: DEDICATED HTTP & MIME TYPE DIRECTORIES */}
+      {/* ======================================================== */}
+      {toolId === 291 && <HttpStatusCodePanel />}
+      {toolId === 292 && <MimeTypePanel />}
 
       {/* 293 — MARKDOWN CODE FORMATTER */}
       {toolId === 293 && (
