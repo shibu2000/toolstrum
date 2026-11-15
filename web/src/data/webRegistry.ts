@@ -4203,6 +4203,115 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 205,
+    "name": "Word Counter",
+    "studioId": "text",
+    "description": "Calculates real-time word count, character metrics, reading and speaking durations.",
+    "keywords": [
+      "word counter",
+      "text & writing",
+      "text",
+      "word",
+      "counter",
+      "characters"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": true
+  },
+  {
+    "id": 206,
+    "name": "Character Counter",
+    "studioId": "text",
+    "description": "Counts characters with and without whitespace, UTF-8/UTF-16 byte lengths, and social limits.",
+    "keywords": [
+      "character counter",
+      "text & writing",
+      "text",
+      "character",
+      "counter",
+      "bytes"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 207,
+    "name": "Sentence Counter",
+    "studioId": "text",
+    "description": "Analyzes sentence boundaries, average sentence length, and pacing metrics.",
+    "keywords": [
+      "sentence counter",
+      "text & writing",
+      "text",
+      "sentence",
+      "counter"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 208,
+    "name": "Paragraph Counter",
+    "studioId": "text",
+    "description": "Counts paragraphs, headings, hard line breaks, and block structure.",
+    "keywords": [
+      "paragraph counter",
+      "text & writing",
+      "text",
+      "paragraph",
+      "counter"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 209,
+    "name": "Reading Time Calculator",
+    "studioId": "text",
+    "description": "Estimates silent reading, presentation speaking, and slow reading durations.",
+    "keywords": [
+      "reading time calculator",
+      "text & writing",
+      "text",
+      "reading",
+      "time",
+      "speaking",
+      "calculator"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 210,
     "name": "Case Converter",
     "studioId": "text",
@@ -4723,6 +4832,72 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 235,
+    "name": "Grammar Assistant",
+    "studioId": "text",
+    "description": "Rule-based stylistic checks for passive voice, wordy phrases, and repeated words.",
+    "keywords": [
+      "grammar assistant",
+      "text & writing",
+      "text",
+      "grammar",
+      "assistant",
+      "passive voice"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 236,
+    "name": "Spell Checker",
+    "studioId": "text",
+    "description": "Offline spell checker and typo detector with Levenshtein-based suggestion matrix.",
+    "keywords": [
+      "spell checker",
+      "text & writing",
+      "text",
+      "spell",
+      "checker",
+      "typos"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 237,
+    "name": "Readability Analyzer",
+    "studioId": "text",
+    "description": "Calculates Flesch-Kincaid, Gunning Fog, Coleman-Liau, SMOG, and ARI reading grades.",
+    "keywords": [
+      "readability analyzer",
+      "text & writing",
+      "text",
+      "readability",
+      "analyzer",
+      "flesch"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 238,
     "name": "Markdown Editor",
     "studioId": "text",
@@ -4798,6 +4973,29 @@ export const WEB_TOOLS: ToolDefinition[] = [
       "text",
       "resume",
       "formatter"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Type",
+    "inputKind": "text",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 242,
+    "name": "Email Draft Assistant",
+    "studioId": "text",
+    "description": "Compose structured business, professional, support, or follow-up email drafts offline.",
+    "keywords": [
+      "email draft assistant",
+      "text & writing",
+      "text",
+      "email",
+      "draft",
+      "assistant",
+      "templates"
     ],
     "status": "available",
     "offlineCapable": true,
