@@ -9093,6 +9093,115 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 433,
+    "name": "Unit Conversion Reference",
+    "studioId": "productivity",
+    "description": "Comprehensive instant reference and conversion cards for length, mass, temperature, speed, area, and digital units.",
+    "keywords": [
+      "unit conversion reference",
+      "productivity & education",
+      "productivity",
+      "unit",
+      "conversion",
+      "reference"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 434,
+    "name": "Dictionary",
+    "studioId": "productivity",
+    "description": "Offline English dictionary with definitions, phonetics, parts of speech, and usage examples.",
+    "keywords": [
+      "dictionary",
+      "productivity & education",
+      "productivity",
+      "vocab",
+      "lexicon"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 435,
+    "name": "Synonym Finder",
+    "studioId": "productivity",
+    "description": "Thesaurus utility to find matching synonyms and nuanced vocabulary for any word.",
+    "keywords": [
+      "synonym finder",
+      "productivity & education",
+      "productivity",
+      "synonym",
+      "finder",
+      "thesaurus"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 436,
+    "name": "Antonym Finder",
+    "studioId": "productivity",
+    "description": "Thesaurus explorer to discover direct antonyms, polar opposites, and contrasting terms.",
+    "keywords": [
+      "antonym finder",
+      "productivity & education",
+      "productivity",
+      "antonym",
+      "finder",
+      "opposites"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 437,
+    "name": "Word Pronunciation",
+    "studioId": "productivity",
+    "description": "Speaks words aloud with customizable pitch, speed, and accent using offline SpeechSynthesis.",
+    "keywords": [
+      "word pronunciation",
+      "productivity & education",
+      "productivity",
+      "word",
+      "pronunciation",
+      "speech"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 438,
     "name": "Text Reader",
     "studioId": "productivity",
@@ -9103,6 +9212,51 @@ export const WEB_TOOLS: ToolDefinition[] = [
       "productivity",
       "text",
       "reader"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 439,
+    "name": "QR Contact Card",
+    "studioId": "productivity",
+    "description": "Generates a scannable vCard 3.0 QR code with contact details and downloadable .vcf file.",
+    "keywords": [
+      "qr contact card",
+      "productivity & education",
+      "productivity",
+      "contact",
+      "card",
+      "vcard"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 440,
+    "name": "Barcode Inventory List",
+    "studioId": "productivity",
+    "description": "Client-side stock and inventory tracker with automatic Code-128 barcode generation and printable labels.",
+    "keywords": [
+      "barcode inventory list",
+      "productivity & education",
+      "productivity",
+      "barcode",
+      "inventory",
+      "list",
+      "stock"
     ],
     "status": "available",
     "offlineCapable": true,
@@ -9157,6 +9311,28 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 443,
+    "name": "World Holiday Calendar",
+    "studioId": "productivity",
+    "description": "Explores national, cultural, and public bank holidays across major countries with .ics calendar export.",
+    "keywords": [
+      "world holiday calendar",
+      "productivity & education",
+      "productivity",
+      "world",
+      "holiday",
+      "calendar"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 444,
     "name": "Calendar Event Calculator",
     "studioId": "productivity",
@@ -9168,6 +9344,28 @@ export const WEB_TOOLS: ToolDefinition[] = [
       "calendar",
       "event",
       "calculator"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 445,
+    "name": "Focus Timer",
+    "studioId": "productivity",
+    "description": "Deep work timer with ambient binaural sound generators, distraction tracking, and session goal metrics.",
+    "keywords": [
+      "focus timer",
+      "productivity & education",
+      "productivity",
+      "focus",
+      "timer",
+      "deep work"
     ],
     "status": "available",
     "offlineCapable": true,
@@ -9198,6 +9396,30 @@ export const WEB_TOOLS: ToolDefinition[] = [
       "output"
     ],
     "isPopular": true
+  },
+  {
+    "id": 447,
+    "name": "Random Decision Picker",
+    "studioId": "productivity",
+    "description": "Random decision generator with coin flips, dice roll, custom weighted choices, and celebration chimes.",
+    "keywords": [
+      "random decision picker",
+      "productivity & education",
+      "productivity",
+      "random",
+      "decision",
+      "picker",
+      "coin flip",
+      "dice"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "CheckSquare",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
   },
   {
     "id": 448,
