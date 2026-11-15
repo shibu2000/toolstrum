@@ -9761,6 +9761,29 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 464,
+    "name": "Screen Resolution Viewer",
+    "studioId": "accessibility",
+    "description": "Live monitor for screen resolution, viewport bounds, device pixel ratio, color depth, and orientation.",
+    "keywords": [
+      "screen resolution viewer",
+      "accessibility & device",
+      "accessibility",
+      "screen",
+      "resolution",
+      "viewer",
+      "dpi"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Smartphone",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 465,
     "name": "Device Information",
     "studioId": "accessibility",
@@ -9771,6 +9794,94 @@ export const WEB_TOOLS: ToolDefinition[] = [
       "accessibility",
       "device",
       "information"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Smartphone",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 466,
+    "name": "Battery Information",
+    "studioId": "accessibility",
+    "description": "Monitors battery percentage, charging state, and discharge estimates using the Battery Status API.",
+    "keywords": [
+      "battery information",
+      "accessibility & device",
+      "accessibility",
+      "battery",
+      "power",
+      "charging"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Smartphone",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 467,
+    "name": "Storage Information",
+    "studioId": "accessibility",
+    "description": "Inspects local persistent storage quota, allocated disk consumption, and eviction safety.",
+    "keywords": [
+      "storage information",
+      "accessibility & device",
+      "accessibility",
+      "storage",
+      "disk",
+      "quota"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Smartphone",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 468,
+    "name": "App Permission Guide",
+    "studioId": "accessibility",
+    "description": "Interactive privacy guide to check and manage browser camera, microphone, clipboard, and sensor permissions.",
+    "keywords": [
+      "app permission guide",
+      "accessibility & device",
+      "accessibility",
+      "permissions",
+      "privacy",
+      "sensors"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Smartphone",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 469,
+    "name": "Offline Reference Library",
+    "studioId": "accessibility",
+    "description": "Instant offline survival reference for emergency contacts, first aid protocols, and accessibility hotkeys.",
+    "keywords": [
+      "offline reference library",
+      "accessibility & device",
+      "accessibility",
+      "emergency",
+      "first aid",
+      "reference"
     ],
     "status": "available",
     "offlineCapable": true,
