@@ -1,12 +1,28 @@
-# Toolstrum 🛠️
-### The Ultimate All-in-One Offline Utility Suite
-**500+ High-Performance Professional Tools • 100% Offline • Zero Server Uploads • Zero Telemetry**
+<div align="center">
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Platform](https://img.shields.io/badge/Platform-Web%20%7C%20Android%20%7C%20iOS-brightgreen.svg)]()
-[![Privacy](https://img.shields.io/badge/Privacy-100%25%20Client--Side-purple.svg)]()
-[![Offline](https://img.shields.io/badge/Offline-Zero%20Network%20Required-success.svg)]()
-[![Architecture](https://img.shields.io/badge/Architecture-WebAssembly%20%2B%20Hermes-orange.svg)]()
+  <img src="assets/logo.png" alt="Toolstrum Logo" width="120" height="120" style="border-radius: 26px; box-shadow: 0 10px 25px rgba(0,0,0,0.3);" />
+
+  # Toolstrum
+
+  <p><strong>The Ultimate Privacy-First, All-in-One Offline Utility Suite</strong></p>
+  <p>400+ High-Performance Tools • 16 Dedicated Studios • 100% Offline • Zero Server Uploads • Zero Telemetry</p>
+
+  <p>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License: MIT" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/Platform-Web%20%7C%20Android%20%7C%20iOS-brightgreen.svg?style=flat-square" alt="Platform" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/Privacy-100%25%20Client--Side-purple.svg?style=flat-square" alt="Privacy" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/Offline-Zero%20Network%20Required-success.svg?style=flat-square" alt="Offline" /></a>
+    <a href="#"><img src="https://img.shields.io/badge/Architecture-WebAssembly%20%2B%20Hermes-orange.svg?style=flat-square" alt="Architecture" /></a>
+  </p>
+
+  <p>
+    <a href="#-downloads--device-compatibility-matrix"><strong>📲 Download APK / IPA</strong></a> •
+    <a href="#-the-16-dedicated-offline-studios-448-tools"><strong>🎛️ Explore 16 Studios</strong></a> •
+    <a href="#-installation--sideloading-guide"><strong>📥 Sideloading Guide</strong></a> •
+    <a href="#-automated-cicd-github-actions"><strong>🚀 CI/CD Pipeline</strong></a>
+  </p>
+
+</div>
 
 ---
 
@@ -28,9 +44,9 @@ Toolstrum is available across mobile and desktop platforms. Use the matrix below
 | **`toolstrum-universal-release.apk`** | **Android**<br>Universal (Fat Binary) | ~48 MB | **Universal Fallback.**<br>Contains native binaries for all CPU architectures (`arm64-v8a`, `armeabi-v7a`, `x86_64`). Choose this if you are uncertain of your device processor, or installing on obscure tablets, rugged devices, or custom Android ROMs. Works on **any Android device running Android 8.0 (Oreo) or newer**. | [Download Universal APK](https://github.com/shibu2000/toolstrum/releases/latest/download/toolstrum-universal-release.apk) |
 | **`toolstrum-armeabi-v7a-release.apk`** | **Android**<br>`armeabi-v7a` (32-bit) | ~22 MB | **Legacy & Budget Devices.**<br>Older Android phones, budget Android Go devices, older Kindle Fire tablets, and 32-bit ARM processors. | [Download armeabi APK](https://github.com/shibu2000/toolstrum/releases/latest/download/toolstrum-armeabi-v7a-release.apk) |
 | **`toolstrum-x86_64-release.apk`** | **Android**<br>`x86_64` (64-bit Intel/AMD) | ~16 MB | **Emulators & Chromebooks.**<br>Designed for ChromeOS devices running Android apps, Windows 11 Windows Subsystem for Android (WSA), and PC Android emulators (**BlueStacks**, **LDPlayer**, **Android Studio Virtual Devices**). | [Download x86_64 APK](https://github.com/shibu2000/toolstrum/releases/latest/download/toolstrum-x86_64-release.apk) |
-| **`toolstrum-ios-unsigned.ipa`** | **iOS / iPadOS**<br>`arm64` Native Device | ~40 MB | **Physical iPhone & iPad Sideloading.**<br>Compatible with **iOS 16.4 through iOS 18+** on iPhone 8 through iPhone 16 Pro Max, iPad Air, iPad Pro, and iPad mini. Can be installed directly without jailbreak via **AltStore**, **Sideloadly**, **TrollStore**, **Scarlet**, or personal Apple Developer accounts. | [Download iOS IPA](https://github.com/shibu2000/toolstrum/releases/latest/download/toolstrum-ios-unsigned.ipa) |
+| **`toolstrum-ios-unsigned.ipa`** | **iOS / iPadOS**<br>`arm64` Native Device | ~17 MB | **Physical iPhone & iPad Sideloading.**<br>Compatible with **iOS 16.4 through iOS 18+** on iPhone 8 through iPhone 16 Pro Max, iPad Air, iPad Pro, and iPad mini. Can be installed directly without jailbreak via **AltStore**, **Sideloadly**, **TrollStore**, **Scarlet**, or personal Apple Developer accounts. | [Download iOS IPA](https://github.com/shibu2000/toolstrum/releases/latest/download/toolstrum-ios-unsigned.ipa) |
 | **`toolstrum-ios-simulator.zip`** | **macOS Simulator**<br>`x86_64` / `arm64` | ~32 MB | **iOS Developers & Simulator Testers.**<br>Pre-compiled `.app` bundle for testing inside Apple Xcode Simulator on Apple Silicon (M1/M2/M3/M4) or Intel Mac systems. Drag-and-drop directly into any booted simulator. | [Download Simulator App](https://github.com/shibu2000/toolstrum/releases/latest/download/toolstrum-ios-simulator.zip) |
-| **Progressive Web App (PWA)** | **Web / Desktop / Mobile** | Instant | **Zero Install Web Application.**<br>Accessible directly in any browser (Chrome, Safari, Firefox, Edge, Brave, Arc). Can be installed as a standalone desktop app or mobile home-screen app with 1-click. | [Launch Web App](https://toolstrum.com) |
+| **Progressive Web App (PWA)** | **Web / Desktop / Mobile** | Instant | **Zero Install Web Application.**<br>Accessible directly in any browser (Chrome, Safari, Firefox, Edge, Brave, Arc). Can be installed as a standalone desktop app or mobile home-screen app with 1-click. | [Launch Web App](https://toolstrum.vercel.app) |
 
 ---
 
@@ -86,7 +102,7 @@ If you prefer not to sideload an IPA, open the web version in iOS Safari:
 
 ---
 
-## 🎛️ The 16 Dedicated Offline Studios (500+ Tools)
+## 🎛️ The 16 Dedicated Offline Studios (448 Tools)
 
 Toolstrum organizes its comprehensive capabilities into 16 purpose-built studios:
 
@@ -104,7 +120,7 @@ Toolstrum organizes its comprehensive capabilities into 16 purpose-built studios
 │ 26 Offline Tools  │ 48 Offline Tools  │ 36 Offline Tools  │ 22 Offline Tools│
 ├───────────────────┼───────────────────┼───────────────────┼─────────────────┤
 │ 🌐 Web & Network  │ ⚡ Device & System│ ⏱️ Time & Tasks   │ 🧪 Utilities    │
-│ 20 Offline Tools  │ 16 Offline Tools  │ 20 Offline Tools  │ 20 Offline Tools│
+│ 20 Offline Tools  │ 16 Offline Tools  │ 20 Offline Tools  │ 16 Offline Tools│
 └───────────────────┴───────────────────┴───────────────────┴─────────────────┘
 ```
 
@@ -195,7 +211,7 @@ Toolstrum organizes its comprehensive capabilities into 16 purpose-built studios
 - **World Clock & Timezone Converter**: Visual daylight overlap planner across world cities.
 - **Habit & Streak Tracker**: Offline local-storage powered daily habit tracking.
 
-### 16. 🧪 Utilities & Miscellaneous (Tools #433 – #500+)
+### 16. 🧪 Utilities & Miscellaneous (Tools #433 – #448)
 - **Barcode & QR Studio**: Generate and scan QR codes, UPC, EAN, Code 128, DataMatrix with logo embedding.
 - **Morse Code & Phonetic Alphabet**: Audio playback, translation, and signal training.
 - **Random Generators**: Cryptographically secure random pickers, dice rolls, coin flips, and lottery draws.
@@ -206,7 +222,7 @@ Toolstrum organizes its comprehensive capabilities into 16 purpose-built studios
 
 - **GPU FLIP Sliding Animation Engine**: Built on the First-Last-Invert-Play (FLIP) animation pattern. Reordering multiple images or PDF pages translates smoothly across physical coordinates on both web and native mobile with hardware acceleration.
 - **Adaptive Dark / Light Themes**: Engineered with an OLED True Black (`#0a0d14`) palette, high-contrast typography, and strict WCAG AAA compliance, preventing glare and conserving battery on mobile displays.
-- **Zero-Latency Instant Search**: Instant fuzzy-matching across all 500+ tools with keyboard shortcut `⌘K` / `Ctrl+K`.
+- **Zero-Latency Instant Search**: Instant fuzzy-matching across all tools with keyboard shortcut `⌘K` / `Ctrl+K`.
 
 ---
 
