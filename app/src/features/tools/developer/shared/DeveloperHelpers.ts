@@ -734,10 +734,81 @@ export function yamlToJson(yamlStr: string): string {
   return JSON.stringify(result, null, 2);
 }
 
-export function validateYaml(yamlStr: string): { valid: boolean; error?: string } {
+export function validateYaml(yamlStr: string): {
+  valid: boolean;
+  error?: string;
+  line?: number;
+  column?: number;
+  warnings?: string[];
+  securityRisks?: string[];
+} {
+  if (!yamlStr.trim()) return { valid: false, error: 'YAML input is empty.' };
+  const lines = yamlStr.split('\n');
+
+  for (let i = 0; i < lines.length; i++) {
+    const tabIdx = lines[i].indexOf('\t');
+    if (tabIdx !== -1) {
+      return {
+        valid: false,
+        error: 'Tabs are strictly forbidden for indentation in YAML. Use spaces.',
+        line: i + 1,
+        column: tabIdx + 1,
+      };
+    }
+  }
+
+  const colonRegex = /^(\s*[\w.-]+):([^\s\n/])/;
+  for (let i = 0; i < lines.length; i++) {
+    const m = lines[i].match(colonRegex);
+    if (m) {
+      return {
+        valid: false,
+        error: `Missing space after colon following "${m[1].trim()}".`,
+        line: i + 1,
+        column: lines[i].indexOf(':') + 1,
+      };
+    }
+  }
+
+  const securityRisks: string[] = [];
+  const DANGEROUS_TAGS = ['!!python/', '!ruby/object', '!!js/function', '!!perl/', '!!php/'];
+  for (let i = 0; i < lines.length; i++) {
+    for (const tag of DANGEROUS_TAGS) {
+      if (lines[i].includes(tag)) {
+        securityRisks.push(`Dangerous tag "${tag}" detected on line ${i + 1}`);
+      }
+    }
+  }
+
+  const warnings: string[] = [];
+  const seenAtLevel: Record<number, Set<string>> = {};
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const stripped = line.replace(/#.*$/, '');
+    if (!stripped.trim()) continue;
+    const indent = line.search(/\S/);
+    const colonIdx = stripped.indexOf(':');
+    if (colonIdx > indent) {
+      const key = stripped.slice(indent, colonIdx).trim();
+      for (const d of Object.keys(seenAtLevel)) {
+        if (Number(d) > indent) delete seenAtLevel[Number(d)];
+      }
+      if (!seenAtLevel[indent]) seenAtLevel[indent] = new Set<string>();
+      if (seenAtLevel[indent].has(key)) {
+        warnings.push(`Duplicate key "${key}" on line ${i + 1}`);
+      } else {
+        seenAtLevel[indent].add(key);
+      }
+    }
+  }
+
   try {
     yamlToJson(yamlStr);
-    return { valid: true };
+    return {
+      valid: true,
+      warnings: warnings.length > 0 ? warnings : undefined,
+      securityRisks: securityRisks.length > 0 ? securityRisks : undefined,
+    };
   } catch (err: any) {
     return { valid: false, error: err?.message || 'Invalid YAML format' };
   }

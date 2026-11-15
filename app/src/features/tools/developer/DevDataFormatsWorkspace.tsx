@@ -203,9 +203,22 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         }
         case 252: {
           const val = validateYaml(inputData);
+          if (val.valid) {
+            let msg = '✅ YAML document structure is 100% valid.';
+            if (val.warnings && val.warnings.length > 0) {
+              msg += `\n\n⚠️ Warnings:\n${val.warnings.map((w) => `• ${w}`).join('\n')}`;
+            }
+            if (val.securityRisks && val.securityRisks.length > 0) {
+              msg += `\n\n🛡️ Security Inspection:\n${val.securityRisks.map((r) => `• ${r}`).join('\n')}`;
+            }
+            return { output: msg, isValid: true };
+          }
+          let err = `❌ YAML Syntax Error:\n${val.error}`;
+          if (val.line) err += `\nLine: ${val.line}, Column: ${val.column || 1}`;
           return {
-            output: val.valid ? '✅ YAML document structure is valid.' : `❌ YAML Error: ${val.error}`,
-            isValid: val.valid,
+            output: err,
+            isValid: false,
+            errorInfo: val.error,
           };
         }
         case 253: {
@@ -304,6 +317,14 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         { label: 'Formats', value: detectFormats ? 'AUTO' : 'OFF' },
         { label: 'Lines', value: output.split('\n').length },
         { label: 'Status', value: 'SYNTHESIZED' },
+      ];
+    }
+    if (activeToolId === 252 && inputData.trim()) {
+      return [
+        { label: 'Status', value: isValid ? 'VALID' : 'INVALID' },
+        { label: 'Lines', value: inputData.split('\n').length },
+        { label: 'Safety', value: output.includes('🛡️') ? 'ALERT' : 'SAFE' },
+        { label: 'Checks', value: '4 AUDITS' },
       ];
     }
     return base;
@@ -661,6 +682,38 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
               <Text style={[styles.smallPillText, sortKeys && styles.smallPillTextActive]}>
                 Sort A-Z
               </Text>
+            </TouchableOpacity>
+
+            {canRepair && (
+              <TouchableOpacity
+                style={[styles.smallPill, { backgroundColor: '#F59E0B' }]}
+                onPress={() => {
+                  const { repaired } = autoRepairYaml(inputData);
+                  setInputData(repaired);
+                  Alert.alert('Auto-Repair Applied', 'Replaced forbidden tabs with spaces.');
+                }}
+              >
+                <Text style={[styles.smallPillText, { color: '#FFFFFF', fontWeight: '700' }]}>
+                  ⚡ Repair Tabs
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+
+        {/* YAML Validator Controls (Tool 252) */}
+        {activeToolId === 252 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Audit:</Text>
+            <TouchableOpacity
+              style={styles.smallPill}
+              onPress={() => {
+                setInputData(
+                  `apiVersion: v1\nkind: Service\nmetadata:\n  name: toolstrum-api\nspec:\n  type: ClusterIP\n  ports:\n  - port: 443\n    targetPort: 8443`
+                );
+              }}
+            >
+              <Text style={styles.smallPillText}>Sample Valid Spec</Text>
             </TouchableOpacity>
 
             {canRepair && (
