@@ -1,39 +1,10 @@
 import React, { useState } from 'react';
 import { Globe } from 'lucide-react';
 import { getToolById } from '../data/webRegistry';
-import {
-  UrlShortenerTool,
-  UrlExpanderTool,
-  WebsiteQrTool,
-  LinkExtractorTool,
-  UrlValidatorTool,
-  QrLinkPreviewTool,
-} from './web/UrlTools';
-import {
-  WebsiteMetadataViewerTool,
-  HtmlPreviewerTool,
-  OpenGraphPreviewTool,
-  RobotsTxtViewerTool,
-  SitemapViewerTool,
-  MetaTagGeneratorTool,
-  SitemapGeneratorTool,
-  WebpageToMarkdownTool,
-  WebsiteWordCounterTool,
-} from './web/ContentSeoTools';
-import {
-  DnsLookupTool,
-  PublicIpCheckerTool,
-  IpInformationLookupTool,
-  InternetSpeedTestTool,
-  NetworkLatencyTool,
-  HttpHeaderInspectorTool,
-  SslCertificateCheckerTool,
-  WebsiteAvailabilityTool,
-} from './web/NetworkTools';
-import {
-  DataUriGeneratorTool,
-  WebpageScreenshotTool,
-} from './web/MediaDevTools';
+import { UrlToolsPanel } from './web/UrlToolsPanel';
+import { ContentSeoPanel } from './web/ContentSeoPanel';
+import { NetworkServerPanel } from './web/NetworkServerPanel';
+import { MediaDevPanel } from './web/MediaDevPanel';
 
 interface WebWorkspaceProps {
   toolId: number;
@@ -66,42 +37,43 @@ export const WebWorkspace: React.FC<WebWorkspaceProps> = ({
           </h2>
         </div>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-          {currentToolDef?.description || 'URL shorteners, DNS lookups, SEO metadata, latency checkers, and web tools. 100% Offline • 100% Secure.'}
+          {currentToolDef?.description ||
+            'Offline URL tools, DNS over HTTPS, SEO meta tags, latency diagnostics, and web utilities. 100% Offline • Zero Server.'}
         </p>
       </div>
 
       {/* 376-378, 392, 395, 397: URL & LINK TOOLS */}
-      {toolId === 376 && <UrlShortenerTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 377 && <UrlExpanderTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 378 && <WebsiteQrTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 392 && <LinkExtractorTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 395 && <UrlValidatorTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 397 && <QrLinkPreviewTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 376 && <UrlToolsPanel defaultMode="shortener" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 377 && <UrlToolsPanel defaultMode="expander" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 378 && <UrlToolsPanel defaultMode="qr" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 392 && <UrlToolsPanel defaultMode="extractor" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 395 && <UrlToolsPanel defaultMode="validator" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 397 && <UrlToolsPanel defaultMode="preview" copied={copied} onCopy={handleCopyText} />}
 
       {/* 379-383, 393-394, 399-400: CONTENT & SEO TOOLS */}
-      {toolId === 379 && <WebsiteMetadataViewerTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 380 && <HtmlPreviewerTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 381 && <OpenGraphPreviewTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 382 && <RobotsTxtViewerTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 383 && <SitemapViewerTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 393 && <MetaTagGeneratorTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 394 && <SitemapGeneratorTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 399 && <WebpageToMarkdownTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 400 && <WebsiteWordCounterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 379 && <ContentSeoPanel defaultMode="metadata" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 380 && <ContentSeoPanel defaultMode="previewer" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 381 && <ContentSeoPanel defaultMode="opengraph" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 382 && <ContentSeoPanel defaultMode="robotstxt" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 383 && <ContentSeoPanel defaultMode="sitemap_viewer" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 393 && <ContentSeoPanel defaultMode="metatags" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 394 && <ContentSeoPanel defaultMode="sitemap_gen" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 399 && <ContentSeoPanel defaultMode="markdown" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 400 && <ContentSeoPanel defaultMode="wordcount" copied={copied} onCopy={handleCopyText} />}
 
       {/* 384-391: NETWORK, DNS & SERVER TOOLS */}
-      {toolId === 384 && <DnsLookupTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 385 && <PublicIpCheckerTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 386 && <IpInformationLookupTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 387 && <InternetSpeedTestTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 388 && <NetworkLatencyTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 389 && <HttpHeaderInspectorTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 390 && <SslCertificateCheckerTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 391 && <WebsiteAvailabilityTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 384 && <NetworkServerPanel defaultMode="dns" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 385 && <NetworkServerPanel defaultMode="myip" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 386 && <NetworkServerPanel defaultMode="subnet" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 387 && <NetworkServerPanel defaultMode="speed" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 388 && <NetworkServerPanel defaultMode="latency" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 389 && <NetworkServerPanel defaultMode="headers" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 390 && <NetworkServerPanel defaultMode="ssl" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 391 && <NetworkServerPanel defaultMode="availability" copied={copied} onCopy={handleCopyText} />}
 
-      {/* 396, 398: MEDIA & VIEWPORT TOOLS */}
-      {toolId === 396 && <DataUriGeneratorTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 398 && <WebpageScreenshotTool copied={copied} onCopy={handleCopyText} />}
+      {/* 396, 398: MEDIA & DEV TOOLS */}
+      {toolId === 396 && <MediaDevPanel defaultMode="datauri" copied={copied} onCopy={handleCopyText} />}
+      {toolId === 398 && <MediaDevPanel defaultMode="screenshot" copied={copied} onCopy={handleCopyText} />}
     </div>
   );
 };
