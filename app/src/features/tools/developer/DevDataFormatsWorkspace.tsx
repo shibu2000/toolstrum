@@ -74,7 +74,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
   const [compareData, setCompareData] = useState<string>('');
   const [jsonPathQuery, setJsonPathQuery] = useState<string>('');
   const [mockType, setMockType] = useState<'users' | 'products' | 'orders'>('users');
-  const [indentSize, setIndentSize] = useState<2 | 4>(2);
+  const [indentSize, setIndentSize] = useState<2 | 4 | 'min'>(2);
   const [sortKeys, setSortKeys] = useState<boolean>(false);
   const [minifyFormat, setMinifyFormat] = useState<'raw' | 'curl' | 'url' | 'base64'>('raw');
   const [removeNulls, setRemoveNulls] = useState<boolean>(false);
@@ -198,7 +198,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           return { output: schema, isValid: true };
         }
         case 251: {
-          const yaml = formatYaml(inputData, indentSize, sortKeys);
+          const yaml = formatYaml(inputData, indentSize === 'min' ? 2 : indentSize, sortKeys);
           return { output: yaml, isValid: true };
         }
         case 252: {
@@ -223,10 +223,35 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         }
         case 253: {
           const json = yamlToJson(inputData);
+          if (indentSize === 'min') {
+            try {
+              return { output: JSON.stringify(JSON.parse(json)), isValid: true };
+            } catch {}
+          } else if (indentSize === 4) {
+            try {
+              return { output: JSON.stringify(JSON.parse(json), null, 4), isValid: true };
+            } catch {}
+          }
           return { output: json, isValid: true };
         }
         case 254: {
-          const yaml = jsonToYaml(inputData);
+          let s = inputData;
+          if (sortKeys) {
+            try {
+              const p = JSON.parse(s);
+              if (p && typeof p === 'object' && !Array.isArray(p)) {
+                s = JSON.stringify(
+                  Object.keys(p)
+                    .sort()
+                    .reduce((acc: any, k) => {
+                      acc[k] = p[k];
+                      return acc;
+                    }, {})
+                );
+              }
+            } catch {}
+          }
+          const yaml = jsonToYaml(s);
           return { output: yaml, isValid: true };
         }
         case 255: {
@@ -325,6 +350,17 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         { label: 'Lines', value: inputData.split('\n').length },
         { label: 'Safety', value: output.includes('🛡️') ? 'ALERT' : 'SAFE' },
         { label: 'Checks', value: '4 AUDITS' },
+      ];
+    }
+    if ((activeToolId === 253 || activeToolId === 254) && isValid && inputData.trim()) {
+      const inB = inputData.length;
+      const outB = output.length;
+      const delta = inB > 0 ? Math.round(((outB - inB) / inB) * 100) : 0;
+      return [
+        { label: 'Input Bytes', value: `${inB} B` },
+        { label: 'Output Bytes', value: `${outB} B` },
+        { label: 'Change', value: delta > 0 ? `+${delta}%` : `${delta}%` },
+        { label: 'Status', value: 'CONVERTED' },
       ];
     }
     return base;
@@ -727,6 +763,95 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
               >
                 <Text style={[styles.smallPillText, { color: '#FFFFFF', fontWeight: '700' }]}>
                   ⚡ Repair Tabs
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+
+        {/* YAML to JSON Controls (Tool 253) */}
+        {activeToolId === 253 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>JSON:</Text>
+            {([2, 4, 'min'] as const).map((sz) => (
+              <TouchableOpacity
+                key={sz}
+                style={[styles.smallPill, indentSize === sz && styles.smallPillActive]}
+                onPress={() => setIndentSize(sz as any)}
+              >
+                <Text
+                  style={[styles.smallPillText, indentSize === sz && styles.smallPillTextActive]}
+                >
+                  {sz === 'min' ? 'Minify' : `${sz}s`}
+                </Text>
+              </TouchableOpacity>
+            ))}
+
+            <TouchableOpacity
+              style={styles.smallPill}
+              onPress={() => {
+                const tmp = inputData;
+                setInputData(output);
+                setActiveToolId(254);
+              }}
+            >
+              <Text style={styles.smallPillText}>⇄ Switch to JSON→YAML</Text>
+            </TouchableOpacity>
+
+            {canRepair && (
+              <TouchableOpacity
+                style={[styles.smallPill, { backgroundColor: '#F59E0B' }]}
+                onPress={() => {
+                  const { repaired } = autoRepairYaml(inputData);
+                  setInputData(repaired);
+                  Alert.alert('Auto-Repair Applied', 'Replaced forbidden tabs with spaces.');
+                }}
+              >
+                <Text style={[styles.smallPillText, { color: '#FFFFFF', fontWeight: '700' }]}>
+                  ⚡ Repair Tabs
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+
+        {/* JSON to YAML Controls (Tool 254) */}
+        {activeToolId === 254 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>YAML:</Text>
+            <TouchableOpacity
+              style={[styles.smallPill, sortKeys && styles.smallPillActive]}
+              onPress={() => setSortKeys(!sortKeys)}
+            >
+              <Text style={[styles.smallPillText, sortKeys && styles.smallPillTextActive]}>
+                Sort A-Z
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.smallPill}
+              onPress={() => {
+                const tmp = inputData;
+                setInputData(output);
+                setActiveToolId(253);
+              }}
+            >
+              <Text style={styles.smallPillText}>⇄ Switch to YAML→JSON</Text>
+            </TouchableOpacity>
+
+            {canRepair && (
+              <TouchableOpacity
+                style={[styles.smallPill, { backgroundColor: '#F59E0B' }]}
+                onPress={() => {
+                  try {
+                    const { repaired } = autoRepairJson(inputData);
+                    setInputData(repaired);
+                    Alert.alert('Auto-Repair Applied', 'Cleaned quotes and normalized syntax.');
+                  } catch {}
+                }}
+              >
+                <Text style={[styles.smallPillText, { color: '#FFFFFF', fontWeight: '700' }]}>
+                  ⚡ Repair JSON
                 </Text>
               </TouchableOpacity>
             )}
