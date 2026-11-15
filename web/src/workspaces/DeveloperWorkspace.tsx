@@ -51,6 +51,8 @@ import { ColorConverterPanel } from './developer/ColorConverterPanel';
 import { GradientGeneratorPanel } from './developer/GradientGeneratorPanel';
 import { BoxShadowGeneratorPanel } from './developer/BoxShadowGeneratorPanel';
 import { BorderRadiusGeneratorPanel } from './developer/BorderRadiusGeneratorPanel';
+import { FlexboxPlaygroundPanel } from './developer/FlexboxPlaygroundPanel';
+import { GridGeneratorPanel } from './developer/GridGeneratorPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -77,10 +79,6 @@ import {
   UrlEncoderTool,
   UrlDecoderTool,
 } from './developer/CodecTools';
-import {
-  FlexboxPlaygroundTool,
-  GridGeneratorTool,
-} from './developer/CssTools';
 
 interface DeveloperWorkspaceProps {
   toolId: number;
@@ -892,8 +890,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 281 && <GradientGeneratorPanel />}
       {toolId === 282 && <BoxShadowGeneratorPanel />}
       {toolId === 283 && <BorderRadiusGeneratorPanel />}
-      {toolId === 284 && <FlexboxPlaygroundTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 285 && <GridGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 284 && <FlexboxPlaygroundPanel />}
+      {toolId === 285 && <GridGeneratorPanel />}
 
       {/* 286 — UNIX TIMESTAMP CONVERTER */}
       {toolId === 286 && (
