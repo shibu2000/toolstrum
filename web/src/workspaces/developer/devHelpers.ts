@@ -2098,42 +2098,114 @@ export function decodeUrl(url: string, plusAsSpace = true): { text?: string; err
   }
 }
 
-export function encodeHtmlEntities(text: string, mode: 'named' | 'decimal' | 'hex' = 'named'): string {
-  const map: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;',
-    '©': '&copy;',
-    '®': '&reg;',
-    '™': '&trade;',
-    '€': '&euro;',
-    '£': '&pound;',
-    '¥': '&yen;',
+export interface HtmlEntityOptions {
+  mode?: 'named' | 'decimal' | 'hex';
+  scope?: 'special' | 'extended' | 'all';
+}
+
+const HTML_ENTITY_MAP: Record<string, string> = {
+  '&': '&amp;',
+  '<': '&lt;',
+  '>': '&gt;',
+  '"': '&quot;',
+  "'": '&#39;',
+  '©': '&copy;',
+  '®': '&reg;',
+  '™': '&trade;',
+  '€': '&euro;',
+  '£': '&pound;',
+  '¥': '&yen;',
+  '¢': '&cent;',
+  '§': '&sect;',
+  '°': '&deg;',
+  '±': '&plusmn;',
+  '×': '&times;',
+  '÷': '&divide;',
+  '¶': '&para;',
+  '•': '&bull;',
+  '…': '&hellip;',
+  '–': '&ndash;',
+  '—': '&mdash;',
+  '‘': '&lsquo;',
+  '’': '&rsquo;',
+  '“': '&ldquo;',
+  '”': '&rdquo;',
+  '«': '&laquo;',
+  '»': '&raquo;',
+};
+
+const HTML_REVERSE_ENTITY_MAP: Record<string, string> = {
+  '&amp;': '&',
+  '&lt;': '<',
+  '&gt;': '>',
+  '&quot;': '"',
+  '&#39;': "'",
+  '&apos;': "'",
+  '&nbsp;': ' ',
+  '&copy;': '©',
+  '&reg;': '®',
+  '&trade;': '™',
+  '&euro;': '€',
+  '&pound;': '£',
+  '&yen;': '¥',
+  '&cent;': '¢',
+  '&sect;': '§',
+  '&deg;': '°',
+  '&plusmn;': '±',
+  '&times;': '×',
+  '&divide;': '÷',
+  '&para;': '¶',
+  '&bull;': '•',
+  '&hellip;': '…',
+  '&ndash;': '–',
+  '&mdash;': '—',
+  '&lsquo;': '‘',
+  '&rsquo;': '’',
+  '&ldquo;': '“',
+  '&rdquo;': '”',
+  '&laquo;': '«',
+  '&raquo;': '»',
+};
+
+export function encodeHtmlEntities(
+  text: string,
+  modeOrOptions: 'named' | 'decimal' | 'hex' | HtmlEntityOptions = 'named'
+): string {
+  let mode: 'named' | 'decimal' | 'hex' = 'named';
+  let scope: 'special' | 'extended' | 'all' = 'special';
+
+  if (typeof modeOrOptions === 'object') {
+    mode = modeOrOptions.mode ?? 'named';
+    scope = modeOrOptions.scope ?? 'special';
+  } else {
+    mode = modeOrOptions;
+  }
+
+  const encodeChar = (c: string): string => {
+    if (mode === 'decimal') return `&#${c.charCodeAt(0)};`;
+    if (mode === 'hex') return `&#x${c.charCodeAt(0).toString(16)};`;
+    return HTML_ENTITY_MAP[c] || `&#${c.charCodeAt(0)};`;
   };
 
-  if (mode === 'named') {
-    return text.replace(/[&<>"'©®™€£¥]/g, (c) => map[c] || `&#${c.charCodeAt(0)};`);
-  } else if (mode === 'decimal') {
-    return text.replace(/[^\w\s]/g, (c) => `&#${c.charCodeAt(0)};`);
+  if (scope === 'special') {
+    return text.replace(/[&<>"']/g, encodeChar);
+  } else if (scope === 'extended') {
+    return text.replace(/[^\x20-\x7E]|[&<>"']/g, encodeChar);
   } else {
-    return text.replace(/[^\w\s]/g, (c) => `&#x${c.charCodeAt(0).toString(16)};`);
+    return text.replace(/[^\w\s]/g, encodeChar);
   }
 }
 
 export function decodeHtmlEntities(text: string): string {
-  if (typeof window !== 'undefined') {
-    const doc = new DOMParser().parseFromString(text, 'text/html');
-    return doc.documentElement.textContent || text;
-  }
-  return text
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&copy;/g, '©');
+  if (!text) return '';
+  let res = text
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)));
+
+  return res.replace(/&[a-zA-Z0-9#]+;/g, (match) => {
+    const lower = match.toLowerCase();
+    return HTML_REVERSE_ENTITY_MAP[lower] || match;
+  });
 }
 
 // ==========================================

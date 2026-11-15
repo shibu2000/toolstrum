@@ -39,6 +39,7 @@ import { RegexTesterPanel } from './developer/RegexTesterPanel';
 import { RegexExplainerPanel } from './developer/RegexExplainerPanel';
 import { Base64CodecPanel } from './developer/Base64CodecPanel';
 import { UrlCodecPanel } from './developer/UrlCodecPanel';
+import { HtmlEntityCodecPanel } from './developer/HtmlEntityCodecPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -64,8 +65,6 @@ import {
   Base64DecoderTool,
   UrlEncoderTool,
   UrlDecoderTool,
-  HtmlEntityEncoderTool,
-  HtmlEntityDecoderTool,
 } from './developer/CodecTools';
 import {
   JwtDecoderTool,
@@ -874,8 +873,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 268 && <Base64CodecPanel initialDirection="decode" />}
       {toolId === 269 && <UrlCodecPanel initialDirection="encode" />}
       {toolId === 270 && <UrlCodecPanel initialDirection="decode" />}
-      {toolId === 271 && <HtmlEntityEncoderTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 272 && <HtmlEntityDecoderTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 271 && <HtmlEntityCodecPanel initialDirection="encode" />}
+      {toolId === 272 && <HtmlEntityCodecPanel initialDirection="decode" />}
 
       {/* ======================================================== */}
       {/* 273-279: DEDICATED SECURITY & CRYPTO TOOLS */}

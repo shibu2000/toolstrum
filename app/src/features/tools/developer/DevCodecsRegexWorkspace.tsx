@@ -57,6 +57,7 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
   const [b64UrlSafe, setB64UrlSafe] = useState<boolean>(false);
   const [b64NoPadding, setB64NoPadding] = useState<boolean>(false);
   const [urlEncodeMode, setUrlEncodeMode] = useState<'component' | 'full' | 'form'>('component');
+  const [htmlEntityMode, setHtmlEntityMode] = useState<'named' | 'decimal' | 'hex'>('named');
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -111,7 +112,7 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
       case 270:
         return decodeUrl(inputText);
       case 271:
-        return encodeHtmlEntities(inputText);
+        return encodeHtmlEntities(inputText, htmlEntityMode);
       case 272:
         return decodeHtmlEntities(inputText);
       case 273: {
@@ -311,6 +312,39 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
               >
                 <Text style={[styles.pillText, urlEncodeMode === 'form' && styles.pillTextActive]}>
                   Form (+)
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        {/* 271 HTML Entity Mode */}
+        {activeToolId === 271 && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Entity Format</Text>
+            <View style={{ flexDirection: 'row', gap: 8, marginTop: 4 }}>
+              <TouchableOpacity
+                style={[styles.pill, htmlEntityMode === 'named' && styles.pillActive]}
+                onPress={() => setHtmlEntityMode('named')}
+              >
+                <Text style={[styles.pillText, htmlEntityMode === 'named' && styles.pillTextActive]}>
+                  Named (&amp;)
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pill, htmlEntityMode === 'decimal' && styles.pillActive]}
+                onPress={() => setHtmlEntityMode('decimal')}
+              >
+                <Text style={[styles.pillText, htmlEntityMode === 'decimal' && styles.pillTextActive]}>
+                  Decimal (&#38;)
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pill, htmlEntityMode === 'hex' && styles.pillActive]}
+                onPress={() => setHtmlEntityMode('hex')}
+              >
+                <Text style={[styles.pillText, htmlEntityMode === 'hex' && styles.pillTextActive]}>
+                  Hex (&#x26;)
                 </Text>
               </TouchableOpacity>
             </View>
