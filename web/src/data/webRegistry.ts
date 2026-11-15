@@ -2127,6 +2127,30 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 103,
+    "name": "Scan Quality Checker",
+    "studioId": "scanner",
+    "description": "Inspects document scan clarity, DPI resolution, lighting distribution, and blur artifacts.",
+    "keywords": [
+      "scan quality checker",
+      "document scanner",
+      "scanner",
+      "scan",
+      "quality",
+      "checker",
+      "dpi",
+      "blur"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Scan",
+    "inputKind": "file",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 104,
     "name": "Video Compressor",
     "studioId": "video",
@@ -10113,6 +10137,28 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 480,
+    "name": "Document Classification",
+    "studioId": "advanced",
+    "description": "Automatically classifies document types (Legal, Technical, Financial, Creative) using client-side heuristics.",
+    "keywords": [
+      "document classification",
+      "advanced & experimental",
+      "advanced",
+      "document",
+      "classification",
+      "classifier"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 481,
     "name": "Smart File Renamer",
     "studioId": "advanced",
@@ -10333,6 +10379,29 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 491,
+    "name": "Smart Compression Advisor",
+    "studioId": "advanced",
+    "description": "Analyzes file entropy and data structure to recommend optimal compression algorithms (Deflate, Brotli, Zstandard).",
+    "keywords": [
+      "smart compression advisor",
+      "advanced & experimental",
+      "advanced",
+      "smart",
+      "compression",
+      "advisor",
+      "entropy"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 492,
     "name": "File Quality Inspector",
     "studioId": "advanced",
@@ -10355,6 +10424,29 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": false
   },
   {
+    "id": 493,
+    "name": "Offline Tool Packs",
+    "studioId": "advanced",
+    "description": "Curated offline tool bundles for Developers, Privacy Advocates, Students, and Content Creators.",
+    "keywords": [
+      "offline tool packs",
+      "advanced & experimental",
+      "advanced",
+      "offline",
+      "tool",
+      "packs",
+      "bundles"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 494,
     "name": "Workflow Builder",
     "studioId": "advanced",
@@ -10365,6 +10457,142 @@ export const WEB_TOOLS: ToolDefinition[] = [
       "advanced",
       "workflow",
       "builder"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 495,
+    "name": "Favorite Tool Shortcuts",
+    "studioId": "advanced",
+    "description": "Pin and organize fast 1-tap quick action shortcuts to your most frequently used offline tools.",
+    "keywords": [
+      "favorite tool shortcuts",
+      "advanced & experimental",
+      "advanced",
+      "favorite",
+      "tool",
+      "shortcuts",
+      "pinned"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 496,
+    "name": "Custom Tool Collections",
+    "studioId": "advanced",
+    "description": "Create custom tagged groups and workspace categories for specialized personal workflows.",
+    "keywords": [
+      "custom tool collections",
+      "advanced & experimental",
+      "advanced",
+      "custom",
+      "tool",
+      "collections",
+      "workspace"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 497,
+    "name": "Processing Queue",
+    "studioId": "advanced",
+    "description": "Monitors background web worker execution status, progress meters, and task completions.",
+    "keywords": [
+      "processing queue",
+      "advanced & experimental",
+      "advanced",
+      "processing",
+      "queue",
+      "worker",
+      "jobs"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 498,
+    "name": "Output History",
+    "studioId": "advanced",
+    "description": "Audit log of recently generated files, processed documents, and exported assets stored in browser memory.",
+    "keywords": [
+      "output history",
+      "advanced & experimental",
+      "advanced",
+      "output",
+      "history",
+      "logs"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 499,
+    "name": "Storage Cleanup Suggestions",
+    "studioId": "advanced",
+    "description": "Identifies temporary blob URLs, oversized caches, and session artifacts to reclaim disk space safely.",
+    "keywords": [
+      "storage cleanup suggestions",
+      "advanced & experimental",
+      "advanced",
+      "storage",
+      "cleanup",
+      "suggestions",
+      "reclaim"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "Cpu",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 500,
+    "name": "Universal Share-to-Tool",
+    "studioId": "advanced",
+    "description": "Dispatches incoming shared text, files, or links directly into any compatible tool within Toolstrum.",
+    "keywords": [
+      "universal share-to-tool",
+      "advanced & experimental",
+      "advanced",
+      "universal",
+      "share-to-tool",
+      "dispatch"
     ],
     "status": "available",
     "offlineCapable": true,
