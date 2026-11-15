@@ -1532,12 +1532,58 @@ export function formatCss(cssStr: string, indent: number | 'tab' | CssFormatOpti
   return resultLines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
-export function minifyCss(css: string): string {
-  return css
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\s*([\{\};:,])\s*/g, '$1')
-    .replace(/;\}/g, '}')
-    .trim();
+export interface CssMinifyOptions {
+  stripComments?: boolean;
+  preserveSpecialComments?: boolean;
+  removeTrailingSemicolons?: boolean;
+  shortenHexColors?: boolean;
+  removeLeadingZeros?: boolean;
+  removeUnitZeros?: boolean;
+}
+
+export function minifyCss(css: string, options: CssMinifyOptions = {}): string {
+  if (!css || !css.trim()) return '';
+
+  const {
+    stripComments = true,
+    preserveSpecialComments = false,
+    removeTrailingSemicolons = true,
+    shortenHexColors = true,
+    removeLeadingZeros = true,
+    removeUnitZeros = true,
+  } = options;
+
+  let s = css;
+
+  if (preserveSpecialComments) {
+    s = s.replace(/\/\*(?!\!)[\s\S]*?\*\//g, '');
+  } else if (stripComments) {
+    s = s.replace(/\/\*[\s\S]*?\*\//g, '');
+  }
+
+  s = s
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([\{\};:,>+~])\s*/g, '$1');
+
+  if (removeTrailingSemicolons) {
+    s = s.replace(/;}/g, '}');
+  }
+
+  if (shortenHexColors) {
+    s = s.replace(/#([0-9a-fA-F])\1([0-9a-fA-F])\2([0-9a-fA-F])\3\b/g, '#$1$2$3');
+  }
+
+  if (removeLeadingZeros) {
+    s = s.replace(/(:|\s)0\.(\d+)/g, '$1.$2');
+  }
+
+  if (removeUnitZeros) {
+    s = s.replace(/(:|\s)0(px|em|rem|in|cm|mm|pt|pc|vh|vw|vmin|vmax)/gi, '$10');
+  }
+
+  s = s.replace(/[^{}]+\{\s*\}/g, '');
+
+  return s.trim();
 }
 
 export function formatJs(js: string): string {

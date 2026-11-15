@@ -68,6 +68,8 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
   const [minifyEmbedded, setMinifyEmbedded] = useState<boolean>(true);
   const [singleLineRules, setSingleLineRules] = useState<boolean>(false);
   const [sortProperties, setSortProperties] = useState<boolean>(false);
+  const [cssStripComments, setCssStripComments] = useState<boolean>(true);
+  const [cssShortenHex, setCssShortenHex] = useState<boolean>(true);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -113,7 +115,10 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             sortProperties,
           });
         case 259:
-          return minifyCss(codeCss);
+          return minifyCss(codeCss, {
+            stripComments: cssStripComments,
+            shortenHexColors: cssShortenHex,
+          });
         case 260:
           return formatJs(codeJs);
         case 261:
@@ -136,7 +141,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     } catch (err: any) {
       return `Processing error: ${err?.message || 'Unable to parse code syntax'}`;
     }
-  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties]);
+  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -329,6 +334,30 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             >
               <Text style={[styles.smallPillText, sortProperties && styles.smallPillTextActive]}>
                 Sort A-Z
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* CSS Minifier Subbar (Tool 259) */}
+        {activeToolId === 259 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Options:</Text>
+            <TouchableOpacity
+              style={[styles.smallPill, cssStripComments && styles.smallPillActive]}
+              onPress={() => setCssStripComments(!cssStripComments)}
+            >
+              <Text style={[styles.smallPillText, cssStripComments && styles.smallPillTextActive]}>
+                Strip Comments
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, cssShortenHex && styles.smallPillActive]}
+              onPress={() => setCssShortenHex(!cssShortenHex)}
+            >
+              <Text style={[styles.smallPillText, cssShortenHex && styles.smallPillTextActive]}>
+                #fff Hex
               </Text>
             </TouchableOpacity>
           </View>

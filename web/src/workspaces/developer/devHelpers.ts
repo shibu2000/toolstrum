@@ -1023,12 +1023,65 @@ export function formatCss(cssStr: string, indent: number | 'tab' | CssFormatOpti
   return resultLines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
-export function minifyCss(css: string): string {
-  return css
-    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
-    .replace(/\s*([\{\};:,])\s*/g, '$1')
-    .replace(/;}/g, '}') // Remove trailing semicolons
-    .trim();
+export interface CssMinifyOptions {
+  stripComments?: boolean;
+  preserveSpecialComments?: boolean;
+  removeTrailingSemicolons?: boolean;
+  shortenHexColors?: boolean;
+  removeLeadingZeros?: boolean;
+  removeUnitZeros?: boolean;
+}
+
+export function minifyCss(css: string, options: CssMinifyOptions = {}): string {
+  if (!css || !css.trim()) return '';
+
+  const {
+    stripComments = true,
+    preserveSpecialComments = false,
+    removeTrailingSemicolons = true,
+    shortenHexColors = true,
+    removeLeadingZeros = true,
+    removeUnitZeros = true,
+  } = options;
+
+  let s = css;
+
+  // 1. Comments
+  if (preserveSpecialComments) {
+    s = s.replace(/\/\*(?!\!)[\s\S]*?\*\//g, '');
+  } else if (stripComments) {
+    s = s.replace(/\/\*[\s\S]*?\*\//g, '');
+  }
+
+  // 2. Whitespace & Delimiters
+  s = s
+    .replace(/\s+/g, ' ')
+    .replace(/\s*([\{\};:,>+~])\s*/g, '$1');
+
+  // 3. Trailing semicolons before closing brace
+  if (removeTrailingSemicolons) {
+    s = s.replace(/;}/g, '}');
+  }
+
+  // 4. Shorten 6-character hex colors to 3 characters: #ffffff -> #fff
+  if (shortenHexColors) {
+    s = s.replace(/#([0-9a-fA-F])\1([0-9a-fA-F])\2([0-9a-fA-F])\3\b/g, '#$1$2$3');
+  }
+
+  // 5. Remove leading zeros: 0.5em -> .5em
+  if (removeLeadingZeros) {
+    s = s.replace(/(:|\s)0\.(\d+)/g, '$1.$2');
+  }
+
+  // 6. Remove units on zero values: 0px -> 0 (preserving calc and keyframe steps)
+  if (removeUnitZeros) {
+    s = s.replace(/(:|\s)0(px|em|rem|in|cm|mm|pt|pc|vh|vw|vmin|vmax)/gi, '$10');
+  }
+
+  // 7. Remove empty rulesets
+  s = s.replace(/[^{}]+\{\s*\}/g, '');
+
+  return s.trim();
 }
 
 // ==========================================
