@@ -4,8 +4,67 @@ import { sha256, sha1, md5 } from '../../archive/shared/ChecksumUtils';
 // 1. JSON, YAML & DATA FORMATS
 // ==========================================
 
-export function formatJson(raw: string, indent = 2): string {
-  const parsed = JSON.parse(raw);
+function sortJsonKeys(obj: any): any {
+  if (Array.isArray(obj)) {
+    return obj.map(sortJsonKeys);
+  }
+  if (obj !== null && typeof obj === 'object') {
+    return Object.keys(obj)
+      .sort((a, b) => a.localeCompare(b))
+      .reduce((acc: Record<string, any>, key) => {
+        acc[key] = sortJsonKeys(obj[key]);
+        return acc;
+      }, {});
+  }
+  return obj;
+}
+
+export function autoRepairJson(raw: string): { repaired: string; fixedIssues: string[] } {
+  const issues: string[] = [];
+  let s = raw.trim();
+
+  if (/\/\/.*$/m.test(s)) {
+    s = s.replace(/\/\/.*$/gm, '');
+    issues.push('Removed JS inline comments');
+  }
+  if (/\/\*[\s\S]*?\*\//m.test(s)) {
+    s = s.replace(/\/\*[\s\S]*?\*\//gm, '');
+    issues.push('Removed block comments');
+  }
+  if (/\bNone\b/.test(s)) {
+    s = s.replace(/\bNone\b/g, 'null');
+    issues.push('Replaced None with null');
+  }
+  if (/\bTrue\b/.test(s)) {
+    s = s.replace(/\bTrue\b/g, 'true');
+    issues.push('Replaced True with true');
+  }
+  if (/\bFalse\b/.test(s)) {
+    s = s.replace(/\bFalse\b/g, 'false');
+    issues.push('Replaced False with false');
+  }
+  if (/,\s*([\]}])/m.test(s)) {
+    s = s.replace(/,\s*([\]}])/g, '$1');
+    issues.push('Removed trailing commas');
+  }
+  if (/'([^'\\]*(?:\\.[^'\\]*)*)'/m.test(s)) {
+    s = s.replace(/'([^'\\]*(?:\\.[^'\\]*)*)'/g, (_, match) => '"' + match.replace(/"/g, '\\"') + '"');
+    issues.push('Replaced single quotes');
+  }
+  const unquotedKeyRegex = /([{,]\s*)([a-zA-Z0-9_$]+)\s*:/g;
+  if (unquotedKeyRegex.test(s)) {
+    s = s.replace(/([{,]\s*)([a-zA-Z0-9_$]+)\s*:/g, '$1"$2":');
+    issues.push('Quoted unquoted keys');
+  }
+
+  return { repaired: s, fixedIssues: issues.length > 0 ? issues : ['Syntax normalization applied'] };
+}
+
+export function formatJson(raw: string, indent: number | string = 2, sortKeys = false): string {
+  let parsed = JSON.parse(raw);
+  if (sortKeys) {
+    parsed = sortJsonKeys(parsed);
+  }
   return JSON.stringify(parsed, null, indent);
 }
 

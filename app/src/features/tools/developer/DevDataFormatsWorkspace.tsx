@@ -26,6 +26,7 @@ import {
   validateYaml,
   validateXml,
   generateMockJson,
+  autoRepairJson,
 } from './shared/DeveloperHelpers';
 import { DevResultCard, DevStatItem } from './shared/DevResultCard';
 import { getDeveloperToolConfig } from './developerConfig';
@@ -69,11 +70,29 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
   const [jsonPathQuery, setJsonPathQuery] = useState<string>('');
   const [mockType, setMockType] = useState<'users' | 'products' | 'orders'>('users');
   const [indentSize, setIndentSize] = useState<2 | 4>(2);
+  const [sortKeys, setSortKeys] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
   const favorited = isFavorite(activeToolId);
   const toolConfig = getDeveloperToolConfig(activeToolId);
+
+  // Check if input can be auto-repaired
+  const canRepair = useMemo(() => {
+    if (!inputData.trim()) return false;
+    try {
+      JSON.parse(inputData);
+      return false;
+    } catch {
+      try {
+        const { repaired } = autoRepairJson(inputData);
+        JSON.parse(repaired);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+  }, [inputData]);
 
   // Calculate processed output
   const { output, isValid, errorInfo } = useMemo(() => {
@@ -84,7 +103,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
 
       switch (activeToolId) {
         case 244: {
-          const res = formatJson(inputData, indentSize);
+          const res = formatJson(inputData, indentSize, sortKeys);
           return { output: res, isValid: true };
         }
         case 245: {
@@ -261,10 +280,10 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           })}
         </ScrollView>
 
-        {/* Indent Controls (Tool 244) */}
+        {/* Indent & Sort Controls (Tool 244) */}
         {activeToolId === 244 && (
           <View style={styles.subBar}>
-            <Text style={styles.subBarLabel}>Indentation:</Text>
+            <Text style={styles.subBarLabel}>Format:</Text>
             {[2, 4].map((n) => (
               <TouchableOpacity
                 key={n}
@@ -278,6 +297,33 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
                 </Text>
               </TouchableOpacity>
             ))}
+            <TouchableOpacity
+              style={[styles.smallPill, sortKeys && styles.smallPillActive]}
+              onPress={() => setSortKeys(!sortKeys)}
+            >
+              <Text style={[styles.smallPillText, sortKeys && styles.smallPillTextActive]}>
+                Sort A-Z
+              </Text>
+            </TouchableOpacity>
+
+            {canRepair && (
+              <TouchableOpacity
+                style={[styles.smallPill, { backgroundColor: '#F59E0B' }]}
+                onPress={() => {
+                  try {
+                    const { repaired } = autoRepairJson(inputData);
+                    setInputData(repaired);
+                    Alert.alert('Auto-Repair Applied', 'Cleaned quotes and normalized syntax.');
+                  } catch (e: any) {
+                    Alert.alert('Repair Failed', e?.message || 'Could not auto-repair.');
+                  }
+                }}
+              >
+                <Text style={[styles.smallPillText, { color: '#FFFFFF', fontWeight: '700' }]}>
+                  ⚡ Auto-Repair
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         )}
 
