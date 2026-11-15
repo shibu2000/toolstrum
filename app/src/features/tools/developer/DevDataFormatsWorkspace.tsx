@@ -17,6 +17,7 @@ import {
   formatJson,
   validateJson,
   minifyJson,
+  getJsonMinifyStats,
   diffJson,
   queryJsonPath,
   jsonToTypeScript,
@@ -71,6 +72,9 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
   const [mockType, setMockType] = useState<'users' | 'products' | 'orders'>('users');
   const [indentSize, setIndentSize] = useState<2 | 4>(2);
   const [sortKeys, setSortKeys] = useState<boolean>(false);
+  const [minifyFormat, setMinifyFormat] = useState<'raw' | 'curl' | 'url' | 'base64'>('raw');
+  const [removeNulls, setRemoveNulls] = useState<boolean>(false);
+  const [escapeQuotes, setEscapeQuotes] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -125,7 +129,11 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
           };
         }
         case 246: {
-          const res = minifyJson(inputData);
+          const res = minifyJson(inputData, {
+            format: minifyFormat,
+            removeNulls,
+            escapeQuotes,
+          });
           return { output: res, isValid: true };
         }
         case 247: {
@@ -204,7 +212,7 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         errorInfo: err?.message,
       };
     }
-  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize]);
+  }, [activeToolId, inputData, compareData, jsonPathQuery, mockType, indentSize, sortKeys, minifyFormat, removeNulls, escapeQuotes]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -216,12 +224,24 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
     });
   };
 
-  const statItems: DevStatItem[] = [
-    { label: 'Status', value: isValid ? 'VALID' : 'ERROR' },
-    { label: 'Input Length', value: inputData.length },
-    { label: 'Output Length', value: output.length },
-    { label: 'Lines', value: output.split('\n').length },
-  ];
+  const statItems: DevStatItem[] = useMemo(() => {
+    const base: DevStatItem[] = [
+      { label: 'Status', value: isValid ? 'VALID' : 'ERROR' },
+      { label: 'Input Length', value: inputData.length },
+      { label: 'Output Length', value: output.length },
+      { label: 'Lines', value: output.split('\n').length },
+    ];
+    if (activeToolId === 246 && isValid && inputData.trim()) {
+      const stats = getJsonMinifyStats(inputData, output);
+      return [
+        { label: 'Raw Bytes', value: `${stats.rawBytes} B` },
+        { label: 'Minified', value: `${stats.minifiedBytes} B` },
+        { label: 'Reduced', value: `${stats.savingsPct}%` },
+        { label: 'Status', value: 'OPTIMAL' },
+      ];
+    }
+    return base;
+  }, [activeToolId, isValid, inputData, output]);
 
   const toolsInWorkspace = [
     { id: 244, name: 'JSON Format' },
@@ -310,6 +330,61 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
             >
               <Text style={[styles.smallPillText, sortKeys && styles.smallPillTextActive]}>
                 Sort A-Z
+              </Text>
+            </TouchableOpacity>
+
+            {canRepair && (
+              <TouchableOpacity
+                style={[styles.smallPill, { backgroundColor: '#F59E0B' }]}
+                onPress={() => {
+                  try {
+                    const { repaired } = autoRepairJson(inputData);
+                    setInputData(repaired);
+                    Alert.alert('Auto-Repair Applied', 'Cleaned quotes and normalized syntax.');
+                  } catch (e: any) {
+                    Alert.alert('Repair Failed', e?.message || 'Could not auto-repair.');
+                  }
+                }}
+              >
+                <Text style={[styles.smallPillText, { color: '#FFFFFF', fontWeight: '700' }]}>
+                  ⚡ Auto-Repair
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        )}
+
+        {/* Minifier Controls (Tool 246) */}
+        {activeToolId === 246 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Format:</Text>
+            {(['raw', 'curl', 'url', 'base64'] as const).map((fmt) => (
+              <TouchableOpacity
+                key={fmt}
+                style={[styles.smallPill, minifyFormat === fmt && styles.smallPillActive]}
+                onPress={() => setMinifyFormat(fmt)}
+              >
+                <Text
+                  style={[styles.smallPillText, minifyFormat === fmt && styles.smallPillTextActive]}
+                >
+                  {fmt === 'raw' ? 'Minified' : fmt.toUpperCase()}
+                </Text>
+              </TouchableOpacity>
+            ))}
+            <TouchableOpacity
+              style={[styles.smallPill, removeNulls && styles.smallPillActive]}
+              onPress={() => setRemoveNulls(!removeNulls)}
+            >
+              <Text style={[styles.smallPillText, removeNulls && styles.smallPillTextActive]}>
+                Strip Nulls
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.smallPill, escapeQuotes && styles.smallPillActive]}
+              onPress={() => setEscapeQuotes(!escapeQuotes)}
+            >
+              <Text style={[styles.smallPillText, escapeQuotes && styles.smallPillTextActive]}>
+                Escape "
               </Text>
             </TouchableOpacity>
 

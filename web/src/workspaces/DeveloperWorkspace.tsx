@@ -17,6 +17,7 @@ import {
 import { getToolById } from '../data/webRegistry';
 import { JsonFormatterPanel } from './developer/JsonFormatterPanel';
 import { JsonValidatorPanel } from './developer/JsonValidatorPanel';
+import { JsonMinifierPanel } from './developer/JsonMinifierPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -806,37 +807,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* 245 — JSON VALIDATOR & SCHEMA LINTER — dedicated modern panel */}
       {toolId === 245 && <JsonValidatorPanel initialValue={jsonInput} />}
 
-      {/* 246 — JSON MINIFIER — auto-computes live */}
-      {toolId === 246 && (() => {
-        const { value, error } = parseJson(jsonInput);
-        const output = value !== undefined ? JSON.stringify(value) : '';
-        return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-              <label className="text-xs font-bold text-slate-900 dark:text-white">JSON Input</label>
-              <textarea
-                value={jsonInput}
-                onChange={(e) => setJsonInput(e.target.value)}
-                rows={14}
-                className="w-full p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs leading-relaxed"
-              />
-              {error && <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">{error}</div>}
-            </div>
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Minified Output</span>
-                {output && (
-                  <button onClick={() => handleCopyText(output)} className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-xs font-semibold flex items-center gap-1.5">
-                    {copied ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copied ? 'Copied' : 'Copy'}</span>
-                  </button>
-                )}
-              </div>
-              <pre className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs overflow-x-auto max-h-[380px] break-all whitespace-pre-wrap">{output || 'Fix the JSON error on the left to see minified output here.'}</pre>
-            </div>
-          </div>
-        );
-      })()}
+      {/* 246 — JSON MINIFIER & COMPRESSION CRUNCHER — dedicated modern panel */}
+      {toolId === 246 && <JsonMinifierPanel initialValue={jsonInput} />}
 
       {/* 247 — JSON DIFF — auto-computes live */}
       {toolId === 247 && (() => {

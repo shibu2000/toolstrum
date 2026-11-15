@@ -118,9 +118,83 @@ export function validateJson(raw: string): {
   }
 }
 
-export function minifyJson(raw: string): string {
-  const parsed = JSON.parse(raw);
-  return JSON.stringify(parsed);
+function stringToBase64(str: string): string {
+  if (typeof btoa !== 'undefined') {
+    try {
+      return btoa(unescape(encodeURIComponent(str)));
+    } catch {}
+  }
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+  const encoded = unescape(encodeURIComponent(str));
+  let output = '';
+  for (let block = 0, charCode, i = 0, map = chars;
+      encoded.charAt(i | 0) || (map = '=', i % 1);
+      output += map.charAt(63 & block >> 8 - i % 1 * 8)) {
+    charCode = encoded.charCodeAt(i += 3/4);
+    block = block << 8 | charCode;
+  }
+  return output;
+}
+
+function getByteSize(str: string): number {
+  if (typeof Blob !== 'undefined') {
+    try {
+      return new Blob([str]).size;
+    } catch {}
+  }
+  if (typeof TextEncoder !== 'undefined') {
+    return new TextEncoder().encode(str).length;
+  }
+  return encodeURIComponent(str).replace(/%[A-F\d]{2}/g, 'U').length;
+}
+
+export function minifyJson(
+  raw: string,
+  options: {
+    removeNulls?: boolean;
+    escapeQuotes?: boolean;
+    format?: 'raw' | 'curl' | 'url' | 'base64';
+  } = {}
+): string {
+  let parsed = JSON.parse(raw);
+  if (options.removeNulls) {
+    function clean(obj: any): any {
+      if (Array.isArray(obj)) return obj.map(clean);
+      if (obj !== null && typeof obj === 'object') {
+        return Object.entries(obj).reduce((acc: any, [k, v]) => {
+          if (v !== null) acc[k] = clean(v);
+          return acc;
+        }, {});
+      }
+      return obj;
+    }
+    parsed = clean(parsed);
+  }
+  let minified = JSON.stringify(parsed);
+  if (options.escapeQuotes) {
+    minified = minified.replace(/"/g, '\\"');
+  }
+  if (options.format === 'curl') {
+    return `--data-raw '${minified.replace(/'/g, "'\\''")}'`;
+  }
+  if (options.format === 'url') {
+    return encodeURIComponent(minified);
+  }
+  if (options.format === 'base64') {
+    return stringToBase64(minified);
+  }
+  return minified;
+}
+
+export function getJsonMinifyStats(raw: string, minified: string): {
+  rawBytes: number;
+  minifiedBytes: number;
+  savingsPct: number;
+} {
+  const rawBytes = getByteSize(raw);
+  const minifiedBytes = getByteSize(minified);
+  const savingsPct = rawBytes > 0 ? Math.max(0, Math.round(((rawBytes - minifiedBytes) / rawBytes) * 100)) : 0;
+  return { rawBytes, minifiedBytes, savingsPct };
 }
 
 export function diffJson(
