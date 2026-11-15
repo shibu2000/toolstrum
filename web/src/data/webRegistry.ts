@@ -7349,6 +7349,172 @@ export const WEB_TOOLS: ToolDefinition[] = [
     "isPopular": true
   },
   {
+    "id": 353,
+    "name": "Wi-Fi QR Generator",
+    "studioId": "qr_security",
+    "description": "Generates a zero-touch QR code to connect mobile devices to Wi-Fi networks.",
+    "keywords": [
+      "wi-fi qr generator",
+      "qr, barcode & security",
+      "wifi",
+      "network",
+      "qr",
+      "wpa"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "QrCode",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 354,
+    "name": "Contact QR Generator",
+    "studioId": "qr_security",
+    "description": "Generates a contact QR code with phone, email, and name for instant saving.",
+    "keywords": [
+      "contact qr generator",
+      "qr, barcode & security",
+      "contact",
+      "phone",
+      "email"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "QrCode",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 355,
+    "name": "URL QR Generator",
+    "studioId": "qr_security",
+    "description": "Encodes any website or deep link into an offline vector/raster QR code.",
+    "keywords": [
+      "url qr generator",
+      "qr, barcode & security",
+      "url",
+      "link",
+      "website"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "QrCode",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 356,
+    "name": "Text QR Generator",
+    "studioId": "qr_security",
+    "description": "Encodes arbitrary plain text or instructions into a high-density QR code.",
+    "keywords": [
+      "text qr generator",
+      "qr, barcode & security",
+      "text",
+      "plain text"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "QrCode",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 357,
+    "name": "Email QR Generator",
+    "studioId": "qr_security",
+    "description": "Creates pre-filled mailto QR codes with recipient address, subject, and body.",
+    "keywords": [
+      "email qr generator",
+      "qr, barcode & security",
+      "email",
+      "mailto"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "QrCode",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 358,
+    "name": "Phone QR Generator",
+    "studioId": "qr_security",
+    "description": "Generates a tel: QR code for 1-tap phone dialing on smartphones.",
+    "keywords": [
+      "phone qr generator",
+      "qr, barcode & security",
+      "phone",
+      "telephone",
+      "dialer"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "QrCode",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 359,
+    "name": "SMS QR Generator",
+    "studioId": "qr_security",
+    "description": "Generates an SMSTO: QR code with pre-filled recipient and text message.",
+    "keywords": [
+      "sms qr generator",
+      "qr, barcode & security",
+      "sms",
+      "text message"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "QrCode",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
+    "id": 360,
+    "name": "vCard Generator",
+    "studioId": "qr_security",
+    "description": "Creates full digital business card vCard 3.0 / MeCard QR codes.",
+    "keywords": [
+      "vcard generator",
+      "qr, barcode & security",
+      "vcard",
+      "business card",
+      "mecard"
+    ],
+    "status": "available",
+    "offlineCapable": true,
+    "iconName": "QrCode",
+    "inputKind": "interactive",
+    "outputKinds": [
+      "output"
+    ],
+    "isPopular": false
+  },
+  {
     "id": 361,
     "name": "Barcode Generator",
     "studioId": "qr_security",
