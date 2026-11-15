@@ -74,6 +74,8 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
   const [jsStripComments, setJsStripComments] = useState<boolean>(true);
   const [jsCompressBooleans, setJsCompressBooleans] = useState<boolean>(true);
   const [jsWrapIIFE, setJsWrapIIFE] = useState<boolean>(false);
+  const [sqlKeywordCase, setSqlKeywordCase] = useState<'upper' | 'lower'>('upper');
+  const [sqlCommaPosition, setSqlCommaPosition] = useState<'trailing' | 'leading'>('trailing');
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -135,7 +137,11 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             wrapIIFE: jsWrapIIFE,
           });
         case 262:
-          return formatSql(codeSql);
+          return formatSql(codeSql, {
+            indent: indentSize,
+            keywordCase: sqlKeywordCase,
+            commaPosition: sqlCommaPosition,
+          });
         case 263:
           return minifySql(codeSql);
         case 264: {
@@ -152,7 +158,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     } catch (err: any) {
       return `Processing error: ${err?.message || 'Unable to parse code syntax'}`;
     }
-  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex, jsQuoteType, jsStripComments, jsCompressBooleans, jsWrapIIFE]);
+  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex, jsQuoteType, jsStripComments, jsCompressBooleans, jsWrapIIFE, sqlKeywordCase, sqlCommaPosition]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -438,6 +444,42 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             >
               <Text style={[styles.smallPillText, jsWrapIIFE && styles.smallPillTextActive]}>
                 Wrap IIFE
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* SQL Formatter Subbar (Tool 262) */}
+        {activeToolId === 262 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Indent:</Text>
+            {([2, 4, 'tab'] as const).map((sz) => (
+              <TouchableOpacity
+                key={sz}
+                style={[styles.smallPill, indentSize === sz && styles.smallPillActive]}
+                onPress={() => setIndentSize(sz)}
+              >
+                <Text style={[styles.smallPillText, indentSize === sz && styles.smallPillTextActive]}>
+                  {sz === 'tab' ? 'Tab' : `${sz}s`}
+                </Text>
+              </TouchableOpacity>
+            ))}
+
+            <TouchableOpacity
+              style={[styles.smallPill, sqlKeywordCase === 'upper' && styles.smallPillActive]}
+              onPress={() => setSqlKeywordCase(sqlKeywordCase === 'upper' ? 'lower' : 'upper')}
+            >
+              <Text style={[styles.smallPillText, sqlKeywordCase === 'upper' && styles.smallPillTextActive]}>
+                {sqlKeywordCase === 'upper' ? 'UPPER' : 'lower'}
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, sqlCommaPosition === 'leading' && styles.smallPillActive]}
+              onPress={() => setSqlCommaPosition(sqlCommaPosition === 'leading' ? 'trailing' : 'leading')}
+            >
+              <Text style={[styles.smallPillText, sqlCommaPosition === 'leading' && styles.smallPillTextActive]}>
+                {sqlCommaPosition === 'leading' ? ', Leading' : 'Trailing ,'}
               </Text>
             </TouchableOpacity>
           </View>

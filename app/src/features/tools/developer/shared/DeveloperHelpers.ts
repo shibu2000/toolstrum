@@ -1746,24 +1746,125 @@ export function minifyJs(js: string, options: JsMinifyOptions = {}): string {
   return s;
 }
 
-export function formatSql(sql: string): string {
-  const keywords = [
-    'SELECT', 'FROM', 'WHERE', 'AND', 'OR', 'JOIN', 'LEFT JOIN', 'RIGHT JOIN',
-    'INNER JOIN', 'GROUP BY', 'ORDER BY', 'HAVING', 'LIMIT', 'OFFSET', 'INSERT INTO',
-    'VALUES', 'UPDATE', 'SET', 'DELETE FROM', 'CREATE TABLE', 'ALTER TABLE',
-  ];
+export interface SqlFormatOptions {
+  indent?: number | 'tab';
+  keywordCase?: 'upper' | 'lower' | 'preserve';
+  commaPosition?: 'trailing' | 'leading';
+}
 
-  let formatted = sql.trim();
-  for (const kw of keywords) {
-    const reg = new RegExp(`\\b${kw}\\b`, 'gi');
-    formatted = formatted.replace(reg, `\n${kw}`);
+export function formatSql(sql: string, indent: number | 'tab' | SqlFormatOptions = 2): string {
+  if (!sql || !sql.trim()) return '';
+
+  let options: SqlFormatOptions = {};
+  if (typeof indent === 'object') {
+    options = indent;
+  } else {
+    options = { indent };
   }
 
-  return formatted
-    .split('\n')
-    .map((l) => l.trim())
-    .filter(Boolean)
-    .join('\n');
+  const indentUnit = options.indent === 'tab' ? '\t' : ' '.repeat(typeof options.indent === 'number' ? options.indent : 2);
+  const keywordCase = options.keywordCase ?? 'upper';
+  const commaLeading = options.commaPosition === 'leading';
+
+  const transformCase = (kw: string) => {
+    if (keywordCase === 'upper') return kw.toUpperCase();
+    if (keywordCase === 'lower') return kw.toLowerCase();
+    return kw;
+  };
+
+  const protectedItems: string[] = [];
+  const protectRegex = /('(?:''|[^'])*'|"(?:""|[^"])*"|`[^`]*`|\[[^\]]*\]|--[^\n]*|\/\*[\s\S]*?\*\/)/g;
+
+  let s = sql.replace(protectRegex, (match) => {
+    protectedItems.push(match);
+    return `__TOOLSTRUM_SQL_${protectedItems.length - 1}__`;
+  });
+
+  s = s.replace(/\s+/g, ' ').trim();
+
+  const rootClauses = [
+    'WITH', 'SELECT', 'FROM', 'WHERE', 'GROUP BY', 'HAVING', 'ORDER BY',
+    'LIMIT', 'OFFSET', 'FETCH FIRST', 'FETCH NEXT', 'INSERT INTO', 'VALUES',
+    'UPDATE', 'SET', 'DELETE FROM', 'TRUNCATE TABLE', 'CREATE TABLE', 'ALTER TABLE',
+    'DROP TABLE', 'CREATE INDEX', 'UNION ALL', 'UNION', 'EXCEPT', 'INTERSECT'
+  ];
+
+  const subClauses = [
+    'LEFT OUTER JOIN', 'RIGHT OUTER JOIN', 'FULL OUTER JOIN', 'LEFT JOIN',
+    'RIGHT JOIN', 'INNER JOIN', 'FULL JOIN', 'CROSS JOIN', 'NATURAL JOIN',
+    'STRAIGHT_JOIN', 'JOIN', 'AND', 'OR', 'ON', 'USING', 'RETURNING'
+  ];
+
+  const minorKeywords = [
+    'AS', 'DISTINCT', 'ALL', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END', 'ASC', 'DESC',
+    'NULLS FIRST', 'NULLS LAST', 'IS NULL', 'IS NOT NULL', 'IN', 'NOT IN',
+    'BETWEEN', 'NOT BETWEEN', 'LIKE', 'ILIKE', 'NOT LIKE', 'EXISTS', 'NOT EXISTS',
+    'COUNT', 'SUM', 'AVG', 'MIN', 'MAX', 'COALESCE', 'NULLIF', 'OVER',
+    'PARTITION BY', 'ROW_NUMBER', 'PRIMARY KEY', 'FOREIGN KEY', 'REFERENCES',
+    'CONSTRAINT', 'DEFAULT', 'CASCADE', 'INDEX'
+  ];
+
+  for (const clause of rootClauses) {
+    const regex = new RegExp(`\\b${clause}\\b\\s*`, 'gi');
+    s = s.replace(regex, `\n__ROOT_CLAUSE__${transformCase(clause)} `);
+  }
+
+  for (const clause of subClauses) {
+    const regex = new RegExp(`\\b${clause}\\b\\s*`, 'gi');
+    s = s.replace(regex, `\n__SUB_CLAUSE__${transformCase(clause)} `);
+  }
+
+  for (const kw of minorKeywords) {
+    const regex = new RegExp(`\\b${kw}\\b`, 'gi');
+    s = s.replace(regex, transformCase(kw));
+  }
+
+  const rawLines = s.split('\n');
+  const formattedLines: string[] = [];
+  let depth = 0;
+
+  for (const raw of rawLines) {
+    let line = raw.trim();
+    if (!line) continue;
+
+    let isRoot = false;
+    let isSub = false;
+
+    if (line.startsWith('__ROOT_CLAUSE__')) {
+      isRoot = true;
+      line = line.replace('__ROOT_CLAUSE__', '');
+    } else if (line.startsWith('__SUB_CLAUSE__')) {
+      isSub = true;
+      line = line.replace('__SUB_CLAUSE__', '');
+    }
+
+    if (line.includes(',')) {
+      const parts = line.split(',').map((p) => p.trim()).filter(Boolean);
+      if (parts.length > 1) {
+        if (commaLeading) {
+          formattedLines.push(`${indentUnit.repeat(depth)}${parts[0]}`);
+          for (let p = 1; p < parts.length; p++) {
+            formattedLines.push(`${indentUnit.repeat(depth + 1)}, ${parts[p]}`);
+          }
+        } else {
+          for (let p = 0; p < parts.length; p++) {
+            const isLast = p === parts.length - 1;
+            const indentLevel = p === 0 ? depth : depth + 1;
+            formattedLines.push(`${indentUnit.repeat(indentLevel)}${parts[p]}${isLast ? '' : ','}`);
+          }
+        }
+        continue;
+      }
+    }
+
+    const currentIndent = isSub ? indentUnit.repeat(depth + 1) : indentUnit.repeat(depth);
+    formattedLines.push(`${currentIndent}${line}`);
+  }
+
+  let result = formattedLines.join('\n').replace(/__TOOLSTRUM_SQL_(\d+)__/g, (_, idx) => protectedItems[Number(idx)] || '');
+  result = result.replace(/\n{3,}/g, '\n\n').trim();
+
+  return result;
 }
 
 export function minifySql(sql: string): string {
