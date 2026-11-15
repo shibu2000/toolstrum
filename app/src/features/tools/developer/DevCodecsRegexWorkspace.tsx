@@ -54,6 +54,8 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
   const [jwtToken, setJwtToken] = useState<string>('');
   const [urlInput, setUrlInput] = useState<string>('');
   const [uaInput, setUaInput] = useState<string>('');
+  const [b64UrlSafe, setB64UrlSafe] = useState<boolean>(false);
+  const [b64NoPadding, setB64NoPadding] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -97,7 +99,7 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
         return res;
       }
       case 267:
-        return encodeBase64(inputText);
+        return encodeBase64(inputText, { urlSafe: b64UrlSafe, noPadding: b64NoPadding });
       case 268:
         return decodeBase64(inputText);
       case 269:
@@ -134,7 +136,7 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
       default:
         return inputText;
     }
-  }, [activeToolId, regexResult, regexPattern, inputText, jwtToken, urlInput, uaInput]);
+  }, [activeToolId, regexResult, regexPattern, inputText, jwtToken, urlInput, uaInput, b64UrlSafe, b64NoPadding]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -249,6 +251,31 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
                 placeholder="flags"
                 placeholderTextColor={Colors.textMuted}
               />
+            </View>
+          </View>
+        )}
+
+        {/* 267 Base64 Options */}
+        {activeToolId === 267 && (
+          <View style={styles.card}>
+            <Text style={styles.cardTitle}>Base64 Options</Text>
+            <View style={{ flexDirection: 'row', gap: 8, marginTop: 4 }}>
+              <TouchableOpacity
+                style={[styles.pill, b64UrlSafe && styles.pillActive]}
+                onPress={() => setB64UrlSafe(!b64UrlSafe)}
+              >
+                <Text style={[styles.pillText, b64UrlSafe && styles.pillTextActive]}>
+                  URL-Safe (- / _)
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.pill, b64NoPadding && styles.pillActive]}
+                onPress={() => setB64NoPadding(!b64NoPadding)}
+              >
+                <Text style={[styles.pillText, b64NoPadding && styles.pillTextActive]}>
+                  Strip Padding (=)
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         )}

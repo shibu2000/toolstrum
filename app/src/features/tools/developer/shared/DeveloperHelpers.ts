@@ -2489,13 +2489,52 @@ export function explainRegex(pattern: string): RegexTokenExplanation[] {
   return tokens;
 }
 
-export function encodeBase64(str: string): string {
-  return btoa(unescape(encodeURIComponent(str)));
+export interface Base64EncodeOptions {
+  urlSafe?: boolean;
+  noPadding?: boolean;
+  lineWrap?: number;
+  mimeType?: string;
+}
+
+export function encodeBase64(
+  str: string,
+  urlSafeOrOptions: boolean | Base64EncodeOptions = false,
+  noPadding = false
+): string {
+  let options: Base64EncodeOptions = {};
+  if (typeof urlSafeOrOptions === 'object') {
+    options = urlSafeOrOptions;
+  } else {
+    options = { urlSafe: urlSafeOrOptions, noPadding };
+  }
+
+  let b64 = btoa(unescape(encodeURIComponent(str)));
+  if (options.urlSafe) {
+    b64 = b64.replace(/\+/g, '-').replace(/\//g, '_');
+  }
+  if (options.noPadding) {
+    b64 = b64.replace(/=+$/, '');
+  }
+  if (options.lineWrap && options.lineWrap > 0) {
+    const regex = new RegExp(`.{1,${options.lineWrap}}`, 'g');
+    b64 = (b64.match(regex) || []).join('\n');
+  }
+  if (options.mimeType) {
+    b64 = `data:${options.mimeType};base64,${b64}`;
+  }
+  return b64;
 }
 
 export function decodeBase64(str: string): string {
   try {
-    return decodeURIComponent(escape(atob(str.trim())));
+    let clean = str.trim();
+    if (clean.startsWith('data:') && clean.includes('base64,')) {
+      clean = clean.split('base64,')[1];
+    }
+    clean = clean.replace(/\s+/g, '');
+    clean = clean.replace(/-/g, '+').replace(/_/g, '/');
+    while (clean.length % 4) clean += '=';
+    return decodeURIComponent(escape(atob(clean)));
   } catch {
     return str;
   }

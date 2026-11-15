@@ -1994,23 +1994,59 @@ export function explainRegex(pattern: string): RegexTokenExplanation[] {
 // ==========================================
 // 9. ENCODERS & DECODERS (BASE64, URL, HTML ENTITIES)
 // ==========================================
-export function encodeBase64(text: string, urlSafe = false, noPadding = false): string {
+export interface Base64EncodeOptions {
+  urlSafe?: boolean;
+  noPadding?: boolean;
+  lineWrap?: number; // 0 = none, 64 = PEM, 76 = MIME
+  mimeType?: string;
+}
+
+export function encodeBase64(
+  text: string,
+  urlSafeOrOptions: boolean | Base64EncodeOptions = false,
+  noPadding = false
+): string {
+  let options: Base64EncodeOptions = {};
+  if (typeof urlSafeOrOptions === 'object') {
+    options = urlSafeOrOptions;
+  } else {
+    options = { urlSafe: urlSafeOrOptions, noPadding };
+  }
+
   let b64 = btoa(unescape(encodeURIComponent(text)));
-  if (urlSafe) {
+  if (options.urlSafe) {
     b64 = b64.replace(/\+/g, '-').replace(/\//g, '_');
   }
-  if (noPadding) {
+  if (options.noPadding) {
     b64 = b64.replace(/=+$/, '');
+  }
+  if (options.lineWrap && options.lineWrap > 0) {
+    const regex = new RegExp(`.{1,${options.lineWrap}}`, 'g');
+    b64 = (b64.match(regex) || []).join('\n');
+  }
+  if (options.mimeType) {
+    b64 = `data:${options.mimeType};base64,${b64}`;
   }
   return b64;
 }
 
-export function decodeBase64(b64: string): { text?: string; error?: string } {
+export function decodeBase64(b64: string): { text?: string; error?: string; bytes?: number; hex?: string } {
   try {
-    let clean = b64.trim().replace(/-/g, '+').replace(/_/g, '/');
+    let clean = b64.trim();
+    if (clean.startsWith('data:') && clean.includes('base64,')) {
+      clean = clean.split('base64,')[1];
+    }
+    clean = clean.replace(/\s+/g, '');
+    clean = clean.replace(/-/g, '+').replace(/_/g, '/');
     while (clean.length % 4) clean += '=';
     const decoded = decodeURIComponent(escape(atob(clean)));
-    return { text: decoded };
+    const encoder = new TextEncoder();
+    const bytes = encoder.encode(decoded);
+    let hex = '';
+    for (let i = 0; i < bytes.length; i++) {
+      hex += bytes[i].toString(16).padStart(2, '0') + ' ';
+    }
+    return { text: decoded, bytes: bytes.length, hex: hex.trim() };
   } catch (e: any) {
     return { error: 'Invalid Base64 string encoding.' };
   }
