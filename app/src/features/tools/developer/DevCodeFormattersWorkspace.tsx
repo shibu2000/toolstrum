@@ -66,6 +66,8 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
   const [wrapAttributes, setWrapAttributes] = useState<boolean>(false);
   const [stripComments, setStripComments] = useState<boolean>(true);
   const [minifyEmbedded, setMinifyEmbedded] = useState<boolean>(true);
+  const [singleLineRules, setSingleLineRules] = useState<boolean>(false);
+  const [sortProperties, setSortProperties] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -105,7 +107,11 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             minifyEmbeddedJs: minifyEmbedded,
           });
         case 258:
-          return formatCss(codeCss);
+          return formatCss(codeCss, {
+            indent: indentSize,
+            singleLineRules,
+            sortProperties,
+          });
         case 259:
           return minifyCss(codeCss);
         case 260:
@@ -130,7 +136,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     } catch (err: any) {
       return `Processing error: ${err?.message || 'Unable to parse code syntax'}`;
     }
-  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded]);
+  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -287,6 +293,42 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             >
               <Text style={[styles.smallPillText, minifyEmbedded && styles.smallPillTextActive]}>
                 Minify CSS/JS
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* CSS Formatter Subbar (Tool 258) */}
+        {activeToolId === 258 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Indent:</Text>
+            {([2, 4, 'tab'] as const).map((sz) => (
+              <TouchableOpacity
+                key={sz}
+                style={[styles.smallPill, indentSize === sz && styles.smallPillActive]}
+                onPress={() => setIndentSize(sz)}
+              >
+                <Text style={[styles.smallPillText, indentSize === sz && styles.smallPillTextActive]}>
+                  {sz === 'tab' ? 'Tab' : `${sz}s`}
+                </Text>
+              </TouchableOpacity>
+            ))}
+
+            <TouchableOpacity
+              style={[styles.smallPill, singleLineRules && styles.smallPillActive]}
+              onPress={() => setSingleLineRules(!singleLineRules)}
+            >
+              <Text style={[styles.smallPillText, singleLineRules && styles.smallPillTextActive]}>
+                1-Line
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, sortProperties && styles.smallPillActive]}
+              onPress={() => setSortProperties(!sortProperties)}
+            >
+              <Text style={[styles.smallPillText, sortProperties && styles.smallPillTextActive]}>
+                Sort A-Z
               </Text>
             </TouchableOpacity>
           </View>

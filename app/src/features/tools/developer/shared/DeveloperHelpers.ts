@@ -1418,14 +1418,118 @@ export function minifyHtml(html: string, options: HtmlMinifyOptions = {}): strin
   return s;
 }
 
-export function formatCss(css: string): string {
-  return css
-    .replace(/\s*([\{\};:,])\s*/g, '$1')
-    .replace(/:/g, ': ')
-    .replace(/;/g, ';\n  ')
-    .replace(/\{/g, ' {\n  ')
-    .replace(/\}/g, '\n}\n\n')
-    .trim();
+export interface CssFormatOptions {
+  indent?: number | 'tab';
+  singleLineRules?: boolean;
+  sortProperties?: boolean;
+}
+
+export function formatCss(cssStr: string, indent: number | 'tab' | CssFormatOptions = 2): string {
+  if (!cssStr || !cssStr.trim()) return '';
+
+  let options: CssFormatOptions = {};
+  if (typeof indent === 'object') {
+    options = indent;
+  } else {
+    options = { indent };
+  }
+
+  const indentUnit = options.indent === 'tab' ? '\t' : ' '.repeat(typeof options.indent === 'number' ? options.indent : 2);
+  const singleLine = options.singleLineRules ?? false;
+  const sortProps = options.sortProperties ?? false;
+
+  const protectedItems: string[] = [];
+  let s = cssStr.replace(/(\/\*[\s\S]*?\*\/|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, (match) => {
+    protectedItems.push(match);
+    return `__TOOLSTRUM_CSS_${protectedItems.length - 1}__`;
+  });
+
+  s = s.replace(/\s+/g, ' ').replace(/\s*([\{\};:])\s*/g, '$1');
+
+  const restore = (str: string) =>
+    str.replace(/__TOOLSTRUM_CSS_(\d+)__/g, (_, idx) => protectedItems[Number(idx)] || '');
+
+  const resultLines: string[] = [];
+  let depth = 0;
+  let currentDeclarations: string[] = [];
+  let currentToken = '';
+
+  for (let i = 0; i < s.length; i++) {
+    const char = s[i];
+
+    if (char === '{') {
+      const selector = restore(currentToken.trim());
+      currentToken = '';
+      currentDeclarations = [];
+      resultLines.push(`${indentUnit.repeat(depth)}${selector} {`);
+      depth++;
+      continue;
+    }
+
+    if (char === ';') {
+      currentToken += char;
+      const decl = currentToken.trim();
+      currentToken = '';
+      if (decl) {
+        const colonIdx = decl.indexOf(':');
+        if (colonIdx !== -1) {
+          const prop = decl.slice(0, colonIdx).trim();
+          const val = decl.slice(colonIdx + 1, -1).trim();
+          currentDeclarations.push(`${prop}: ${val};`);
+        } else {
+          currentDeclarations.push(decl);
+        }
+      }
+      continue;
+    }
+
+    if (char === '}') {
+      const remainder = currentToken.trim();
+      currentToken = '';
+      if (remainder) {
+        const colonIdx = remainder.indexOf(':');
+        if (colonIdx !== -1) {
+          const prop = remainder.slice(0, colonIdx).trim();
+          const val = remainder.slice(colonIdx + 1).replace(/;$/, '').trim();
+          currentDeclarations.push(`${prop}: ${val};`);
+        } else {
+          currentDeclarations.push(remainder);
+        }
+      }
+
+      if (sortProps) {
+        currentDeclarations.sort((a, b) => a.localeCompare(b));
+      }
+
+      depth = Math.max(0, depth - 1);
+
+      if (singleLine && currentDeclarations.length > 0 && resultLines.length > 0 && resultLines[resultLines.length - 1].endsWith('{')) {
+        const lastLine = resultLines.pop()!;
+        const restoredProps = currentDeclarations.map(restore).join(' ');
+        resultLines.push(`${lastLine} ${restoredProps} }`);
+      } else {
+        for (const decl of currentDeclarations) {
+          resultLines.push(`${indentUnit.repeat(depth + 1)}${restore(decl)}`);
+        }
+        resultLines.push(`${indentUnit.repeat(depth)}}`);
+      }
+
+      currentDeclarations = [];
+      if (depth === 0) {
+        resultLines.push('');
+      }
+      continue;
+    }
+
+    currentToken += char;
+  }
+
+  const trailing = currentToken.trim();
+  if (trailing) {
+    resultLines.push(`${indentUnit.repeat(depth)}${restore(trailing)}`);
+  }
+
+  return resultLines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
 }
 
 export function minifyCss(css: string): string {
