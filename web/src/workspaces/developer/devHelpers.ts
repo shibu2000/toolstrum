@@ -1761,8 +1761,82 @@ export function explainSql(sql: string): SqlExplanation {
 }
 
 // ==========================================
-// 8. REGEX EXPLAINER
+// 8. REGEX TESTER & EXPLAINER
 // ==========================================
+export interface RegexMatchItem {
+  match: string;
+  index: number;
+  length: number;
+  groups?: Record<string, string>;
+  numberedGroups?: string[];
+}
+
+export interface RegexTestResult {
+  count: number;
+  matches: string[];
+  items: RegexMatchItem[];
+  groups?: Record<string, string>[];
+  replacedText?: string;
+  error?: string;
+  executionTimeMs?: number;
+}
+
+export function testRegex(
+  pattern: string,
+  flags = 'g',
+  text = '',
+  replacement?: string
+): RegexTestResult {
+  const startTime = performance.now();
+  if (!pattern) {
+    return { count: 0, matches: [], items: [], groups: [], replacedText: text, executionTimeMs: 0 };
+  }
+
+  try {
+    const safeFlags = flags.replace(/[^gimsuy]/g, '');
+    const reg = new RegExp(pattern, safeFlags.includes('g') ? safeFlags : safeFlags + 'g');
+    const matches: string[] = [];
+    const items: RegexMatchItem[] = [];
+    const groups: Record<string, string>[] = [];
+
+    let m: RegExpExecArray | null;
+    let iterations = 0;
+    while ((m = reg.exec(text)) !== null && iterations < 5000) {
+      iterations++;
+      matches.push(m[0]);
+      items.push({
+        match: m[0],
+        index: m.index,
+        length: m[0].length,
+        groups: m.groups ? { ...m.groups } : undefined,
+        numberedGroups: m.slice(1),
+      });
+      if (m.groups) groups.push(m.groups);
+      if (m[0].length === 0) {
+        reg.lastIndex++;
+      }
+      if (!safeFlags.includes('g')) break;
+    }
+
+    let replacedText: string | undefined;
+    if (replacement !== undefined) {
+      replacedText = text.replace(new RegExp(pattern, safeFlags), replacement);
+    }
+
+    const executionTimeMs = Number((performance.now() - startTime).toFixed(2));
+    return { count: matches.length, matches, items, groups, replacedText, executionTimeMs };
+  } catch (err: any) {
+    return {
+      count: 0,
+      matches: [],
+      items: [],
+      groups: [],
+      error: err?.message || 'Invalid regular expression',
+      executionTimeMs: 0,
+    };
+  }
+}
+
 export interface RegexTokenExplanation {
   token: string;
   meaning: string;

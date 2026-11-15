@@ -2261,26 +2261,77 @@ export function generateSqlInserts(table: string, jsonRowsStr: string): string {
 // 3. WEB, REGEX & CODECS
 // ==========================================
 
+export interface RegexMatchItem {
+  match: string;
+  index: number;
+  length: number;
+  groups?: Record<string, string>;
+  numberedGroups?: string[];
+}
+
+export interface RegexTestResult {
+  count: number;
+  matches: string[];
+  items: RegexMatchItem[];
+  groups?: Record<string, string>[];
+  replacedText?: string;
+  error?: string;
+  executionTimeMs?: number;
+}
+
 export function testRegex(
   pattern: string,
   flags = 'g',
-  text: string
-): { count: number; matches: string[]; groups?: Record<string, string>[] } {
+  text = '',
+  replacement?: string
+): RegexTestResult {
+  const startTime = performance.now();
+  if (!pattern) {
+    return { count: 0, matches: [], items: [], groups: [], replacedText: text, executionTimeMs: 0 };
+  }
+
   try {
-    const reg = new RegExp(pattern, flags);
+    const safeFlags = flags.replace(/[^gimsuy]/g, '');
+    const reg = new RegExp(pattern, safeFlags.includes('g') ? safeFlags : safeFlags + 'g');
     const matches: string[] = [];
+    const items: RegexMatchItem[] = [];
     const groups: Record<string, string>[] = [];
 
     let m: RegExpExecArray | null;
-    while ((m = reg.exec(text)) !== null) {
+    let iterations = 0;
+    while ((m = reg.exec(text)) !== null && iterations < 5000) {
+      iterations++;
       matches.push(m[0]);
+      items.push({
+        match: m[0],
+        index: m.index,
+        length: m[0].length,
+        groups: m.groups ? { ...m.groups } : undefined,
+        numberedGroups: m.slice(1),
+      });
       if (m.groups) groups.push(m.groups);
-      if (!flags.includes('g')) break;
+      if (m[0].length === 0) {
+        reg.lastIndex++;
+      }
+      if (!safeFlags.includes('g')) break;
     }
 
-    return { count: matches.length, matches, groups };
-  } catch {
-    return { count: 0, matches: [] };
+    let replacedText: string | undefined;
+    if (replacement !== undefined) {
+      replacedText = text.replace(new RegExp(pattern, safeFlags), replacement);
+    }
+
+    const executionTimeMs = Number((performance.now() - startTime).toFixed(2));
+    return { count: matches.length, matches, items, groups, replacedText, executionTimeMs };
+  } catch (err: any) {
+    return {
+      count: 0,
+      matches: [],
+      items: [],
+      groups: [],
+      error: err?.message || 'Invalid regular expression',
+      executionTimeMs: 0,
+    };
   }
 }
 

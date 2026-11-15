@@ -15,6 +15,7 @@ import { OfflineShield } from '../../../components/common/OfflineShield';
 import { useAppStore } from '../../../store/useAppStore';
 import {
   testRegex,
+  RegexTestResult,
   explainRegex,
   encodeBase64,
   decodeBase64,
@@ -60,20 +61,32 @@ export const DevCodecsRegexWorkspace: React.FC<DevCodecsRegexWorkspaceProps> = (
   const toolConfig = getDeveloperToolConfig(activeToolId);
 
   // Regex test output
-  const regexResult = useMemo(() => {
+  const regexResult = useMemo<RegexTestResult>(() => {
     if (activeToolId === 265) {
       return testRegex(regexPattern, regexFlags, inputText);
     }
-    return { count: 0, matches: [] };
+    return { count: 0, matches: [], items: [], groups: [] };
   }, [activeToolId, regexPattern, regexFlags, inputText]);
 
   // Main output processing
   const processedOutput = useMemo(() => {
     switch (activeToolId) {
       case 265:
-        return regexResult.matches.length > 0
-          ? `Found ${regexResult.count} match(es):\n` + regexResult.matches.map((m, i) => `${i + 1}. ${m}`).join('\n')
-          : 'No regex matches found in test corpus.';
+        if (regexResult.error) return `Regex Syntax Error: ${regexResult.error}`;
+        if (regexResult.items && regexResult.items.length > 0) {
+          let out = `=== FOUND ${regexResult.count} MATCH(ES) (${regexResult.executionTimeMs} ms) ===\n\n`;
+          out += regexResult.items
+            .map((m, i) => {
+              let itemStr = `${i + 1}. "${m.match}" [index ${m.index}..${m.index + m.length}]`;
+              if (m.numberedGroups && m.numberedGroups.length > 0) {
+                itemStr += `\n   Groups: ` + m.numberedGroups.map((g, gi) => `$${gi + 1}: ${g ?? 'null'}`).join(', ');
+              }
+              return itemStr;
+            })
+            .join('\n\n');
+          return out;
+        }
+        return 'No regex matches found in test corpus.';
       case 266:
         return explainRegex(regexPattern).map((exp, i) => `${i + 1}. ${exp}`).join('\n');
       case 267:

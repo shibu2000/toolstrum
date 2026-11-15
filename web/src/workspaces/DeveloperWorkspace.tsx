@@ -35,6 +35,7 @@ import { JsMinifierPanel } from './developer/JsMinifierPanel';
 import { SqlFormatterPanel } from './developer/SqlFormatterPanel';
 import { SqlMinifierPanel } from './developer/SqlMinifierPanel';
 import { SqlQueryExplainerPanel } from './developer/SqlQueryExplainerPanel';
+import { RegexTesterPanel } from './developer/RegexTesterPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -860,7 +861,7 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* ======================================================== */}
       {/* 265-266: DEDICATED REGEX TOOLS */}
       {/* ======================================================== */}
-      {toolId === 265 && <RegexTesterTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 265 && <RegexTesterPanel />}
       {toolId === 266 && <RegexExplainerTool copied={copied} onCopy={handleCopyText} />}
 
       {/* ======================================================== */}
