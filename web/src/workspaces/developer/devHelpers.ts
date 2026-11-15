@@ -2565,3 +2565,378 @@ export function rgbToHex(r: number, g: number, b: number): string {
   const clamp = (v: number) => Math.max(0, Math.min(255, Math.round(v)));
   return '#' + [clamp(r), clamp(g), clamp(b)].map((x) => x.toString(16).padStart(2, '0')).join('').toUpperCase();
 }
+
+// ==========================================
+// 12. UNIX TIMESTAMP & DATE HELPERS
+// ==========================================
+export interface TimestampDetails {
+  valid: boolean;
+  error?: string;
+  epochSec: number;
+  epochMs: number;
+  epochUs: string;
+  epochNs: string;
+  iso: string;
+  utc: string;
+  local: string;
+  relative: string;
+  dayOfWeek: string;
+  dayOfYear: number;
+  weekNumber: number;
+  isLeapYear: boolean;
+  timezones: { name: string; zone: string; formatted: string }[];
+}
+
+export function parseUnixTimestamp(raw: string | number): TimestampDetails {
+  const str = String(raw).trim();
+  if (!str) {
+    return {
+      valid: false,
+      error: 'Please enter a timestamp or date string.',
+      epochSec: 0,
+      epochMs: 0,
+      epochUs: '0',
+      epochNs: '0',
+      iso: '',
+      utc: '',
+      local: '',
+      relative: '',
+      dayOfWeek: '',
+      dayOfYear: 0,
+      weekNumber: 0,
+      isLeapYear: false,
+      timezones: [],
+    };
+  }
+
+  let ms = 0;
+  // Check if numeric
+  if (/^-?\d+(\.\d+)?$/.test(str)) {
+    const num = parseFloat(str);
+    // Disambiguate scale:
+    // < 1e11: seconds (e.g. 1700000000)
+    // < 1e14: milliseconds (e.g. 1700000000000)
+    // < 1e17: microseconds (e.g. 1700000000000000)
+    // >= 1e17: nanoseconds (e.g. 1700000000000000000)
+    if (Math.abs(num) < 1e11) {
+      ms = Math.round(num * 1000);
+    } else if (Math.abs(num) < 1e14) {
+      ms = Math.round(num);
+    } else if (Math.abs(num) < 1e17) {
+      ms = Math.round(num / 1000);
+    } else {
+      ms = Math.round(num / 1000000);
+    }
+  } else {
+    // Try parsing as ISO / Date string
+    const parsed = Date.parse(str);
+    if (isNaN(parsed)) {
+      return {
+        valid: false,
+        error: `Could not parse "${str}" as timestamp or date.`,
+        epochSec: 0,
+        epochMs: 0,
+        epochUs: '0',
+        epochNs: '0',
+        iso: '',
+        utc: '',
+        local: '',
+        relative: '',
+        dayOfWeek: '',
+        dayOfYear: 0,
+        weekNumber: 0,
+        isLeapYear: false,
+        timezones: [],
+      };
+    }
+    ms = parsed;
+  }
+
+  const date = new Date(ms);
+  if (isNaN(date.getTime())) {
+    return {
+      valid: false,
+      error: 'Invalid date/timestamp out of supported range.',
+      epochSec: 0,
+      epochMs: 0,
+      epochUs: '0',
+      epochNs: '0',
+      iso: '',
+      utc: '',
+      local: '',
+      relative: '',
+      dayOfWeek: '',
+      dayOfYear: 0,
+      weekNumber: 0,
+      isLeapYear: false,
+      timezones: [],
+    };
+  }
+
+  const epochSec = Math.floor(ms / 1000);
+  const epochUs = `${ms}000`;
+  const epochNs = `${ms}000000`;
+
+  // Relative Time
+  const now = Date.now();
+  const diffSec = Math.round((ms - now) / 1000);
+  let relative = '';
+  if (Math.abs(diffSec) < 5) {
+    relative = 'just now';
+  } else if (diffSec > 0) {
+    if (diffSec < 60) relative = `in ${diffSec} seconds`;
+    else if (diffSec < 3600) relative = `in ${Math.round(diffSec / 60)} minutes`;
+    else if (diffSec < 86400) relative = `in ${Math.round(diffSec / 3600)} hours`;
+    else relative = `in ${Math.round(diffSec / 86400)} days`;
+  } else {
+    const abs = Math.abs(diffSec);
+    if (abs < 60) relative = `${abs} seconds ago`;
+    else if (abs < 3600) relative = `${Math.round(abs / 60)} minutes ago`;
+    else if (abs < 86400) relative = `${Math.round(abs / 3600)} hours ago`;
+    else relative = `${Math.round(abs / 86400)} days ago`;
+  }
+
+  // Day of week & Day of Year
+  const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const dayOfWeek = days[date.getUTCDay()];
+
+  const startOfYear = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
+  const dayOfYear = Math.floor((date.getTime() - startOfYear.getTime()) / (24 * 60 * 60 * 1000)) + 1;
+
+  // ISO Week Number
+  const target = new Date(date.valueOf());
+  const dayNr = (date.getUTCDay() + 6) % 7;
+  target.setUTCDate(target.getUTCDate() - dayNr + 3);
+  const firstThursday = target.valueOf();
+  target.setUTCMonth(0, 1);
+  if (target.getUTCDay() !== 4) {
+    target.setUTCMonth(0, 1 + ((4 - target.getUTCDay() + 7) % 7));
+  }
+  const weekNumber = 1 + Math.ceil((firstThursday - target.valueOf()) / 604800000);
+
+  const year = date.getUTCFullYear();
+  const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+
+  // Timezones
+  const tzList = [
+    { name: 'UTC / GMT', zone: 'UTC' },
+    { name: 'New York (EDT/EST)', zone: 'America/New_York' },
+    { name: 'San Francisco (PDT/PST)', zone: 'America/Los_Angeles' },
+    { name: 'London (BST/GMT)', zone: 'Europe/London' },
+    { name: 'Paris / Berlin (CEST/CET)', zone: 'Europe/Paris' },
+    { name: 'Tokyo (JST)', zone: 'Asia/Tokyo' },
+    { name: 'Sydney (AEST/AEDT)', zone: 'Australia/Sydney' },
+    { name: 'Kolkata (IST)', zone: 'Asia/Kolkata' },
+    { name: 'Singapore (SGT)', zone: 'Asia/Singapore' },
+  ];
+
+  const timezones = tzList.map(({ name, zone }) => {
+    try {
+      const formatted = new Intl.DateTimeFormat('en-US', {
+        timeZone: zone,
+        dateStyle: 'full',
+        timeStyle: 'medium',
+      }).format(date);
+      return { name, zone, formatted };
+    } catch {
+      return { name, zone, formatted: date.toUTCString() };
+    }
+  });
+
+  return {
+    valid: true,
+    epochSec,
+    epochMs: ms,
+    epochUs,
+    epochNs,
+    iso: date.toISOString(),
+    utc: date.toUTCString(),
+    local: date.toLocaleString(),
+    relative,
+    dayOfWeek,
+    dayOfYear,
+    weekNumber,
+    isLeapYear,
+    timezones,
+  };
+}
+
+// ==========================================
+// 13. CRONTAB EXPRESSION PARSER & HUMANIZER
+// ==========================================
+export interface CronParseResult {
+  valid: boolean;
+  error?: string;
+  description: string;
+  nextRuns: { date: string; relative: string }[];
+  breakdown: {
+    minute: string;
+    hour: string;
+    dayOfMonth: string;
+    month: string;
+    dayOfWeek: string;
+  };
+}
+
+const MONTH_NAMES = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+export function parseCronFieldValues(field: string, min: number, max: number): Set<number> {
+  const values = new Set<number>();
+  for (const part of field.split(',')) {
+    const stepMatch = part.match(/^(\*|\d+-\d+|\d+)\/(\d+)$/);
+    let range = part;
+    let step = 1;
+    if (stepMatch) {
+      range = stepMatch[1];
+      step = parseInt(stepMatch[2], 10);
+    }
+    let lo = min;
+    let hi = max;
+    if (range !== '*') {
+      const rangeMatch = range.match(/^(\d+)-(\d+)$/);
+      if (rangeMatch) {
+        lo = parseInt(rangeMatch[1], 10);
+        hi = parseInt(rangeMatch[2], 10);
+      } else {
+        lo = hi = parseInt(range, 10);
+      }
+    }
+    for (let v = lo; v <= hi; v += step) {
+      if (v >= min && v <= max) values.add(v);
+    }
+  }
+  return values;
+}
+
+export function parseCronExpression(expr: string): CronParseResult {
+  const trimmed = expr.trim();
+  const fields = trimmed.split(/\s+/);
+  if (fields.length !== 5) {
+    return {
+      valid: false,
+      error: `Cron expressions need exactly 5 fields (minute hour day-of-month month day-of-week). Received ${fields.length}.`,
+      description: '',
+      nextRuns: [],
+      breakdown: { minute: '', hour: '', dayOfMonth: '', month: '', dayOfWeek: '' },
+    };
+  }
+
+  const [minF, hourF, domF, monF, dowF] = fields;
+  try {
+    const minutes = parseCronFieldValues(minF, 0, 59);
+    const hours = parseCronFieldValues(hourF, 0, 23);
+    const doms = parseCronFieldValues(domF, 1, 31);
+    const months = parseCronFieldValues(monF, 1, 12);
+    const dows = parseCronFieldValues(dowF, 0, 6);
+
+    if (!minutes.size || !hours.size || !doms.size || !months.size || !dows.size) {
+      throw new Error('One or more cron fields evaluated to an empty set.');
+    }
+
+    // Human description synthesis
+    const descParts: string[] = [];
+    if (minF === '*' && hourF === '*') {
+      descParts.push('Every minute');
+    } else if (minF.startsWith('*/')) {
+      descParts.push(`Every ${minF.slice(2)} minutes`);
+    } else if (minF === '0' && hourF === '*') {
+      descParts.push('Every hour on the hour');
+    } else if (minF === '0' && hourF.startsWith('*/')) {
+      descParts.push(`Every ${hourF.slice(2)} hours`);
+    } else {
+      const minText = minF === '*' ? 'every minute' : `at minute ${[...minutes].join(', ')}`;
+      const hourText = hourF === '*' ? 'of every hour' : `at ${[...hours].map((h) => `${h.toString().padStart(2, '0')}:00`).join(', ')}`;
+      descParts.push(`${minText} ${hourText}`);
+    }
+
+    if (domF !== '*' && dowF === '*') {
+      descParts.push(`on day-of-month ${[...doms].join(', ')}`);
+    } else if (dowF !== '*' && domF === '*') {
+      const dowNames = [...dows].map((d) => DAY_NAMES[d] || d);
+      descParts.push(`on ${dowNames.join(', ')}`);
+    } else if (domF !== '*' && dowF !== '*') {
+      const dowNames = [...dows].map((d) => DAY_NAMES[d] || d);
+      descParts.push(`on day-of-month ${[...doms].join(', ')} and ${dowNames.join(', ')}`);
+    }
+
+    if (monF !== '*') {
+      const monNames = [...months].map((m) => MONTH_NAMES[m] || m);
+      descParts.push(`in ${monNames.join(', ')}`);
+    }
+
+    const description = descParts.join(', ');
+
+    // Calculate next 10 runs
+    const nextRuns: { date: string; relative: string }[] = [];
+    const cursor = new Date();
+    cursor.setSeconds(0, 0);
+    cursor.setMinutes(cursor.getMinutes() + 1);
+
+    const domRestricted = domF !== '*';
+    const dowRestricted = dowF !== '*';
+
+    let iterations = 0;
+    while (nextRuns.length < 10 && iterations < 500000) {
+      iterations++;
+      const currentDow = cursor.getDay();
+      const currentDom = cursor.getDate();
+      const domOk = !domRestricted && !dowRestricted
+        ? true
+        : domRestricted && dowRestricted
+        ? doms.has(currentDom) || dows.has(currentDow)
+        : domRestricted
+        ? doms.has(currentDom)
+        : dows.has(currentDow);
+
+      if (
+        minutes.has(cursor.getMinutes()) &&
+        hours.has(cursor.getHours()) &&
+        months.has(cursor.getMonth() + 1) &&
+        domOk
+      ) {
+        const msDiff = cursor.getTime() - Date.now();
+        const minsDiff = Math.round(msDiff / 60000);
+        let rel = '';
+        if (minsDiff < 60) rel = `in ${minsDiff}m`;
+        else if (minsDiff < 1440) rel = `in ${Math.round(minsDiff / 60)}h`;
+        else rel = `in ${Math.round(minsDiff / 1440)}d`;
+
+        nextRuns.push({
+          date: cursor.toLocaleString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
+          relative: rel,
+        });
+      }
+      cursor.setMinutes(cursor.getMinutes() + 1);
+    }
+
+    return {
+      valid: true,
+      description: description.charAt(0).toUpperCase() + description.slice(1),
+      nextRuns,
+      breakdown: {
+        minute: minF,
+        hour: hourF,
+        dayOfMonth: domF,
+        month: monF,
+        dayOfWeek: dowF,
+      },
+    };
+  } catch (e: any) {
+    return {
+      valid: false,
+      error: `Invalid expression: ${e.message}`,
+      description: '',
+      nextRuns: [],
+      breakdown: { minute: minF, hour: hourF, dayOfMonth: domF, month: monF, dayOfWeek: dowF },
+    };
+  }
+}

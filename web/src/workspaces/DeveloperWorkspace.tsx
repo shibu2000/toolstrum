@@ -53,6 +53,8 @@ import { BoxShadowGeneratorPanel } from './developer/BoxShadowGeneratorPanel';
 import { BorderRadiusGeneratorPanel } from './developer/BorderRadiusGeneratorPanel';
 import { FlexboxPlaygroundPanel } from './developer/FlexboxPlaygroundPanel';
 import { GridGeneratorPanel } from './developer/GridGeneratorPanel';
+import { UnixTimestampPanel } from './developer/UnixTimestampPanel';
+import { CrontabHelperPanel } from './developer/CrontabHelperPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -187,9 +189,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
   };
 
   // ==========================================
-  // 7. SYSTEM & TIME (UNIX TIMESTAMP, HTTP CODES)
+  // 7. HTTP CODES REFERENCE
   // ==========================================
-  const [unixInput, setUnixInput] = useState(String(Math.floor(Date.now() / 1000)));
   const [httpSearch, setHttpSearch] = useState('');
 
   const httpCodes = [
@@ -214,105 +215,6 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       c.name.toLowerCase().includes(httpSearch.toLowerCase()) ||
       c.desc.toLowerCase().includes(httpSearch.toLowerCase())
   );
-
-  const getUnixDate = () => {
-    const num = Number(unixInput);
-    if (isNaN(num) || num <= 0) return null;
-    const d = new Date(num > 1e11 ? num : num * 1000);
-    return {
-      utc: d.toUTCString(),
-      local: d.toLocaleString(),
-      iso: d.toISOString(),
-    };
-  };
-
-  // ==========================================
-  // 8. CRON EXPRESSION HELPER
-  // ==========================================
-  const [cronExpr, setCronExpr] = useState('*/15 9-17 * * 1-5');
-  const [cronError, setCronError] = useState('');
-  const [cronDescription, setCronDescription] = useState('');
-  const [cronNextRuns, setCronNextRuns] = useState<string[]>([]);
-
-  const parseCronField = (field: string, min: number, max: number): Set<number> => {
-    const values = new Set<number>();
-    for (const part of field.split(',')) {
-      const stepMatch = part.match(/^(\*|\d+-\d+|\d+)\/(\d+)$/);
-      let range = part;
-      let step = 1;
-      if (stepMatch) {
-        range = stepMatch[1];
-        step = Number(stepMatch[2]);
-      }
-      let lo = min;
-      let hi = max;
-      if (range !== '*') {
-        const rangeMatch = range.match(/^(\d+)-(\d+)$/);
-        if (rangeMatch) {
-          lo = Number(rangeMatch[1]);
-          hi = Number(rangeMatch[2]);
-        } else {
-          lo = hi = Number(range);
-        }
-      }
-      for (let v = lo; v <= hi; v += step) values.add(v);
-    }
-    return values;
-  };
-
-  const handleParseCron = () => {
-    setCronError('');
-    setCronDescription('');
-    setCronNextRuns([]);
-    const fields = cronExpr.trim().split(/\s+/);
-    if (fields.length !== 5) {
-      setCronError('Cron expressions need exactly 5 fields: minute hour day-of-month month day-of-week.');
-      return;
-    }
-    try {
-      const [minF, hourF, domF, monF, dowF] = fields;
-      const minutes = parseCronField(minF, 0, 59);
-      const hours = parseCronField(hourF, 0, 23);
-      const doms = parseCronField(domF, 1, 31);
-      const months = parseCronField(monF, 1, 12);
-      const dows = parseCronField(dowF, 0, 6);
-
-      const domRestricted = domF !== '*';
-      const dowRestricted = dowF !== '*';
-
-      const parts: string[] = [];
-      parts.push(minF === '*' ? 'every minute' : `at minute(s) ${[...minutes].join(', ')}`);
-      parts.push(hourF === '*' ? 'of every hour' : `of hour(s) ${[...hours].join(', ')}`);
-      parts.push(monF === '*' ? 'every month' : `in month(s) ${[...months].join(', ')}`);
-      if (domRestricted) parts.push(`on day-of-month ${[...doms].join(', ')}`);
-      if (dowRestricted) parts.push(`on weekday(s) ${[...dows].join(', ')}`);
-      setCronDescription(parts.join(', '));
-
-      const runs: string[] = [];
-      const cursor = new Date();
-      cursor.setSeconds(0, 0);
-      cursor.setMinutes(cursor.getMinutes() + 1);
-      let iterations = 0;
-      while (runs.length < 5 && iterations < 600000) {
-        iterations++;
-        const dowMatches = dows.has(cursor.getDay());
-        const domMatches = doms.has(cursor.getDate());
-        const domOk = !domRestricted && !dowRestricted ? true : domRestricted && dowRestricted ? domMatches || dowMatches : domRestricted ? domMatches : dowMatches;
-        if (
-          minutes.has(cursor.getMinutes()) &&
-          hours.has(cursor.getHours()) &&
-          months.has(cursor.getMonth() + 1) &&
-          domOk
-        ) {
-          runs.push(cursor.toLocaleString());
-        }
-        cursor.setMinutes(cursor.getMinutes() + 1);
-      }
-      setCronNextRuns(runs);
-    } catch (e: any) {
-      setCronError(`Invalid cron expression: ${e.message}`);
-    }
-  };
 
   // ==========================================
   // 9. DIFF & PATCH VIEWER
@@ -893,105 +795,11 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 284 && <FlexboxPlaygroundPanel />}
       {toolId === 285 && <GridGeneratorPanel />}
 
-      {/* 286 — UNIX TIMESTAMP CONVERTER */}
-      {toolId === 286 && (
-        <div className="grid grid-cols-1 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                Unix Timestamp Converter
-              </h3>
-              <button
-                onClick={() => setUnixInput(String(Math.floor(Date.now() / 1000)))}
-                className="px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-sky-950 text-sky-600 dark:text-sky-400 text-xs font-bold"
-              >
-                Set Current Time
-              </button>
-            </div>
-
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                Epoch Timestamp (Seconds or Milliseconds)
-              </label>
-              <input
-                type="text"
-                value={unixInput}
-                onChange={(e) => setUnixInput(e.target.value)}
-                className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs font-bold"
-              />
-            </div>
-
-            {getUnixDate() && (
-              <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
-                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">Local Time:</span>
-                  <p className="font-bold text-slate-900 dark:text-white mt-0.5">{getUnixDate()?.local}</p>
-                </div>
-                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">UTC:</span>
-                  <p className="font-bold text-slate-900 dark:text-white mt-0.5">{getUnixDate()?.utc}</p>
-                </div>
-                <div className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">ISO 8601:</span>
-                  <p className="font-mono text-slate-900 dark:text-white mt-0.5">{getUnixDate()?.iso}</p>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* 287 — CRON EXPRESSION HELPER */}
-      {toolId === 287 && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <Clock className="w-4 h-4 text-sky-500" /> Cron Expression Helper
-            </h3>
-            <div>
-              <label className="text-xs font-medium text-slate-700 dark:text-slate-300 block mb-1">
-                Cron Expression (minute hour day-of-month month day-of-week)
-              </label>
-              <input
-                type="text"
-                value={cronExpr}
-                onChange={(e) => setCronExpr(e.target.value)}
-                className="w-full p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs"
-              />
-            </div>
-            <button
-              onClick={handleParseCron}
-              className="w-full py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs"
-            >
-              Explain & Compute Next Runs
-            </button>
-            {cronError && (
-              <div className="p-3 rounded-xl bg-rose-50 text-rose-700 dark:bg-rose-950/40 text-xs font-medium">{cronError}</div>
-            )}
-          </div>
-          <div className="space-y-4">
-            {cronDescription ? (
-              <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border-2 border-sky-500/30 shadow-md space-y-4">
-                <div>
-                  <span className="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase tracking-wider">Runs</span>
-                  <p className="text-sm font-semibold text-slate-900 dark:text-white mt-1 capitalize">{cronDescription}</p>
-                </div>
-                <div className="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1.5 text-xs">
-                  <span className="text-[10px] uppercase font-bold text-slate-400">Next 5 Run Times</span>
-                  {cronNextRuns.map((r, i) => (
-                    <div key={i} className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 font-mono">{r}</div>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-3">
-                <ShieldCheck className="w-5 h-5 text-sky-500 shrink-0" />
-                <p className="text-xs text-slate-600 dark:text-slate-300">Enter a 5-field cron expression and click the button.</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {/* ======================================================== */}
+      {/* 286-287: DEDICATED TIME & SCHEDULING TOOLS */}
+      {/* ======================================================== */}
+      {toolId === 286 && <UnixTimestampPanel />}
+      {toolId === 287 && <CrontabHelperPanel />}
 
       {/* 288 — DIFF & PATCH VIEWER */}
       {toolId === 288 && (
