@@ -71,6 +71,9 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
   const [cssStripComments, setCssStripComments] = useState<boolean>(true);
   const [cssShortenHex, setCssShortenHex] = useState<boolean>(true);
   const [jsQuoteType, setJsQuoteType] = useState<'preserve' | 'single' | 'double'>('preserve');
+  const [jsStripComments, setJsStripComments] = useState<boolean>(true);
+  const [jsCompressBooleans, setJsCompressBooleans] = useState<boolean>(true);
+  const [jsWrapIIFE, setJsWrapIIFE] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
 
   const { toggleFavorite, isFavorite, addRecentItem } = useAppStore();
@@ -126,7 +129,11 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             quoteType: jsQuoteType,
           });
         case 261:
-          return minifyJs(codeJs);
+          return minifyJs(codeJs, {
+            stripComments: jsStripComments,
+            compressBooleans: jsCompressBooleans,
+            wrapIIFE: jsWrapIIFE,
+          });
         case 262:
           return formatSql(codeSql);
         case 263:
@@ -145,7 +152,7 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
     } catch (err: any) {
       return `Processing error: ${err?.message || 'Unable to parse code syntax'}`;
     }
-  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex, jsQuoteType]);
+  }, [activeToolId, codeHtml, codeCss, codeJs, codeSql, codeRecords, sqlTable, currentInput, indentSize, wrapAttributes, stripComments, minifyEmbedded, singleLineRules, sortProperties, cssStripComments, cssShortenHex, jsQuoteType, jsStripComments, jsCompressBooleans, jsWrapIIFE]);
 
   const handleSaveToFiles = () => {
     setIsSaved(true);
@@ -398,6 +405,39 @@ export const DevCodeFormattersWorkspace: React.FC<DevCodeFormattersWorkspaceProp
             >
               <Text style={[styles.smallPillText, jsQuoteType === 'double' && styles.smallPillTextActive]}>
                 "Double"
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* JS Minifier Subbar (Tool 261) */}
+        {activeToolId === 261 && (
+          <View style={styles.subBar}>
+            <Text style={styles.subBarLabel}>Options:</Text>
+            <TouchableOpacity
+              style={[styles.smallPill, jsStripComments && styles.smallPillActive]}
+              onPress={() => setJsStripComments(!jsStripComments)}
+            >
+              <Text style={[styles.smallPillText, jsStripComments && styles.smallPillTextActive]}>
+                Strip Comments
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, jsCompressBooleans && styles.smallPillActive]}
+              onPress={() => setJsCompressBooleans(!jsCompressBooleans)}
+            >
+              <Text style={[styles.smallPillText, jsCompressBooleans && styles.smallPillTextActive]}>
+                !0 / !1 Booleans
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.smallPill, jsWrapIIFE && styles.smallPillActive]}
+              onPress={() => setJsWrapIIFE(!jsWrapIIFE)}
+            >
+              <Text style={[styles.smallPillText, jsWrapIIFE && styles.smallPillTextActive]}>
+                Wrap IIFE
               </Text>
             </TouchableOpacity>
           </View>

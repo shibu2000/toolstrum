@@ -1197,13 +1197,57 @@ export function formatJs(jsStr: string, indent: number | 'tab' | JsFormatOptions
   return output;
 }
 
-export function minifyJs(js: string): string {
-  return js
-    .replace(/\/\*[\s\S]*?\*\//g, '') // Multi-line comments
-    .replace(/\/\/.*$/gm, '') // Single-line comments
-    .replace(/\s+/g, ' ') // Collapse spaces
-    .replace(/\s*([\{\}\(\)\[\]=;:,><+\-*\/])\s*/g, '$1')
+export interface JsMinifyOptions {
+  stripComments?: boolean;
+  compressBooleans?: boolean;
+  wrapIIFE?: boolean;
+}
+
+export function minifyJs(js: string, options: JsMinifyOptions = {}): string {
+  if (!js || !js.trim()) return '';
+
+  const {
+    stripComments = true,
+    compressBooleans = true,
+    wrapIIFE = false,
+  } = options;
+
+  const protectedItems: string[] = [];
+  const protectRegex = /(\/\*[\s\S]*?\*\/|\/\/[^\n]*|"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|`[\s\S]*?`|\/(?:[^\/\\]|\\.)+\/[gimsuy]*)/g;
+
+  let s = js.replace(protectRegex, (match) => {
+    if (stripComments && (match.startsWith('/*') || match.startsWith('//'))) {
+      return ' ';
+    }
+    protectedItems.push(match);
+    return `__TOOLSTRUM_JS_${protectedItems.length - 1}__`;
+  });
+
+  if (compressBooleans) {
+    s = s
+      .replace(/\btrue\b/g, '!0')
+      .replace(/\bfalse\b/g, '!1')
+      .replace(/\bundefined\b/g, 'void 0');
+  }
+
+  // Collapse whitespace
+  s = s.replace(/\s+/g, ' ');
+
+  // Safely remove spaces around symbols without collapsing keywords into tokens
+  s = s
+    .replace(/\s*([\{\}\(\)\[\];:,?])\s*/g, '$1')
+    .replace(/\s*([=+\-*\/%&|^!<>]=?)\s*/g, '$1')
+    .replace(/;\}/g, '}')
     .trim();
+
+  // Restore protected items
+  s = s.replace(/__TOOLSTRUM_JS_(\d+)__/g, (_, idx) => protectedItems[Number(idx)] || '');
+
+  if (wrapIIFE) {
+    s = `(()=>{${s}})();`;
+  }
+
+  return s;
 }
 
 // ==========================================
