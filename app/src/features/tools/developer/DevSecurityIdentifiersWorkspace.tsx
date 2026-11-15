@@ -55,6 +55,7 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
   const [uuidHyphens, setUuidHyphens] = useState<boolean>(true);
   const [ulidCount, setUlidCount] = useState<number>(3);
   const [hashInput, setHashInput] = useState<string>('');
+  const [hashUppercase, setHashUppercase] = useState<boolean>(false);
   const [hmacMessage, setHmacMessage] = useState<string>('');
   const [hmacKey, setHmacKey] = useState<string>('');
   const [passLength, setPassLength] = useState<number>(16);
@@ -115,7 +116,10 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
           };
         }
         const hashes = generateCryptoHashes(hashInput);
-        const report = `SHA-256:\n${hashes.sha256}\n\nSHA-1:\n${hashes.sha1}\n\nMD5:\n${hashes.md5}`;
+        const s256 = hashUppercase ? hashes.sha256.toUpperCase() : hashes.sha256;
+        const s1 = hashUppercase ? hashes.sha1.toUpperCase() : hashes.sha1;
+        const md5H = hashUppercase ? hashes.md5.toUpperCase() : hashes.md5;
+        const report = `SHA-256:\n${s256}\n\nSHA-1:\n${s1}\n\nMD5:\n${md5H}`;
         return {
           output: report,
           statItems: [
@@ -238,6 +242,7 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
     uuidHyphens,
     ulidCount,
     hashInput,
+    hashUppercase,
     hmacMessage,
     hmacKey,
     passLength,
@@ -420,7 +425,19 @@ export const DevSecurityIdentifiersWorkspace: React.FC<DevSecurityIdentifiersWor
         {/* 276 Hash Input */}
         {activeToolId === 276 && (
           <View style={styles.card}>
-            <Text style={styles.cardTitle}>Input Text to Hash</Text>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <Text style={styles.cardTitle}>Input Text to Hash</Text>
+              <TouchableOpacity
+                style={[styles.smallPill, hashUppercase && styles.smallPillActive]}
+                onPress={() => setHashUppercase(!hashUppercase)}
+              >
+                <Text
+                  style={[styles.smallPillText, hashUppercase && styles.smallPillTextActive]}
+                >
+                  Uppercase
+                </Text>
+              </TouchableOpacity>
+            </View>
             <TextInput
               style={styles.singleInput}
               value={hashInput}

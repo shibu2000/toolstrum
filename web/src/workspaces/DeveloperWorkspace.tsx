@@ -43,6 +43,8 @@ import { HtmlEntityCodecPanel } from './developer/HtmlEntityCodecPanel';
 import { JwtInspectorPanel } from './developer/JwtInspectorPanel';
 import { UuidGeneratorPanel } from './developer/UuidGeneratorPanel';
 import { UlidGeneratorPanel } from './developer/UlidGeneratorPanel';
+import { HashGeneratorPanel } from './developer/HashGeneratorPanel';
+import { HmacGeneratorPanel } from './developer/HmacGeneratorPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -70,8 +72,6 @@ import {
   UrlDecoderTool,
 } from './developer/CodecTools';
 import {
-  HashGeneratorTool,
-  HmacGeneratorTool,
   PasswordGeneratorTool,
   BcryptCheckerTool,
 } from './developer/SecurityTools';
@@ -882,8 +882,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {toolId === 273 && <JwtInspectorPanel />}
       {toolId === 274 && <UuidGeneratorPanel />}
       {toolId === 275 && <UlidGeneratorPanel />}
-      {toolId === 276 && <HashGeneratorTool copied={copied} onCopy={handleCopyText} />}
-      {toolId === 277 && <HmacGeneratorTool copied={copied} onCopy={handleCopyText} />}
+      {toolId === 276 && <HashGeneratorPanel />}
+      {toolId === 277 && <HmacGeneratorPanel />}
       {toolId === 278 && <PasswordGeneratorTool copied={copied} onCopy={handleCopyText} />}
       {toolId === 279 && <BcryptCheckerTool copied={copied} onCopy={handleCopyText} />}
 
