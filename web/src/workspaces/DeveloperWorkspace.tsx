@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { getToolById } from '../data/webRegistry';
 import { JsonFormatterPanel } from './developer/JsonFormatterPanel';
+import { JsonValidatorPanel } from './developer/JsonValidatorPanel';
 import {
   YamlFormatterTool,
   YamlValidatorTool,
@@ -802,33 +803,8 @@ export const DeveloperWorkspace: React.FC<DeveloperWorkspaceProps> = ({
       {/* 244 — JSON FORMATTER (BEAUTIFY & TREE) — dedicated modern panel */}
       {toolId === 244 && <JsonFormatterPanel initialValue={jsonInput} />}
 
-      {/* 245 — JSON VALIDATOR — auto-computes live */}
-      {toolId === 245 && (() => {
-        const { value, error } = parseJson(jsonInput);
-        const typeLabel = Array.isArray(value) ? `array (${value.length} items)` : typeof value === 'object' && value !== null ? `object (${Object.keys(value).length} keys)` : typeof value;
-        return (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
-              <label className="text-xs font-bold text-slate-900 dark:text-white">JSON Input</label>
-              <textarea
-                value={jsonInput}
-                onChange={(e) => setJsonInput(e.target.value)}
-                rows={14}
-                className="w-full p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 font-mono text-xs leading-relaxed"
-              />
-            </div>
-            <div className={`p-6 rounded-2xl border-2 shadow-md space-y-3 ${error ? 'bg-rose-50 dark:bg-rose-950/30 border-rose-400/40' : 'bg-emerald-50 dark:bg-emerald-950/30 border-emerald-400/40'}`}>
-              <div className="flex items-center gap-2">
-                {error ? <X className="w-5 h-5 text-rose-600" /> : <Check className="w-5 h-5 text-emerald-600" />}
-                <span className={`text-sm font-bold ${error ? 'text-rose-700 dark:text-rose-300' : 'text-emerald-700 dark:text-emerald-300'}`}>
-                  {error ? 'Invalid JSON' : 'Valid JSON'}
-                </span>
-              </div>
-              <p className="text-xs text-slate-600 dark:text-slate-300">{error || `Root type: ${typeLabel}`}</p>
-            </div>
-          </div>
-        );
-      })()}
+      {/* 245 — JSON VALIDATOR & SCHEMA LINTER — dedicated modern panel */}
+      {toolId === 245 && <JsonValidatorPanel initialValue={jsonInput} />}
 
       {/* 246 — JSON MINIFIER — auto-computes live */}
       {toolId === 246 && (() => {

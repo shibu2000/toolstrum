@@ -109,7 +109,14 @@ export const DevDataFormatsWorkspace: React.FC<DevDataFormatsWorkspaceProps> = (
         case 245: {
           const val = validateJson(inputData);
           if (val.valid) {
-            return { output: '✅ JSON Syntax is 100% valid and well-formed.', isValid: true };
+            let msg = '✅ JSON Syntax is 100% valid and complies with RFC 8259.';
+            if (val.duplicates && val.duplicates.length > 0) {
+              msg += `\n\n⚠️ Warning: Duplicate keys found (${val.duplicates.join(', ')}).`;
+            }
+            if (val.securityRisks && val.securityRisks.length > 0) {
+              msg += `\n\n🛡️ Security Inspection:\n${val.securityRisks.map(r => `• ${r}`).join('\n')}`;
+            }
+            return { output: msg, isValid: true };
           }
           return {
             output: `❌ JSON Syntax Error:\n${val.error}\nLine: ${val.line}, Column: ${val.column}`,

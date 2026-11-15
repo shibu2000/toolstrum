@@ -73,10 +73,35 @@ export function validateJson(raw: string): {
   error?: string;
   line?: number;
   column?: number;
+  duplicates?: string[];
+  securityRisks?: string[];
 } {
   try {
-    JSON.parse(raw);
-    return { valid: true };
+    const parsed = JSON.parse(raw);
+
+    // Audit duplicate keys
+    const duplicates: string[] = [];
+    const keyRegex = /"([^"\\]*(?:\\.[^"\\]*)*)"\s*:/g;
+    const seen = new Set<string>();
+    let m;
+    while ((m = keyRegex.exec(raw)) !== null) {
+      if (seen.has(m[1])) {
+        duplicates.push(m[1]);
+      } else {
+        seen.add(m[1]);
+      }
+    }
+
+    // Audit security risks
+    const securityRisks: string[] = [];
+    if (raw.includes('"__proto__"')) securityRisks.push('Prototype pollution key "__proto__" detected');
+    if (raw.includes('"constructor"')) securityRisks.push('Object constructor key detected');
+
+    return {
+      valid: true,
+      duplicates: Array.from(new Set(duplicates)),
+      securityRisks
+    };
   } catch (err: any) {
     const msg = err?.message || 'Invalid JSON';
     let line = 1;
