@@ -410,3 +410,55 @@ export function getHomeSeoData(siteUrl = SITE_URL) {
     schemaGraph,
   };
 }
+
+/**
+ * Returns Privacy Policy SEO metadata and schemas.
+ */
+export function getPrivacySeoData(siteUrl = SITE_URL) {
+  const title = `Privacy Policy — 100% Client-Side & Zero Cloud Storage | Toolstrum`;
+  const description =
+    `Toolstrum is built with an offline-first, client-side privacy architecture. Zero file uploads, zero telemetry, no tracking cookies, and no personal data collection.`;
+
+  const schemaGraph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${siteUrl}/privacy#webpage`,
+        url: `${siteUrl}/privacy`,
+        name: title,
+        description,
+        isPartOf: {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}/#website`,
+          name: 'Toolstrum',
+          url: `${siteUrl}/`,
+        },
+        breadcrumb: {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: `${siteUrl}/`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Privacy Policy',
+              item: `${siteUrl}/privacy`,
+            },
+          ],
+        },
+      },
+    ],
+  };
+
+  return {
+    title,
+    description,
+    canonicalUrl: `${siteUrl}/privacy`,
+    schemaGraph,
+  };
+}

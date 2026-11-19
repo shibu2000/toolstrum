@@ -46,7 +46,7 @@ const ICON_MAP: Record<string, React.FC<{ className?: string }>> = {
 };
 
 export const StudioDashboard: React.FC = () => {
-  const { setActiveStudio, setActiveTool, setOmniSearchOpen } = useAppStore();
+  const { setActiveStudio, setActiveTool, setOmniSearchOpen, setIsPrivacyPage } = useAppStore();
 
   const handleOpenStudio = (studioId: StudioId) => {
     setActiveStudio(studioId);
@@ -232,13 +232,29 @@ export const StudioDashboard: React.FC = () => {
 
       {/* Comparison: Why 100% Offline Matters for Privacy & Speed */}
       <section className="pt-8 border-t border-slate-200 dark:border-slate-800 space-y-6">
-        <div>
-          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-            Why Toolstrum? 100% Offline vs Traditional Cloud Tools
-          </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            Compare how Toolstrum protects your privacy and accelerates daily workflows.
-          </p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+              Why Toolstrum? 100% Offline vs Traditional Cloud Tools
+            </h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Compare how Toolstrum protects your privacy and accelerates daily workflows.
+            </p>
+          </div>
+          <a
+            href="/privacy"
+            onClick={(e) => {
+              if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                e.preventDefault();
+                setIsPrivacyPage(true);
+              }
+            }}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors cursor-pointer shrink-0"
+          >
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>Read Privacy Policy</span>
+            <ArrowRight className="w-3 h-3" />
+          </a>
         </div>
 
         <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xs">

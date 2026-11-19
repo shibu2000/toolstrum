@@ -5,6 +5,7 @@ import { parseCurrentRoute } from '../utils/seo';
 interface AppState {
   activeStudioId: StudioId | null;
   activeToolId: number | null;
+  isPrivacyPage: boolean;
   searchQuery: string;
   isOmniSearchOpen: boolean;
   isSidebarCollapsed: boolean;
@@ -16,6 +17,7 @@ interface AppState {
   // Actions
   setActiveStudio: (id: StudioId | null) => void;
   setActiveTool: (id: number | null) => void;
+  setIsPrivacyPage: (isPrivacy: boolean) => void;
   setSearchQuery: (q: string) => void;
   setOmniSearchOpen: (open: boolean) => void;
   toggleSidebar: () => void;
@@ -73,6 +75,7 @@ const initialRoute = parseCurrentRoute();
 export const useAppStore = create<AppState>((set, get) => ({
   activeStudioId: initialRoute.studioId,
   activeToolId: initialRoute.toolId,
+  isPrivacyPage: initialRoute.type === 'privacy',
   searchQuery: '',
   isOmniSearchOpen: false,
   isSidebarCollapsed: getInitialSidebarCollapsed(),
@@ -81,14 +84,21 @@ export const useAppStore = create<AppState>((set, get) => ({
   recentToolIds: getInitialRecents(),
   processedFiles: [],
 
-  setActiveStudio: (id) => set({ activeStudioId: id }),
+  setActiveStudio: (id) => set({ activeStudioId: id, isPrivacyPage: false }),
   
   setActiveTool: (id) => {
-    set({ activeToolId: id });
+    set({ activeToolId: id, isPrivacyPage: false });
     if (id !== null) {
       get().addRecentTool(id);
     }
   },
+
+  setIsPrivacyPage: (isPrivacy) =>
+    set({
+      isPrivacyPage: isPrivacy,
+      activeStudioId: isPrivacy ? null : get().activeStudioId,
+      activeToolId: isPrivacy ? null : get().activeToolId,
+    }),
 
   setSearchQuery: (q) => set({ searchQuery: q }),
   

@@ -20,6 +20,7 @@ import {
   Home,
   X,
   Clock,
+  ShieldCheck,
 } from 'lucide-react';
 import { useAppStore } from '../../store/useAppStore';
 import { STUDIOS, getToolById } from '../../data/webRegistry';
@@ -50,6 +51,8 @@ export const Sidebar: React.FC = () => {
     activeStudioId,
     setActiveStudio,
     setActiveTool,
+    isPrivacyPage,
+    setIsPrivacyPage,
     isSidebarCollapsed,
     toggleSidebar,
     favoriteToolIds,
@@ -59,6 +62,7 @@ export const Sidebar: React.FC = () => {
   const handleStudioClick = (studioId: StudioId) => {
     setActiveStudio(studioId);
     setActiveTool(null);
+    setIsPrivacyPage(false);
     if (window.innerWidth < 1024) {
       toggleSidebar();
     }
@@ -67,6 +71,7 @@ export const Sidebar: React.FC = () => {
   const handleHomeClick = () => {
     setActiveStudio(null);
     setActiveTool(null);
+    setIsPrivacyPage(false);
     if (window.innerWidth < 1024) {
       toggleSidebar();
     }
@@ -75,8 +80,19 @@ export const Sidebar: React.FC = () => {
   const handleToolClick = (toolId: number, studioId: StudioId) => {
     setActiveStudio(studioId);
     setActiveTool(toolId);
+    setIsPrivacyPage(false);
     if (window.innerWidth < 1024) {
       toggleSidebar();
+    }
+  };
+
+  const handlePrivacyClick = (e: React.MouseEvent) => {
+    if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+      e.preventDefault();
+      setIsPrivacyPage(true);
+      if (window.innerWidth < 1024) {
+        toggleSidebar();
+      }
     }
   };
 
@@ -254,6 +270,27 @@ export const Sidebar: React.FC = () => {
                 );
               })}
             </div>
+          </div>
+
+          {/* Privacy & Trust Section in Sidebar */}
+          <div className="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-1">
+            <a
+              href="/privacy"
+              onClick={handlePrivacyClick}
+              className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all cursor-pointer ${
+                isPrivacyPage
+                  ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 font-semibold shadow-2xs'
+                  : 'hover:bg-slate-100 text-slate-600 dark:hover:bg-slate-800 dark:text-slate-300'
+              }`}
+            >
+              <div className="flex items-center gap-2.5 min-w-0">
+                <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                <span className="truncate">Privacy Policy</span>
+              </div>
+              <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 shrink-0">
+                100% Offline
+              </span>
+            </a>
           </div>
         </div>
       </aside>

@@ -329,6 +329,11 @@ const run = async () => {
           }).join('')}
         </div>
       </section>
+
+      <footer style="margin-top:4rem;padding-top:2rem;border-top:1px solid #e2e8f0;text-align:center;font-size:0.875rem;color:#64748b;">
+        <p>© 2026 Toolstrum. 100% Free & Open-Source. 100% Client-Side Processing.</p>
+        <p><a href="/privacy" style="color:#6366f1;text-decoration:none;font-weight:600;">Privacy Policy</a> • <a href="https://github.com/shibu2000/toolstrum" style="color:#64748b;text-decoration:none;">GitHub</a></p>
+      </footer>
     </main>
   `;
 
@@ -341,6 +346,108 @@ const run = async () => {
     staticBody: homeBody,
   });
   fs.writeFileSync(templatePath, homeHtml);
+
+  // 1b. Generate Privacy Policy Page (/privacy & /privacy-policy)
+  const privacyTitle = 'Privacy Policy — 100% Client-Side & Zero Cloud Storage | Toolstrum';
+  const privacyDesc = 'Read Toolstrum\'s strict privacy policy. All processing is 100% offline and in-browser. Zero file uploads, zero telemetry, no cookies, and no personal data collection.';
+  const privacyKeywords = 'toolstrum privacy policy, offline tool privacy, zero upload privacy, client-side security, no tracking tools';
+
+  const privacySchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': `${SITE_URL}/privacy#webpage`,
+        url: `${SITE_URL}/privacy`,
+        name: privacyTitle,
+        description: privacyDesc,
+        isPartOf: {
+          '@type': 'WebSite',
+          '@id': `${SITE_URL}/#website`,
+          name: 'Toolstrum',
+          url: `${SITE_URL}/`,
+        },
+        breadcrumb: {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: `${SITE_URL}/`,
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Privacy Policy',
+              item: `${SITE_URL}/privacy`,
+            },
+          ],
+        },
+      },
+    ],
+  };
+
+  const privacyBody = `
+    <header style="padding:1.5rem;border-bottom:1px solid #e2e8f0;background:#ffffff;">
+      <nav style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;">
+        <a href="/" style="font-weight:800;font-size:1.25rem;color:#0f172a;text-decoration:none;display:flex;align-items:center;gap:0.75rem;">
+          <img src="/favicon.svg" width="36" height="36" alt="Toolstrum Logo" style="border-radius:10px;" />
+          <span>Toolstrum</span>
+        </a>
+        <a href="/" style="font-size:0.875rem;color:#6366f1;text-decoration:none;font-weight:600;">← Back to Tools</a>
+      </nav>
+    </header>
+    <main style="max-width:900px;margin:0 auto;padding:3rem 1.5rem;font-family:system-ui,-apple-system,sans-serif;color:#334155;line-height:1.7;">
+      <div style="display:inline-block;padding:0.25rem 0.75rem;background:#ecfdf5;color:#059669;border:1px solid #a7f3d0;border-radius:9999px;font-size:0.75rem;font-weight:600;margin-bottom:1rem;">
+        100% Client-Side Privacy Guarantee
+      </div>
+      <h1 style="font-size:2.5rem;font-weight:800;color:#0f172a;margin-bottom:0.75rem;">Toolstrum Privacy Policy</h1>
+      <p style="font-size:1.125rem;color:#64748b;margin-bottom:2rem;">
+        100% In-Browser Execution • Zero Server Uploads • Zero Telemetry • Updated November 2026
+      </p>
+
+      <section style="margin-bottom:2rem;background:#f8fafc;padding:1.5rem;border-radius:1rem;border:1px solid #e2e8f0;">
+        <h2 style="font-size:1.25rem;font-weight:700;color:#0f172a;margin-top:0;">Our Core Privacy Commitment</h2>
+        <p>Toolstrum operates completely in your web browser. When you process PDF files, convert images, edit video/audio, test regex, or calculate financial metrics, every byte stays in your device's memory. No file data, user identity, or analytics events are ever transmitted to any external server.</p>
+      </section>
+
+      <h2 style="font-size:1.35rem;font-weight:700;color:#0f172a;">1. Information We Do Not Collect</h2>
+      <p>We do not collect names, email addresses, passwords, IP addresses, or device identifiers. There are no tracking scripts or cookies deployed.</p>
+
+      <h2 style="font-size:1.35rem;font-weight:700;color:#0f172a;">2. Client-Side Sandboxing</h2>
+      <p>All processing is powered by WebAssembly, Web Workers, and native browser APIs. Computations occur directly on your local CPU.</p>
+
+      <h2 style="font-size:1.35rem;font-weight:700;color:#0f172a;">3. Local Browser Storage</h2>
+      <p>Your theme preference (light/dark) and pinned favorites are saved locally in your browser's localStorage and never transmitted across the network.</p>
+
+      <h2 style="font-size:1.35rem;font-weight:700;color:#0f172a;">4. Verification</h2>
+      <p>You can independently verify our claims at any time by opening your browser's Developer Tools (F12) Network tab during any operation. Zero network requests will appear.</p>
+    </main>
+  `;
+
+  const privacyHtml = createSeoHtml({
+    title: privacyTitle,
+    description: privacyDesc,
+    keywords: privacyKeywords,
+    pathUrl: '/privacy',
+    schemaGraph: privacySchema,
+    staticBody: privacyBody,
+  });
+
+  const privacyDir = path.join(distDir, 'privacy');
+  fs.mkdirSync(privacyDir, { recursive: true });
+  fs.writeFileSync(path.join(privacyDir, 'index.html'), privacyHtml);
+
+  const privacyPolicyDir = path.join(distDir, 'privacy-policy');
+  fs.mkdirSync(privacyPolicyDir, { recursive: true });
+  fs.writeFileSync(path.join(privacyPolicyDir, 'index.html'), privacyHtml);
+
+  sitemapUrls.push({
+    url: `${SITE_URL}/privacy`,
+    priority: '0.7',
+    changefreq: 'monthly',
+  });
 
   // 2. Generate Static Pages for Studios
   studios.forEach((studio) => {

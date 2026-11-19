@@ -28,7 +28,7 @@ export const getStudioUrl = (studioId: StudioId): string => {
 };
 
 export interface ParsedRoute {
-  type: 'home' | 'studio' | 'tool';
+  type: 'home' | 'studio' | 'tool' | 'privacy';
   studioId: StudioId | null;
   toolId: number | null;
 }
@@ -43,6 +43,10 @@ export const parseCurrentRoute = (): ParsedRoute => {
 
   if (segments.length === 0) {
     return { type: 'home', studioId: null, toolId: null };
+  }
+
+  if (segments[0] === 'privacy' || segments[0] === 'privacy-policy') {
+    return { type: 'privacy', studioId: null, toolId: null };
   }
 
   if (segments[0] === 'studio' && segments[1]) {
@@ -64,11 +68,17 @@ export const parseCurrentRoute = (): ParsedRoute => {
   return { type: 'home', studioId: null, toolId: null };
 };
 
-export const updateBrowserHistory = (studioId: StudioId | null, toolId: number | null) => {
+export const updateBrowserHistory = (
+  studioId: StudioId | null,
+  toolId: number | null,
+  isPrivacy: boolean = false
+) => {
   if (typeof window === 'undefined') return;
 
   let targetPath = '/';
-  if (toolId !== null) {
+  if (isPrivacy) {
+    targetPath = '/privacy';
+  } else if (toolId !== null) {
     const tool = getToolById(toolId);
     if (tool) {
       targetPath = getToolUrl(tool);
@@ -80,7 +90,7 @@ export const updateBrowserHistory = (studioId: StudioId | null, toolId: number |
   }
 
   if (window.location.pathname !== targetPath) {
-    window.history.pushState({ studioId, toolId }, '', targetPath);
+    window.history.pushState({ studioId, toolId, isPrivacy }, '', targetPath);
   }
 };
 
