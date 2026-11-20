@@ -2,7 +2,7 @@
   "expo": {
     "name": "Toolstrum",
     "slug": "toolstrum",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scheme": "toolstrum",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,6 +16,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.toolstrum.app",
+      "buildNumber": "2",
       "infoPlist": {
         "NSPhotoLibraryUsageDescription": "Toolstrum saves processed images, video and audio to your photo library when you choose to.",
         "NSPhotoLibraryAddUsageDescription": "Toolstrum saves processed images, video and audio to your photo library when you choose to.",
@@ -39,7 +40,7 @@
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
       ],
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png",
