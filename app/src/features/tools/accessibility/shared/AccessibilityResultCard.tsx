@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,8 +7,10 @@ import {
   Alert,
 } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
+import * as FileSystem from 'expo-file-system/legacy';
 import { Colors, Spacing, Radius } from '../../../../design-system/tokens';
 import { AppIcon } from '../../../../design-system/icons';
+import { useAppStore } from '../../../../store/useAppStore';
 
 interface MetaItem {
   label: string;
@@ -42,11 +44,34 @@ export const AccessibilityResultCard: React.FC<AccessibilityResultCardProps> = (
   actionButtonLabel,
   onActionButtonPress,
 }) => {
+  const [saved, setSaved] = useState(false);
+  const addManagedFile = useAppStore((state) => state.addManagedFile);
+  const textToSave = copyContent || details || primaryValue;
+
   const handleCopy = async () => {
-    const textToCopy = copyContent || details || primaryValue;
-    if (!textToCopy) return;
-    await Clipboard.setStringAsync(textToCopy);
+    if (!textToSave) return;
+    await Clipboard.setStringAsync(textToSave);
     Alert.alert('Copied to Clipboard', 'Content has been copied.');
+  };
+
+  const handleSaveToFiles = async () => {
+    if (!textToSave) return;
+    try {
+      const fileName = `accessibility-output-${Date.now()}.txt`;
+      const uri = `${FileSystem.documentDirectory}${fileName}`;
+      await FileSystem.writeAsStringAsync(uri, textToSave);
+      addManagedFile({
+        name: fileName,
+        uri,
+        size: textToSave.length,
+        toolName: title,
+        mimeType: 'text/plain',
+        createdAt: Date.now(),
+      });
+      setSaved(true);
+    } catch {
+      Alert.alert('Error', 'Unable to save output file.');
+    }
   };
 
   return (
@@ -91,10 +116,23 @@ export const AccessibilityResultCard: React.FC<AccessibilityResultCardProps> = (
       )}
 
       <View style={styles.actionsRow}>
-        {(copyContent || details || primaryValue) && (
+        {textToSave && (
           <TouchableOpacity style={styles.actionBtn} onPress={handleCopy}>
             <AppIcon name="Copy" size={16} color="#4F46E5" />
             <Text style={styles.actionBtnText}>Copy Result</Text>
+          </TouchableOpacity>
+        )}
+
+        {textToSave && (
+          <TouchableOpacity
+            style={[styles.actionBtn, saved && styles.actionBtnSaved]}
+            onPress={handleSaveToFiles}
+            disabled={saved}
+          >
+            <AppIcon name={saved ? 'BookmarkCheck' : 'Bookmark'} size={16} color={saved ? '#15803D' : '#4F46E5'} />
+            <Text style={[styles.actionBtnText, saved && { color: '#15803D' }]}>
+              {saved ? 'Saved' : 'Save'}
+            </Text>
           </TouchableOpacity>
         )}
 
@@ -273,5 +311,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '600',
     color: '#64748B',
+  },
+  actionBtnSaved: {
+    backgroundColor: '#DCFCE7',
+    borderColor: '#86EFAC',
   },
 });

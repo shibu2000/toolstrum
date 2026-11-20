@@ -1,5 +1,7 @@
 import { create } from 'zustand';
+import { Alert } from 'react-native';
 import { ManagedFile, RecentItem } from '../data/types';
+import { saveToDeviceStorage } from '../services/deviceStorage';
 
 interface AppState {
   favorites: number[];
@@ -85,10 +87,43 @@ export const useAppStore = create<AppState>((set, get) => ({
       toolName: file.toolName ?? 'Utility Output',
       mimeType: file.mimeType,
       createdAt: file.createdAt || Date.now(),
+      deviceSaveStatus: 'pending',
     };
     set((state) => ({
       managedFiles: [finalFile, ...state.managedFiles],
     }));
+
+    saveToDeviceStorage({
+      sourceUri: finalFile.uri,
+      fileName: finalFile.name,
+      mimeType: finalFile.mimeType,
+    })
+      .then((result) => {
+        set((state) => ({
+          managedFiles: state.managedFiles.map((f) =>
+            f.id === finalFile.id
+              ? {
+                  ...f,
+                  deviceSaveStatus: result.success ? 'saved' : 'failed',
+                  devicePublicUri: result.publicUri,
+                  deviceSaveMessage: result.message,
+                }
+              : f
+          ),
+        }));
+        if (!result.success) {
+          Alert.alert('Not Saved to Device Storage', result.message);
+        }
+      })
+      .catch((err: any) => {
+        set((state) => ({
+          managedFiles: state.managedFiles.map((f) =>
+            f.id === finalFile.id
+              ? { ...f, deviceSaveStatus: 'failed', deviceSaveMessage: err?.message }
+              : f
+          ),
+        }));
+      });
   },
 
   removeManagedFile: (id) => {

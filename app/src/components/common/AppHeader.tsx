@@ -4,6 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, Radius } from '../../design-system/tokens';
 import { AppIcon } from '../../design-system/icons';
 import { AppLogo } from './AppLogo';
+import { AVAILABLE_TOOL_COUNT } from '../../data/registry';
 
 export interface HeaderActionItem {
   icon: string;
@@ -23,7 +24,7 @@ interface AppHeaderProps {
 
 export const AppHeader: React.FC<AppHeaderProps> = ({
   title = 'Toolstrum',
-  subtitle = '495+ Offline Tools In One Suite',
+  subtitle = `${AVAILABLE_TOOL_COUNT}+ Offline Tools In One Suite`,
   badge,
   showBack = false,
   onBackPress,

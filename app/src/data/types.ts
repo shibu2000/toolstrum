@@ -53,4 +53,7 @@ export interface ManagedFile {
   toolName?: string;
   mimeType?: string;
   createdAt: number;
+  deviceSaveStatus?: 'pending' | 'saved' | 'failed';
+  devicePublicUri?: string;
+  deviceSaveMessage?: string;
 }

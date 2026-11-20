@@ -5,6 +5,7 @@ import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system/legacy';
 import { Colors, Spacing, Radius } from '../../../../design-system/tokens';
 import { AppIcon } from '../../../../design-system/icons';
+import { useAppStore } from '../../../../store/useAppStore';
 
 export interface AiMetricItem {
   label: string;
@@ -36,6 +37,8 @@ export const AiResultCard: React.FC<AiResultCardProps> = ({
   fileName = 'ai-output.txt',
 }) => {
   const [copied, setCopied] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const addManagedFile = useAppStore((state) => state.addManagedFile);
 
   const textToCopy = contentToCopy || heroValue;
 
@@ -58,6 +61,28 @@ export const AiResultCard: React.FC<AiResultCardProps> = ({
       await Sharing.shareAsync(uri);
     } catch {
       Alert.alert('Notice', 'Unable to initiate sharing in this environment.');
+    }
+  };
+
+  const handleSaveToFiles = async () => {
+    if (!textToCopy) {
+      Alert.alert('Save', 'No content to save.');
+      return;
+    }
+    try {
+      const uri = `${FileSystem.documentDirectory}${fileName}`;
+      await FileSystem.writeAsStringAsync(uri, textToCopy);
+      addManagedFile({
+        name: fileName,
+        uri,
+        size: textToCopy.length,
+        toolName: title,
+        mimeType: 'text/plain',
+        createdAt: Date.now(),
+      });
+      setSaved(true);
+    } catch {
+      Alert.alert('Error', 'Unable to save output file.');
     }
   };
 
@@ -129,6 +154,17 @@ export const AiResultCard: React.FC<AiResultCardProps> = ({
           />
           <Text style={[styles.btnText, copied && styles.btnTextCopied]}>
             {copied ? 'Copied' : 'Copy AI Output'}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.btnSecondary, saved && styles.btnSaved]}
+          onPress={handleSaveToFiles}
+          disabled={saved}
+        >
+          <AppIcon name={saved ? 'BookmarkCheck' : 'Bookmark'} size={16} color={saved ? '#15803D' : '#7C3AED'} />
+          <Text style={[styles.btnTextSecondary, saved && { color: '#15803D' }]}>
+            {saved ? 'Saved' : 'Save'}
           </Text>
         </TouchableOpacity>
 
@@ -302,5 +338,9 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '700',
     color: '#7C3AED',
+  },
+  btnSaved: {
+    backgroundColor: '#DCFCE7',
+    borderColor: '#86EFAC',
   },
 });

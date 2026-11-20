@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Alert, ScrollView } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Alert, ScrollView, Linking } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,6 +7,13 @@ import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-cont
 
 import { Colors, Radius, StudioId } from '../design-system/tokens';
 import { AppIcon } from '../design-system/icons';
+import { AVAILABLE_TOOL_COUNT, TOTAL_TOOL_COUNT, STUDIO_COUNT } from '../data/registry';
+
+const DEVELOPER_NAME = 'Shibu Dhara';
+const SUPPORT_EMAIL = 'shibudhara147@gmail.com';
+const PRIVACY_POLICY_URL = 'https://toolstrum.vercel.app/privacy';
+const APP_VERSION = '1.0.0';
+const APP_BUILD = 3;
 import { HomeScreen } from '../features/home/HomeScreen';
 import { CatalogScreen } from '../features/catalog/CatalogScreen';
 import { HistoryScreen } from '../features/history/HistoryScreen';
@@ -237,21 +244,27 @@ function SettingsScreen({ navigation }: any) {
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 }}>
             <Text style={{ fontSize: 13, color: Colors.textMuted }}>Version</Text>
-            <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.onSurface }}>1.0.0 (Production Release)</Text>
+            <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.onSurface }}>
+              {APP_VERSION} (Build {APP_BUILD})
+            </Text>
           </View>
 
           <View style={styles.divider} />
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 }}>
             <Text style={{ fontSize: 13, color: Colors.textMuted }}>Tools Available</Text>
-            <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.statusSuccess }}>401 Active Offline Tools</Text>
+            <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.statusSuccess }}>
+              {AVAILABLE_TOOL_COUNT} Active Offline Tools
+            </Text>
           </View>
 
           <View style={styles.divider} />
 
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 }}>
             <Text style={{ fontSize: 13, color: Colors.textMuted }}>Canonical Catalog</Text>
-            <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.onSurface }}>500 Utilities Across 16 Studios</Text>
+            <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.onSurface }}>
+              {TOTAL_TOOL_COUNT} Utilities Across {STUDIO_COUNT} Studios
+            </Text>
           </View>
 
           <View style={styles.divider} />
@@ -260,6 +273,49 @@ function SettingsScreen({ navigation }: any) {
             <Text style={{ fontSize: 13, color: Colors.textMuted }}>Telemetry & Tracking</Text>
             <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.statusSuccess }}>Zero (100% Offline)</Text>
           </View>
+        </View>
+
+        {/* About & Support Card */}
+        <View style={[styles.settingsCard, { marginTop: 16 }]}>
+          <Text style={{ fontSize: 14, fontWeight: '700', color: Colors.onSurface, marginBottom: 12 }}>
+            About & Support
+          </Text>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 6 }}>
+            <Text style={{ fontSize: 13, color: Colors.textMuted }}>Developer</Text>
+            <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.onSurface }}>{DEVELOPER_NAME}</Text>
+          </View>
+
+          <View style={styles.divider} />
+
+          <TouchableOpacity
+            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 6 }}
+            onPress={() => Linking.openURL(`mailto:${SUPPORT_EMAIL}`)}
+            activeOpacity={0.7}
+          >
+            <Text style={{ fontSize: 13, color: Colors.textMuted }}>Contact / Support</Text>
+            <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.primary }}>{SUPPORT_EMAIL}</Text>
+          </TouchableOpacity>
+
+          <View style={styles.divider} />
+
+          <TouchableOpacity
+            style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingVertical: 6 }}
+            onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
+            activeOpacity={0.7}
+          >
+            <Text style={{ fontSize: 13, color: Colors.textMuted }}>Privacy Policy</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+              <Text style={{ fontSize: 13, fontWeight: '600', color: Colors.primary }}>View Online</Text>
+              <AppIcon name="ExternalLink" size={14} color={Colors.primary} />
+            </View>
+          </TouchableOpacity>
+
+          <View style={styles.divider} />
+
+          <Text style={{ fontSize: 11, color: Colors.textMuted, textAlign: 'center', marginTop: 4 }}>
+            © {new Date().getFullYear()} {DEVELOPER_NAME}. All rights reserved.
+          </Text>
         </View>
       </ScrollView>
     </View>

@@ -10711,6 +10711,10 @@ export const CANONICAL_TOOLS: ToolDefinition[] = [
   }
 ];
 
+export const TOTAL_TOOL_COUNT = CANONICAL_TOOLS.length;
+export const AVAILABLE_TOOL_COUNT = CANONICAL_TOOLS.filter((t) => t.status === 'available').length;
+export const STUDIO_COUNT = STUDIOS.length;
+
 export function getToolById(id: number): ToolDefinition | undefined {
   return CANONICAL_TOOLS.find(t => t.id === id);
 }

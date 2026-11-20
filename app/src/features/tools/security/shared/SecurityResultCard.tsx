@@ -5,6 +5,7 @@ import * as Sharing from 'expo-sharing';
 import * as FileSystem from 'expo-file-system/legacy';
 import { Colors, Spacing, Radius } from '../../../../design-system/tokens';
 import { AppIcon } from '../../../../design-system/icons';
+import { useAppStore } from '../../../../store/useAppStore';
 
 export interface SecurityMetricItem {
   label: string;
@@ -42,6 +43,8 @@ export const SecurityResultCard: React.FC<SecurityResultCardProps> = ({
   qrMatrix,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [internalSaved, setInternalSaved] = useState(false);
+  const addManagedFile = useAppStore((state) => state.addManagedFile);
 
   const textToCopy = contentToCopy || heroValue;
 
@@ -66,6 +69,31 @@ export const SecurityResultCard: React.FC<SecurityResultCardProps> = ({
       await Sharing.shareAsync(uri);
     } catch {
       Alert.alert('Error', 'Unable to share result.');
+    }
+  };
+
+  const handleSaveToFiles = async () => {
+    if (!textToCopy) {
+      Alert.alert('Save', 'No content to save.');
+      return;
+    }
+    try {
+      const uri = `${FileSystem.documentDirectory}${fileName}`;
+      await FileSystem.writeAsStringAsync(uri, textToCopy, {
+        encoding: FileSystem.EncodingType.UTF8,
+      });
+      addManagedFile({
+        name: fileName,
+        uri,
+        size: textToCopy.length,
+        toolName: title,
+        mimeType: 'text/plain',
+        createdAt: Date.now(),
+      });
+      setInternalSaved(true);
+      onSaveToManagedFiles?.();
+    } catch {
+      Alert.alert('Error', 'Unable to save result.');
     }
   };
 
@@ -158,20 +186,19 @@ export const SecurityResultCard: React.FC<SecurityResultCardProps> = ({
           <Text style={styles.btnActionText}>{copied ? 'Copied' : 'Copy'}</Text>
         </TouchableOpacity>
 
-        {onSaveToManagedFiles && (
-          <TouchableOpacity
-            style={[styles.btnAction, styles.btnSave, saved && styles.btnSaved]}
-            onPress={onSaveToManagedFiles}
-            activeOpacity={0.7}
-          >
-            <AppIcon
-              name={saved ? 'Check' : 'Bookmark'}
-              size={16}
-              color={Colors.onSurface}
-            />
-            <Text style={styles.btnActionText}>{saved ? 'Saved' : 'Save'}</Text>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          style={[styles.btnAction, styles.btnSave, (saved || internalSaved) && styles.btnSaved]}
+          onPress={handleSaveToFiles}
+          activeOpacity={0.7}
+          disabled={saved || internalSaved}
+        >
+          <AppIcon
+            name={saved || internalSaved ? 'Check' : 'Bookmark'}
+            size={16}
+            color={Colors.onSurface}
+          />
+          <Text style={styles.btnActionText}>{saved || internalSaved ? 'Saved' : 'Save'}</Text>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.btnAction, styles.btnShare]}

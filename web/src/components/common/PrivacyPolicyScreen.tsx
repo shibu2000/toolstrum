@@ -47,7 +47,7 @@ export const PrivacyPolicyScreen: React.FC = () => {
         </button>
 
         <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
-          Last Updated: November 2026
+          Last Updated: November 21, 2026
         </span>
       </div>
 
@@ -337,13 +337,39 @@ export const PrivacyPolicyScreen: React.FC = () => {
         <section className="space-y-3">
           <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <span className="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-xs font-bold flex items-center justify-center">10</span>
+            <span>Toolstrum Mobile App (Android & iOS) — Additional Disclosures</span>
+          </h2>
+          <p>
+            This Privacy Policy also governs the <strong>Toolstrum</strong> native mobile app distributed on Android and iOS app stores. The mobile app follows the same offline-first, zero-cloud-upload architecture as the web platform described above, with the following device-specific disclosures:
+          </p>
+          <ul className="list-disc pl-6 space-y-1.5 marker:text-indigo-500">
+            <li><strong>Permissions requested:</strong> Camera (to capture documents and photos within the Scanner and Image tools), Microphone (to record audio within the Audio Studio), Photo Library / Media access (to save processed images, video, and audio into your device's own Photos app, grouped into a "Toolstrum" album), and Storage access (on Android, via the system Storage Access Framework, to save processed documents into a "Toolstrum" folder location you choose on your device). Each of these is triggered only when you tap a corresponding Capture, Record, or Save button — nothing runs in the background.</li>
+            <li><strong>On-device diagnostics (never transmitted):</strong> The optional Accessibility &amp; Device Studio tools read certain technical details directly from your operating system — device model, manufacturer, OS version, battery level, and available storage — solely to display them to you on-screen. These values are read locally, shown locally, and are never transmitted to any server, stored remotely, or linked to any identity.</li>
+            <li><strong>No analytics, crash reporting, or advertising SDKs:</strong> The mobile app does not integrate Firebase, Google Analytics, Sentry, Crashlytics, AdMob, or any other third-party tracking or advertising SDK.</li>
+            <li><strong>Where your processed files are saved:</strong> Files you choose to save are written directly to your device's own public storage (your Photos/Gallery app or a "Toolstrum" folder) — never to any Toolstrum server, because no such server exists for file processing.</li>
+            <li><strong>Deleting your data:</strong> Because all files remain on your device, you can delete them at any time from your device's own Photos/Gallery or Files app, or from the "My Files" screen inside Toolstrum.</li>
+            <li><strong>Children's privacy:</strong> Consistent with Section 7 above, the mobile app does not knowingly collect personal information from any user, including children.</li>
+          </ul>
+        </section>
+
+        {/* Section 11 */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span className="w-6 h-6 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 text-xs font-bold flex items-center justify-center">11</span>
             <span>Contact & Policy Updates</span>
           </h2>
           <p>
-            We may periodically update this Privacy Policy to describe new local features or changes in relevant privacy regulations. When updates are published, the "Last Updated" date at the top of this document will be revised accordingly.
+            Toolstrum is developed and maintained by <strong>Shibu Dhara</strong>. We may periodically update this Privacy Policy to describe new local features, new mobile app permissions, or changes in relevant privacy regulations. When updates are published, the "Last Updated" date at the top of this document will be revised accordingly.
           </p>
           <p>
-            If you have questions, feedback, or security suggestions regarding this privacy policy or Toolstrum's offline architecture, please open an issue or discussion on our GitHub repository.
+            If you have questions, feedback, privacy concerns, or security suggestions regarding this privacy policy, the web platform, or the mobile app, please email{' '}
+            <a
+              href="mailto:shibudhara147@gmail.com"
+              className="font-semibold text-indigo-600 dark:text-indigo-400 hover:underline"
+            >
+              shibudhara147@gmail.com
+            </a>
+            {' '}or open an issue or discussion on our GitHub repository.
           </p>
         </section>
 

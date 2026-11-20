@@ -56,7 +56,7 @@ export const MyFilesScreen: React.FC<MyFilesScreenProps> = ({ onNavigateToCatalo
     <View style={styles.screen}>
       <AppHeader
         title="My Files"
-        subtitle="Generated outputs and app-managed files"
+        subtitle="Generated outputs, saved to your device storage"
       />
 
       {/* Storage Summary Banner */}
@@ -66,7 +66,7 @@ export const MyFilesScreen: React.FC<MyFilesScreenProps> = ({ onNavigateToCatalo
             <AppIcon name="Folder" size={22} color={Colors.primary} />
           </View>
           <View>
-            <Text style={styles.storageTitle}>Local Sandbox Storage</Text>
+            <Text style={styles.storageTitle}>Toolstrum Folder & Photos</Text>
             <Text style={styles.storageMeta}>
               {managedFiles.length} file{managedFiles.length === 1 ? '' : 's'} · {formatSize(totalBytes)} used
             </Text>
@@ -109,6 +109,19 @@ export const MyFilesScreen: React.FC<MyFilesScreenProps> = ({ onNavigateToCatalo
                   </Text>
                   <Text style={styles.fileMeta}>
                     {item.toolName} · {formatSize(item.size)}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.deviceSaveStatus,
+                      item.deviceSaveStatus === 'failed' && styles.deviceSaveStatusFailed,
+                    ]}
+                    numberOfLines={1}
+                  >
+                    {item.deviceSaveStatus === 'saved'
+                      ? `✓ ${item.deviceSaveMessage || 'Saved to device storage'}`
+                      : item.deviceSaveStatus === 'failed'
+                        ? '⚠ Not saved to device storage — tap Share to export manually'
+                        : 'Saving to device storage…'}
                   </Text>
                 </View>
               </View>
@@ -228,6 +241,14 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: Colors.textMuted,
     marginTop: 2,
+  },
+  deviceSaveStatus: {
+    fontSize: 11,
+    color: Colors.accentEmerald,
+    marginTop: 2,
+  },
+  deviceSaveStatusFailed: {
+    color: Colors.statusError,
   },
   fileActions: {
     flexDirection: 'row',

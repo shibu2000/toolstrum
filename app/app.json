@@ -17,7 +17,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.toolstrum.app",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Toolstrum saves edited videos to your photo library when you choose to."
+        "NSPhotoLibraryUsageDescription": "Toolstrum saves processed images, video and audio to your photo library when you choose to.",
+        "NSPhotoLibraryAddUsageDescription": "Toolstrum saves processed images, video and audio to your photo library when you choose to.",
+        "UIFileSharingEnabled": true,
+        "LSSupportsOpeningDocumentsInPlace": true
       }
     },
     "android": {
@@ -58,7 +61,15 @@
         }
       ],
       "expo-audio",
-      "expo-asset"
+      "expo-asset",
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Toolstrum saves processed images, video and audio to your photo library when you choose to.",
+          "savePhotosPermission": "Toolstrum saves processed images, video and audio to your photo library when you choose to.",
+          "isAccessMediaLocationEnabled": false
+        }
+      ]
     ],
     "extra": {
       "eas": {
